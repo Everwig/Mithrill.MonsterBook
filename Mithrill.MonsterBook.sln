@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mithrill.MonsterBook.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mithrill.MonsterBook.Application", "src\Mithrill.MonsterBook.Application\Mithrill.MonsterBook.Application.csproj", "{B566A0BC-8918-4A74-B61F-328F4BE81E2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mithrill.MonsterBook.Repository", "src\Mithrill.MonsterBook.Repository\Mithrill.MonsterBook.Repository.csproj", "{1B370F98-B8EB-47D3-8E41-2B8CB166D5FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mithrill.MonsterBook.Infrastructure", "src\Mithrill.MonsterBook.Infrastructure\Mithrill.MonsterBook.Infrastructure.csproj", "{1B370F98-B8EB-47D3-8E41-2B8CB166D5FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mithrill.MonsterBook.WebApi", "src\Mithrill.MonsterBook.WebApi\Mithrill.MonsterBook.WebApi.csproj", "{35426F7E-CB97-48D0-A2CB-8FAA992687E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mithrill.MonsterBook.WebApi", "src\Mithrill.MonsterBook.WebApi\Mithrill.MonsterBook.WebApi.csproj", "{35426F7E-CB97-48D0-A2CB-8FAA992687E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
