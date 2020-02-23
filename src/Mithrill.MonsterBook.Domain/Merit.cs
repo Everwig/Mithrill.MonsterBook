@@ -1,14 +1,12 @@
-﻿namespace Mithrill.MonsterBook.Domain
+﻿using System.Collections.Generic;
+
+namespace Mithrill.MonsterBook.Domain
 {
     public class Merit
     {
-        public Merit(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
+        public int Id { get; set; }
+        public int Name { get; set; }
 
-        public int Id { get; }
-        public string Name { get; }
+        public ICollection<MonsterMerit> MonsterMerits { get; set; }
     }
 }
