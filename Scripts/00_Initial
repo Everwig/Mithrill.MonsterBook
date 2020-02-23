@@ -1,0 +1,128 @@
+﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+
+GO
+
+CREATE TABLE [Merit] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] int NOT NULL,
+    CONSTRAINT [PK_Merit] PRIMARY KEY ([Id])
+);
+
+GO
+
+CREATE TABLE [Monster] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NULL,
+    [StrengthMax] int NOT NULL,
+    [StrengthMin] int NOT NULL,
+    [VitalityMax] int NOT NULL,
+    [VitalityMin] int NOT NULL,
+    [BodyMax] int NOT NULL,
+    [BodyMin] int NOT NULL,
+    [SpeedMax] int NOT NULL,
+    [SpeedMin] int NOT NULL,
+    [AgilityMax] int NOT NULL,
+    [AgilityMin] int NOT NULL,
+    [IntelligenceMax] int NOT NULL,
+    [IntelligenceMin] int NOT NULL,
+    [WillpowerMax] int NOT NULL,
+    [WillpowerMin] int NOT NULL,
+    [SensationMax] int NOT NULL,
+    [SensationMin] int NOT NULL,
+    [DamageReductionMax] int NOT NULL,
+    [DamageReductionMin] int NOT NULL,
+    [Karma] int NOT NULL,
+    [Difficulty] int NOT NULL,
+    CONSTRAINT [PK_Monster] PRIMARY KEY ([Id])
+);
+
+GO
+
+CREATE TABLE [Skill] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] int NOT NULL,
+    [Level] int NOT NULL,
+    CONSTRAINT [PK_Skill] PRIMARY KEY ([Id])
+);
+
+GO
+
+CREATE TABLE [Weapon] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] int NOT NULL,
+    CONSTRAINT [PK_Weapon] PRIMARY KEY ([Id])
+);
+
+GO
+
+CREATE TABLE [MonsterMerit] (
+    [MonsterId] int NOT NULL,
+    [MeritId] int NOT NULL,
+    CONSTRAINT [PK_MonsterMerit] PRIMARY KEY ([MonsterId], [MeritId]),
+    CONSTRAINT [FK_MonsterMerit_Merit_MeritId] FOREIGN KEY ([MeritId]) REFERENCES [Merit] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_MonsterMerit_Monster_MonsterId] FOREIGN KEY ([MonsterId]) REFERENCES [Monster] ([Id]) ON DELETE CASCADE
+);
+
+GO
+
+CREATE TABLE [MonsterSkill] (
+    [MonsterId] int NOT NULL,
+    [SkillId] int NOT NULL,
+    CONSTRAINT [PK_MonsterSkill] PRIMARY KEY ([MonsterId], [SkillId]),
+    CONSTRAINT [FK_MonsterSkill_Monster_MonsterId] FOREIGN KEY ([MonsterId]) REFERENCES [Monster] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_MonsterSkill_Skill_SkillId] FOREIGN KEY ([SkillId]) REFERENCES [Skill] ([Id]) ON DELETE CASCADE
+);
+
+GO
+
+CREATE TABLE [AttackType] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NULL,
+    [NumberOfDice] int NOT NULL,
+    [ExtraDamage] int NOT NULL,
+    [ExtraDamageType] nvarchar(max) NULL,
+    [WeaponId] int NOT NULL,
+    CONSTRAINT [PK_AttackType] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AttackType_Weapon_WeaponId] FOREIGN KEY ([WeaponId]) REFERENCES [Weapon] ([Id]) ON DELETE CASCADE
+);
+
+GO
+
+CREATE TABLE [MonsterWeapon] (
+    [MonsterId] int NOT NULL,
+    [WeaponId] int NOT NULL,
+    CONSTRAINT [PK_MonsterWeapon] PRIMARY KEY ([MonsterId], [WeaponId]),
+    CONSTRAINT [FK_MonsterWeapon_Monster_MonsterId] FOREIGN KEY ([MonsterId]) REFERENCES [Monster] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_MonsterWeapon_Weapon_WeaponId] FOREIGN KEY ([WeaponId]) REFERENCES [Weapon] ([Id]) ON DELETE CASCADE
+);
+
+GO
+
+CREATE UNIQUE INDEX [IX_AttackType_WeaponId] ON [AttackType] ([WeaponId]);
+
+GO
+
+CREATE INDEX [IX_MonsterMerit_MeritId] ON [MonsterMerit] ([MeritId]);
+
+GO
+
+CREATE INDEX [IX_MonsterSkill_SkillId] ON [MonsterSkill] ([SkillId]);
+
+GO
+
+CREATE INDEX [IX_MonsterWeapon_WeaponId] ON [MonsterWeapon] ([WeaponId]);
+
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20200223205221_InitialCreate', N'3.1.2');
+
+GO
+
