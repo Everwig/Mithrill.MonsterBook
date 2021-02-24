@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Mithrill.MonsterBook.Domain
+﻿namespace Mithrill.MonsterBook.Domain
 {
     public class AttackType
     {

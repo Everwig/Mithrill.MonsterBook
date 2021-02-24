@@ -4,6 +4,6 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters
 {
     public interface IMonsterFactory
     {
-        GeneratedMonster CreateMonster(Domain.Monster monster);
+        GeneratedMonster CreateMonster(Domain.Creature creature);
     }
 }

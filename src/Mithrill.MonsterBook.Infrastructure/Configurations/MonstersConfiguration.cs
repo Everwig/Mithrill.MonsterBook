@@ -4,11 +4,11 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Infrastructure.Configurations
 {
-    internal sealed class MonstersConfiguration : IEntityTypeConfiguration<Monster>
+    internal sealed class MonstersConfiguration : IEntityTypeConfiguration<Creature>
     {
-        public void Configure(EntityTypeBuilder<Monster> builder)
+        public void Configure(EntityTypeBuilder<Creature> builder)
         {
-            builder.ToTable("Monster");
+            builder.ToTable("Creature");
         }
     }
 }

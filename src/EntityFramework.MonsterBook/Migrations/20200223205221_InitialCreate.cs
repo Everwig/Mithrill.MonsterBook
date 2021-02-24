@@ -20,7 +20,7 @@ namespace EntityFramework.MonsterBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Monster",
+                name: "Creature",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -80,7 +80,7 @@ namespace EntityFramework.MonsterBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MonsterMerit",
+                name: "CreatureMerit",
                 columns: table => new
                 {
                     MonsterId = table.Column<int>(nullable: false),
@@ -98,13 +98,13 @@ namespace EntityFramework.MonsterBook.Migrations
                     table.ForeignKey(
                         name: "FK_MonsterMerit_Monster_MonsterId",
                         column: x => x.MonsterId,
-                        principalTable: "Monster",
+                        principalTable: "Creature",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MonsterSkill",
+                name: "CreatureSkill",
                 columns: table => new
                 {
                     MonsterId = table.Column<int>(nullable: false),
@@ -116,7 +116,7 @@ namespace EntityFramework.MonsterBook.Migrations
                     table.ForeignKey(
                         name: "FK_MonsterSkill_Monster_MonsterId",
                         column: x => x.MonsterId,
-                        principalTable: "Monster",
+                        principalTable: "Creature",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -151,7 +151,7 @@ namespace EntityFramework.MonsterBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MonsterWeapon",
+                name: "CreatureWeapon",
                 columns: table => new
                 {
                     MonsterId = table.Column<int>(nullable: false),
@@ -163,7 +163,7 @@ namespace EntityFramework.MonsterBook.Migrations
                     table.ForeignKey(
                         name: "FK_MonsterWeapon_Monster_MonsterId",
                         column: x => x.MonsterId,
-                        principalTable: "Monster",
+                        principalTable: "Creature",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -182,17 +182,17 @@ namespace EntityFramework.MonsterBook.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_MonsterMerit_MeritId",
-                table: "MonsterMerit",
+                table: "CreatureMerit",
                 column: "MeritId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MonsterSkill_SkillId",
-                table: "MonsterSkill",
+                table: "CreatureSkill",
                 column: "SkillId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MonsterWeapon_WeaponId",
-                table: "MonsterWeapon",
+                table: "CreatureWeapon",
                 column: "WeaponId");
         }
 
@@ -202,13 +202,13 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "AttackType");
 
             migrationBuilder.DropTable(
-                name: "MonsterMerit");
+                name: "CreatureMerit");
 
             migrationBuilder.DropTable(
-                name: "MonsterSkill");
+                name: "CreatureSkill");
 
             migrationBuilder.DropTable(
-                name: "MonsterWeapon");
+                name: "CreatureWeapon");
 
             migrationBuilder.DropTable(
                 name: "Merit");
@@ -217,7 +217,7 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "Skill");
 
             migrationBuilder.DropTable(
-                name: "Monster");
+                name: "Creature");
 
             migrationBuilder.DropTable(
                 name: "Weapon");

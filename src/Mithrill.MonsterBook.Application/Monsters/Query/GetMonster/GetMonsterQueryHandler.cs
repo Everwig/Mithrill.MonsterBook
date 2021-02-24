@@ -22,7 +22,7 @@ namespace Mithrill.MonsterBook.Application.Monsters.Query.GetMonster
         public async Task<Monster> Handle(GetMonsterQuery request, CancellationToken cancellationToken)
         {
             var monster = await _monsterBookDbContext.Monsters
-                .Select(m => m.Id)
+                .Where(m => m.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
             return _mapper.Map<Monster>(monster);

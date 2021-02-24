@@ -4,21 +4,21 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Infrastructure.Configurations
 {
-    internal sealed class MonsterMeritConfiguration : IEntityTypeConfiguration<MonsterMerit>
+    internal sealed class MonsterMeritConfiguration : IEntityTypeConfiguration<CreatureMerit>
     {
-        public void Configure(EntityTypeBuilder<MonsterMerit> builder)
+        public void Configure(EntityTypeBuilder<CreatureMerit> builder)
         {
             builder.HasKey(monsterMerit => new { monsterMerit.MonsterId, monsterMerit.MeritId });
 
-            builder.HasOne(monsterMerit => monsterMerit.Monster)
-                .WithMany(monster => monster.MonsterMerits)
+            builder.HasOne(monsterMerit => monsterMerit.Creature)
+                .WithMany(monster => monster.CreatureMerits)
                 .HasForeignKey(monsterMerit => monsterMerit.MonsterId);
 
             builder.HasOne(monsterMerit => monsterMerit.Merit)
-                .WithMany(merit => merit.MonsterMerits)
+                .WithMany(merit => merit.CreatureMerits)
                 .HasForeignKey(monsterMerit => monsterMerit.MeritId);
 
-            builder.ToTable("MonsterMerit");
+            builder.ToTable("CreatureMerit");
         }
     }
 }

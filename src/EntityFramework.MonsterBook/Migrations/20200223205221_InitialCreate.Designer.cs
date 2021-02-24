@@ -65,17 +65,17 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.ToTable("Merit");
                 });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.Monster", b =>
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.Creature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AgilityMax")
+                    b.Property<int>("DexterityMax")
                         .HasColumnType("int");
 
-                    b.Property<int>("AgilityMin")
+                    b.Property<int>("DexterityMin")
                         .HasColumnType("int");
 
                     b.Property<int>("BodyMax")
@@ -105,16 +105,16 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SensationMax")
+                    b.Property<int>("EmotionMax")
                         .HasColumnType("int");
 
-                    b.Property<int>("SensationMin")
+                    b.Property<int>("EmotionMin")
                         .HasColumnType("int");
 
-                    b.Property<int>("SpeedMax")
+                    b.Property<int>("AgilityMax")
                         .HasColumnType("int");
 
-                    b.Property<int>("SpeedMin")
+                    b.Property<int>("AgilityMin")
                         .HasColumnType("int");
 
                     b.Property<int>("StrengthMax")
@@ -137,10 +137,10 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Monster");
+                    b.ToTable("Creature");
                 });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.MonsterMerit", b =>
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureMerit", b =>
                 {
                     b.Property<int>("MonsterId")
                         .HasColumnType("int");
@@ -152,10 +152,10 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.HasIndex("MeritId");
 
-                    b.ToTable("MonsterMerit");
+                    b.ToTable("CreatureMerit");
                 });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.MonsterSkill", b =>
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureSkill", b =>
                 {
                     b.Property<int>("MonsterId")
                         .HasColumnType("int");
@@ -167,10 +167,10 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("MonsterSkill");
+                    b.ToTable("CreatureSkill");
                 });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.MonsterWeapon", b =>
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureWeapon", b =>
                 {
                     b.Property<int>("MonsterId")
                         .HasColumnType("int");
@@ -182,7 +182,7 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.HasIndex("WeaponId");
 
-                    b.ToTable("MonsterWeapon");
+                    b.ToTable("CreatureWeapon");
                 });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Skill", b =>
@@ -227,46 +227,46 @@ namespace EntityFramework.MonsterBook.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.MonsterMerit", b =>
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureMerit", b =>
                 {
                     b.HasOne("Mithrill.MonsterBook.Domain.Merit", "Merit")
-                        .WithMany("MonsterMerits")
+                        .WithMany("CreatureMerits")
                         .HasForeignKey("MeritId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Mithrill.MonsterBook.Domain.Monster", "Monster")
-                        .WithMany("MonsterMerits")
+                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
+                        .WithMany("CreatureMerits")
                         .HasForeignKey("MonsterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.MonsterSkill", b =>
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureSkill", b =>
                 {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Monster", "Monster")
-                        .WithMany("MonsterSkills")
+                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
+                        .WithMany("CreatureSkills")
                         .HasForeignKey("MonsterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Mithrill.MonsterBook.Domain.Skill", "Skill")
-                        .WithMany("MonsterSkills")
+                        .WithMany("CreatureSkills")
                         .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.MonsterWeapon", b =>
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureWeapon", b =>
                 {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Monster", "Monster")
-                        .WithMany("MonsterWeapons")
+                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
+                        .WithMany("CreatureWeapons")
                         .HasForeignKey("MonsterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Mithrill.MonsterBook.Domain.Weapon", "Weapon")
-                        .WithMany("MonsterWeapons")
+                        .WithMany("CreatureWeapons")
                         .HasForeignKey("WeaponId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

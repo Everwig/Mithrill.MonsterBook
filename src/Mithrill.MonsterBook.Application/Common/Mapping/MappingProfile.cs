@@ -7,7 +7,7 @@ namespace Mithrill.MonsterBook.Application.Common.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Domain.Monster, Monster>();
+            CreateMap<Domain.Creature, Monster>();
             CreateMap<Domain.Skill, Skill>();
             CreateMap<Domain.Merit, Merit>();
             CreateMap<Domain.Weapon, Weapon>();
