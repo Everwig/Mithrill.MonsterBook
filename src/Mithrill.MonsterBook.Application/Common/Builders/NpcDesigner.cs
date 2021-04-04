@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Mithrill.MonsterBook.Application.Common.Adapters;
-using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Common.Builders
 {

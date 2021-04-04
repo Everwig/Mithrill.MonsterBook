@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma
 {
-    public class GeneratedNpcWithKarma
+    public class GeneratedNpcWithKarma : IMapFrom<IGeneratedCreature>
     {
         public GeneratedNpcWithKarma()
         {

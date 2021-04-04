@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedProminentNpc
 {
-    public class GeneratedProminentNpc
+    public class GeneratedProminentNpc : IMapFrom<IGeneratedCreature>
     {
         public GeneratedProminentNpc()
         {

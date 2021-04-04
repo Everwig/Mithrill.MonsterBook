@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
-using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Domain
 {
@@ -24,6 +24,7 @@ namespace Mithrill.MonsterBook.Application.Domain
         public int DamageReduction { get; set; }
         public int Karma { get; set; }
         public Difficulty Difficulty { get; set; }
+        public IEnumerable<IMeritFlaw> Flaws { get; set; }
         public IEnumerable<IMeritFlaw> Merits { get; set; }
         public IEnumerable<IWeapon> Weapons { get; set; }
         public IEnumerable<ISkill> Skills { get; set; }
