@@ -8,6 +8,6 @@ namespace Mithrill.MonsterBook.Domain
         public int Name { get; set; }
         public AttackType AttackType { get; set; }
 
-        public ICollection<MonsterWeapon> MonsterWeapons { get; set; }
+        public ICollection<CreatureWeapon> CreatureWeapons { get; set; }
     }
 }

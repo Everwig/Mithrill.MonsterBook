@@ -8,11 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.9.4" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Mithrill.MonsterBook.Application\Mithrill.MonsterBook.Application.csproj" />
+    <ProjectReference Include="..\Mithrill.MonsterBook.Domain\Mithrill.MonsterBook.Domain.csproj" />
+    <ProjectReference Include="..\Mithrill.MonsterBook.Infrastructure\Mithrill.MonsterBook.Infrastructure.csproj" />
   </ItemGroup>
 
 

@@ -11,6 +11,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mithrill.MonsterBook.Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mithrill.MonsterBook.WebApi", "src\Mithrill.MonsterBook.WebApi\Mithrill.MonsterBook.WebApi.csproj", "{35426F7E-CB97-48D0-A2CB-8FAA992687E5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{66439019-F440-4497-97FE-A9A1D6F9FAAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C4662DB3-6AB0-4255-ACA0-8E8DCDAA6545}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{7A8C3B04-31F0-4545-9912-DFB75D6096B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework.MonsterBook", "src\EntityFramework.MonsterBook\EntityFramework.MonsterBook.csproj", "{6F15D476-C6C0-4F29-8393-9B570287C769}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3E1A7367-911E-441F-BE00-D1872EE3E616}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +47,20 @@ Global
 		{35426F7E-CB97-48D0-A2CB-8FAA992687E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35426F7E-CB97-48D0-A2CB-8FAA992687E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35426F7E-CB97-48D0-A2CB-8FAA992687E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F15D476-C6C0-4F29-8393-9B570287C769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F15D476-C6C0-4F29-8393-9B570287C769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F15D476-C6C0-4F29-8393-9B570287C769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F15D476-C6C0-4F29-8393-9B570287C769}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0482B38E-C53B-412A-A929-6366C1C14098} = {66439019-F440-4497-97FE-A9A1D6F9FAAA}
+		{B566A0BC-8918-4A74-B61F-328F4BE81E2C} = {66439019-F440-4497-97FE-A9A1D6F9FAAA}
+		{1B370F98-B8EB-47D3-8E41-2B8CB166D5FE} = {C4662DB3-6AB0-4255-ACA0-8E8DCDAA6545}
+		{35426F7E-CB97-48D0-A2CB-8FAA992687E5} = {7A8C3B04-31F0-4545-9912-DFB75D6096B3}
+		{6F15D476-C6C0-4F29-8393-9B570287C769} = {C4662DB3-6AB0-4255-ACA0-8E8DCDAA6545}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13F3C5A5-B5B3-49F8-9346-19DB6AF78F3B}

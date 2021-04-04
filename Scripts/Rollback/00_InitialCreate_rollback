@@ -1,0 +1,37 @@
+﻿DROP TABLE [AttackType];
+
+GO
+
+DROP TABLE [MonsterMerit];
+
+GO
+
+DROP TABLE [MonsterSkill];
+
+GO
+
+DROP TABLE [MonsterWeapon];
+
+GO
+
+DROP TABLE [Merit];
+
+GO
+
+DROP TABLE [Skill];
+
+GO
+
+DROP TABLE [Monster];
+
+GO
+
+DROP TABLE [Weapon];
+
+GO
+
+DELETE FROM [__EFMigrationsHistory]
+WHERE [MigrationId] = N'20200223205221_InitialCreate';
+
+GO
+
