@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Monsters\Command\AddMonsterCommand\" />
-    <Folder Include="Monsters\Command\DeleteMonsterCommand\" />
-    <Folder Include="Monsters\Command\UpdateMonsterCommand\" />
+    <Folder Include="Creature\Command\AddCreatureCommand\" />
+    <Folder Include="Creature\Command\DeleteCreatureCommand\" />
+    <Folder Include="Creature\Command\UpdateCreatureCommand\" />
   </ItemGroup>
 
 </Project>

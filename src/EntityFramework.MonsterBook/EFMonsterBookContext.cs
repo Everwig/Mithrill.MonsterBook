@@ -5,9 +5,14 @@ namespace EntityFramework.MonsterBook
 {
     internal sealed class EFMonsterBookDbContext : MonsterBookDbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        private const string ConnectionString = "Server=.\\SQLEXPRESS;Database=MonsterBook;Trusted_Connection=true";
+        
+        public EFMonsterBookDbContext() : base(new DbContextOptionsBuilder<MonsterBookDbContext>()
+            .UseSqlServer(ConnectionString)
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors()
+            .Options)
         {
-            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=MonsterBook;Trusted_Connection=true");
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Mithrill.MonsterBook.Application;
+using Mithrill.MonsterBook.Infrastructure;
 
 namespace Mithrill.MonsterBook.WebApi
 {
@@ -21,6 +22,7 @@ namespace Mithrill.MonsterBook.WebApi
         {
             services.AddControllers();
             services.RegisterApplication();
+            services.RegisterRepository(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

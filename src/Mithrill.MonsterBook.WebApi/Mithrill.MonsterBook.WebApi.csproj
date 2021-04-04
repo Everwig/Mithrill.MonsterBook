@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Mithrill.MonsterBook.Application\Mithrill.MonsterBook.Application.csproj" />
     <ProjectReference Include="..\Mithrill.MonsterBook.Domain\Mithrill.MonsterBook.Domain.csproj" />
+    <ProjectReference Include="..\Mithrill.MonsterBook.Infrastructure\Mithrill.MonsterBook.Infrastructure.csproj" />
   </ItemGroup>
 
 
