@@ -32,6 +32,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         public async Task DesignProminentNpcAsync(int creatureId, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
         {
             await DesignNpcWithKarma(creatureId, isUndead, difficulty, cancellationToken);
+            _npcBuilder.SetSkillCategories();
             _npcBuilder.AddMerits(difficulty);
             _npcBuilder.AddFlaws(difficulty);
         }

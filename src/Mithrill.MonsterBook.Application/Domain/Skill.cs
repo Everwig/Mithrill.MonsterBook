@@ -7,5 +7,6 @@ namespace Mithrill.MonsterBook.Application.Domain
     {
         public int Name { get; set; }
         public int Level { get; set; }
+        public SkillCategories Category { get; set; }
     }
 }

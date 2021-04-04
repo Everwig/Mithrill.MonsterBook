@@ -12,7 +12,7 @@ namespace Mithrill.MonsterBook.Infrastructure
         {
             serviceCollection.AddDbContext<MonsterBookDbContext>(option =>
             {
-                option.UseSqlServer(configuration.GetConnectionString("MonsterBookConnectionString"));
+                option.UseSqlServer(configuration.GetConnectionString("MonsterBookDatabase"));
                 option.EnableDetailedErrors();
             });
 

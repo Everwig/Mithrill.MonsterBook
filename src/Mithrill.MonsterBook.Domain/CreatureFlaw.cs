@@ -4,7 +4,7 @@
     {
         public int CreatureId { get; set; }
         public Creature Creature { get; set; }
-        public int MeritId { get; set; }
-        public Flaw Merit { get; set; }
+        public int FlawId { get; set; }
+        public Flaw Flaw { get; set; }
     }
 }

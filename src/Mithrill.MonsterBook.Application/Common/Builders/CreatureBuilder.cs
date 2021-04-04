@@ -57,6 +57,11 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             _creature.DamageReduction = _random.Next(_queriedCreature.DamageReductionMin, _queriedCreature.DamageReductionMax + 1);
         }
 
+        public void SetSkillCategories()
+        {
+            _creature.CreatureSkillCategories = _mapper.Map<CreatureSkillCategories>(_queriedCreature.CreateSkillCategories);
+        }
+
         public void AddRacialModifiers(bool isUndead)
         {
             if (!isUndead || _queriedCreature.IsUndead)
@@ -212,7 +217,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             foreach (var skill in _queriedCreature.CreatureSkills)
             {
                 var mappedSkill = _mapper.Map<Skill>(skill.Skill);
-                mappedSkill.Level += difficultyIncrease;
+                mappedSkill.Level = _random.Next(_queriedCreature.SkillLevelMin, _queriedCreature.SkillLevelMax + 1) + difficultyIncrease;
                 skills.Add(mappedSkill);
             }
 

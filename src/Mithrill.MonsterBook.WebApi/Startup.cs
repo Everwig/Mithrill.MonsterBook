@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Mithrill.MonsterBook.Application;
 using Mithrill.MonsterBook.Infrastructure;
+using NSwag;
 
 namespace Mithrill.MonsterBook.WebApi
 {
@@ -17,15 +19,17 @@ namespace Mithrill.MonsterBook.WebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.RegisterApplication();
             services.RegisterRepository(Configuration);
+            services.AddOpenApiDocument(configure =>
+            {
+                configure.Title = "Mithrill MonsterBook API";
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -34,14 +38,28 @@ namespace Mithrill.MonsterBook.WebApi
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseOpenApi(settings =>
+            {
+                settings.PostProcess = (document, request) =>
+                {
+                    if (env.IsDevelopment() || document.Schemes.Any(schema => schema == OpenApiSchema.Https))
+                        return;
+
+                    document.Schemes.Add(OpenApiSchema.Https);
+                    document.Schemes.Remove(OpenApiSchema.Http);
+                };
+            });
+
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.Path = "/api";
             });
         }
     }

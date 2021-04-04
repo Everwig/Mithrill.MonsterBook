@@ -24,6 +24,7 @@ namespace Mithrill.MonsterBook.Application.Domain
         public int DamageReduction { get; set; }
         public int Karma { get; set; }
         public Difficulty Difficulty { get; set; }
+        public CreatureSkillCategories CreatureSkillCategories { get; set; }
         public IEnumerable<IMeritFlaw> Flaws { get; set; }
         public IEnumerable<IMeritFlaw> Merits { get; set; }
         public IEnumerable<IWeapon> Weapons { get; set; }
