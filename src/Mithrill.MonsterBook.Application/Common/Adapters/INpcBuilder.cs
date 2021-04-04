@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Mithrill.MonsterBook.Domain;
 
-namespace Mithrill.MonsterBook.Application.Common.Factories
+namespace Mithrill.MonsterBook.Application.Common.Adapters
 {
     public interface INpcBuilder<out T>
     {
@@ -13,7 +13,7 @@ namespace Mithrill.MonsterBook.Application.Common.Factories
         void AddMerits(Difficulty? difficulty);
         void AddFlaws(Difficulty? difficulty);
         void AddSkills(Difficulty? difficulty);
-        void AddEquipment(Difficulty? difficulty);
+        void AddWeapons(Difficulty? difficulty);
         void GenerateKarma(Difficulty? difficulty);
         void CalculateLifeSigns(bool isUndead);
         T GetNpc();

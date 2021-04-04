@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Mithrill.MonsterBook.Application.Common.Adapters;
-using Mithrill.MonsterBook.Application.Common.Factories;
 using Mithrill.MonsterBook.Application.Common.Mapping;
-using Mithrill.MonsterBook.Application.Monsters.Query.GetGeneratedMonster;
+using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 
 namespace Mithrill.MonsterBook.Application
 {
@@ -12,8 +10,7 @@ namespace Mithrill.MonsterBook.Application
     {
         public static void RegisterApplication(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IMonsterFactory, MonsterFactory>();
-            serviceCollection.AddMediatR(typeof(GetGeneratedMonsterQuery).Assembly);
+            serviceCollection.AddMediatR(typeof(GetGeneratedNpcQuery).Assembly);
             serviceCollection.AddAutoMapper(typeof(MappingProfile).Assembly);
         }
     }
