@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Common.Adapters
 {
@@ -17,6 +16,7 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters
         int Karma { get; }
         Difficulty Difficulty { get; }
         IEnumerable<IMeritFlaw> Merits { get; }
+        IEnumerable<IMeritFlaw> Flaws { get; }
         IEnumerable<IWeapon> Weapons { get; }
         IEnumerable<ISkill> Skills { get; }
         int PowerPoint { get; }

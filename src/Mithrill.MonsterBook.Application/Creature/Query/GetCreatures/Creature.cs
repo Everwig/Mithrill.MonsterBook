@@ -1,8 +1,8 @@
-﻿namespace Mithrill.MonsterBook.Application.Monsters.Query.GetMonsters
+﻿namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreatures
 {
-    public class Monster
+    public class Creature
     {
-        public Monster(int id, string name)
+        public Creature(int id, string name)
         {
             Id = id;
             Name = name;

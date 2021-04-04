@@ -7,7 +7,6 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Domain;
-using Mithrill.MonsterBook.Domain;
 using Flaw = Mithrill.MonsterBook.Application.Domain.Flaw;
 using Merit = Mithrill.MonsterBook.Application.Domain.Merit;
 using Skill = Mithrill.MonsterBook.Application.Domain.Skill;
@@ -21,7 +20,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         private readonly IMonsterBookDbContext _monsterBookDbContext;
         private readonly Random _random;
         private GeneratedCreature _creature = new GeneratedCreature();
-        private Creature _queriedCreature;
+        private MonsterBook.Domain.Creature _queriedCreature;
 
         public CreatureBuilder(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
         {
@@ -34,7 +33,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         public void Reset()
         {
             _creature = new GeneratedCreature();
-            _queriedCreature = new Creature();
+            _queriedCreature = new MonsterBook.Domain.Creature();
         }
 
         public async Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken)
@@ -54,7 +53,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             _creature.Intelligence = _random.Next(_queriedCreature.IntelligenceMin, _queriedCreature.IntelligenceMax + 1);
             _creature.Willpower = _random.Next(_queriedCreature.WillpowerMin, _queriedCreature.WillpowerMax + 1);
             _creature.Emotion = _random.Next(_queriedCreature.EmotionMin, _queriedCreature.EmotionMax + 1);
-            _creature.Difficulty = _queriedCreature.Difficulty;
+            _creature.Difficulty = (Difficulty)_queriedCreature.Difficulty;
             _creature.DamageReduction = _random.Next(_queriedCreature.DamageReductionMin, _queriedCreature.DamageReductionMax + 1);
         }
 
@@ -174,7 +173,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                 flawList.Remove(chosenMerit);
             }
 
-            _creature.Merits = flaws;
+            _creature.Flaws = flaws;
         }
 
         public void AddSkills(Difficulty? difficulty)

@@ -1,4 +1,4 @@
-﻿namespace Mithrill.MonsterBook.Application.Monsters.Query.GetMonster
+﻿namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreature
 {
     public class Skill
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Application.Common;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma
 {

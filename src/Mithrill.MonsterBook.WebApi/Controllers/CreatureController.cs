@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Mithrill.MonsterBook.Application.Monsters.Query.GetMonster;
-using Mithrill.MonsterBook.Application.Monsters.Query.GetMonsters;
-using Monster = Mithrill.MonsterBook.Application.Monsters.Query.GetMonsters.Monster;
+using Mithrill.MonsterBook.Application.Creature.Query.GetCreature;
+using Mithrill.MonsterBook.Application.Creature.Query.GetCreatures;
+using Creature = Mithrill.MonsterBook.Application.Creature.Query.GetCreatures.Creature;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers
 {
@@ -20,16 +20,16 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Monster>), StatusCodes.Status200OK)]
-        public async Task<IEnumerable<Monster>> GetMonsters(CancellationToken cancellationToken)
+        [ProducesResponseType(typeof(IEnumerable<Creature>), StatusCodes.Status200OK)]
+        public async Task<IEnumerable<Creature>> GetMonsters(CancellationToken cancellationToken)
         {
-            var monsters = await _mediator.Send(new GetMonstersQuery(), cancellationToken);
+            var monsters = await _mediator.Send(new GetCreaturesQuery(), cancellationToken);
 
             return monsters;
         }
 
         [HttpGet("Id:int")]
-        public async Task<Application.Monsters.Query.GetMonster.Monster> GetMonster([FromQuery]GetMonsterQuery query, CancellationToken cancellationToken)
+        public async Task<Application.Creature.Query.GetCreature.Creature> GetMonster([FromQuery]GetCreatureQuery query, CancellationToken cancellationToken)
         {
             var monster = await _mediator.Send(query, cancellationToken);
 

@@ -6,21 +6,21 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 
-namespace Mithrill.MonsterBook.Application.Monsters.Query.GetMonsters
+namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreatures
 {
-    internal sealed class GetMonstersQueryHandler : IRequestHandler<GetMonstersQuery, IEnumerable<Monster>>
+    internal sealed class GetCreaturesQueryHandler : IRequestHandler<GetCreaturesQuery, IEnumerable<Creature>>
     {
         private readonly IMonsterBookDbContext _monsterBookDbContext;
 
-        public GetMonstersQueryHandler(IMonsterBookDbContext monsterBookDbContext)
+        public GetCreaturesQueryHandler(IMonsterBookDbContext monsterBookDbContext)
         {
             _monsterBookDbContext = monsterBookDbContext;
         }
 
-        public async Task<IEnumerable<Monster>> Handle(GetMonstersQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Creature>> Handle(GetCreaturesQuery request, CancellationToken cancellationToken)
         {
             return await _monsterBookDbContext.Monsters
-                .Select(monster => new Monster(monster.Id, monster.Name))
+                .Select(monster => new Creature(monster.Id, monster.Name))
                 .AsNoTracking()
                 .ToArrayAsync(cancellationToken);
         }
