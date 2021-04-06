@@ -10,32 +10,31 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "Creature",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    StrengthMax = table.Column<int>(nullable: false),
-                    StrengthMin = table.Column<int>(nullable: false),
-                    VitalityMax = table.Column<int>(nullable: false),
-                    VitalityMin = table.Column<int>(nullable: false),
-                    BodyMax = table.Column<int>(nullable: false),
-                    BodyMin = table.Column<int>(nullable: false),
-                    AgilityMax = table.Column<int>(nullable: false),
-                    AgilityMin = table.Column<int>(nullable: false),
-                    DexterityMax = table.Column<int>(nullable: false),
-                    DexterityMin = table.Column<int>(nullable: false),
-                    IntelligenceMax = table.Column<int>(nullable: false),
-                    IntelligenceMin = table.Column<int>(nullable: false),
-                    WillpowerMax = table.Column<int>(nullable: false),
-                    WillpowerMin = table.Column<int>(nullable: false),
-                    EmotionMax = table.Column<int>(nullable: false),
-                    EmotionMin = table.Column<int>(nullable: false),
-                    DamageReductionMax = table.Column<int>(nullable: false),
-                    DamageReductionMin = table.Column<int>(nullable: false),
-                    SkillLevelMax = table.Column<int>(nullable: false),
-                    SkillLevelMin = table.Column<int>(nullable: false),
-                    Karma = table.Column<int>(nullable: false),
-                    IsUndead = table.Column<bool>(nullable: false),
-                    Difficulty = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NameHu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StrengthMax = table.Column<int>(type: "int", nullable: false),
+                    StrengthMin = table.Column<int>(type: "int", nullable: false),
+                    VitalityMax = table.Column<int>(type: "int", nullable: false),
+                    VitalityMin = table.Column<int>(type: "int", nullable: false),
+                    BodyMax = table.Column<int>(type: "int", nullable: false),
+                    BodyMin = table.Column<int>(type: "int", nullable: false),
+                    AgilityMax = table.Column<int>(type: "int", nullable: false),
+                    AgilityMin = table.Column<int>(type: "int", nullable: false),
+                    DexterityMax = table.Column<int>(type: "int", nullable: false),
+                    DexterityMin = table.Column<int>(type: "int", nullable: false),
+                    IntelligenceMax = table.Column<int>(type: "int", nullable: false),
+                    IntelligenceMin = table.Column<int>(type: "int", nullable: false),
+                    WillpowerMax = table.Column<int>(type: "int", nullable: false),
+                    WillpowerMin = table.Column<int>(type: "int", nullable: false),
+                    EmotionMax = table.Column<int>(type: "int", nullable: false),
+                    EmotionMin = table.Column<int>(type: "int", nullable: false),
+                    DamageReductionMax = table.Column<int>(type: "int", nullable: false),
+                    DamageReductionMin = table.Column<int>(type: "int", nullable: false),
+                    Karma = table.Column<int>(type: "int", nullable: false),
+                    IsUndead = table.Column<bool>(type: "bit", nullable: false),
+                    Difficulty = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,9 +45,10 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "Flaw",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    NameHu = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,9 +59,10 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "Merit",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    NameHu = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,10 +73,13 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "Skill",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(nullable: false),
-                    Category = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    NameHu = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Attribute1 = table.Column<int>(type: "int", nullable: false),
+                    Attribute2 = table.Column<int>(type: "int", nullable: false),
+                    Category = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,9 +90,10 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "Weapon",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    NameHu = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,13 +104,13 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "CreatureSkillCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Primary = table.Column<int>(nullable: false),
-                    FirstSecondary = table.Column<int>(nullable: false),
-                    SecondSecondary = table.Column<int>(nullable: false),
-                    Tertiary = table.Column<int>(nullable: false),
-                    CreatureId = table.Column<int>(nullable: false)
+                    Primary = table.Column<int>(type: "int", nullable: false),
+                    FirstSecondary = table.Column<int>(type: "int", nullable: false),
+                    SecondSecondary = table.Column<int>(type: "int", nullable: false),
+                    Tertiary = table.Column<int>(type: "int", nullable: false),
+                    CreatureId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,8 +127,8 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "CreatureFlaw",
                 columns: table => new
                 {
-                    CreatureId = table.Column<int>(nullable: false),
-                    FlawId = table.Column<int>(nullable: false)
+                    CreatureId = table.Column<int>(type: "int", nullable: false),
+                    FlawId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,8 +151,8 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "CreatureMerit",
                 columns: table => new
                 {
-                    CreatureId = table.Column<int>(nullable: false),
-                    MeritId = table.Column<int>(nullable: false)
+                    CreatureId = table.Column<int>(type: "int", nullable: false),
+                    MeritId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -170,8 +175,11 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "CreatureSkill",
                 columns: table => new
                 {
-                    CreatureId = table.Column<int>(nullable: false),
-                    SkillId = table.Column<int>(nullable: false)
+                    CreatureId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    SkillLevelMax = table.Column<int>(type: "int", nullable: false),
+                    SkillLevelMin = table.Column<int>(type: "int", nullable: false),
+                    GuaranteedSuccesses = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,13 +202,13 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "AttackType",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    NumberOfDice = table.Column<int>(nullable: false),
-                    ExtraDamage = table.Column<int>(nullable: false),
-                    ExtraDamageType = table.Column<string>(nullable: true),
-                    WeaponId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberOfDice = table.Column<int>(type: "int", nullable: false),
+                    ExtraDamage = table.Column<int>(type: "int", nullable: false),
+                    ExtraDamageType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WeaponId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,8 +225,8 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "CreatureWeapon",
                 columns: table => new
                 {
-                    CreatureId = table.Column<int>(nullable: false),
-                    WeaponId = table.Column<int>(nullable: false)
+                    CreatureId = table.Column<int>(type: "int", nullable: false),
+                    WeaponId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -268,6 +276,34 @@ namespace EntityFramework.MonsterBook.Migrations
                 name: "IX_CreatureWeapon_WeaponId",
                 table: "CreatureWeapon",
                 column: "WeaponId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Flaw_Name_NameHu",
+                table: "Flaw",
+                columns: new[] { "Name", "NameHu" },
+                unique: true,
+                filter: "[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Merit_Name_NameHu",
+                table: "Merit",
+                columns: new[] { "Name", "NameHu" },
+                unique: true,
+                filter: "[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Skill_Name_NameHu_Category_Attribute1_Attribute2",
+                table: "Skill",
+                columns: new[] { "Name", "NameHu", "Category", "Attribute1", "Attribute2" },
+                unique: true,
+                filter: "[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Weapon_Name_NameHu",
+                table: "Weapon",
+                columns: new[] { "Name", "NameHu" },
+                unique: true,
+                filter: "[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

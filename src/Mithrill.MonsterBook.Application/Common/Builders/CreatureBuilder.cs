@@ -38,7 +38,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
         public async Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken)
         {
-            _queriedCreature = await _monsterBookDbContext.Monsters
+            _queriedCreature = await _monsterBookDbContext.Creatures
                 .Where(m => m.Id == id)
                 .SingleOrDefaultAsync(cancellationToken);
         }
