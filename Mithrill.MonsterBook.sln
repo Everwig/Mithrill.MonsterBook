@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{7A8C3B04-31F0-4545-9912-DFB75D6096B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework.MonsterBook", "src\EntityFramework.MonsterBook\EntityFramework.MonsterBook.csproj", "{6F15D476-C6C0-4F29-8393-9B570287C769}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework.MonsterBook", "src\EntityFramework.MonsterBook\EntityFramework.MonsterBook.csproj", "{6F15D476-C6C0-4F29-8393-9B570287C769}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3E1A7367-911E-441F-BE00-D1872EE3E616}"
 	ProjectSection(SolutionItems) = preProject

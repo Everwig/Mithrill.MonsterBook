@@ -14,7 +14,7 @@ namespace EntityFramework.MonsterBook
             await Skills.AddOrUpdateSkills(context);
             await Weapons.AddOrUpdateWeapons(context);
             await Creatures.AddOrUpdateCreatures(context);
-            await context.SaveChangesAsync();
+            //await context.SaveChangesAsync();
             //TODO: SET IDENTITY_INSERT OFF for all tables
         }
     }
