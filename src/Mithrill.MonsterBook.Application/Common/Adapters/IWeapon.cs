@@ -2,7 +2,7 @@
 {
     public interface IWeapon
     {
-        int Name { get; }
+        string Name { get; }
         IAttackType AttackType { get; }
     }
 }

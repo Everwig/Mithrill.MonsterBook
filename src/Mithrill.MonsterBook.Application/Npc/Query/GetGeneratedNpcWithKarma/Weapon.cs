@@ -1,8 +1,11 @@
-﻿namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma
+﻿using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
+
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma
 {
-    public class Weapon
+    public class Weapon : IWeapon, IMapFrom<Domain.Weapon>
     {
-        public int Name { get; set; }
-        public AttackType AttackType { get; set; }
+        public string Name { get; set; }
+        public IAttackType AttackType { get; set; }
     }
 }

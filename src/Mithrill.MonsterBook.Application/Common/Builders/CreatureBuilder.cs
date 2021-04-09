@@ -38,13 +38,25 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
         public async Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken)
         {
-            _queriedCreature = await _monsterBookDbContext.Monsters
+            _queriedCreature = await _monsterBookDbContext.Creatures
+                .Include(c => c.CreatureSkillCategories)
+                .Include(c => c.CreatureFlaws)
+                .ThenInclude(cf => cf.Flaw)
+                .Include(c => c.CreatureMerits)
+                .ThenInclude(cm => cm.Merit)
+                .Include(c => c.CreatureSkills)
+                .ThenInclude(cs => cs.Skill)
+                .Include(c => c.CreatureWeapons)
+                .ThenInclude(cw => cw.Weapon)
                 .Where(m => m.Id == id)
                 .SingleOrDefaultAsync(cancellationToken);
         }
 
-        public void SetDefaultStats()
+        public void SetDefaultStats(Difficulty? difficulty)
         {
+            if(_queriedCreature == null)
+                return;
+
             _creature.Strength = _random.Next(_queriedCreature.StrengthMin, _queriedCreature.StrengthMax + 1);
             _creature.Vitality = _random.Next(_queriedCreature.VitalityMin, _queriedCreature.VitalityMax + 1);
             _creature.Body = _random.Next(_queriedCreature.BodyMin, _queriedCreature.BodyMax + 1);
@@ -53,17 +65,29 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             _creature.Intelligence = _random.Next(_queriedCreature.IntelligenceMin, _queriedCreature.IntelligenceMax + 1);
             _creature.Willpower = _random.Next(_queriedCreature.WillpowerMin, _queriedCreature.WillpowerMax + 1);
             _creature.Emotion = _random.Next(_queriedCreature.EmotionMin, _queriedCreature.EmotionMax + 1);
-            _creature.Difficulty = (Difficulty)_queriedCreature.Difficulty;
             _creature.DamageReduction = _random.Next(_queriedCreature.DamageReductionMin, _queriedCreature.DamageReductionMax + 1);
+            _creature.Name = _queriedCreature.Name;
+
+            _creature.Difficulty = difficulty == null
+                ? (Difficulty) _queriedCreature.Difficulty
+                : (int)difficulty < (int)_queriedCreature.Difficulty
+                    ? (Difficulty) _queriedCreature.Difficulty
+                    : difficulty.Value;
         }
 
         public void SetSkillCategories()
         {
-            _creature.CreatureSkillCategories = _mapper.Map<CreatureSkillCategories>(_queriedCreature.CreateSkillCategories);
+            if(_queriedCreature == null)
+                return;
+
+            _creature.CreatureSkillCategories = _mapper.Map<CreatureSkillCategories>(_queriedCreature.CreatureSkillCategories);
         }
 
         public void AddRacialModifiers(bool isUndead)
         {
+            if(_queriedCreature == null)
+                return;
+
             if (!isUndead || _queriedCreature.IsUndead)
                 return;
 
@@ -73,6 +97,9 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
         public void AddMerits(Difficulty? difficulty)
         {
+            if(_queriedCreature == null)
+                return;
+
             int meritsToAdd;
             var meritList = _queriedCreature.CreatureMerits.ToList();
             var merits = new List<Merit>();
@@ -119,7 +146,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             {
                 var meritIndex = _random.Next(0, meritList.Count);
                 var chosenMerit = meritList.ElementAt(meritIndex);
-                merits.Add(_mapper.Map<Merit>(chosenMerit));
+                merits.Add(_mapper.Map<Merit>(chosenMerit.Merit));
                 meritList.Remove(chosenMerit);
             }
 
@@ -128,6 +155,9 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
         public void AddFlaws(Difficulty? difficulty)
         {
+            if(_queriedCreature == null)
+                return;
+
             int flawsToAdd;
             var flawList = _queriedCreature.CreatureFlaws.ToList();
             var flaws = new List<Flaw>();
@@ -172,10 +202,10 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
             for (var i = 0; i < flawsToAdd; i++)
             {
-                var meritIndex = _random.Next(0, flawList.Count);
-                var chosenMerit = flawList.ElementAt(meritIndex);
-                flaws.Add(_mapper.Map<Flaw>(chosenMerit));
-                flawList.Remove(chosenMerit);
+                var flawIndex = _random.Next(0, flawList.Count);
+                var chosenFlaw = flawList.ElementAt(flawIndex);
+                flaws.Add(_mapper.Map<Flaw>(chosenFlaw.Flaw));
+                flawList.Remove(chosenFlaw);
             }
 
             _creature.Flaws = flaws;
@@ -183,6 +213,9 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
         public void AddSkills(Difficulty? difficulty)
         {
+            if(_queriedCreature == null)
+                return;
+
             var difficultyIncrease = 0;
 
             switch (difficulty)
@@ -217,7 +250,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             foreach (var skill in _queriedCreature.CreatureSkills)
             {
                 var mappedSkill = _mapper.Map<Skill>(skill.Skill);
-                mappedSkill.Level = _random.Next(_queriedCreature.SkillLevelMin, _queriedCreature.SkillLevelMax + 1) + difficultyIncrease;
+                mappedSkill.Level = _random.Next(skill.SkillLevelMin, skill.SkillLevelMax + 1) + skill.GuaranteedSuccesses + difficultyIncrease;
                 skills.Add(mappedSkill);
             }
 
@@ -227,12 +260,17 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         // TODO: Create service that can handle different difficulty and update the weapons if necessary
         public void AddWeapons(Difficulty? difficulty)
         {
+            if(_queriedCreature == null)
+                return;
+
             var weapons = _queriedCreature.CreatureWeapons.Select(queriedCreatureCreatureWeapon => _mapper.Map<Weapon>(queriedCreatureCreatureWeapon.Weapon)).ToList();
             _creature.Weapons = weapons;
         }
 
         public void GenerateKarma(Difficulty? difficulty)
         {
+            if(_queriedCreature == null)
+                return;
 
             var absoluteKarma = Math.Abs(_queriedCreature.Karma);
 
@@ -270,6 +308,9 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
         public void CalculateLifeSigns(bool isUndead)
         {
+            if(_queriedCreature == null)
+                return;
+
             CalculateHitPoints(isUndead);
             CalculateManaPoints();
             CalculatePowerPoints();
@@ -277,6 +318,9 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
         public IGeneratedCreature GetNpc()
         {
+            if(_queriedCreature == null)
+                return null;
+
             var monster = _creature;
             Reset();
 
@@ -287,7 +331,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         {
             var mp = _creature.Intelligence + _creature.Willpower + _creature.Emotion;
             
-            if (_creature.Merits.Any(m => m.Name == "Mágikus kehely"))
+            if (_creature.Merits != null && _creature.Merits.Any(m => m.NameHu == AttributeTraits.ManaPointIncreaseTrait))
                 mp += _creature.Intelligence + 3;
 
             if (_creature.Intelligence > 7)
@@ -302,9 +346,9 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                 _creature.HitPoint = (_creature.Strength + _creature.Body) * 5;
             else
             {
-                var hp = _creature.Vitality * 4 + 5;
-                if (_creature.Merits.Any(m => m.Name == "Szívósság"))
-                    hp += _creature.Vitality;
+                var hp = _creature.Body * 4 + 5;
+                if (_creature.Merits != null && _creature.Merits.Any(m => m.NameHu == AttributeTraits.HitPointIncreaseTrait))
+                    hp += _creature.Body;
 
                 if (_creature.Body > 7)
                     hp *= 2;

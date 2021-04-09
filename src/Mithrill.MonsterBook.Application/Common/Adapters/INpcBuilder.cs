@@ -7,7 +7,7 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters
     {
         void Reset();
         Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken);
-        void SetDefaultStats();
+        void SetDefaultStats(Difficulty? difficulty);
         void SetSkillCategories();
         void AddRacialModifiers(bool isUndead);
         void AddMerits(Difficulty? difficulty);

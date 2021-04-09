@@ -1,8 +1,11 @@
-﻿namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc
+﻿using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
+
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc
 {
-    public class Skill
+    public class Skill : ISkill, IMapFrom<Domain.Skill>
     {
-        public int Name { get; set; }
+        public string Name { get; set; }
         public int Level { get; set; }
     }
 }

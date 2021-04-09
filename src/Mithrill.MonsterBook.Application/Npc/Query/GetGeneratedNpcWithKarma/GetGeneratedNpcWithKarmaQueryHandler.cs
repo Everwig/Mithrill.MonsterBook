@@ -20,7 +20,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma
 
         public async Task<GeneratedNpcWithKarma> Handle(GetGeneratedNpcWithKarmaQuery request, CancellationToken cancellationToken)
         {
-            await _npcDesigner.DesignNpcWithKarma(request.Id, request.IsUndead, request.Difficulty, cancellationToken);
+            await _npcDesigner.DesignNpcWithKarmaAsync(request.Id, request.IsUndead, request.Difficulty, cancellationToken);
             var generatedMonster = _npcDesigner.GetNpc();
 
             return _mapper.Map<GeneratedNpcWithKarma>(generatedMonster);

@@ -2,7 +2,7 @@
 {
     public interface ISkill
     {
-        int Name { get; }
+        string Name { get; }
         int Level { get; }
     }
 }

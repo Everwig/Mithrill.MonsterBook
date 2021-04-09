@@ -6,6 +6,7 @@ namespace Mithrill.MonsterBook.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string NameHu { get; set; }
         public int StrengthMax { get; set; }
         public int StrengthMin { get; set; }
         public int VitalityMax { get; set; }
@@ -24,12 +25,10 @@ namespace Mithrill.MonsterBook.Domain
         public int EmotionMin { get; set; }
         public int DamageReductionMax { get; set; }
         public int DamageReductionMin { get; set; }
-        public int SkillLevelMax { get; set; }
-        public int SkillLevelMin { get; set; }
         public int Karma { get; set; }
         public bool IsUndead { get; set; }
         public Difficulty Difficulty { get; set; }
-        public CreatureSkillCategories CreateSkillCategories { get; set; }
+        public CreatureSkillCategories CreatureSkillCategories { get; set; }
         public ICollection<CreatureMerit> CreatureMerits { get; set; }
         public ICollection<CreatureFlaw> CreatureFlaws { get; set; }
         public ICollection<CreatureWeapon> CreatureWeapons { get; set; }

@@ -21,7 +21,7 @@ namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreature
 
         public async Task<Creature> Handle(GetCreatureQuery request, CancellationToken cancellationToken)
         {
-            var monster = await _monsterBookDbContext.Monsters
+            var monster = await _monsterBookDbContext.Creatures
                 .Where(m => m.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
