@@ -1,7 +1,7 @@
 using System.Linq;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +23,8 @@ namespace Mithrill.MonsterBook.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(mvcOptions => mvcOptions.Conventions.Add(new NotFoundResultFilterConvention()));
+            services.AddControllers(mvcOptions => mvcOptions.Conventions.Add(new NotFoundResultFilterConvention()))
+                .AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.RegisterApplication();
             services.RegisterRepository(Configuration);
             services.AddOpenApiDocument(configure =>

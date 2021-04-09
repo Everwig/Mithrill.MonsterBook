@@ -19,8 +19,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
         [HttpGet("Id:int")]
         public async Task<Application.Creature.Query.GetCreature.Creature> Get(int id, CancellationToken cancellationToken)
         {
-            var s = await Mediator.Send(new GetCreatureQuery{ Id = id }, cancellationToken);
-            return s;
+            return await Mediator.Send(new GetCreatureQuery{ Id = id }, cancellationToken);
         }
     }
 }
