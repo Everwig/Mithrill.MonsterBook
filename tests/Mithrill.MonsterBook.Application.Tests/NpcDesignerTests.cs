@@ -81,7 +81,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
 
             //Act
-            await _npcDesigner.DesignNpcWithKarmaAsync(1, false, null, CancellationToken.None);
+            await _npcDesigner.DesignNpcWithKarmaAsync(1, false,false, null, CancellationToken.None);
             var c = _npcDesigner.GetNpc();
 
             //Assert
@@ -111,7 +111,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
 
             //Act
-            await _npcDesigner.DesignProminentNpcAsync(1, false, null, CancellationToken.None);
+            await _npcDesigner.DesignProminentNpcAsync(1, false, false, Difficulty.Newbie, CancellationToken.None);
             var c = _npcDesigner.GetNpc();
 
             //Assert
@@ -123,16 +123,8 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.ManaPoint.Should().BeGreaterThan(0);
             c.PowerPoint.Should().Be(karma * 3);
             c.Karma.Should().Be(karma);
-            c.Flaws.Should().BeEquivalentTo(new Domain.Flaw
-            {
-                Name = creature.CreatureFlaws.First().Flaw.Name,
-                NameHu = creature.CreatureFlaws.First().Flaw.NameHu
-            });
-            c.Merits.Should().BeEquivalentTo(new Domain.Merit
-            {
-                Name = creature.CreatureMerits.First().Merit.Name,
-                NameHu = creature.CreatureMerits.First().Merit.NameHu
-            });
+            c.Flaws.Should().NotBeNullOrEmpty();
+            c.Flaws.Should().NotBeNullOrEmpty();
             c.CreatureSkillCategories.Should().BeEquivalentTo(new CreatureSkillCategories
             {
                 Primary = (SkillCategories)creature.CreatureSkillCategories.Primary,

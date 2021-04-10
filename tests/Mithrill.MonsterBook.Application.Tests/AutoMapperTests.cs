@@ -177,7 +177,8 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Name = skill.Name,
                 NameHu = skill.NameHu,
                 Level = skill.Level,
-                Category = skill.Category
+                Category = skill.Category,
+                GuaranteedSuccesses = skill.GuaranteedSuccesses
             });
         }
 
@@ -235,7 +236,8 @@ namespace Mithrill.MonsterBook.Application.Tests
                         Name = creature.Skills.First().Name,
                         NameHu = creature.Skills.First().NameHu,
                         Level = creature.Skills.First().Level,
-                        Category = creature.Skills.First().Category
+                        Category = creature.Skills.First().Category,
+                        GuaranteedSuccesses = creature.Skills.First().GuaranteedSuccesses
                     }
                 },
                 Weapons = new []
@@ -282,7 +284,8 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Name = skill.Name,
                 NameHu = skill.NameHu,
                 Level = skill.Level,
-                Category = skill.Category
+                Category = skill.Category,
+                GuaranteedSuccesses = skill.GuaranteedSuccesses
             });
         }
 
@@ -340,7 +343,8 @@ namespace Mithrill.MonsterBook.Application.Tests
                         Name = creature.Skills.First().Name,
                         NameHu = creature.Skills.First().NameHu,
                         Level = creature.Skills.First().Level,
-                        Category = creature.Skills.First().Category
+                        Category = creature.Skills.First().Category,
+                        GuaranteedSuccesses = creature.Skills.First().GuaranteedSuccesses
                     }
                 },
                 Weapons = new []
@@ -389,7 +393,8 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Name = skill.Name,
                 NameHu = skill.NameHu,
                 Level = skill.Level,
-                Category = skill.Category
+                Category = skill.Category,
+                GuaranteedSuccesses = skill.GuaranteedSuccesses
             });
         }
 
@@ -481,7 +486,8 @@ namespace Mithrill.MonsterBook.Application.Tests
                         Name = creature.Skills.First().Name,
                         NameHu = creature.Skills.First().NameHu,
                         Level = creature.Skills.First().Level,
-                        Category = creature.Skills.First().Category
+                        Category = creature.Skills.First().Category,
+                        GuaranteedSuccesses = creature.Skills.First().GuaranteedSuccesses
                     }
                 },
                 Weapons = new []

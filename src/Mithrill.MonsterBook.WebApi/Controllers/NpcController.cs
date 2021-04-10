@@ -19,15 +19,15 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
         }
 
         [HttpGet("{Id:int}/GenerateWithKarma")]
-        public async Task<GeneratedNpcWithKarma> GetGeneratedNpcWithKarma(int id, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
+        public async Task<GeneratedNpcWithKarma> GetGeneratedNpcWithKarma(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
         {
-            return await Mediator.Send(new GetGeneratedNpcWithKarmaQuery { Id = id, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
+            return await Mediator.Send(new GetGeneratedNpcWithKarmaQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
         }
 
         [HttpGet("{Id:int}/GenerateProminent")]
-        public async Task<GeneratedProminentNpc> GetGeneratedProminent(int id, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
+        public async Task<GeneratedProminentNpc> GetGeneratedProminent(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
         {
-            return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
+            return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
         }
     }
 }

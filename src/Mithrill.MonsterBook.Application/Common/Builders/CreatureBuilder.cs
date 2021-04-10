@@ -193,12 +193,12 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                     flawsToAdd = 1;
                     break;
                 default:
-                    flawsToAdd = _queriedCreature.CreatureMerits.Count;
+                    flawsToAdd = _queriedCreature.CreatureFlaws.Count;
                     break;
             }
 
-            if (flawsToAdd > _queriedCreature.CreatureMerits.Count)
-                flawsToAdd = _queriedCreature.CreatureMerits.Count;
+            if (flawsToAdd > _queriedCreature.CreatureFlaws.Count)
+                flawsToAdd = _queriedCreature.CreatureFlaws.Count;
 
             for (var i = 0; i < flawsToAdd; i++)
             {
@@ -247,10 +247,11 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
             var skills = new List<Skill>();
 
-            foreach (var skill in _queriedCreature.CreatureSkills)
+            foreach (var creatureSkill in _queriedCreature.CreatureSkills)
             {
-                var mappedSkill = _mapper.Map<Skill>(skill.Skill);
-                mappedSkill.Level = _random.Next(skill.SkillLevelMin, skill.SkillLevelMax + 1) + skill.GuaranteedSuccesses + difficultyIncrease;
+                var mappedSkill = _mapper.Map<Skill>(creatureSkill.Skill);
+                mappedSkill.Level = _random.Next(creatureSkill.SkillLevelMin, creatureSkill.SkillLevelMax + 1) + difficultyIncrease;
+                mappedSkill.GuaranteedSuccesses = creatureSkill.GuaranteedSuccesses;
                 skills.Add(mappedSkill);
             }
 
@@ -267,7 +268,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             _creature.Weapons = weapons;
         }
 
-        public void GenerateKarma(Difficulty? difficulty)
+        public void GenerateKarma(bool isEvil, Difficulty? difficulty)
         {
             if(_queriedCreature == null)
                 return;
@@ -301,7 +302,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                     break;
             }
 
-            _creature.Karma = _queriedCreature.Karma < 0
+            _creature.Karma = isEvil || _queriedCreature.Karma < 0
                 ? absoluteKarma * -1
                 : absoluteKarma;
         }

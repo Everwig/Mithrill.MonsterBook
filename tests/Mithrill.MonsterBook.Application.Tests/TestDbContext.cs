@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Domain;
+using CreatureSkillCategories = Mithrill.MonsterBook.Domain.CreatureSkillCategories;
+using Difficulty = Mithrill.MonsterBook.Domain.Difficulty;
+using SkillCategories = Mithrill.MonsterBook.Domain.SkillCategories;
 
 namespace Mithrill.MonsterBook.Application.Tests
 {
@@ -24,103 +28,212 @@ namespace Mithrill.MonsterBook.Application.Tests
     public class Seeds
     {
         public MonsterBook.Domain.Creature Creature = new MonsterBook.Domain.Creature
+        {
+            Name = "Creature",
+            NameHu = "CreatureHu",
+            Karma = 0,
+            CreatureFlaws = new List<CreatureFlaw>
             {
-                Name = "Creature",
-                NameHu = "CreatureHu",
-                Karma = 0,
-                CreatureFlaws = new List<CreatureFlaw>
-                {
-                    new CreatureFlaw
-                    {
-                        CreatureId = 1,
-                        FlawId = 1,
-                        Flaw = new Flaw
-                        {
-                            Id = 1,
-                            Name = "FlawName",
-                            NameHu = "FlawNameHu"
-                        }
-                    }
-                },
-                CreatureMerits = new List<CreatureMerit>
-                {
-                    new CreatureMerit
-                    {
-                        CreatureId = 1,
-                        MeritId = 1,
-                        Merit = new Merit
-                        {
-                            Id = 1,
-                            Name = "MeritName",
-                            NameHu = "MeritNameHu"
-                        }
-                    }
-                },
-                CreatureSkillCategories = new CreatureSkillCategories
+                new CreatureFlaw
                 {
                     CreatureId = 1,
-                    Id = 1,
-                    Primary = SkillCategories.Secular,
-                    FirstSecondary = SkillCategories.Combat,
-                    SecondSecondary = SkillCategories.Scholar,
-                    Tertiary = SkillCategories.Underworld
-                },
-                CreatureSkills = new List<CreatureSkill>
-                {
-                    new CreatureSkill
+                    FlawId = 1,
+                    Flaw = new Flaw
                     {
-                        CreatureId = 1,
-                        SkillId = 1,
-                        SkillLevelMax = 4,
-                        SkillLevelMin = 2,
-                        GuaranteedSuccesses = 2,
-                        Skill = new Skill
-                        {
-                            Id = 1,
-                            Name = "SkillName",
-                            NameHu = "SkillNameHu",
-                            Attribute1 = Attribute.Dexterity,
-                            Attribute2 = Attribute.Strength,
-                            Category = SkillCategories.Combat
-                        }
+                        Id = 1,
+                        Name = "FlawName",
+                        NameHu = "FlawNameHu"
+                    }
+                }
+            },
+            CreatureMerits = new List<CreatureMerit>
+            {
+                new CreatureMerit
+                {
+                    CreatureId = 1,
+                    MeritId = 1,
+                    Merit = new Merit
+                    {
+                        Id = 1,
+                        Name = "MeritName",
+                        NameHu = AttributeTraits.HitPointIncreaseTrait
                     }
                 },
-                CreatureWeapons = new List<CreatureWeapon>
+                new CreatureMerit
                 {
-                    new CreatureWeapon
+                    CreatureId = 1,
+                    MeritId = 2,
+                    Merit = new Merit
                     {
-                        CreatureId = 1,
-                        WeaponId = 1,
-                        Weapon = new Weapon
-                        {
-                            Id = 1,
-                            Name = "WeaponName",
-                            NameHu = "WeaponNameHu"
-                        }
+                        Id = 2,
+                        Name = "MeritName",
+                        NameHu = AttributeTraits.ManaPointIncreaseTrait
                     }
-                },
-                Difficulty = Difficulty.Novice,
-                IsUndead = true,
-                AgilityMax = 8,
-                AgilityMin = 4,
-                BodyMax = 8,
-                BodyMin = 4,
-                DamageReductionMax = 8,
-                DamageReductionMin = 4,
-                DexterityMax = 8,
-                DexterityMin = 4,
-                EmotionMax = 8,
-                EmotionMin = 4,
-                IntelligenceMax = 8,
-                IntelligenceMin = 4,
-                StrengthMax = 8,
-                StrengthMin = 4,
-                VitalityMax = 8,
-                VitalityMin = 4,
-                WillpowerMax = 8,
-                WillpowerMin = 4,
-                Id = 1
-            };
+                }
+            },
+            CreatureSkillCategories = new CreatureSkillCategories
+            {
+                CreatureId = 1,
+                Id = 1,
+                Primary = SkillCategories.Secular,
+                FirstSecondary = SkillCategories.Combat,
+                SecondSecondary = SkillCategories.Scholar,
+                Tertiary = SkillCategories.Underworld
+            },
+            CreatureSkills = new List<CreatureSkill>
+            {
+                new CreatureSkill
+                {
+                    CreatureId = 1,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2,
+                    GuaranteedSuccesses = 2,
+                    Skill = new Skill
+                    {
+                        Id = 1,
+                        Name = "SkillName",
+                        NameHu = "SkillNameHu",
+                        Attribute1 = Attribute.Dexterity,
+                        Attribute2 = Attribute.Strength,
+                        Category = SkillCategories.Combat
+                    }
+                }
+            },
+            CreatureWeapons = new List<CreatureWeapon>
+            {
+                new CreatureWeapon
+                {
+                    CreatureId = 1,
+                    WeaponId = 1,
+                    Weapon = new Weapon
+                    {
+                        Id = 1,
+                        Name = "WeaponName",
+                        NameHu = "WeaponNameHu"
+                    }
+                }
+            },
+            Difficulty = Difficulty.Novice,
+            IsUndead = false,
+            AgilityMax = 8,
+            AgilityMin = 4,
+            BodyMax = 8,
+            BodyMin = 4,
+            DamageReductionMax = 8,
+            DamageReductionMin = 4,
+            DexterityMax = 8,
+            DexterityMin = 4,
+            EmotionMax = 8,
+            EmotionMin = 4,
+            IntelligenceMax = 8,
+            IntelligenceMin = 4,
+            StrengthMax = 8,
+            StrengthMin = 4,
+            VitalityMax = 8,
+            VitalityMin = 4,
+            WillpowerMax = 8,
+            WillpowerMin = 4,
+            Id = 1
+        };
 
+        public MonsterBook.Domain.Creature UndeadCreature = new MonsterBook.Domain.Creature
+        {
+            Name = "Creature",
+            NameHu = "CreatureHu",
+            Karma = -3,
+            CreatureFlaws = new List<CreatureFlaw>
+            {
+                new CreatureFlaw
+                {
+                    CreatureId = 1,
+                    FlawId = 1,
+                    Flaw = new Flaw
+                    {
+                        Id = 1,
+                        Name = "FlawName",
+                        NameHu = "FlawNameHu"
+                    }
+                }
+            },
+            CreatureMerits = new List<CreatureMerit>
+            {
+                new CreatureMerit
+                {
+                    CreatureId = 1,
+                    MeritId = 1,
+                    Merit = new Merit
+                    {
+                        Id = 1,
+                        Name = "MeritName",
+                        NameHu = "MeritNameHu"
+                    }
+                }
+            },
+            CreatureSkillCategories = new CreatureSkillCategories
+            {
+                CreatureId = 1,
+                Id = 1,
+                Primary = SkillCategories.Secular,
+                FirstSecondary = SkillCategories.Combat,
+                SecondSecondary = SkillCategories.Scholar,
+                Tertiary = SkillCategories.Underworld
+            },
+            CreatureSkills = new List<CreatureSkill>
+            {
+                new CreatureSkill
+                {
+                    CreatureId = 1,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2,
+                    GuaranteedSuccesses = 2,
+                    Skill = new Skill
+                    {
+                        Id = 1,
+                        Name = "SkillName",
+                        NameHu = "SkillNameHu",
+                        Attribute1 = Attribute.Dexterity,
+                        Attribute2 = Attribute.Strength,
+                        Category = SkillCategories.Combat
+                    }
+                }
+            },
+            CreatureWeapons = new List<CreatureWeapon>
+            {
+                new CreatureWeapon
+                {
+                    CreatureId = 1,
+                    WeaponId = 1,
+                    Weapon = new Weapon
+                    {
+                        Id = 1,
+                        Name = "WeaponName",
+                        NameHu = "WeaponNameHu"
+                    }
+                }
+            },
+            Difficulty = Difficulty.Novice,
+            IsUndead = true,
+            AgilityMax = 8,
+            AgilityMin = 4,
+            BodyMax = 8,
+            BodyMin = 4,
+            DamageReductionMax = 8,
+            DamageReductionMin = 4,
+            DexterityMax = 8,
+            DexterityMin = 4,
+            EmotionMax = 8,
+            EmotionMin = 4,
+            IntelligenceMax = 8,
+            IntelligenceMin = 4,
+            StrengthMax = 8,
+            StrengthMin = 4,
+            VitalityMax = 8,
+            VitalityMin = 4,
+            WillpowerMax = 8,
+            WillpowerMin = 4,
+            Id = 1
+        };
     }
 }

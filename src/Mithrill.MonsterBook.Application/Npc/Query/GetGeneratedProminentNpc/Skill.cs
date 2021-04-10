@@ -9,6 +9,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedProminentNpc
         public string Name { get; set; }
         public string NameHu { get; set; }
         public int Level { get; set; }
+        public int GuaranteedSuccesses { get; set; }
         public SkillCategories Category { get; set; }
     }
 }
