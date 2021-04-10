@@ -6,6 +6,7 @@ using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Xunit;
@@ -20,7 +21,6 @@ namespace Mithrill.MonsterBook.Application.Tests
         public NpcDesignerTests()
         {
             var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Common.Mappings.MappingProfile).Assembly));
-            mapperConfiguration.AssertConfigurationIsValid();
             var mapper = new Mapper(mapperConfiguration);
             _monsterBookDbContext = new TestDbContext(
                 new DbContextOptionsBuilder()
@@ -133,12 +133,12 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Name = creature.CreatureMerits.First().Merit.Name,
                 NameHu = creature.CreatureMerits.First().Merit.NameHu
             });
-            c.CreatureSkillCategories.Should().BeEquivalentTo(new Domain.CreatureSkillCategories
+            c.CreatureSkillCategories.Should().BeEquivalentTo(new CreatureSkillCategories
             {
-                Primary = (Domain.SkillCategories)creature.CreatureSkillCategories.Primary,
-                FirstSecondary = (Domain.SkillCategories)creature.CreatureSkillCategories.FirstSecondary,
-                SecondSecondary = (Domain.SkillCategories)creature.CreatureSkillCategories.SecondSecondary,
-                Tertiary = (Domain.SkillCategories)creature.CreatureSkillCategories.Tertiary
+                Primary = (SkillCategories)creature.CreatureSkillCategories.Primary,
+                FirstSecondary = (SkillCategories)creature.CreatureSkillCategories.FirstSecondary,
+                SecondSecondary = (SkillCategories)creature.CreatureSkillCategories.SecondSecondary,
+                Tertiary = (SkillCategories)creature.CreatureSkillCategories.Tertiary
             });
             c.Difficulty.Should().Be(difficulty);
         }

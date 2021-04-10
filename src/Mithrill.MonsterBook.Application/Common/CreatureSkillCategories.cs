@@ -1,6 +1,6 @@
 ﻿using Mithrill.MonsterBook.Application.Common.Mappings;
 
-namespace Mithrill.MonsterBook.Application.Domain
+namespace Mithrill.MonsterBook.Application.Common
 {
     public class CreatureSkillCategories : IMapFrom<MonsterBook.Domain.CreatureSkillCategories>
     {

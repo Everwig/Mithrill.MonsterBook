@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Mithrill.MonsterBook.Application.Domain;
 
 namespace Mithrill.MonsterBook.Application.Common.Adapters
 {
     public interface IGeneratedCreature
     {
         string Name { get; }
+        string NameHu { get; }
         int Strength { get; }
         int Vitality { get; }
         int Body { get; }

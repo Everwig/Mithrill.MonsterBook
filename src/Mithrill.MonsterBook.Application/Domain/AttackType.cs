@@ -3,7 +3,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Domain
 {
-    public class AttackType : IAttackType, IMapFrom<MonsterBook.Domain.AttackType>
+    internal class AttackType : IAttackType, IMapFrom<MonsterBook.Domain.AttackType>
     {
         public string Name { get; set; }
         public int NumberOfDice { get; set; }

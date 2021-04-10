@@ -3,6 +3,7 @@
     public interface IWeapon
     {
         string Name { get; }
+        string NameHu { get;}
         IAttackType AttackType { get; }
     }
 }
