@@ -1,8 +1,12 @@
-﻿namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc
+﻿using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
+
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc
 {
-    public class Weapon
+    public class Weapon : IWeapon, IMapFrom<Domain.Weapon>
     {
-        public int Name { get; set; }
-        public AttackType AttackType { get; set; }
+        public string Name { get; set; }
+        public string NameHu { get; set; }
+        public IAttackType AttackType { get; set; }
     }
 }

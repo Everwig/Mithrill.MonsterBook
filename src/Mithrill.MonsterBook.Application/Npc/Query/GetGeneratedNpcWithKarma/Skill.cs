@@ -1,8 +1,15 @@
-﻿namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma
+﻿using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
+
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma
 {
-    public class Skill
+    public class Skill : ISkill, IMapFrom<Domain.Skill>
     {
-        public int Name { get; set; }
+        public string Name { get; set; }
+        public string NameHu { get; set; }
         public int Level { get; set; }
+        public int GuaranteedSuccesses { get; set; }
+        public SkillCategories Category { get; set; }
     }
 }

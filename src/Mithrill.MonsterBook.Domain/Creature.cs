@@ -28,7 +28,7 @@ namespace Mithrill.MonsterBook.Domain
         public int Karma { get; set; }
         public bool IsUndead { get; set; }
         public Difficulty Difficulty { get; set; }
-        public CreatureSkillCategories CreateSkillCategories { get; set; }
+        public CreatureSkillCategories CreatureSkillCategories { get; set; }
         public ICollection<CreatureMerit> CreatureMerits { get; set; }
         public ICollection<CreatureFlaw> CreatureFlaws { get; set; }
         public ICollection<CreatureWeapon> CreatureWeapons { get; set; }

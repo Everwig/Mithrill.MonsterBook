@@ -2,8 +2,8 @@
 {
     public class CreatureSkill
     {
-        public int SkillLevelMax { get; set; }
         public int SkillLevelMin { get; set; }
+        public int SkillLevelMax { get; set; }
         public int GuaranteedSuccesses { get; set; }
 
         public int CreatureId { get; set; }
