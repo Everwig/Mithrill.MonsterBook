@@ -2,7 +2,10 @@
 {
     public interface ISkill
     {
-        int Name { get; }
+        string Name { get; }
+        string NameHu { get; }
         int Level { get; }
+        public int GuaranteedSuccesses { get; set; }
+        SkillCategories Category { get; }
     }
 }

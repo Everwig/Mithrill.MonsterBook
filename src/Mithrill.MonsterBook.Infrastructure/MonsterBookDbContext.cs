@@ -9,7 +9,7 @@ namespace Mithrill.MonsterBook.Infrastructure
         public MonsterBookDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<AttackType> AttackTypes { get; set; }
-        public DbSet<Creature> Monsters { get; set; }
+        public DbSet<Creature> Creatures { get; set; }
         public DbSet<Merit> Merits { get; set; }
         public DbSet<Flaw> Flaws {get; set; }
         public DbSet<Skill> Skills { get; set; }

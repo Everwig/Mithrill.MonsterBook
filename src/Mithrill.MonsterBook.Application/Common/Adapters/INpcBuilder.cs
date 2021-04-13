@@ -7,14 +7,14 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters
     {
         void Reset();
         Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken);
-        void SetDefaultStats();
+        void SetDefaultStats(Difficulty? difficulty = null);
         void SetSkillCategories();
         void AddRacialModifiers(bool isUndead);
-        void AddMerits(Difficulty? difficulty);
-        void AddFlaws(Difficulty? difficulty);
-        void AddSkills(Difficulty? difficulty);
-        void AddWeapons(Difficulty? difficulty);
-        void GenerateKarma(Difficulty? difficulty);
+        void AddMerits(Difficulty? difficulty = null);
+        void AddFlaws(Difficulty? difficulty = null);
+        void AddSkills(Difficulty? difficulty = null);
+        void AddWeapons(Difficulty? difficulty = null);
+        void GenerateKarma(bool isEvil, Difficulty? difficulty = null);
         void CalculateLifeSigns(bool isUndead);
         T GetNpc();
     }

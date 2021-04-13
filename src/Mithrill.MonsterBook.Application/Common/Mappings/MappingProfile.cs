@@ -14,7 +14,7 @@ namespace Mithrill.MonsterBook.Application.Common.Mappings
 
         private void ApplyMappingFromAssembly(Assembly assembly)
         {
-            var types = assembly.GetExportedTypes()
+            var types = assembly.GetTypes()
                 .Where(type => type.GetInterfaces()
                     .Any(@interface => @interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IMapFrom<>)))
                 .ToList();

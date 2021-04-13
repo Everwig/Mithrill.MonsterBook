@@ -16,25 +16,27 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         public async Task DesignNpcAsync(int creatureId, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
         {
             await _npcBuilder.GetMonsterFromDatabaseAsync(creatureId, cancellationToken);
-            _npcBuilder.SetDefaultStats();
+            _npcBuilder.SetDefaultStats(difficulty);
             _npcBuilder.AddRacialModifiers(isUndead);
             _npcBuilder.AddSkills(difficulty);
             _npcBuilder.AddWeapons(difficulty);
             _npcBuilder.CalculateLifeSigns(isUndead);
         }
 
-        public async Task DesignNpcWithKarma(int creatureId, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
+        public async Task DesignNpcWithKarmaAsync(int creatureId, bool isEvil, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
         {
             await DesignNpcAsync(creatureId, isUndead, difficulty, cancellationToken);
-            _npcBuilder.GenerateKarma(difficulty);
+            _npcBuilder.GenerateKarma(isEvil, difficulty);
+            _npcBuilder.CalculateLifeSigns(isUndead);
         }
 
-        public async Task DesignProminentNpcAsync(int creatureId, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
+        public async Task DesignProminentNpcAsync(int creatureId, bool isEvil, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
         {
-            await DesignNpcWithKarma(creatureId, isUndead, difficulty, cancellationToken);
+            await DesignNpcWithKarmaAsync(creatureId, isEvil, isUndead, difficulty, cancellationToken);
             _npcBuilder.SetSkillCategories();
             _npcBuilder.AddMerits(difficulty);
             _npcBuilder.AddFlaws(difficulty);
+            _npcBuilder.CalculateLifeSigns(isUndead);
         }
 
         public T GetNpc()

@@ -9,6 +9,6 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc
         public bool IsUndead { get; set; }
         public int Id { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Difficulty Difficulty { get; set; }
+        public Difficulty? Difficulty { get; set; }
     }
 }

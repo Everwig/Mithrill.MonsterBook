@@ -6,13 +6,8 @@ namespace Mithrill.MonsterBook.Application.Domain
 {
     internal class GeneratedCreature : IGeneratedCreature
     {
-        public GeneratedCreature()
-        {
-            Merits = new List<Merit>();
-            Weapons = new List<Weapon>();
-            Skills = new List<Skill>();
-        }
-
+        public string Name { get; set; }
+        public string NameHu { get; set; }
         public int Strength { get; set; }
         public int Vitality { get; set; }
         public int Body { get; set; }

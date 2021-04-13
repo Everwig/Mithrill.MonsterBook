@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text.Json.Serialization;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,9 @@ namespace Mithrill.MonsterBook.WebApi
             {
                 configure.Title = "Mithrill MonsterBook API";
             });
+
+            var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Application.Common.Mappings.MappingProfile).Assembly));
+            mapperConfiguration.AssertConfigurationIsValid();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

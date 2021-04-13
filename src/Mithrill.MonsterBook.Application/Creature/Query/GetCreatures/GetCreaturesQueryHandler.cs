@@ -19,7 +19,7 @@ namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreatures
 
         public async Task<IEnumerable<Creature>> Handle(GetCreaturesQuery request, CancellationToken cancellationToken)
         {
-            return await _monsterBookDbContext.Monsters
+            return await _monsterBookDbContext.Creatures
                 .Select(monster => new Creature(monster.Id, monster.Name))
                 .AsNoTracking()
                 .ToArrayAsync(cancellationToken);

@@ -3,5 +3,6 @@
     public interface IMeritFlaw
     {
         string Name { get; }
+        string NameHu { get; }
     }
 }

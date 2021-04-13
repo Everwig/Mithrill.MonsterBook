@@ -1,4 +1,4 @@
-﻿namespace Mithrill.MonsterBook.Application.Domain
+﻿namespace Mithrill.MonsterBook.Application.Common
 {
     public enum SkillCategories
     {

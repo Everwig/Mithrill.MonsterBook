@@ -4,6 +4,8 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters
 {
     public interface IGeneratedCreature
     {
+        string Name { get; }
+        string NameHu { get; }
         int Strength { get; }
         int Vitality { get; }
         int Body { get; }
@@ -15,6 +17,7 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters
         int DamageReduction { get; }
         int Karma { get; }
         Difficulty Difficulty { get; }
+        CreatureSkillCategories CreatureSkillCategories { get; }
         IEnumerable<IMeritFlaw> Merits { get; }
         IEnumerable<IMeritFlaw> Flaws { get; }
         IEnumerable<IWeapon> Weapons { get; }

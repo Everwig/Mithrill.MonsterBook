@@ -20,7 +20,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedProminentNpc
 
         public async Task<GeneratedProminentNpc> Handle(GetGeneratedProminentNpcQuery request, CancellationToken cancellationToken)
         {
-            await _npcDesigner.DesignProminentNpcAsync(request.Id, request.IsUndead, request.Difficulty, cancellationToken);
+            await _npcDesigner.DesignProminentNpcAsync(request.Id, request.IsEvil, request.IsUndead, request.Difficulty, cancellationToken);
             var generatedMonster = _npcDesigner.GetNpc();
 
             return _mapper.Map<GeneratedProminentNpc>(generatedMonster);
