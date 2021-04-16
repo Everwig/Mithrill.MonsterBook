@@ -36,7 +36,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Weapon { Id = 23, Name = "Short sword", NameHu = "Rövid kard" },
                 new Weapon { Id = 24, Name = "Long sword", NameHu = "Hosszú  kard" },
                 new Weapon { Id = 25, Name = "Bastard sword", NameHu = "Másfél kezes kard" },
-                new Weapon { Id = 26, Name = "Broadsword", NameHu = "Pallós" },
+                new Weapon { Id = 26, Name = "Broadsword", NameHu = "Pallos" },
                 new Weapon { Id = 27, Name = "Sabre", NameHu = "Szablya" },
                 new Weapon { Id = 28, Name = "Knife", NameHu = "Kés" },
                 new Weapon { Id = 29, Name = "Dagger", NameHu = "Tőr" },
@@ -56,6 +56,9 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Weapon { Id = 43, Name = "Claws", NameHu = "Karmok" },
                 new Weapon { Id = 44, Name = "Heavy Claws", NameHu = "Nehéz karmok" },
                 new Weapon { Id = 45, Name = "Mythic Claws", NameHu = "Mítikus karmok" },
+                new Weapon { Id = 46, Name = "Small shield", NameHu = "Kis pajzs" },
+                new Weapon { Id = 47, Name = "Shield", NameHu = "Közepes pajzs" },
+                new Weapon { Id = 48, Name = "Tower shield", NameHu = "Nagy pajzs" }
             });
         }
     }

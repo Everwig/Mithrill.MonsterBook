@@ -46,6 +46,8 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Skill { Id  = 32, Name = "Tracing and trail hiding", NameHu = "Nyomolvasás/rejtés", Category = SkillCategories.Secular, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Dexterity},
                 new Skill { Id  = 33, Name = "Dance", NameHu = "Tánc", Category = SkillCategories.Secular, Attribute1 = Attribute.Dexterity, Attribute2 = Attribute.Emotion},
                 new Skill { Id  = 34, Name = "Survival", NameHu = "Túlélés", Category = SkillCategories.Secular, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Willpower},
+                new Skill { Id  = 69, Name = "Sexual culture", NameHu = "Szekszuális kultúra", Category = SkillCategories.Secular, Attribute1 = Attribute.Dexterity, Attribute2 = Attribute.Emotion},
+                new Skill { Id  = 70, Name = "Booze", NameHu = "Ivászat", Category = SkillCategories.Secular, Attribute1 = Attribute.Body, Attribute2 = Attribute.Vitality},
 
                 new Skill { Id  = 35, Name = "Underworld knowledge", NameHu = "Alvilági ismeretek", Category = SkillCategories.Underworld, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Emotion},
                 new Skill { Id  = 36, Name = "Camouflaging", NameHu = "Álcázás", Category = SkillCategories.Underworld, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Dexterity},
