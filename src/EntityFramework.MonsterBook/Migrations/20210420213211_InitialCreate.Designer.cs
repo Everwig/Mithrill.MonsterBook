@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFramework.MonsterBook.Migrations
 {
     [DbContext(typeof(EfMonsterBookDbContext))]
-    [Migration("20210406195707_InitialCreate")]
+    [Migration("20210420213211_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,7 +17,7 @@ namespace EntityFramework.MonsterBook.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.AttackType", b =>
@@ -99,7 +99,10 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<bool>("IsUndead")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Karma")
+                    b.Property<int>("KarmaMax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KarmaMin")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -406,7 +409,7 @@ namespace EntityFramework.MonsterBook.Migrations
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureSkillCategories", b =>
                 {
                     b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
-                        .WithOne("CreateSkillCategories")
+                        .WithOne("CreatureSkillCategories")
                         .HasForeignKey("Mithrill.MonsterBook.Domain.CreatureSkillCategories", "CreatureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -435,11 +438,11 @@ namespace EntityFramework.MonsterBook.Migrations
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Creature", b =>
                 {
-                    b.Navigation("CreateSkillCategories");
-
                     b.Navigation("CreatureFlaws");
 
                     b.Navigation("CreatureMerits");
+
+                    b.Navigation("CreatureSkillCategories");
 
                     b.Navigation("CreatureSkills");
 

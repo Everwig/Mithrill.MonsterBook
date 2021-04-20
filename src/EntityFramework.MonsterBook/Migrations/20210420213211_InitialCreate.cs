@@ -32,7 +32,8 @@ namespace EntityFramework.MonsterBook.Migrations
                     EmotionMin = table.Column<int>(type: "int", nullable: false),
                     DamageReductionMax = table.Column<int>(type: "int", nullable: false),
                     DamageReductionMin = table.Column<int>(type: "int", nullable: false),
-                    Karma = table.Column<int>(type: "int", nullable: false),
+                    KarmaMax = table.Column<int>(type: "int", nullable: false),
+                    KarmaMin = table.Column<int>(type: "int", nullable: false),
                     IsUndead = table.Column<bool>(type: "bit", nullable: false),
                     Difficulty = table.Column<int>(type: "int", nullable: false)
                 },
@@ -177,8 +178,8 @@ namespace EntityFramework.MonsterBook.Migrations
                 {
                     CreatureId = table.Column<int>(type: "int", nullable: false),
                     SkillId = table.Column<int>(type: "int", nullable: false),
-                    SkillLevelMax = table.Column<int>(type: "int", nullable: false),
                     SkillLevelMin = table.Column<int>(type: "int", nullable: false),
+                    SkillLevelMax = table.Column<int>(type: "int", nullable: false),
                     GuaranteedSuccesses = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

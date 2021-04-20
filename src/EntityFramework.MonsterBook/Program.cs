@@ -8,14 +8,17 @@ namespace EntityFramework.MonsterBook
         private static async Task Main()
         {
             await using var context = new EfMonsterBookDbContext();
-            //TODO: SET IDENTITY_INSERT ON for all tables
             await Merits.AddOrUpdateMerits(context);
             await Flaws.AddOrUpdateFlaws(context);
             await Skills.AddOrUpdateSkills(context);
             await Weapons.AddOrUpdateWeapons(context);
-            await Creatures.AddOrUpdateCreatures(context);
-            //await context.SaveChangesAsync();
-            //TODO: SET IDENTITY_INSERT OFF for all tables
+            const int identitySeedStart = 1;
+            var seedIdContinuation = await new Animals(identitySeedStart).AddOrUpdateAnimals(context);
+            seedIdContinuation = await new EvilAndGoodCreatures(seedIdContinuation).AddOrUpdateCreatures(context);
+            seedIdContinuation = await new SimpleEnemiesAndHirelings(seedIdContinuation).AddOrUpdateCharacters(context);
+            seedIdContinuation = await new DragonsAndBugs(seedIdContinuation).AddOrUpdateCreatures(context);
+            await new MythicCreatures(seedIdContinuation).AddOrUpdateCreatures(context);
+            await context.SaveChangesAsync();
         }
     }
 }

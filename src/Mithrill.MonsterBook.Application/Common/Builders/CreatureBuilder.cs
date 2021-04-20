@@ -273,7 +273,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            var absoluteKarma = Math.Abs(_queriedCreature.Karma);
+            var absoluteKarma = _random.Next(Math.Abs(_queriedCreature.KarmaMin), Math.Abs(_queriedCreature.KarmaMax));
 
             switch (difficulty)
             {
@@ -302,7 +302,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                     break;
             }
 
-            _creature.Karma = isEvil || _queriedCreature.Karma < 0
+            _creature.Karma = isEvil || _queriedCreature.KarmaMin < 0
                 ? absoluteKarma * -1
                 : absoluteKarma;
         }

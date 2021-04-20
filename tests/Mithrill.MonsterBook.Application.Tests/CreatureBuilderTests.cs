@@ -196,7 +196,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Karma.Should().Be(creature.Karma);
+            generatedCreature.Karma.Should().Be(creature.KarmaMin);
         }
 
         [Fact]
@@ -213,7 +213,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Karma.Should().Be(creature.Karma-2);
+            generatedCreature.Karma.Should().Be(creature.KarmaMin-2);
         }
 
         [Fact]
@@ -221,7 +221,8 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             //Arrange
             var creature = new Seeds().UndeadCreature;
-            creature.Karma = 0;
+            creature.KarmaMax = 0;
+            creature.KarmaMin = 0;
             await _monsterBookDbContext.Creatures.AddAsync(creature);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -239,7 +240,8 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             //Arrange
             var creature = new Seeds().UndeadCreature;
-            creature.Karma = 0;
+            creature.KarmaMax = 0;
+            creature.KarmaMin = 0;
             await _monsterBookDbContext.Creatures.AddAsync(creature);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -261,7 +263,8 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             //Arrange
             var creature = new Seeds().UndeadCreature;
-            creature.Karma = -3;
+            creature.KarmaMax = -3;
+            creature.KarmaMin = -3;
             await _monsterBookDbContext.Creatures.AddAsync(creature);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -280,7 +283,8 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             //Arrange
             var creature = new Seeds().Creature;
-            creature.Karma = 4;
+            creature.KarmaMax = 4;
+            creature.KarmaMin = 4;
             await _monsterBookDbContext.Creatures.AddAsync(creature);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 

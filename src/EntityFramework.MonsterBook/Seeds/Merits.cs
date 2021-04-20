@@ -95,7 +95,13 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Merit { Id = 82, Name = "Firewalker", NameHu = "Tűzjáró" },
                 new Merit { Id = 83, Name = "Living in the wild", NameHu = "Vadonélő" },
                 new Merit { Id = 84, Name = "Protector", NameHu = "Védelmező" },
-                new Merit { Id = 85, Name = "Lightning reflexes", NameHu = "Villámreflex" }
+                new Merit { Id = 85, Name = "Lightning reflexes", NameHu = "Villámreflex" },
+                new Merit { Id = 86, Name = "Physical Immunity", NameHu = "Fizikai immunitás" },
+                new Merit { Id = 87, Name = "Partial frost resistance", NameHu = "Részleges fagy ellenállás" },
+                new Merit { Id = 88, Name = "Stabbing damage resistance", NameHu = "Szóró sebzés ellenállás" },
+                new Merit { Id = 89, Name = "Crushing damage resistance", NameHu = "Zúzó sebzés ellenállás" },
+                new Merit { Id = 90, Name = "Life sense", NameHu = "Életerő érzékelés" },
+                new Merit { Id = 91, Name = "Physical superiority", NameHu = "Fizikai fölény" }
             });
         }
     }

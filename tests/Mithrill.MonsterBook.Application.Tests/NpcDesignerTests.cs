@@ -75,7 +75,8 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Arrange
             const int karma = 4;
             var creature = new Seeds().Creature;
-            creature.Karma = karma;
+            creature.KarmaMax = karma;
+            creature.KarmaMin = karma;
             var difficulty = creature.Difficulty;
             await _monsterBookDbContext.Creatures.AddAsync(creature);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
@@ -105,7 +106,8 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Arrange
             const int karma = 4;
             var creature = new Seeds().Creature;
-            creature.Karma = karma;
+            creature.KarmaMax = karma;
+            creature.KarmaMin = karma;
             var difficulty = creature.Difficulty;
             await _monsterBookDbContext.Creatures.AddAsync(creature);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
