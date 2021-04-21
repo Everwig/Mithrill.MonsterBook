@@ -57,7 +57,8 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Weapon { Id = 44, Name = "Heavy Claws", NameHu = "Nehéz karmok" },
                 new Weapon { Id = 45, Name = "Mythic Claws", NameHu = "Mítikus karmok" },
                 new Weapon { Id = 46, Name = "Poison body", NameHu = "Mérgező test" },
-                new Weapon { Id = 47, Name = "Death Touch", NameHu = "Halálos érintés" }
+                new Weapon { Id = 47, Name = "Death Touch", NameHu = "Halálos érintés" },
+                new Weapon { Id = 48, Name = "Tentacle", NameHu = "Csáp" }
             });
         }
     }

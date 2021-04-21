@@ -101,7 +101,8 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Merit { Id = 88, Name = "Stabbing damage resistance", NameHu = "Szóró sebzés ellenállás" },
                 new Merit { Id = 89, Name = "Crushing damage resistance", NameHu = "Zúzó sebzés ellenállás" },
                 new Merit { Id = 90, Name = "Life sense", NameHu = "Életerő érzékelés" },
-                new Merit { Id = 91, Name = "Physical superiority", NameHu = "Fizikai fölény" }
+                new Merit { Id = 91, Name = "Physical superiority", NameHu = "Fizikai fölény" },
+                new Merit { Id = 92, Name = "Magic eruption", NameHu = "Mágikus kisülés" }
             });
         }
     }

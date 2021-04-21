@@ -1402,7 +1402,7 @@ namespace EntityFramework.MonsterBook.Seeds
                         new CreatureSkill
                         {
                             CreatureId = identity,
-                            SkillId = 69, //Flying
+                            SkillId = 70,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
