@@ -96,13 +96,20 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Merit { Id = 83, Name = "Living in the wild", NameHu = "Vadonélő" },
                 new Merit { Id = 84, Name = "Protector", NameHu = "Védelmező" },
                 new Merit { Id = 85, Name = "Lightning reflexes", NameHu = "Villámreflex" },
-                new Merit { Id = 86, Name = "Physical Immunity", NameHu = "Fizikai immunitás" },
+                new Merit { Id = 86, Name = "Physical immunity", NameHu = "Fizikai immunitás" },
                 new Merit { Id = 87, Name = "Partial frost resistance", NameHu = "Részleges fagy ellenállás" },
                 new Merit { Id = 88, Name = "Stabbing damage resistance", NameHu = "Szóró sebzés ellenállás" },
                 new Merit { Id = 89, Name = "Crushing damage resistance", NameHu = "Zúzó sebzés ellenállás" },
                 new Merit { Id = 90, Name = "Life sense", NameHu = "Életerő érzékelés" },
                 new Merit { Id = 91, Name = "Physical superiority", NameHu = "Fizikai fölény" },
-                new Merit { Id = 92, Name = "Magic eruption", NameHu = "Mágikus kisülés" }
+                new Merit { Id = 92, Name = "Magic eruption", NameHu = "Mágikus kisülés" },
+                new Merit { Id = 93, Name = "Path immunity", NameHu = "Ösvény immunitás" },
+                new Merit { Id = 94, Name = "Mental manipulationation immunity", NameHu = "Mentális befolyálosásolás elleni immunitás" },
+                new Merit { Id = 95, Name = "Immune to the laws of time", NameHu = "Idő törvényei elleni immunitás" },
+                new Merit { Id = 96, Name = "Tireless", NameHu = "Fáradhatatlan" },
+                new Merit { Id = 97, Name = "Magic immunity", NameHu = "Mágia immunitás" },
+                new Merit { Id = 98, Name = "Mythic toughness", NameHu = "Mítikus szívósság" },
+                new Merit { Id = 99, Name = "Reflect magic", NameHu = "Mágia visszatükrözés" }
             });
         }
     }

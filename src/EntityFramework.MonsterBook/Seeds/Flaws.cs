@@ -78,7 +78,8 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Flaw { Id = 65, Name = "Shy", NameHu = "Szégyenlős" },
                 new Flaw { Id = 66, Name = "Subservient", NameHu = "Szolgalelkű" },
                 new Flaw { Id = 67, Name = "Delusions", NameHu = "Téveszme" },
-                new Flaw { Id = 68, Name = "Secret personality", NameHu = "Titkos személyiség" }
+                new Flaw { Id = 68, Name = "Secret personality", NameHu = "Titkos személyiség" },
+                new Flaw { Id = 69, Name = "Elemental dissonance", NameHu = "Elemi diszonancia" }
             });
         }
     }

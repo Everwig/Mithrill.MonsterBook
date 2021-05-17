@@ -39,6 +39,7 @@ namespace EntityFramework.MonsterBook.Seeds
             await AddGhost(context, GetIdentity());
             await AddAngel(context, GetIdentity());
             await AddSeraph(context, GetIdentity());
+            await AddGuardian(context, GetIdentity());
 
             return _identity;
         }
@@ -923,6 +924,123 @@ namespace EntityFramework.MonsterBook.Seeds
                         {
                             CreatureId = identity,
                             WeaponId = 24
+                        }
+                    }
+                }
+            });
+        }
+
+        private async Task AddGuardian(DbContext context, int identity)
+        {
+            await context.BulkInsertOrUpdateAsync(new[]
+            {
+                new Creature
+                {
+                    Name = "Guardian",
+                    NameHu = "Őr",
+                    Id = identity,
+                    StrengthMax = 10,
+                    StrengthMin = 10,
+                    BodyMax = 10,
+                    BodyMin = 10,
+                    AgilityMax = 8,
+                    AgilityMin = 8,
+                    DexterityMax = 8,
+                    DexterityMin = 8,
+                    IntelligenceMax = 6,
+                    IntelligenceMin = 6,
+                    IsUndead = false,
+                    Difficulty = Difficulty.Experienced,
+                    DamageReductionMax = 10,
+                    DamageReductionMin = 10,
+                    CreatureSkills = new List<CreatureSkill>
+                    {
+                        new CreatureSkill
+                        {
+                            CreatureId = identity,
+                            SkillId = 3,
+                            SkillLevelMax = 5,
+                            SkillLevelMin = 5
+                        },
+                        new CreatureSkill
+                        {
+                            CreatureId = identity,
+                            SkillId = 12,
+                            SkillLevelMax = 5,
+                            SkillLevelMin = 5
+                        },
+                        new CreatureSkill
+                        {
+                            CreatureId = identity,
+                            SkillId = 70,
+                            SkillLevelMax = 5,
+                            SkillLevelMin = 5
+                        }
+                    },
+                    CreatureWeapons = new List<CreatureWeapon>
+                    {
+                        new CreatureWeapon
+                        {
+                            CreatureId = identity,
+                            WeaponId = 2,
+                        },
+                        new CreatureWeapon
+                        {
+                            CreatureId = identity,
+                            WeaponId = 21,
+                        },
+                        new CreatureWeapon
+                        {
+                            CreatureId = identity,
+                            WeaponId = 24
+                        },
+                        new CreatureWeapon
+                        {
+                            CreatureId = identity,
+                            WeaponId = 25,
+                        },
+                        new CreatureWeapon
+                        {
+                            CreatureId = identity,
+                            WeaponId = 27,
+                        },
+                        new CreatureWeapon
+                        {
+                            CreatureId = identity,
+                            WeaponId = 32
+                        },
+                        new CreatureWeapon
+                        {
+                            CreatureId = identity,
+                            WeaponId = 34,
+                        }
+                    },
+                    CreatureMerits = new List<CreatureMerit>
+                    {
+                        new CreatureMerit
+                        {
+                            CreatureId = identity,
+                            MeritId = 86
+                        },
+                        new CreatureMerit
+                        {
+                            CreatureId = identity,
+                            MeritId = 90
+                        },
+                        new CreatureMerit
+                        {
+                            CreatureId = identity,
+                            MeritId = 93
+                        },
+                        new CreatureMerit
+                        {
+                            CreatureId = identity,
+                            MeritId = 94
+                        },
+                        new CreatureMerit
+                        {
+                            CreatureId = identity,
+                            MeritId = 95
                         }
                     }
                 }
