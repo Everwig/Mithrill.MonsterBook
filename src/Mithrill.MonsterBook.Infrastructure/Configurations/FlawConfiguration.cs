@@ -8,6 +8,9 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Flaw> builder)
         {
+            builder.HasIndex(nameof(Flaw.Name), nameof(Flaw.NameHu)).IsUnique();
+            builder.Property(nameof(Flaw.Name)).HasMaxLength(50);
+            builder.Property(nameof(Flaw.NameHu)).HasMaxLength(50);
             builder.ToTable("Flaw");
         }
     }

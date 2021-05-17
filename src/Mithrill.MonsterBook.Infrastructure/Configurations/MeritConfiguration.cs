@@ -8,6 +8,9 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Merit> builder)
         {
+            builder.HasIndex(nameof(Merit.Name), nameof(Merit.NameHu)).IsUnique();
+            builder.Property(nameof(Merit.Name)).HasMaxLength(50);
+            builder.Property(nameof(Merit.NameHu)).HasMaxLength(50);
             builder.ToTable("Merit");
         }
     }

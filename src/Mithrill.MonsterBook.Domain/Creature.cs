@@ -25,7 +25,8 @@ namespace Mithrill.MonsterBook.Domain
         public int EmotionMin { get; set; }
         public int DamageReductionMax { get; set; }
         public int DamageReductionMin { get; set; }
-        public int Karma { get; set; }
+        public int KarmaMax { get; set; }
+        public int KarmaMin { get; set; }
         public bool IsUndead { get; set; }
         public Difficulty Difficulty { get; set; }
         public CreatureSkillCategories CreatureSkillCategories { get; set; }
