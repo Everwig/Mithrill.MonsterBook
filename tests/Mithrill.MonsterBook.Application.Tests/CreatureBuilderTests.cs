@@ -7,12 +7,14 @@ using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Domain;
 using Xunit;
 using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
+using SkillCategories = Mithrill.MonsterBook.Domain.SkillCategories;
 
 namespace Mithrill.MonsterBook.Application.Tests
 {
@@ -48,7 +50,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Difficulty.Should().BeEquivalentTo(creature.Difficulty);
+            generatedCreature.Difficulty.Should().Be((Difficulty)creature.Difficulty);
         }
 
         [Fact]
@@ -65,7 +67,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Difficulty.Should().BeEquivalentTo(Difficulty.Expert);
+            generatedCreature.Difficulty.Should().Be(Difficulty.Expert);
         }
 
         [Fact]
@@ -82,7 +84,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Difficulty.Should().BeEquivalentTo(creature.Difficulty);
+            generatedCreature.Difficulty.Should().Be((Difficulty)creature.Difficulty);
         }
         #endregion
 
@@ -606,13 +608,16 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Skills.Should().BeEquivalentTo(new Domain.Skill
+            generatedCreature.Skills.Should().BeEquivalentTo(new[]
             {
-                Name = creature.CreatureSkills.First().Skill.Name,
-                NameHu = creature.CreatureSkills.First().Skill.NameHu,
-                Level = 3,
-                GuaranteedSuccesses = creature.CreatureSkills.First().GuaranteedSuccesses,
-                Category = (Common.SkillCategories)creature.CreatureSkills.First().Skill.Category
+                new Domain.Skill
+                {
+                    Name = creature.CreatureSkills.First().Skill.Name,
+                    NameHu = creature.CreatureSkills.First().Skill.NameHu,
+                    Level = 3,
+                    GuaranteedSuccesses = creature.CreatureSkills.First().GuaranteedSuccesses,
+                    Category = (Common.SkillCategories)creature.CreatureSkills.First().Skill.Category
+                }
             });
         }
 
@@ -651,13 +656,16 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Skills.Should().BeEquivalentTo(new Domain.Skill
+            generatedCreature.Skills.Should().BeEquivalentTo(new[]
             {
-                Name = creature.CreatureSkills.First().Skill.Name,
-                NameHu = creature.CreatureSkills.First().Skill.NameHu,
-                Level = 5,
-                GuaranteedSuccesses = creature.CreatureSkills.First().GuaranteedSuccesses,
-                Category = (Common.SkillCategories)creature.CreatureSkills.First().Skill.Category
+                new Domain.Skill
+                {
+                    Name = creature.CreatureSkills.First().Skill.Name,
+                    NameHu = creature.CreatureSkills.First().Skill.NameHu,
+                    Level = 5,
+                    GuaranteedSuccesses = creature.CreatureSkills.First().GuaranteedSuccesses,
+                    Category = (Common.SkillCategories)creature.CreatureSkills.First().Skill.Category
+                }
             });
         }
         #endregion
