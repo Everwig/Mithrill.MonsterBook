@@ -64,7 +64,7 @@ namespace Mithrill.MonsterBook.WebApi
                 };
             });
 
-            app.UseSwaggerUi3(settings =>
+            app.UseSwaggerUi(settings =>
             {
                 settings.Path = "/api";
             });
