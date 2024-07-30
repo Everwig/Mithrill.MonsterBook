@@ -20,7 +20,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Skill { Id = 7, Name = "Toughness", NameHu = "Edzettség", Category = SkillCategories.Combat, Attribute1 = Attribute.Body, Attribute2 = Attribute.Willpower },
                 new Skill { Id = 8, Name = "Vigilance", NameHu = "Éberség", Category = SkillCategories.Combat, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Emotion },
                 new Skill { Id = 9, Name = "Pain tolerance", NameHu = "Fájdalomtűrés", Category = SkillCategories.Combat, Attribute1 = Attribute.Body, Attribute2 = Attribute.Emotion },
-                new Skill { Id = 10, Name = "Military leadership", NameHu = "Hadvezetés", Category = SkillCategories.Combat, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Willpower },
+                new Skill { Id = 10, Name = "Military leadership", NameHu = "Hadvezetés", Category = SkillCategories.Scholar, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Willpower },
                 new Skill { Id = 11, Name = "Two-handed fighting", NameHu = "Kétkezes harc", Category = SkillCategories.Combat, Attribute1 = Attribute.Agility, Attribute2 = Attribute.Dexterity },
                 new Skill { Id = 12, Name = "Dodge", NameHu = "Kitérés", Category = SkillCategories.Combat, Attribute1 = Attribute.Agility, Attribute2 = Attribute.Dexterity },
                 new Skill { Id = 13, Name = "Shield use", NameHu = "Pajzshasználat", Category = SkillCategories.Combat, Attribute1 = Attribute.Strength, Attribute2 = Attribute.Dexterity },
@@ -86,7 +86,9 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Skill { Id = 69, Name = "Sexual culture", NameHu = "Szexuális kultúra", Category = SkillCategories.Secular, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Emotion },
                 new Skill { Id = 70, Name = "Flying", NameHu = "Repülés", Category = SkillCategories.Secular, Attribute1 = Attribute.Agility, Attribute2 = Attribute.Dexterity },
                 new Skill { Id = 71, Name = "Metamorphing", NameHu = "Átalakulás", Category = SkillCategories.Secular, Attribute1 = Attribute.Body, Attribute2 = Attribute.Emotion },
-                new Skill { Id = 72, Name = "Howling", NameHu = "Vonyítás", Category = SkillCategories.Underworld, Attribute1 = Attribute.Emotion, Attribute2 = Attribute.Emotion }
+                new Skill { Id = 72, Name = "Howling", NameHu = "Vonyítás", Category = SkillCategories.Underworld, Attribute1 = Attribute.Emotion, Attribute2 = Attribute.Emotion },
+                new Skill { Id = 73, Name = "Weapon Proficiency", NameHu = "Fegyverismeret", Category = SkillCategories.Secular, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Optional },
+                new Skill { Id = 74, Name = "Commanding", NameHu = "Parancsnoklás", Category = SkillCategories.Combat, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Willpower }
             });
         }
     }

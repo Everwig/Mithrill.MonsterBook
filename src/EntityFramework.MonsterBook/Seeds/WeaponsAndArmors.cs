@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Domain;
 
 namespace EntityFramework.MonsterBook.Seeds
 {
-    public static class Weapons
+    public static class WeaponsAndArmors
     {
         public static Task AddOrUpdateWeapons(DbContext dbContext)
         {
@@ -66,7 +66,35 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Weapon { Id = 53, Name = "Acid spit", NameHu = "Sav köpet" },
                 new Weapon { Id = 54, Name = "Posionous acid spit", NameHu = "Mérgező sav köpet" },
                 new Weapon { Id = 55, Name = "Lightning breath", NameHu = "Villámgömb" },
-                new Weapon { Id = 56, Name = "Horn", NameHu = "Szarv" }
+                new Weapon { Id = 56, Name = "Horn", NameHu = "Szarv" },
+                new Weapon { Id = 57, Name = "Small shield", NameHu = "Kis pajzs" },
+                new Weapon { Id = 58, Name = "Shield", NameHu = "Közepes pajzs" },
+                new Weapon { Id = 59, Name = "Tower shield", NameHu = "Nagy pajzs" }
+            });
+        }
+
+        public static Task AddOrUpdateArmors(DbContext dbContext)
+        {
+            return dbContext.BulkInsertOrUpdateAsync(new[]
+            {
+                new Armor { Id = 1, Name = "Leather Armor", NameHu = "Bőrpáncél", Material = Material.Leather, ArmorClass = 1 },
+                new Armor { Id = 2, Name = "Ring Armor", NameHu = "Gyűrűs vért", Material = Material.Iron, ArmorClass = 2, MovementInhibitoryFactor = 1},
+                new Armor { Id = 3, Name = "Chain shirt", NameHu = "Láncing", Material = Material.Iron, ArmorClass = 2, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 4, Name = "Hauberk", NameHu = "Sodronying", Material = Material.Iron, ArmorClass = 3, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 5, Name = "Scale mail", NameHu = "Pikkelyvért", Material = Material.Iron, ArmorClass = 3, MovementInhibitoryFactor = 2 },
+                new Armor { Id = 6, Name = "Breastplate", NameHu = "Mellvért", Material = Material.Iron, ArmorClass = 4, MovementInhibitoryFactor = 3 },
+                new Armor { Id = 7, Name = "Half plate", NameHu = "Félvért", Material = Material.Iron, ArmorClass = 5, MovementInhibitoryFactor = 4 },
+                new Armor { Id = 8, Name = "Plate", NameHu = "Teljesvért", Material = Material.Iron, ArmorClass = 6, MovementInhibitoryFactor = 5 },
+                new Armor { Id = 9, Name = "Imperial elite plate", NameHu = "Birodalmi elit vért", Material = Material.Iron, ArmorClass = 7, MovementInhibitoryFactor = 6 },
+                new Armor { Id = 10, Name = "Leather warhorse mail", NameHu = "Harci ló bőrvért", Material = Material.Leather, ArmorClass = 1, MovementInhibitoryFactor = 0 },
+                new Armor { Id = 11, Name = "Warhorse chain mail", NameHu = "Harci ló láncvért", Material = Material.Iron, ArmorClass = 2, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 12, Name = "Warhorse heavy scale mail", NameHu = "Nehéz harci ló pikkelyvért", Material = Material.Iron, ArmorClass = 3, MovementInhibitoryFactor = 2 },
+                new Armor { Id = 13, Name = "Warhorse heavy plate", NameHu = "Nehéz harci ló merev vért", Material = Material.Iron, ArmorClass = 5, MovementInhibitoryFactor = 4 },
+                new Armor { Id = 14, Name = "Steel hauberk", NameHu = "Acél sodronying", Material = Material.Steel, ArmorClass = 5, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 15, Name = "Steel vambraces", NameHu = "Acél alkarvédő", Material = Material.Steel, ArmorClass = 3, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 16, Name = "Steel rerebrace", NameHu = "Acél felkarvédő", Material = Material.Steel, ArmorClass = 3, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 17, Name = "Steel pauldron", NameHu = "Acél válvédő", Material = Material.Steel, ArmorClass = 3, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 18, Name = "Steel greaves", NameHu = "Acél lábszárvédő", Material = Material.Steel, ArmorClass = 3, MovementInhibitoryFactor = 1}
             });
         }
     }

@@ -33,6 +33,7 @@ namespace Mithrill.MonsterBook.Domain
         public ICollection<CreatureMerit> CreatureMerits { get; set; }
         public ICollection<CreatureFlaw> CreatureFlaws { get; set; }
         public ICollection<CreatureWeapon> CreatureWeapons { get; set; }
+        public ICollection<CreatureArmor> CreatureArmors { get; set; }
         public ICollection<CreatureSkill> CreatureSkills { get; set; }
     }
 }
