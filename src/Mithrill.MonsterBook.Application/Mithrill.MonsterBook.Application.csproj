@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -16,9 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Creature\Command\AddCreatureCommand\" />
-    <Folder Include="Creature\Command\DeleteCreatureCommand\" />
-    <Folder Include="Creature\Command\UpdateCreatureCommand\" />
+    <Folder Include="Creature\Command\DeleteCreate\" />
+    <Folder Include="Creature\Command\UpdateCreate\" />
   </ItemGroup>
 
 </Project>

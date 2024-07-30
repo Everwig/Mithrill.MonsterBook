@@ -7,7 +7,6 @@ using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
-using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Domain;
