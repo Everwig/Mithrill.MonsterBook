@@ -1,0 +1,102 @@
+﻿using System.Threading.Tasks;
+using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
+using Mithrill.MonsterBook.Domain;
+
+namespace EntityFramework.MonsterBook.Seeds
+{
+    public static class WeaponsAndArmors
+    {
+        public static Task AddOrUpdateWeapons(DbContext dbContext)
+        {
+            return dbContext.BulkInsertOrUpdateAsync(new[]
+            {
+                new Weapon { Id = 1, Name = "Javelin", NameHu = "Dárda" },
+                new Weapon { Id = 2, Name = "Spear", NameHu = "Lándzsa" },
+                new Weapon { Id = 3, Name = "Throwing knife", NameHu = "Dobótőr" },
+                new Weapon { Id = 4, Name = "Throwing axe", NameHu = "Hajító bárd" },
+                new Weapon { Id = 5, Name = "Throwing star", NameHu = "Hajító csillag" },
+                new Weapon { Id = 6, Name = "Harpoon", NameHu = "Szigony" },
+                new Weapon { Id = 7, Name = "Blow pipe", NameHu = "Fúvócső" },
+                new Weapon { Id = 8, Name = "Crossbow", NameHu = "Nyílpuska" },
+                new Weapon { Id = 9, Name = "Heavy crossbow", NameHu = "Nehéz nyílpuska" },
+                new Weapon { Id = 10, Name = "Sling", NameHu = "Parittya" },
+                new Weapon { Id = 11, Name = "Short stick bow", NameHu = "Rövid bot íj" },
+                new Weapon { Id = 12, Name = "Long stick bow", NameHu = "Hosszú bot íj" },
+                new Weapon { Id = 13, Name = "Short propped bow", NameHu = "Rövid támasztott íj" },
+                new Weapon { Id = 14, Name = "Long propped bow", NameHu = "Hosszú támasztott íj" },
+                new Weapon { Id = 15, Name = "Short plywood bow", NameHu = "Rövid rétegelt íj" },
+                new Weapon { Id = 16, Name = "Long plywood bow", NameHu = "Hosszú támasztott íj" },
+                new Weapon { Id = 17, Name = "Short compound bow", NameHu = "Rövid összetett íj" },
+                new Weapon { Id = 18, Name = "Long compound bow", NameHu = "Hosszú összetett íj" },
+                new Weapon { Id = 19, Name = "Short elven bow", NameHu = "Rövid tünde íj" },
+                new Weapon { Id = 20, Name = "Long elven bow", NameHu = "Hosszú tünde íj" },
+                new Weapon { Id = 21, Name = "One-handed battle axe", NameHu = "Egykezes csatabárd" },
+                new Weapon { Id = 22, Name = "Two-handed battle axe", NameHu = "Többkezes csatabárd" },
+                new Weapon { Id = 23, Name = "Short sword", NameHu = "Rövid kard" },
+                new Weapon { Id = 24, Name = "Long sword", NameHu = "Hosszú  kard" },
+                new Weapon { Id = 25, Name = "Bastard sword", NameHu = "Másfél kezes kard" },
+                new Weapon { Id = 26, Name = "Broadsword", NameHu = "Pallos" },
+                new Weapon { Id = 27, Name = "Sabre", NameHu = "Szablya" },
+                new Weapon { Id = 28, Name = "Knife", NameHu = "Kés" },
+                new Weapon { Id = 29, Name = "Dagger", NameHu = "Tőr" },
+                new Weapon { Id = 30, Name = "Fencing sword", NameHu = "Tőrkard" },
+                new Weapon { Id = 31, Name = "Staff", NameHu = "Bot" },
+                new Weapon { Id = 32, Name = "One-handed mace", NameHu = "Egykezes buzogány" },
+                new Weapon { Id = 33, Name = "Two-handed mace", NameHu = "Kétkezes buzogány" },
+                new Weapon { Id = 34, Name = "Chained mace", NameHu = "Láncos buzogány" },
+                new Weapon { Id = 35, Name = "Combat hammer", NameHu = "Harci kalapács" },
+                new Weapon { Id = 36, Name = "Halberd", NameHu = "Alabárd" },
+                new Weapon { Id = 37, Name = "Lance", NameHu = "Lándzsa" },
+                new Weapon { Id = 38, Name = "Equestrian lance", NameHu = "Lovas kopja" },
+                new Weapon { Id = 39, Name = "Garotte", NameHu = "Garott" },
+                new Weapon { Id = 40, Name = "Bite", NameHu = "Harapás" },
+                new Weapon { Id = 41, Name = "Heavy Bite", NameHu = "Nehéz Harapás" },
+                new Weapon { Id = 42, Name = "Mythic Bite", NameHu = "Mítikus Harapás" },
+                new Weapon { Id = 43, Name = "Claws", NameHu = "Karmok" },
+                new Weapon { Id = 44, Name = "Heavy Claws", NameHu = "Nehéz karmok" },
+                new Weapon { Id = 45, Name = "Mythic Claws", NameHu = "Mítikus karmok" },
+                new Weapon { Id = 46, Name = "Poison body", NameHu = "Mérgező test" },
+                new Weapon { Id = 47, Name = "Death Touch", NameHu = "Halálos érintés" },
+                new Weapon { Id = 48, Name = "Tentacle", NameHu = "Csáp" },
+                new Weapon { Id = 49, Name = "Poison breath", NameHu = "Méregező lehelellet" },
+                new Weapon { Id = 50, Name = "Ice breath", NameHu = "Fagycsóva" },
+                new Weapon { Id = 51, Name = "Fire breath", NameHu = "Lángcsóva" },
+                new Weapon { Id = 52, Name = "Poison spit", NameHu = "Méreg köpet" },
+                new Weapon { Id = 53, Name = "Acid spit", NameHu = "Sav köpet" },
+                new Weapon { Id = 54, Name = "Posionous acid spit", NameHu = "Mérgező sav köpet" },
+                new Weapon { Id = 55, Name = "Lightning breath", NameHu = "Villámgömb" },
+                new Weapon { Id = 56, Name = "Horn", NameHu = "Szarv" },
+                new Weapon { Id = 57, Name = "Small shield", NameHu = "Kis pajzs" },
+                new Weapon { Id = 58, Name = "Shield", NameHu = "Közepes pajzs" },
+                new Weapon { Id = 59, Name = "Tower shield", NameHu = "Nagy pajzs" },
+                new Weapon { Id = 60, Name = "Net", NameHu = "Háló" }
+            });
+        }
+
+        public static Task AddOrUpdateArmors(DbContext dbContext)
+        {
+            return dbContext.BulkInsertOrUpdateAsync(new[]
+            {
+                new Armor { Id = 1, Name = "Leather Armor", NameHu = "Bőrpáncél", BaseArmorClass = 1 },
+                new Armor { Id = 2, Name = "Ring Armor", NameHu = "Gyűrűs vért", BaseArmorClass = 2, MovementInhibitoryFactor = 1},
+                new Armor { Id = 3, Name = "Chain shirt", NameHu = "Láncing", BaseArmorClass = 2, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 4, Name = "Hauberk", NameHu = "Sodronying", BaseArmorClass = 3, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 5, Name = "Scale mail", NameHu = "Pikkelyvért", BaseArmorClass = 3, MovementInhibitoryFactor = 2 },
+                new Armor { Id = 6, Name = "Breastplate", NameHu = "Mellvért", BaseArmorClass = 4, MovementInhibitoryFactor = 3 },
+                new Armor { Id = 7, Name = "Half plate", NameHu = "Félvért", BaseArmorClass = 5, MovementInhibitoryFactor = 4 },
+                new Armor { Id = 8, Name = "Plate", NameHu = "Teljesvért", BaseArmorClass = 6, MovementInhibitoryFactor = 5 },
+                new Armor { Id = 9, Name = "Imperial elite plate", NameHu = "Birodalmi elit vért", BaseArmorClass = 7, MovementInhibitoryFactor = 6 },
+                new Armor { Id = 10, Name = "Leather warhorse mail", NameHu = "Harci ló bőrvért", BaseArmorClass = 1, MovementInhibitoryFactor = 0 },
+                new Armor { Id = 11, Name = "Warhorse chain mail", NameHu = "Harci ló láncvért", BaseArmorClass = 2, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 12, Name = "Warhorse heavy scale mail", NameHu = "Nehéz harci ló pikkelyvért", BaseArmorClass = 3, MovementInhibitoryFactor = 2 },
+                new Armor { Id = 13, Name = "Warhorse heavy plate", NameHu = "Nehéz harci ló merev vért", BaseArmorClass = 5, MovementInhibitoryFactor = 4 },
+                new Armor { Id = 15, Name = "Vambraces", NameHu = "Alkarvédő", BaseArmorClass = 1, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 16, Name = "Rerebrace", NameHu = "Felkarvédő", BaseArmorClass = 1, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 17, Name = "Pauldron", NameHu = "Válvédő", BaseArmorClass = 1, MovementInhibitoryFactor = 1 },
+                new Armor { Id = 18, Name = "Greaves", NameHu = "Lábszárvédő", BaseArmorClass = 1, MovementInhibitoryFactor = 0 },
+                new Armor { Id = 19, Name = "Battle skirt", NameHu = "Csataszoknya", BaseArmorClass = 1, MovementInhibitoryFactor = 0 }
+            });
+        }
+    }
+}

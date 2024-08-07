@@ -31,7 +31,6 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             Name = "Creature",
             NameHu = "CreatureHu",
-            Karma = 0,
             CreatureFlaws = new List<CreatureFlaw>
             {
                 new CreatureFlaw
@@ -141,7 +140,8 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             Name = "Creature",
             NameHu = "CreatureHu",
-            Karma = -3,
+            KarmaMax = -3,
+            KarmaMin = -3,
             CreatureFlaws = new List<CreatureFlaw>
             {
                 new CreatureFlaw

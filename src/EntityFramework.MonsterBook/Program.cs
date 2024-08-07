@@ -1,12 +1,25 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+using EntityFramework.MonsterBook.Seeds;
 
 namespace EntityFramework.MonsterBook
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static async Task Main()
         {
-            Console.WriteLine("Hello World!");
+            await using var context = new EfMonsterBookDbContext();
+            await Merits.AddOrUpdateMerits(context);
+            await Flaws.AddOrUpdateFlaws(context);
+            await Skills.AddOrUpdateSkills(context);
+            await WeaponsAndArmors.AddOrUpdateWeapons(context);
+            await WeaponsAndArmors.AddOrUpdateArmors(context);
+            const int identitySeedStart = 1;
+            var seedIdContinuation = await new Animals(identitySeedStart).AddOrUpdateAnimals(context);
+            seedIdContinuation = await new EvilAndGoodCreatures(seedIdContinuation).AddOrUpdateCreatures(context);
+            seedIdContinuation = await new SimpleEnemiesAndHirelings(seedIdContinuation).AddOrUpdateCharacters(context);
+            seedIdContinuation = await new DragonsAndBugs(seedIdContinuation).AddOrUpdateCreatures(context);
+            await new MythicCreatures(seedIdContinuation).AddOrUpdateCreatures(context);
+            await context.SaveChangesAsync();
         }
     }
 }
