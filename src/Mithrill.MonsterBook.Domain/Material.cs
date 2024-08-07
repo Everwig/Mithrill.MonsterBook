@@ -2,8 +2,10 @@
 {
     public enum Material
     {
+        Bone,
         Cloth,
         Leather,
+        DragonHide,
         Wood,
         Brick,
         Copper,

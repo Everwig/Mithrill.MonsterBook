@@ -19,7 +19,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await AddChimeraAsync(context, GetIdentity());
             await AddDiagonaAsync(context, GetIdentity());
-            await AddUnicornAync(context, GetIdentity());
+            await AddUnicornAsync(context, GetIdentity());
             await AddGiganticSnailAsync(context, GetIdentity());
             await AddGnollAsync(context, GetIdentity());
             await AddGriffAsync(context, GetIdentity());
@@ -201,7 +201,7 @@ namespace EntityFramework.MonsterBook.Seeds
             });
         }
 
-        private async Task AddUnicornAync(DbContext context, int identity)
+        private async Task AddUnicornAsync(DbContext context, int identity)
         {
             await context.BulkInsertOrUpdateAsync(new[]
             {

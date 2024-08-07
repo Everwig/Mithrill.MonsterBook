@@ -124,7 +124,8 @@ namespace EntityFramework.MonsterBook.Seeds
                         new CreatureWeapon
                         {
                             CreatureId = identity,
-                            WeaponId = 40
+                            WeaponId = 40,
+                            Material = Material.Bone
                         }
                     }
                 }
@@ -203,7 +204,8 @@ namespace EntityFramework.MonsterBook.Seeds
                         new CreatureWeapon
                         {
                             CreatureId = identity,
-                            WeaponId = 40
+                            WeaponId = 40,
+                            Material = Material.Bone
                         }
                     }
                 }
@@ -283,7 +285,8 @@ namespace EntityFramework.MonsterBook.Seeds
                         new CreatureWeapon
                         {
                             CreatureId = identity,
-                            WeaponId = 40
+                            WeaponId = 40,
+                            Material = Material.Bone
                         }
                     }
                 }
@@ -370,7 +373,8 @@ namespace EntityFramework.MonsterBook.Seeds
                         new CreatureWeapon
                         {
                             CreatureId = identity,
-                            WeaponId = 40
+                            WeaponId = 40,
+                            Material = Material.Bone
                         }
                     }
                 }
@@ -442,7 +446,8 @@ namespace EntityFramework.MonsterBook.Seeds
                         new CreatureWeapon
                         {
                             CreatureId = identity,
-                            WeaponId = 41
+                            WeaponId = 41,
+                            Material = Material.Bone
                         }
                     },
                     CreatureMerits = new List<CreatureMerit>
@@ -543,7 +548,8 @@ namespace EntityFramework.MonsterBook.Seeds
                         new CreatureWeapon
                         {
                             CreatureId = identity,
-                            WeaponId = 40
+                            WeaponId = 40,
+                            Material = Material.Bone
                         }
                     }
                 }
