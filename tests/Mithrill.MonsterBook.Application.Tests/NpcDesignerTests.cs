@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -66,7 +65,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.Flaws.Should().BeNull();
             c.Merits.Should().BeNull();
             c.CreatureSkillCategories.Should().BeNull();
-            c.Difficulty.Should().Be(difficulty);
+            c.Difficulty.Should().Be((Difficulty)difficulty);
         }
 
         [Fact]
@@ -97,7 +96,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.Flaws.Should().BeNull();
             c.Merits.Should().BeNull();
             c.CreatureSkillCategories.Should().BeNull();
-            c.Difficulty.Should().Be(difficulty);
+            c.Difficulty.Should().Be((Difficulty)difficulty);
         }
 
         [Fact]
@@ -134,7 +133,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 SecondSecondary = (SkillCategories)creature.CreatureSkillCategories.SecondSecondary,
                 Tertiary = (SkillCategories)creature.CreatureSkillCategories.Tertiary
             });
-            c.Difficulty.Should().Be(difficulty);
+            c.Difficulty.Should().Be((Difficulty)difficulty);
         }
     }
 }
