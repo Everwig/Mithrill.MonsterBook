@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <UserSecretsId>de623cbe-6cfb-48e1-a4ad-4db596d980b1</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
     <Nullable>enable</Nullable>
     <TypeScriptCompiledBlocked>true</TypeScriptCompiledBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
