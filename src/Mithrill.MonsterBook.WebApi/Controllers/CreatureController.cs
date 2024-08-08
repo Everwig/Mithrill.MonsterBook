@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mithrill.MonsterBook.Application.Creature.Query.GetCreature;
 using Mithrill.MonsterBook.Application.Creature.Query.GetCreatures;
-using Mithrill.MonsterBook.WebApi.Controllers.Common;
+using Mithrill.MonsterBook.WebApi.Common;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers
 {

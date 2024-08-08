@@ -41,7 +41,7 @@ namespace Mithrill.MonsterBook.WebApi
             }
             finally
             {
-                Log.CloseAndFlush();
+                await Log.CloseAndFlushAsync();
             }
         }
 

@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mithrill.MonsterBook.WebApi.Controllers.Common
+namespace Mithrill.MonsterBook.WebApi.Common
 {
     [ApiController]
     [Produces(MediaTypeNames.Application.Json, "application/problem+json")]

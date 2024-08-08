@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma;
 using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedProminentNpc;
-using Mithrill.MonsterBook.WebApi.Controllers.Common;
+using Mithrill.MonsterBook.WebApi.Common;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers
 {
