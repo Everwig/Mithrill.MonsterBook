@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace Mithrill.MonsterBook.WebApi.Controllers.Common
+namespace Mithrill.MonsterBook.WebApi.Common
 {
     public class NotFoundResultFilterConvention : IControllerModelConvention
     {
         public void Apply(ControllerModel controller)
         {
-            if(IsApiController(controller))
+            if (IsApiController(controller))
                 controller.Filters.Add(new NotFoundResultFilterAttribute());
         }
 
@@ -31,7 +31,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers.Common
 
         public void OnResultExecuting(ResultExecutingContext context)
         {
-            if(context.Result is ObjectResult objectResult && objectResult.Value == null)
+            if (context.Result is ObjectResult objectResult && objectResult.Value == null)
                 context.Result = new NotFoundResult();
         }
     }

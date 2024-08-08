@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
-namespace Mithrill.MonsterBook.WebApi.Controllers.Common
+namespace Mithrill.MonsterBook.WebApi.Common
 {
     public static class CustomApiConventions
     {

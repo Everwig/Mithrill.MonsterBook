@@ -1,72 +1,88 @@
-using System.Linq;
 using System.Text.Json.Serialization;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Mithrill.MonsterBook.Application;
 using Mithrill.MonsterBook.Infrastructure;
-using Mithrill.MonsterBook.WebApi.Controllers.Common;
-using NSwag;
+using Mithrill.MonsterBook.WebApi.Common;
+using Newtonsoft.Json.Converters;
 
 namespace Mithrill.MonsterBook.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly IConfiguration _configuration;
+        private readonly IHostEnvironment _environment;
 
-        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
+        {
+            _configuration = configuration;
+            _environment = environment;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(mvcOptions => mvcOptions.Conventions.Add(new NotFoundResultFilterConvention()))
                 .AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.RegisterApplication();
-            services.RegisterRepository(Configuration);
-            services.AddOpenApiDocument(configure =>
-            {
-                configure.Title = "Mithrill MonsterBook API";
-            });
+            services.RegisterRepository(_configuration);
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = "offers-engine/dist/offers-engine");
+            services.AddHttpContextAccessor();
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddControllers(options => options.Filters.Add<ExpectedExceptionFilter>())
+                .AddNewtonsoftJson(option => option.SerializerSettings.Converters.Add(new StringEnumConverter()));
+            services.AddOpenApiServices("Mithrill MonsterBook API");
 
             var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Application.Common.Mappings.MappingProfile).Assembly));
             mapperConfiguration.AssertConfigurationIsValid();
+
+            if (_environment.IsDevelopment())
+            {
+                services.AddCors(options => options.AddDefaultPolicy(policy =>
+                    policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:4200", "https://localhost:4200")));
+            }
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
+            if (_environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwaggerMiddleware(_environment, string.Empty);
+                app.UseCors();
+            }
+            else
+            {
+                app.UseSpaStaticFiles();
             }
 
+            app.UseStaticFiles();
+            app.UseHsts();
             app.UseHttpsRedirection();
+            app.UseSpaStaticFiles();
+            app.UseExceptionHandler(options => options.UseApiExceptionHandler(_environment, loggerFactory));
             app.UseRouting();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(e => e.MapDefaultControllerRoute());
 
-            app.UseOpenApi(settings =>
+            app.Map("/api", preserveMatchedPathSegment: true, api =>
             {
-                settings.PostProcess = (document, request) =>
+                api.UseRouting();
+                api.UseEndpoints(endpoints =>
                 {
-                    if (env.IsDevelopment() || document.Schemes.Any(schema => schema == OpenApiSchema.Https))
-                        return;
-
-                    document.Schemes.Add(OpenApiSchema.Https);
-                    document.Schemes.Remove(OpenApiSchema.Http);
-                };
+                    endpoints.MapDefaultControllerRoute();
+                });
             });
 
-            app.UseSwaggerUi(settings =>
+            app.UseSpa(spa =>
             {
-                settings.Path = "/api";
+                spa.Options.SourcePath = "monsterbook";
+                if (_environment.IsDevelopment())
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
             });
         }
     }
