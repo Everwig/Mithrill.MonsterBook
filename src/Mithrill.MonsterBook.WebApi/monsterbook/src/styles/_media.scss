@@ -1,0 +1,51 @@
+// ------------------------------
+// Get breakpoint function
+// ------------------------------
+@function breakpoint($bp) {
+  @return map-get($breakpoints, $bp);
+}
+
+$breakpoints: (
+  sm: 640px, 
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  2xl: 1537px,
+  3xl: 2048px
+);
+
+$container-max-width: (
+    sm: breakpoint(sm),
+    md: breakpoint(md), 
+    lg: breakpoint(lg),
+    xl: breakpoint(xl),
+    2xl: breakpoint(2xl),
+    3xl: breakpoint(3xl),
+);
+
+// ------------------------------
+// Min and Max mixins
+// ------------------------------
+@mixin min($bp, $max: "null", $device: "screen") {
+  @if $max == "null" {
+    @media only #{$device} and (min-width: #{$bp}) {
+      @content;
+    }
+  } @else {
+    @media only #{$device} and (min-width: #{$bp}) and (max-width: #{$max}) {
+      @content;
+    }
+  }
+}
+
+@mixin max($bp, $min: "null", $device: "screen") {
+  @if $min == "null" {
+    @media only #{$device} and (max-width: #{$bp}) {
+      @content;
+    }
+  } @else {
+    @media only #{$device} and (max-width: #{$bp}) and (min-width: #{$min}) {
+      @content;
+    }
+  }
+}
