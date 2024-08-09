@@ -1,0 +1,69 @@
+@import 'media';
+
+html,
+body {
+  height: 100%;
+  background-color: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: "'Josefin Sans', sans-serif";
+  overflow: hidden;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.global-container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  box-sizing: border-box;
+
+  @include min(breakpoint(xl)){
+    max-width: map-get($container-max-width, xl);
+  }
+
+  @include min(breakpoint(2xl)){
+    max-width: map-get($container-max-width, 2xl);
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  @include min(breakpoint(3xl)){
+    max-width: map-get($container-max-width, 3xl);
+  }
+}
