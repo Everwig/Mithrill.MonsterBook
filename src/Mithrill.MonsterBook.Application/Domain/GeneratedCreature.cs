@@ -6,6 +6,14 @@ namespace Mithrill.MonsterBook.Application.Domain
 {
     internal class GeneratedCreature : IGeneratedCreature
     {
+        public GeneratedCreature()
+        {
+            Flaws = new List<Flaw>();
+            Merits = new List<Merit>();
+            Weapons = new List<Weapon>();
+            Skills = new List<Skill>();
+        }
+
         public string Name { get; set; }
         public string NameHu { get; set; }
         public int Strength { get; set; }
@@ -27,5 +35,10 @@ namespace Mithrill.MonsterBook.Application.Domain
         public int PowerPoint { get; set; }
         public int ManaPoint { get; set; }
         public int HitPoint { get; set; }
+
+        public static GeneratedCreature NullCreature()
+        {
+            return new GeneratedCreature();
+        }
     }
 }

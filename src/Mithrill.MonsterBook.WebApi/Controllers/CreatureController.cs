@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mithrill.MonsterBook.Application.Creature.Query.GetCreature;
@@ -11,7 +10,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
     public class CreatureController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<IEnumerable<Application.Creature.Query.GetCreatures.Creature>> GetAll(CancellationToken cancellationToken)
+        public async Task<GetCreaturesQueryResult> GetAll(CancellationToken cancellationToken)
         {
             return await Mediator.Send(new GetCreaturesQuery(), cancellationToken);
         }

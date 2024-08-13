@@ -1,0 +1,20 @@
+export enum Material {
+  Bone,
+  Cloth,
+  Leather,
+  DragonHide,
+  Wood,
+  Brick,
+  Gold,
+  Copper,
+  Stone,
+  Marble,
+  Iron,
+  Steel,
+  Mithrill,
+  Granite,
+  Ruby,
+  Diamond,
+  Adamar,
+  Adamir
+}

@@ -19,8 +19,8 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         private readonly IMapper _mapper;
         private readonly IMonsterBookDbContext _monsterBookDbContext;
         private readonly Random _random;
-        private GeneratedCreature _creature = new GeneratedCreature();
-        private MonsterBook.Domain.Creature _queriedCreature;
+        private GeneratedCreature _creature = new();
+        private MonsterBook.Domain.Creature? _queriedCreature;
 
         public CreatureBuilder(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
         {
@@ -312,55 +312,30 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            CalculateHitPoints(isUndead);
-            CalculateManaPoints();
-            CalculatePowerPoints();
+            _creature.HitPoint = Calculators.CalculateHitPoints(
+                _creature.Strength,
+                _creature.Body,
+                isUndead,
+                _creature.Merits);
+
+            _creature.ManaPoint = Calculators.CalculateManaPoints(
+                _creature.Intelligence,
+                _creature.Willpower,
+                _creature.Emotion,
+                _creature.Merits);
+
+            _creature.PowerPoint = Calculators.CalculatePowerPoints(_creature.Karma);
         }
 
         public IGeneratedCreature GetNpc()
         {
             if(_queriedCreature == null)
-                return null;
+                return GeneratedCreature.NullCreature();
 
             var monster = _creature;
             Reset();
 
             return monster;
-        }
-
-        private void CalculateManaPoints()
-        {
-            var mp = _creature.Intelligence + _creature.Willpower + _creature.Emotion;
-            
-            if (_creature.Merits != null && _creature.Merits.Any(m => m.NameHu == AttributeTraits.ManaPointIncreaseTrait))
-                mp += _creature.Intelligence + 3;
-
-            if (_creature.Intelligence > 7)
-                mp += _creature.Intelligence;
-
-            _creature.ManaPoint = mp;
-        }
-
-        private void CalculateHitPoints(bool isUndead)
-        {
-            if (isUndead)
-                _creature.HitPoint = (_creature.Strength + _creature.Body) * 5;
-            else
-            {
-                var hp = _creature.Body * 4 + 5;
-                if (_creature.Merits != null && _creature.Merits.Any(m => m.NameHu == AttributeTraits.HitPointIncreaseTrait))
-                    hp += _creature.Body;
-
-                if (_creature.Body > 7)
-                    hp *= 2;
-
-                _creature.HitPoint = hp;
-            }
-        }
-
-        private void CalculatePowerPoints()
-        {
-            _creature.PowerPoint = Math.Abs(_creature.Karma * 3);
         }
     }
 }
