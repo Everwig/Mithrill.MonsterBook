@@ -1,4 +1,4 @@
-﻿namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreature
+﻿namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
     public class Weapon
     {

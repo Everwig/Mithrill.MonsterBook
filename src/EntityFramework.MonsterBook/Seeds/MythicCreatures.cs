@@ -34,6 +34,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Chimera",
                     NameHu = "Chiméra",
                     Id = identity,
@@ -138,6 +139,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Diagona",
                     NameHu = "Diagona",
                     Id = identity,
@@ -207,6 +209,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Unicorn",
                     NameHu = "Egyszarvú",
                     Id = identity,
@@ -309,6 +312,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Gigantic snail",
                     NameHu = "Gigantikus éticsiga",
                     Id = identity,
@@ -372,6 +376,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Gnoll",
                     NameHu = "Gnoll",
                     Id = identity,
@@ -516,6 +521,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Griff",
                     NameHu = "Griff",
                     Id = identity,
@@ -612,6 +618,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Hydra",
                     NameHu = "Hydra",
                     Id = identity,
@@ -699,6 +706,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Lamassu",
                     NameHu = "Lamassu",
                     Id = identity,
@@ -903,6 +911,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Siren",
                     NameHu = "Szirén",
                     Id = identity,

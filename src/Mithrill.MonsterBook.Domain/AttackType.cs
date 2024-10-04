@@ -1,4 +1,6 @@
-﻿namespace Mithrill.MonsterBook.Domain
+﻿using System.Collections.Generic;
+
+namespace Mithrill.MonsterBook.Domain
 {
     public class AttackType
     {
@@ -6,8 +8,8 @@
         public DamageType DamageType { get; set; }
         public int NumberOfDices { get; set; }
         public int GuaranteedDamage { get; set; }
-
-        public int WeaponId { get; set; }
-        public Weapon Weapon { get; set; }
+        
+        public ICollection<Weapon> Weapons { get; set; }
+        public ICollection<CreatureWeaponAttackType> CreatureWeaponAttackTypes { get; set; }
     }
 }

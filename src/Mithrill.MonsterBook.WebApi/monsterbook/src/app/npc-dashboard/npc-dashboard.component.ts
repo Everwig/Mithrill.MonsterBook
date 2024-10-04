@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatPaginatorModule, MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table'
@@ -23,6 +26,9 @@ import * as fromNpcsActions from './store/npcs.actions';
   standalone: true,
   imports: [
     CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatTableModule,
@@ -54,11 +60,7 @@ export class NpcDashboardComponent implements OnInit {
     'powerPoint',
     'race',
     'difficulity',
-    'skills',
-    'merits',
-    'flaws',
-    'weapons',
-    'armors'
+    'actions'
   ];
 
   @ViewChild(MatPaginator)paginator!: MatPaginator;
@@ -86,12 +88,13 @@ export class NpcDashboardComponent implements OnInit {
 
   onPageChanged(pageEvent: PageEvent): void {
     this.store$.dispatch(fromNpcsActions.pageChanged({
-      pageInformation: {
-        pageIndex: pageEvent.pageIndex,
-        pageSize: pageEvent.pageSize,
-        totalCount: pageEvent.length
-      }
+      pageIndex: pageEvent.pageIndex,
+      pageSize: pageEvent.pageSize
     }));
+  }
+
+  onDelete(npcId: number): void {
+    this.store$.dispatch(fromNpcsActions.deleteNpc({ npcId }));
   }
 
   getMaterial(material: Material): string {

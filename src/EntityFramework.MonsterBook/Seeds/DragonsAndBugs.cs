@@ -37,6 +37,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Bug,
                     Name = "Queen bug",
                     NameHu = "Királynő",
                     Id = identity,
@@ -143,6 +144,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Bug,
                     Name = "Carver bug",
                     NameHu = "Vájó",
                     Id = identity,
@@ -194,6 +196,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Bug,
                     Name = "Soldier bug",
                     NameHu = "Katona",
                     Id = identity,
@@ -262,6 +265,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Bug,
                     Name = "Scout bug",
                     NameHu = "Felderítő",
                     Id = identity,
@@ -336,6 +340,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Bug,
                     Name = "Worker bug",
                     NameHu = "Dolgozó",
                     Id = identity,
@@ -387,6 +392,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Dragon,
                     Name = "Green dragon",
                     NameHu = "Zöld sárkány",
                     Id = identity,
@@ -461,6 +467,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Dragon,
                     Name = "Red dragon",
                     NameHu = "Vörös sárkány",
                     Id = identity,
@@ -542,6 +549,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Dragon,
                     Name = "Blue dragon",
                     NameHu = "Kék sárkány",
                     Id = identity,
@@ -631,6 +639,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Dragon,
                     Name = "Bone dragon",
                     NameHu = "Csontsárkány",
                     Id = identity,
@@ -648,11 +657,10 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 4,
                     EmotionMax = 8,
                     EmotionMin = 4,
-                    KarmaMax = 4,
-                    KarmaMin = 7,
+                    KarmaMax = 7,
+                    KarmaMin = 4,
                     DamageReductionMax = 10,
                     DamageReductionMin = 10,
-                    IsUndead = true,
                     Difficulty = Difficulty.Expert,
                     CreatureSkills = new List<CreatureSkill>
                     {

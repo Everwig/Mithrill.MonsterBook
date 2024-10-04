@@ -32,4 +32,14 @@ export class NpcsEffects {
       )
     )
   );
+
+  deleteNpcs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromNpcsActions.deleteNpc),
+      switchMap(payload => this.npcDashboardService.delete(payload.npcId).pipe(
+        map(_ => fromNpcsActions.loadNpcs()),
+        catchError(error => of(fromNpcsActions.deleteNpcsFailed({ error })))
+      ))
+    )
+  );
 }

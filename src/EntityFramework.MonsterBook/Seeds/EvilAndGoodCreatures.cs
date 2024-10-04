@@ -50,6 +50,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Duahin magic zombie",
                     NameHu = "Duahini mágikus zombi",
                     Id = identity,
@@ -67,7 +68,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 3,
                     DamageReductionMax = 1,
                     DamageReductionMin = 1,
-                    IsUndead = true,
                     Difficulty = Difficulty.Novice,
                     CreatureSkills = new List<CreatureSkill>
                     {
@@ -130,6 +130,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Ghost",
                     NameHu = "Szellem",
                     Id = identity,
@@ -151,6 +152,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfLight,
                     Name = "Seraph",
                     NameHu = "Szeráf",
                     Id = identity,
@@ -170,7 +172,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 5,
                     EmotionMax = 7,
                     EmotionMin = 3,
-                    IsUndead = false,
                     Difficulty = Difficulty.Skilled,
                     DamageReductionMax = 2,
                     DamageReductionMin = 0,
@@ -241,6 +242,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfLight,
                     Name = "Angel",
                     NameHu = "Angyal",
                     Id = identity,
@@ -300,6 +302,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Zombie",
                     NameHu = "Zombi",
                     Id = identity,
@@ -311,7 +314,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     AgilityMin = 3,
                     DexterityMax = 3,
                     DexterityMin = 3,
-                    IsUndead = true,
                     Difficulty = Difficulty.Novice,
                     CreatureSkills = new List<CreatureSkill>
                     {
@@ -393,6 +395,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Vampire",
                     NameHu = "Vámpír",
                     Id = identity,
@@ -410,7 +413,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 6,
                     EmotionMax = 4,
                     EmotionMin = 4,
-                    IsUndead = true,
                     KarmaMax = 5,
                     KarmaMin = 0,
                     Difficulty = Difficulty.Skillful,
@@ -517,6 +519,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Hopping Chewer",
                     NameHu = "Ugráló húsrágó",
                     Id = identity,
@@ -598,6 +601,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Incubus",
                     NameHu = "Incubus",
                     Id = identity,
@@ -722,6 +726,7 @@ namespace EntityFramework.MonsterBook.Seeds
 {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Succubus",
                     NameHu = "Succubus",
                     Id = identity,
@@ -846,6 +851,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Rimsai",
                     NameHu = "Rimsai",
                     Id = identity,
@@ -865,7 +871,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 3,
                     EmotionMax = 6,
                     EmotionMin = 3,
-                    IsUndead = false,
                     Difficulty = Difficulty.Skilled,
                     DamageReductionMax = 2,
                     DamageReductionMin = 0,
@@ -936,6 +941,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Mythical,
                     Name = "Guardian",
                     NameHu = "Őr",
                     Id = identity,
@@ -949,7 +955,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     DexterityMin = 8,
                     IntelligenceMax = 6,
                     IntelligenceMin = 6,
-                    IsUndead = false,
                     Difficulty = Difficulty.Experienced,
                     DamageReductionMax = 10,
                     DamageReductionMin = 10,
@@ -1053,6 +1058,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Hellhound",
                     NameHu = "Pokolfarkas",
                     Id = identity,
@@ -1134,6 +1140,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Mummy",
                     NameHu = "Múmia",
                     Id = identity,
@@ -1151,7 +1158,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 8,
                     EmotionMax = 8,
                     EmotionMin = 8,
-                    IsUndead = true,
                     KarmaMax = 6,
                     KarmaMin = 0,
                     Difficulty = Difficulty.Skillful,
@@ -1279,6 +1285,7 @@ namespace EntityFramework.MonsterBook.Seeds
 {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Poison spirit",
                     NameHu = "Méreg szellem",
                     Id = identity,
@@ -1292,7 +1299,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 5,
                     EmotionMax = 3,
                     EmotionMin = 3,
-                    IsUndead = true,
                     Difficulty = Difficulty.Novice,
                     CreatureWeapons = new List<CreatureWeapon>
                     {
@@ -1320,6 +1326,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Lich",
                     NameHu = "Lich",
                     Id = identity,
@@ -1337,7 +1344,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 9,
                     EmotionMax = 9,
                     EmotionMin = 9,
-                    IsUndead = true,
                     KarmaMax = 9,
                     KarmaMin = 3,
                     Difficulty = Difficulty.Experienced,
@@ -1470,6 +1476,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Death Knight",
                     NameHu = "Halálúr",
                     Id = identity,
@@ -1487,7 +1494,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 6,
                     EmotionMax = 6,
                     EmotionMin = 6,
-                    IsUndead = true,
                     Difficulty = Difficulty.Experienced,
                     CreatureSkills = new List<CreatureSkill>
                     {
@@ -1594,6 +1600,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Ghoul",
                     NameHu = "Ghoul",
                     Id = identity,
@@ -1611,7 +1618,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 4,
                     EmotionMax = 1,
                     EmotionMin = 1,
-                    IsUndead = true,
                     Difficulty = Difficulty.Talented,
                     CreatureSkills = new List<CreatureSkill>
                     {
@@ -1681,6 +1687,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Thousand fangs",
                     NameHu = "Ezerfog",
                     Id = identity,
@@ -1756,6 +1763,7 @@ namespace EntityFramework.MonsterBook.Seeds
 {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Demon",
                     NameHu = "Démon",
                     Id = identity,
@@ -1815,6 +1823,7 @@ namespace EntityFramework.MonsterBook.Seeds
 {
                 new Creature
                 {
+                    Race = Race.Undead,
                     Name = "Skeleton",
                     NameHu = "Csontváz",
                     Id = identity,
@@ -1826,7 +1835,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     AgilityMin = 3,
                     DexterityMax = 3,
                     DexterityMin = 3,
-                    IsUndead = true,
                     Difficulty = Difficulty.Newbie,
                     CreatureSkills = new List<CreatureSkill>
                     {
@@ -1903,6 +1911,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Cerberus",
                     NameHu = "Cerberus",
                     Id = identity,
@@ -1922,7 +1931,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 6,
                     EmotionMax = 6,
                     EmotionMin = 6,
-                    IsUndead = true,
                     CreatureSkills = new List<CreatureSkill>
                     {
                         new CreatureSkill
@@ -1970,6 +1978,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Baloth",
                     NameHu = "Baloth",
                     Id = identity,
@@ -2043,6 +2052,7 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.CreatureOfDarkness,
                     Name = "Shadow",
                     NameHu = "Árny",
                     Id = identity,

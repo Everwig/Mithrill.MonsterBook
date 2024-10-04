@@ -88,7 +88,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            if (!isUndead || _queriedCreature.IsUndead)
+            if (!isUndead || _queriedCreature.Race == MonsterBook.Domain.Race.Undead)
                 return;
 
             _creature.Strength += 2;

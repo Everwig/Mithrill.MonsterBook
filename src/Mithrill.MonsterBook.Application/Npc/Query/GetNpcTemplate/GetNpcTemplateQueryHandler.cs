@@ -6,26 +6,26 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 
-namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreature
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
-    internal sealed class GetCreatureQueryHandler : IRequestHandler<GetCreatureQuery, Creature>
+    internal sealed class GetNpcTemplateQueryHandler : IRequestHandler<GetNpcTemplateQuery, Npc>
     {
         private readonly IMapper _mapper;
         private readonly IMonsterBookDbContext _monsterBookDbContext;
 
-        public GetCreatureQueryHandler(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
+        public GetNpcTemplateQueryHandler(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
         {
             _mapper = mapper;
             _monsterBookDbContext = monsterBookDbContext;
         }
 
-        public async Task<Creature> Handle(GetCreatureQuery request, CancellationToken cancellationToken)
+        public async Task<Npc> Handle(GetNpcTemplateQuery request, CancellationToken cancellationToken)
         {
             var monster = await _monsterBookDbContext.Creatures
                 .Where(m => m.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
-            return _mapper.Map<Creature>(monster);
+            return _mapper.Map<Npc>(monster);
         }
     }
 }

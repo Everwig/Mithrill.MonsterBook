@@ -16,11 +16,11 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                     : CalculateHitPoints(strength, body, isUndead, false);
         }
 
-        public static int CalculateHitPoints(int strength, int body, bool isUndead, IEnumerable<MonsterBook.Domain.Flaw> merits)
+        public static int CalculateHitPoints(int strength, int body, MonsterBook.Domain.Race race, IEnumerable<MonsterBook.Domain.Merit> merits)
         {
             return merits.Any(merit => string.Equals(merit.NameHu, AttributeTraits.HitPointIncreaseTrait))
-                    ? CalculateHitPoints(strength, body, isUndead, true)
-                    : CalculateHitPoints(strength, body, isUndead, false);
+                    ? CalculateHitPoints(strength, body, race == MonsterBook.Domain.Race.Undead, true)
+                    : CalculateHitPoints(strength, body, race == MonsterBook.Domain.Race.Undead, false);
         }
 
         public static int CalculateManaPoints(int intelligence, int willpower, int emotion, IEnumerable<IMeritFlaw> merits)

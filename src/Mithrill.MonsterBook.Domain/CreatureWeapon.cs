@@ -8,7 +8,7 @@ namespace Mithrill.MonsterBook.Domain
         public Creature Creature { get; set; }
         public int WeaponId { get; set; }
         public Weapon Weapon { get; set; }
-        public ICollection<AttackType> AdditionalAttackTypes { get; set; }
+        public ICollection<CreatureWeaponAttackType> AdditionalAttackTypes { get; set; }
         
         public Material Material { get; set; }
         public int AdditionalAttackModifier { get; set; }

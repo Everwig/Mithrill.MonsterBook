@@ -12,6 +12,10 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
             builder.Property(nameof(Weapon.Name)).HasMaxLength(50);
             builder.Property(nameof(Weapon.NameHu)).HasMaxLength(50);
             builder.ToTable("Weapon");
+
+            builder.HasOne(weapon => weapon.BaseAttackType)
+                .WithMany(attackType => attackType.Weapons)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

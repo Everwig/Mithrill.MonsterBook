@@ -13,10 +13,6 @@ mat-toolbar {
   background-color: rgba(0, 19, 19);
 }
 
-mat-sidenav-container {
-  height: 100%;
-}
-
 mat-sidenav {
   padding-top: 3.5rem;
   background-color: rgba(0, 19, 19);
@@ -34,6 +30,7 @@ mat-sidenav {
 }
 
 mat-sidenav-content {
+  height: calc(100vh - 64px);
   padding-top: 3.5rem;
 
   @media screen and (min-width: 600px) {

@@ -22,6 +22,7 @@ export interface NpcListState {
   npcs: Npc[];
   pageInformation: PageInformation;
   sortInformation: SortInformation;
+  error: any;
 }
 
 const initialState: NpcsState = {
@@ -36,7 +37,8 @@ const initialState: NpcsState = {
     sortInformation: {
       sortDirection: 'asc',
       sortProperty: 'name'
-    }
+    },
+    error: undefined
   }
 }
 
@@ -46,6 +48,7 @@ export const reducer = createReducer(
   on(fromNpcActions.loadNpcsSuccess, (state, action) => ({
     ...state,
     npcList: {
+      ...state.npcList,
       isLoading: false,
       npcs: action.getStoredNpcsResult.npcs,
       pageInformation: action.getStoredNpcsResult.pageInformation,
@@ -53,11 +56,38 @@ export const reducer = createReducer(
     }
   })),
 
+  on(fromNpcActions.pageChanged, (state, action) => ({
+    ...state,
+    npcList: {
+      ...state.npcList,
+      isLoading: true,
+      pageInformation: {
+        ...state.npcList.pageInformation,
+        pageIndex: action.pageIndex,
+        pageSize: action.pageSize
+      }
+    }
+  })),
+
+  on(fromNpcActions.sortChanged, (state, action) => ({
+    ...state,
+    npcList: {
+      ...state.npcList,
+      isLoading: true,
+      sortInformation: {
+        ...state.npcList.sortInformation,
+        sortDirection: action.sortInformation.sortDirection,
+        sortProperty: action.sortInformation.sortProperty
+      }
+    }
+  })),
+
   on(fromNpcActions.loadNpcsFailed, (state, action) => ({
     ...state,
     npcList: {
       ...state.npcList,
-      isLoading: false
+      isLoading: false,
+      error: action.error
     }
   }))
 );

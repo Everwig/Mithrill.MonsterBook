@@ -114,7 +114,6 @@ namespace Mithrill.MonsterBook.Application.Tests
                 }
             },
             Difficulty = Difficulty.Novice,
-            IsUndead = false,
             AgilityMax = 8,
             AgilityMin = 4,
             BodyMax = 8,
@@ -214,7 +213,6 @@ namespace Mithrill.MonsterBook.Application.Tests
                 }
             },
             Difficulty = Difficulty.Novice,
-            IsUndead = true,
             AgilityMax = 8,
             AgilityMin = 4,
             BodyMax = 8,

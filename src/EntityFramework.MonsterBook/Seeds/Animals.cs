@@ -43,12 +43,12 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new Creature
                 {
+                    Race = Race.Animal,
                     Name = "Wolf",
                     NameHu = "Farkas",
                     Difficulty = Difficulty.Novice,
                     DamageReductionMax = 0,
                     DamageReductionMin = 0,
-                    IsUndead = false,
                     AgilityMax = 4,
                     AgilityMin = 3,
                     BodyMax = 3,
@@ -139,6 +139,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Hiéna",
                     Name = "Hyena",
                     AgilityMax = 5,
@@ -154,7 +155,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 3,
                     StrengthMin = 3,
                     VitalityMax = 5,
@@ -219,6 +219,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Mérges kígyó",
                     Name = "Venomous snake",
                     AgilityMax = 5,
@@ -234,7 +235,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 0,
                     IntelligenceMax = 0,
                     IntelligenceMin = 0,
-                    IsUndead = false,
                     StrengthMax = 1,
                     StrengthMin = 2,
                     VitalityMax = 3,
@@ -300,6 +300,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Nem mérges kígyó",
                     Name = "Non-venomous snake",
                     AgilityMax = 3,
@@ -315,7 +316,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 0,
                     IntelligenceMax = 0,
                     IntelligenceMin = 0,
-                    IsUndead = false,
                     StrengthMax = 7,
                     StrengthMin = 3,
                     VitalityMax = 3,
@@ -388,6 +388,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Krokodil",
                     Name = "Crocodile",
                     AgilityMax = 4,
@@ -403,7 +404,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 0,
                     IntelligenceMax = 0,
                     IntelligenceMin = 0,
-                    IsUndead = false,
                     StrengthMax = 7,
                     StrengthMin = 3,
                     VitalityMax = 7,
@@ -469,6 +469,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Kutya",
                     Name = "Dog",
                     AgilityMax = 4,
@@ -484,7 +485,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 2,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 3,
                     StrengthMin = 2,
                     VitalityMax = 4,
@@ -563,6 +563,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Igás- és nehéz csataló",
                     Name = "Cart hourse and destrier",
                     AgilityMax = 4,
@@ -578,7 +579,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 2,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 8,
                     StrengthMin = 7,
                     VitalityMax = 4,
@@ -655,6 +655,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Utazó ló és könnyű csataló",
                     Name = "Steed",
                     AgilityMax = 6,
@@ -670,7 +671,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 2,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 6,
                     StrengthMin = 5,
                     VitalityMax = 4,
@@ -747,6 +747,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Macska",
                     Name = "Cat",
                     AgilityMax = 6,
@@ -762,7 +763,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 1,
                     StrengthMin = 1,
                     VitalityMax = 3,
@@ -838,6 +838,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Medve",
                     Name = "Bear",
                     AgilityMax = 5,
@@ -853,7 +854,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 7,
                     StrengthMin = 5,
                     VitalityMax = 5,
@@ -937,6 +937,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Oroszlán",
                     Name = "Lion",
                     AgilityMax = 3,
@@ -950,7 +951,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 7,
                     StrengthMin = 5,
                     VitalityMax = 5,
@@ -1019,6 +1019,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Pók",
                     Name = "Spider",
                     AgilityMax = 6,
@@ -1032,7 +1033,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 0,
                     IntelligenceMax = 0,
                     IntelligenceMin = 0,
-                    IsUndead = false,
                     StrengthMax = 6,
                     StrengthMin = 1,
                     VitalityMax = 3,
@@ -1102,6 +1102,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Reu",
                     Name = "Reu",
                     AgilityMax = 2,
@@ -1117,7 +1118,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 0,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 10,
                     StrengthMin = 10,
                     VitalityMax = 10,
@@ -1168,6 +1168,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Skorpió",
                     Name = "Scorpion",
                     AgilityMax = 5,
@@ -1181,7 +1182,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 0,
                     IntelligenceMax = 0,
                     IntelligenceMin = 0,
-                    IsUndead = false,
                     StrengthMax = 0,
                     StrengthMin = 0,
                     VitalityMax = 4,
@@ -1257,6 +1257,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Tigris",
                     Name = "Tiger",
                     AgilityMax = 5,
@@ -1270,7 +1271,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 6,
                     StrengthMin = 4,
                     VitalityMax = 4,
@@ -1362,6 +1362,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Vadászsólyom",
                     Name = "Falcon",
                     AgilityMax = 6,
@@ -1375,7 +1376,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 1,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 1,
                     StrengthMin = 1,
                     VitalityMax = 2,
@@ -1444,6 +1444,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
+                    Race = Race.Animal,
                     NameHu = "Warg",
                     Name = "Warg",
                     AgilityMax = 5,
@@ -1459,7 +1460,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 0,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    IsUndead = false,
                     StrengthMax = 6,
                     StrengthMin = 4,
                     VitalityMax = 5,

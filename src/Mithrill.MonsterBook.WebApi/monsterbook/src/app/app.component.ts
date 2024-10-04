@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
   }
 
   toggleMenu() {
-    console.log(this.isMobile, this.isCollapsed);
     if (this.isMobile) {
       this.sidenav.toggle();
       this.isCollapsed = false;

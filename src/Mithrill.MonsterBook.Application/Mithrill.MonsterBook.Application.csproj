@@ -21,6 +21,7 @@
     <Folder Include="Creature\Command\AddCreatureCommand\" />
     <Folder Include="Creature\Command\DeleteCreatureCommand\" />
     <Folder Include="Creature\Command\UpdateCreatureCommand\" />
+    <Folder Include="Creature\Query\" />
   </ItemGroup>
 
 </Project>

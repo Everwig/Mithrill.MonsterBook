@@ -20,14 +20,14 @@ import { DamageType } from '../../core/model/damage-type.model';
 
 @Injectable()
 export class NpcDashboardService {
-  constructor(private npcClient: NpcClient) { }
+  constructor(private creatureClient: NpcClient) { }
 
   getAllNpcs(
     sortInformation: SortInformation,
     pageSize: number,
     pageIndex: number
   ): Observable<GetStoredNpcsResult> {
-    return this.npcClient.getStoredNpcs(
+    return this.creatureClient.getAll(
       sortInformation.sortDirection === '' ? undefined : sortInformation.sortDirection as SortDirection,
       sortInformation.sortProperty as SortProperty,
       pageSize,
@@ -63,43 +63,11 @@ export class NpcDashboardService {
           powerPointMin: npc.powerPointMin,
           difficulty: npc.difficulty as unknown as Difficulty,
           race: npc.race as unknown as Race,
-          skills: npc.skills.map(skill => ({
-            id: skill.id,
-            name: skill.name,
-            guaranteedSuccesses: skill.guaranteedSuccesses,
-            maxLevel: skill.skillLevelMax,
-            minLevel: skill.skillLevelMin,
-            isOptional: skill.isOptional
-          }) as Skill),
-          merits: npc.merits.map(merit => ({
-            id: merit.id,
-            name: merit.name,
-            isOptional: merit.isOptional
-          }) as Merit),
-          flaws: npc.flaws.map(flaw => ({
-            id: flaw.id,
-            name: flaw.name,
-            isOptional: flaw.isOptional
-          }) as Flaw),
-          armors: npc.armors.map(armor => ({
-            id: armor.id,
-            name: armor.name,
-            armorClass: armor.armorClass,
-            isOptional: armor.isOptional,
-            material: armor.material as unknown as Material,
-            movementInhibitoryFactor: armor.movementInhibitoryFactor
-          }) as Armor),
-          weapons: npc.weapons.map(weapon => ({
-            id: weapon.id,
-            name: weapon.name,
-            isOptional: weapon.isOptional,
-            material: weapon.material as unknown as Material,
-            attackTypes: weapon.attackTypes.map(attackType => ({
-              numberOfDices: attackType.numberOfDices,
-              guaranteedDamage: attackType.guaranteedDamage,
-              damageType: attackType.damageType as unknown as DamageType
-            }) as AttackType)
-          }) as Weapon)
+          armors: [],
+          flaws: [],
+          merits: [],
+          skills: [],
+          weapons: []
         }) as Npc);
 
         const pageInformation: PageInformation = {
@@ -116,5 +84,9 @@ export class NpcDashboardService {
         return { npcs, pageInformation, sortInformation };
       })
     )
+  }
+
+  delete(npcId: number): Observable<void> {
+    return this.creatureClient.deleteTemplate(npcId);
   }
 }

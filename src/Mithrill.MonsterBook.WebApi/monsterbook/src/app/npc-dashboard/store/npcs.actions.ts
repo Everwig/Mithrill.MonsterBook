@@ -15,10 +15,19 @@ export const loadNpcsFailed = createAction(
 
 export const pageChanged = createAction(
   '[NPCs] Page changed',
-  props<{ pageInformation: PageInformation }>()
+  props<{ pageSize: number, pageIndex: number }>()
 );
 
 export const sortChanged = createAction(
   '[NPCs] Sort changed',
   props<{ sortInformation: SortInformation }>()
+);
+
+export const deleteNpc = createAction(
+  '[NPCs] Delete template',
+  props<{ npcId: number }>()
+);
+export const deleteNpcsFailed = createAction(
+  '[NPCs] Delete NPCs failed',
+  props<{ error: any }>()
 );

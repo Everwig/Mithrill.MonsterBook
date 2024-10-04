@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
-namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreatures;
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 
 [JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum SortProperty
@@ -31,5 +31,7 @@ public enum SortProperty
     [EnumMember(Value = "name")]
     Name,
     [EnumMember(Value = "id")]
-    Id
+    Id,
+    [EnumMember(Value = "difficulty")]
+    Difficulty
 }

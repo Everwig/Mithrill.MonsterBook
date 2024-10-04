@@ -4,7 +4,7 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Infrastructure
 {
-    internal class MonsterBookDbContext : DbContext, IMonsterBookDbContext
+    public class MonsterBookDbContext : DbContext, IMonsterBookDbContext
     {
         public MonsterBookDbContext(DbContextOptions options) : base(options) { }
 
@@ -14,6 +14,7 @@ namespace Mithrill.MonsterBook.Infrastructure
         public DbSet<Flaw> Flaws {get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<Armor> Armors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

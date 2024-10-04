@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
 
-namespace Mithrill.MonsterBook.Application.Creature.Query.GetCreatures
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates
 {
-    public class GetCreaturesQuery : IRequest<GetCreaturesQueryResult>
+    public class GetNpcTemplatesQuery : IRequest<GetNpcTemplatesQueryResult>
     {
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
