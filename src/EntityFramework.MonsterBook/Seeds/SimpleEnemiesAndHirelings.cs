@@ -21,7 +21,7 @@ namespace EntityFramework.MonsterBook.Seeds
             await AddImperialBodyguard(context, GetIdentity());
             await AddNobleKnightOfTheEmpire(context, GetIdentity());
             
-            await AddNoviceAssassin(context, GetIdentity());
+            await AddNewbieAssassin(context, GetIdentity());
             await AddAssassin(context, GetIdentity());
             await AddProfessionalAssassin(context, GetIdentity());
             
@@ -36,7 +36,7 @@ namespace EntityFramework.MonsterBook.Seeds
 
             await AddGladiator(context, GetIdentity());
 
-            await AddNoviceArcher(context, GetIdentity());
+            await AddNewbieArcher(context, GetIdentity());
             await AddArcher(context, GetIdentity());
             await AddProfessionalArcher(context, GetIdentity());
 
@@ -56,7 +56,7 @@ namespace EntityFramework.MonsterBook.Seeds
             await AddPriestOfGood(context, GetIdentity());
             await AddPriestOfEvil(context, GetIdentity());
 
-            await AddNoviceThief(context, GetIdentity());
+            await AddNewbieThief(context, GetIdentity());
             await AddThief(context, GetIdentity());
             await AddProfessionalThief(context, GetIdentity());
 
@@ -66,7 +66,7 @@ namespace EntityFramework.MonsterBook.Seeds
 
             await AddBouncer(context, GetIdentity());
 
-            await AddNoviceMercenary(context, GetIdentity());
+            await AddNewbieMercenary(context, GetIdentity());
             await AddMercenary(context, GetIdentity());
             await AddProfessionalMercenary(context, GetIdentity());*/
 
@@ -107,7 +107,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 3,
                     DamageReductionMax = 3,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -236,7 +236,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
-                    NameHu = "Birodalmi veterán katona",
+                    NameHu = "Birodalmi Veteran katona",
                     Name = "Imperial veteran soldier",
                     KarmaMin = 0,
                     KarmaMax = 0,
@@ -258,7 +258,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 4,
                     DamageReductionMax = 4,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -435,7 +435,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 5,
                     DamageReductionMax = 5,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -635,7 +635,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 6,
                     DamageReductionMax = 6,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -858,7 +858,7 @@ namespace EntityFramework.MonsterBook.Seeds
             });
         }
         
-        public static async Task AddNoviceAssassin(DbContext dbContext, int identity)
+        public static async Task AddNewbieAssassin(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -866,7 +866,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 {
                     Id = identity,
                     NameHu = "Kezdő bérgyilkos",
-                    Name = "Novice Assassin",
+                    Name = "Newbie Assassin",
                     KarmaMin = 0,
                     KarmaMax = 0,
                     StrengthMin = 2,
@@ -1016,7 +1016,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -1463,7 +1463,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -1772,7 +1772,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Intermediate
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -1881,7 +1881,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -1997,7 +1997,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -2113,7 +2113,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 5,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -2375,7 +2375,7 @@ namespace EntityFramework.MonsterBook.Seeds
             });
         }
 
-        public static async Task AddNoviceArcher(DbContext dbContext, int identity)
+        public static async Task AddNewbieArcher(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -2383,7 +2383,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 {
                     Id = identity,
                     NameHu = "Kezdő íjász",
-                    Name = "Novice archer",
+                    Name = "Newbie archer",
                     KarmaMin = 0,
                     KarmaMax = 0,
                     StrengthMin = 3,
@@ -2404,7 +2404,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -2483,7 +2483,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
-                    NameHu = "Veterán íjász",
+                    NameHu = "Veteran íjász",
                     Name = "Archer",
                     KarmaMin = 0,
                     KarmaMax = 0,
@@ -2505,7 +2505,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Skillful
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -2777,7 +2777,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 4,
                     DamageReductionMax = 4,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 

@@ -5,6 +5,7 @@ using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Domain;
 using CreatureSkillCategories = Mithrill.MonsterBook.Domain.CreatureSkillCategories;
 using Difficulty = Mithrill.MonsterBook.Domain.Difficulty;
+using Race = Mithrill.MonsterBook.Domain.Race;
 using SkillCategories = Mithrill.MonsterBook.Domain.SkillCategories;
 
 namespace Mithrill.MonsterBook.Application.Tests
@@ -13,7 +14,7 @@ namespace Mithrill.MonsterBook.Application.Tests
     {
         public TestDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<MonsterBook.Domain.Creature> Creatures { get; set; }
+        public DbSet<Creature> Creatures { get; set; }
         public DbSet<Merit> Merits { get; set; }
         public DbSet<Flaw> Flaws { get; set; }
         public DbSet<Skill> Skills { get; set; }
@@ -27,13 +28,13 @@ namespace Mithrill.MonsterBook.Application.Tests
 
     public class Seeds
     {
-        public MonsterBook.Domain.Creature Creature = new MonsterBook.Domain.Creature
+        public Creature Creature = new()
         {
             Name = "Creature",
             NameHu = "CreatureHu",
             CreatureFlaws = new List<CreatureFlaw>
             {
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = 1,
                     FlawId = 1,
@@ -47,7 +48,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             },
             CreatureMerits = new List<CreatureMerit>
             {
-                new CreatureMerit
+                new()
                 {
                     CreatureId = 1,
                     MeritId = 1,
@@ -58,7 +59,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = AttributeTraits.HitPointIncreaseTrait
                     }
                 },
-                new CreatureMerit
+                new()
                 {
                     CreatureId = 1,
                     MeritId = 2,
@@ -81,7 +82,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             },
             CreatureSkills = new List<CreatureSkill>
             {
-                new CreatureSkill
+                new()
                 {
                     CreatureId = 1,
                     SkillId = 1,
@@ -101,7 +102,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             },
             CreatureWeapons = new List<CreatureWeapon>
             {
-                new CreatureWeapon
+                new()
                 {
                     CreatureId = 1,
                     WeaponId = 1,
@@ -113,7 +114,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            Difficulty = Difficulty.Novice,
+            Difficulty = Difficulty.Newbie,
             AgilityMax = 8,
             AgilityMin = 4,
             BodyMax = 8,
@@ -135,15 +136,16 @@ namespace Mithrill.MonsterBook.Application.Tests
             Id = 1
         };
 
-        public MonsterBook.Domain.Creature UndeadCreature = new MonsterBook.Domain.Creature
+        public Creature UndeadCreature = new()
         {
             Name = "Creature",
             NameHu = "CreatureHu",
+            Race = Race.Undead,
             KarmaMax = -3,
             KarmaMin = -3,
             CreatureFlaws = new List<CreatureFlaw>
             {
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = 1,
                     FlawId = 1,
@@ -157,7 +159,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             },
             CreatureMerits = new List<CreatureMerit>
             {
-                new CreatureMerit
+                new()
                 {
                     CreatureId = 1,
                     MeritId = 1,
@@ -180,7 +182,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             },
             CreatureSkills = new List<CreatureSkill>
             {
-                new CreatureSkill
+                new()
                 {
                     CreatureId = 1,
                     SkillId = 1,
@@ -200,7 +202,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             },
             CreatureWeapons = new List<CreatureWeapon>
             {
-                new CreatureWeapon
+                new()
                 {
                     CreatureId = 1,
                     WeaponId = 1,
@@ -212,7 +214,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            Difficulty = Difficulty.Novice,
+            Difficulty = Difficulty.Newbie,
             AgilityMax = 8,
             AgilityMin = 4,
             BodyMax = 8,

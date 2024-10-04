@@ -107,32 +107,19 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
                     meritsToAdd = 1;
                     break;
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
+                case Difficulty.Experienced:
                     meritsToAdd = 2;
                     break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
-                    meritsToAdd = 3;
-                    break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
-                    meritsToAdd = 4;
-                    break;
-                case Difficulty.Proficient:
-                case Difficulty.Experienced:
-                    meritsToAdd = 5;
-                    break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                    meritsToAdd = 6;
-                    break;
                 case Difficulty.Expert:
-                    meritsToAdd = 7;
+                    meritsToAdd = _random.Next(3, 5);
+                    break;
+                case Difficulty.Veteran:
+                    meritsToAdd = _random.Next(5, 7);
+                    break;
+                case Difficulty.Demigodly:
+                    meritsToAdd = _random.Next(7, 9);
                     break;
                 default:
                     meritsToAdd = _queriedCreature.CreatureMerits.Count;
@@ -165,32 +152,20 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
-                    flawsToAdd = 7;
+                    flawsToAdd = _random.Next(6, 8);
                     break;
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
-                    flawsToAdd = 6;
-                    break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
-                    flawsToAdd = 5;
-                    break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
-                    flawsToAdd = 4;
-                    break;
-                case Difficulty.Proficient:
                 case Difficulty.Experienced:
-                    flawsToAdd = 3;
-                    break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                    flawsToAdd = 2;
+                    flawsToAdd = _random.Next(5, 7);
                     break;
                 case Difficulty.Expert:
-                    flawsToAdd = 1;
+                    flawsToAdd = _random.Next(3, 5);
+                    break;
+                case Difficulty.Veteran:
+                    flawsToAdd = _random.Next(1, 3);
+                    break;
+                case Difficulty.Demigodly:
+                case Difficulty.Godly:
+                    flawsToAdd = 0;
                     break;
                 default:
                     flawsToAdd = _queriedCreature.CreatureFlaws.Count;
@@ -221,26 +196,18 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
+                case Difficulty.Experienced:
                     break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
+                case Difficulty.Expert:
                     difficultyIncrease = 1;
                     break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
+                case Difficulty.Veteran:
                     difficultyIncrease = 2;
                     break;
-                case Difficulty.Proficient:
-                case Difficulty.Experienced:
+                case Difficulty.Demigodly:
                     difficultyIncrease = 3;
                     break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                case Difficulty.Expert:
+                case Difficulty.Godly:
                     difficultyIncrease = 4;
                     break;
             }
@@ -278,26 +245,18 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
+                case Difficulty.Experienced:
                     break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
+                case Difficulty.Expert:
                     absoluteKarma += 1;
                     break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
+                case Difficulty.Veteran:
                     absoluteKarma += 2;
                     break;
-                case Difficulty.Proficient:
-                case Difficulty.Experienced:
+                case Difficulty.Demigodly:
                     absoluteKarma += 3;
                     break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                case Difficulty.Expert:
+                case Difficulty.Godly:
                     absoluteKarma += 4;
                     break;
             }

@@ -1,16 +1,9 @@
 export enum Difficulty {
-  Newbie,
-  Novice,
-  Rookie,
-  Beginner,
-  Talented,
-  Skilled,
-  Intermediate,
-  Skillful,
-  Seasoned,
-  Proficient,
-  Experienced,
-  Advanced,
-  Senior,
-  Expert
+  Newbie = 'kezdő',
+  Experienced = 'tapasztalt',
+  Expert = 'gyakorlott',
+  Veteran = 'veterán',
+  Demigod = 'félisteni',
+  Godly = 'isteni',
+  Variable = 'változó'
 }

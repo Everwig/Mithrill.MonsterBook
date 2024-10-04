@@ -68,10 +68,10 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 3,
                     DamageReductionMax = 1,
                     DamageReductionMin = 1,
-                    Difficulty = Difficulty.Novice,
+                    Difficulty = Difficulty.Newbie,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
@@ -81,32 +81,32 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 89
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 92
@@ -114,7 +114,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 23,
                             CreatureId = identity
@@ -172,12 +172,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 5,
                     EmotionMax = 7,
                     EmotionMin = 3,
-                    Difficulty = Difficulty.Skilled,
+                    Difficulty = Difficulty.Expert,
                     DamageReductionMax = 2,
                     DamageReductionMin = 0,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 6,
@@ -185,28 +185,28 @@ namespace EntityFramework.MonsterBook.Seeds
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 12,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 1,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 2,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 70,
@@ -216,17 +216,17 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 18,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 29,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 24
@@ -245,40 +245,41 @@ namespace EntityFramework.MonsterBook.Seeds
                     Race = Race.CreatureOfLight,
                     Name = "Angel",
                     NameHu = "Angyal",
+                    Difficulty = Difficulty.Variable,
                     Id = identity,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 4
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 13
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 18
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 67
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 16
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 51
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 49
@@ -286,7 +287,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 86
@@ -314,24 +315,24 @@ namespace EntityFramework.MonsterBook.Seeds
                     AgilityMin = 3,
                     DexterityMax = 3,
                     DexterityMin = 3,
-                    Difficulty = Difficulty.Novice,
+                    Difficulty = Difficulty.Newbie,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 1,
                             SkillLevelMax = 2,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 2,
                             SkillLevelMax = 2,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
@@ -341,27 +342,27 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 89
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
@@ -369,17 +370,17 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 23,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 32,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 24,
                             CreatureId = identity
@@ -415,52 +416,52 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 4,
                     KarmaMax = 5,
                     KarmaMin = 0,
-                    Difficulty = Difficulty.Skillful,
+                    Difficulty = Difficulty.Expert,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 3,
                             SkillLevelMax = 5,
                             SkillLevelMin = 5
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
                             SkillLevelMax = 5,
                             SkillLevelMin = 5
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 68,
                             SkillLevelMax = 3,
                             SkillLevelMin = 0
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 60,
                             SkillLevelMax = 2,
                             SkillLevelMin = 0
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 62,
                             SkillLevelMax = 2,
                             SkillLevelMin = 0
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 63,
                             SkillLevelMax = 2,
                             SkillLevelMin = 0
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 64,
@@ -470,27 +471,27 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 89
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
@@ -498,12 +499,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 32,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 24,
                             CreatureId = identity
@@ -537,40 +538,40 @@ namespace EntityFramework.MonsterBook.Seeds
                     IntelligenceMin = 2,
                     WillpowerMax = 5,
                     WillpowerMin = 5,
-                    Difficulty = Difficulty.Novice,
+                    Difficulty = Difficulty.Newbie,
                     DamageReductionMax = 1,
                     DamageReductionMin = 1,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 1,
                             SkillLevelMax = 4,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 15,
                             SkillLevelMax = 4,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 6,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 21,
                             SkillLevelMax = 4,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 22,
@@ -580,12 +581,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 40,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 43,
                             CreatureId = identity
@@ -621,73 +622,73 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 4,
                     EmotionMax = 8,
                     EmotionMin = 4,
-                    Difficulty = Difficulty.Intermediate,
+                    Difficulty = Difficulty.Expert,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 1,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 12,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 70,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 69,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 71,
                             SkillLevelMax = 5,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 24,
                             SkillLevelMax = 7,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 33,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 50,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 28,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 49,
@@ -697,7 +698,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 29,
                             CreatureId = identity
@@ -705,12 +706,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             MeritId = 50,
                             CreatureId = identity
                         },
-                        new CreatureMerit
+                        new()
                         {
                             MeritId = 16,
                             CreatureId = identity
@@ -746,73 +747,73 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 4,
                     EmotionMax = 8,
                     EmotionMin = 4,
-                    Difficulty = Difficulty.Intermediate,
+                    Difficulty = Difficulty.Expert,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 1,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 12,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 70,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 69,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 71,
                             SkillLevelMax = 5,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 24,
                             SkillLevelMax = 7,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 33,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 50,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 28,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 49,
@@ -822,7 +823,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 29,
                             CreatureId = identity
@@ -830,12 +831,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             MeritId = 50,
                             CreatureId = identity
                         },
-                        new CreatureMerit
+                        new()
                         {
                             MeritId = 16,
                             CreatureId = identity
@@ -871,12 +872,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 3,
                     EmotionMax = 6,
                     EmotionMin = 3,
-                    Difficulty = Difficulty.Skilled,
+                    Difficulty = Difficulty.Expert,
                     DamageReductionMax = 2,
                     DamageReductionMin = 0,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 6,
@@ -884,28 +885,28 @@ namespace EntityFramework.MonsterBook.Seeds
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 12,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 1,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 2,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 70,
@@ -915,17 +916,17 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 18,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 29,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 24
@@ -960,21 +961,21 @@ namespace EntityFramework.MonsterBook.Seeds
                     DamageReductionMin = 10,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 3,
                             SkillLevelMax = 5,
                             SkillLevelMin = 5
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 12,
                             SkillLevelMax = 5,
                             SkillLevelMin = 5
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 70,
@@ -984,37 +985,37 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 2,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 21,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 24
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 25,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 27,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 32
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 34,
@@ -1022,27 +1023,27 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 86
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 93
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 94
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 95
@@ -1078,38 +1079,38 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 3,
                     EmotionMax = 8,
                     EmotionMin = 4,
-                    Difficulty = Difficulty.Seasoned,
+                    Difficulty = Difficulty.Veteran,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 15,
                             SkillLevelMax = 4,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 21,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 32,
                             SkillLevelMax = 4,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 8,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 72,
@@ -1119,12 +1120,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 48,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 43
@@ -1160,73 +1161,73 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 8,
                     KarmaMax = 6,
                     KarmaMin = 0,
-                    Difficulty = Difficulty.Skillful,
+                    Difficulty = Difficulty.Expert,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 3,
                             SkillLevelMax = 3,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
                             SkillLevelMax = 3,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 68,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 60,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 61,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 62,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 63,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 64,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 65,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 66,
@@ -1236,27 +1237,27 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 89
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
@@ -1264,12 +1265,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 32,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 24,
                             CreatureId = identity
@@ -1299,10 +1300,10 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 5,
                     EmotionMax = 3,
                     EmotionMin = 3,
-                    Difficulty = Difficulty.Novice,
+                    Difficulty = Difficulty.Newbie,
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 46
@@ -1310,7 +1311,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 86
@@ -1349,70 +1350,70 @@ namespace EntityFramework.MonsterBook.Seeds
                     Difficulty = Difficulty.Experienced,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 3,
                             SkillLevelMax = 4,
                             SkillLevelMin = 4
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
                             SkillLevelMax = 4,
                             SkillLevelMin = 4
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 68,
                             SkillLevelMax = 7,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 60,
                             SkillLevelMax = 3,
                             SkillLevelMin = 0
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 61,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 62,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 63,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 64,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 65,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 66,
@@ -1422,27 +1423,27 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 89
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
@@ -1450,17 +1451,17 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 32,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 24,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 47,
                             CreatureId = identity
@@ -1497,21 +1498,21 @@ namespace EntityFramework.MonsterBook.Seeds
                     Difficulty = Difficulty.Experienced,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 3,
                             SkillLevelMax = 5,
                             SkillLevelMin = 5
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 4,
                             SkillLevelMax = 5,
                             SkillLevelMin = 5
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
@@ -1521,27 +1522,27 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 89
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
@@ -1549,42 +1550,42 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 32,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 33,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 24,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 25,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 26,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 21,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 22,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 47,
                             CreatureId = identity
@@ -1618,17 +1619,17 @@ namespace EntityFramework.MonsterBook.Seeds
                     WillpowerMin = 4,
                     EmotionMax = 1,
                     EmotionMin = 1,
-                    Difficulty = Difficulty.Talented,
+                    Difficulty = Difficulty.Expert,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 3,
                             SkillLevelMax = 3,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
@@ -1638,27 +1639,27 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 89
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
@@ -1666,12 +1667,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 32,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 24,
                             CreatureId = identity
@@ -1705,26 +1706,26 @@ namespace EntityFramework.MonsterBook.Seeds
                     IntelligenceMin = 1,
                     WillpowerMax = 10,
                     WillpowerMin = 10,
-                    Difficulty = Difficulty.Senior,
+                    Difficulty = Difficulty.Demigodly,
                     DamageReductionMax = 6,
                     DamageReductionMin = 6,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 15,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 72,
                             SkillLevelMax = 4,
                             SkillLevelMin = 4
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 8,
@@ -1734,12 +1735,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 40,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 43
@@ -1747,7 +1748,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 26
@@ -1764,42 +1765,43 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Race = Race.CreatureOfDarkness,
+                    Difficulty = Difficulty.Variable,
                     Name = "Demon",
                     NameHu = "Démon",
                     Id = identity,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 11
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 18
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 13
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 68
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 46
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 49
@@ -1807,7 +1809,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 86
@@ -1838,21 +1840,21 @@ namespace EntityFramework.MonsterBook.Seeds
                     Difficulty = Difficulty.Newbie,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 1,
                             SkillLevelMax = 1,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 2,
                             SkillLevelMax = 1,
                             SkillLevelMin = 1
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 14,
@@ -1862,22 +1864,22 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 87
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 88
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 90
                         },
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 91
@@ -1885,17 +1887,17 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 23,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 32,
                             CreatureId = identity
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             WeaponId = 24,
                             CreatureId = identity
@@ -1933,21 +1935,21 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMin = 6,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 15,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 12,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 8,
@@ -1957,12 +1959,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 43
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 41
@@ -1994,26 +1996,26 @@ namespace EntityFramework.MonsterBook.Seeds
                     DexterityMin = 2,
                     IntelligenceMax = 1,
                     IntelligenceMin = 1,
-                    Difficulty = Difficulty.Advanced,
+                    Difficulty = Difficulty.Veteran,
                     DamageReductionMax = 5,
                     DamageReductionMin = 5,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 15,
                             SkillLevelMax = 5,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 21,
                             SkillLevelMax = 6,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 8,
@@ -2023,12 +2025,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureWeapons = new List<CreatureWeapon>
                     {
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 40,
                         },
-                        new CreatureWeapon
+                        new()
                         {
                             CreatureId = identity,
                             WeaponId = 43
@@ -2036,7 +2038,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 26
@@ -2076,84 +2078,84 @@ namespace EntityFramework.MonsterBook.Seeds
                     KarmaMin = 3,
                     CreatureSkills = new List<CreatureSkill>
                     {
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 2,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 68,
                             SkillLevelMax = 4,
                             SkillLevelMin = 3
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 58,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 50,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 46,
                             SkillLevelMax = 4,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 49,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 60,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 61,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 62,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 63,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 64,
                             SkillLevelMax = 3,
                             SkillLevelMin = 2
                         },
-                        new CreatureSkill
+                        new()
                         {
                             CreatureId = identity,
                             SkillId = 65,
@@ -2163,7 +2165,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     },
                     CreatureMerits = new List<CreatureMerit>
                     {
-                        new CreatureMerit
+                        new()
                         {
                             CreatureId = identity,
                             MeritId = 86

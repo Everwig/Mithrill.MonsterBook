@@ -20,6 +20,7 @@ import { AttackType } from './model/attack-type.model';
 import { DamageType } from '../core/model/damage-type.model';
 import * as fromNpcsSelector from './store/npcs.selectors';
 import * as fromNpcsActions from './store/npcs.actions';
+import { EnumToStringPipe } from '../shared/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-npc-dashboard',
@@ -32,7 +33,8 @@ import * as fromNpcsActions from './store/npcs.actions';
     MatPaginatorModule,
     MatProgressBarModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    EnumToStringPipe
   ],
   templateUrl: './npc-dashboard.component.html',
   styleUrl: './npc-dashboard.component.scss'

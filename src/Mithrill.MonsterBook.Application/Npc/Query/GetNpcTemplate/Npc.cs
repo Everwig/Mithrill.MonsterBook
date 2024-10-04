@@ -56,7 +56,11 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
                 .ForMember(creature => creature.HitPointMin, opt => opt.Ignore())
                 .ForMember(creature => creature.HitPointMax, opt => opt.Ignore())
                 .ForMember(creature => creature.PowerPointMin, opt => opt.Ignore())
-                .ForMember(creature => creature.PowerPointMax, opt => opt.Ignore());
+                .ForMember(creature => creature.PowerPointMax, opt => opt.Ignore())
+                .ForMember(c => c.Merits, opt => opt.Ignore())
+                .ForMember(c => c.Flaws, opt => opt.Ignore())
+                .ForMember(c => c.Weapons, opt => opt.Ignore())
+                .ForMember(c => c.Skills, opt => opt.Ignore());
         }
     }
 }

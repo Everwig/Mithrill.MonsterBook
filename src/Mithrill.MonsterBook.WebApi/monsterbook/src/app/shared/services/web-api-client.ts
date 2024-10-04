@@ -412,19 +412,12 @@ export interface INpc {
 
 export enum Difficulty {
     Newbie = "Newbie",
-    Novice = "Novice",
-    Rookie = "Rookie",
-    Beginner = "Beginner",
-    Talented = "Talented",
-    Skilled = "Skilled",
-    Intermediate = "Intermediate",
-    Skillful = "Skillful",
-    Seasoned = "Seasoned",
-    Proficient = "Proficient",
     Experienced = "Experienced",
-    Advanced = "Advanced",
-    Senior = "Senior",
     Expert = "Expert",
+    Veteran = "Veteran",
+    Demigodly = "Demigodly",
+    Godly = "Godly",
+    Variable = "Variable",
 }
 
 export enum Race {
@@ -500,6 +493,7 @@ export enum SortProperty {
     Race = "race",
     Name = "name",
     Id = "id",
+    Difficulty = "difficulty",
 }
 
 export enum SortDirection {
@@ -570,13 +564,16 @@ export class Npc2 implements INpc2 {
     willpowerMin!: number;
     emotionMax!: number;
     emotionMin!: number;
-    damageReductionMax!: number;
-    damageReductionMin!: number;
-    skillLevelMax!: number;
-    skillLevelMin!: number;
-    karma!: number;
-    isUndead!: boolean;
+    karmaMax!: number;
+    karmaMin!: number;
+    hitPointMax!: number;
+    hitPointMin!: number;
+    manaMax!: number;
+    manaMin!: number;
+    powerPointMax!: number;
+    powerPointMin!: number;
     difficulty!: Difficulty;
+    race!: Race;
     merits!: Merit[];
     flaws!: Flaw[];
     weapons!: Weapon[];
@@ -611,13 +608,16 @@ export class Npc2 implements INpc2 {
             this.willpowerMin = _data["willpowerMin"];
             this.emotionMax = _data["emotionMax"];
             this.emotionMin = _data["emotionMin"];
-            this.damageReductionMax = _data["damageReductionMax"];
-            this.damageReductionMin = _data["damageReductionMin"];
-            this.skillLevelMax = _data["skillLevelMax"];
-            this.skillLevelMin = _data["skillLevelMin"];
-            this.karma = _data["karma"];
-            this.isUndead = _data["isUndead"];
+            this.karmaMax = _data["karmaMax"];
+            this.karmaMin = _data["karmaMin"];
+            this.hitPointMax = _data["hitPointMax"];
+            this.hitPointMin = _data["hitPointMin"];
+            this.manaMax = _data["manaMax"];
+            this.manaMin = _data["manaMin"];
+            this.powerPointMax = _data["powerPointMax"];
+            this.powerPointMin = _data["powerPointMin"];
             this.difficulty = _data["difficulty"];
+            this.race = _data["race"];
             if (Array.isArray(_data["merits"])) {
                 this.merits = [] as any;
                 for (let item of _data["merits"])
@@ -668,13 +668,16 @@ export class Npc2 implements INpc2 {
         data["willpowerMin"] = this.willpowerMin;
         data["emotionMax"] = this.emotionMax;
         data["emotionMin"] = this.emotionMin;
-        data["damageReductionMax"] = this.damageReductionMax;
-        data["damageReductionMin"] = this.damageReductionMin;
-        data["skillLevelMax"] = this.skillLevelMax;
-        data["skillLevelMin"] = this.skillLevelMin;
-        data["karma"] = this.karma;
-        data["isUndead"] = this.isUndead;
+        data["karmaMax"] = this.karmaMax;
+        data["karmaMin"] = this.karmaMin;
+        data["hitPointMax"] = this.hitPointMax;
+        data["hitPointMin"] = this.hitPointMin;
+        data["manaMax"] = this.manaMax;
+        data["manaMin"] = this.manaMin;
+        data["powerPointMax"] = this.powerPointMax;
+        data["powerPointMin"] = this.powerPointMin;
         data["difficulty"] = this.difficulty;
+        data["race"] = this.race;
         if (Array.isArray(this.merits)) {
             data["merits"] = [];
             for (let item of this.merits)
@@ -718,13 +721,16 @@ export interface INpc2 {
     willpowerMin: number;
     emotionMax: number;
     emotionMin: number;
-    damageReductionMax: number;
-    damageReductionMin: number;
-    skillLevelMax: number;
-    skillLevelMin: number;
-    karma: number;
-    isUndead: boolean;
+    karmaMax: number;
+    karmaMin: number;
+    hitPointMax: number;
+    hitPointMin: number;
+    manaMax: number;
+    manaMin: number;
+    powerPointMax: number;
+    powerPointMin: number;
     difficulty: Difficulty;
+    race: Race;
     merits: Merit[];
     flaws: Flaw[];
     weapons: Weapon[];
