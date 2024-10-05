@@ -15,7 +15,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Merit { Id = 2, Name = "Forest walker", NameHu = "Erdőjáró" },
                 new Merit { Id = 3, Name = "Undead", NameHu = "Élőholt" },
                 new Merit { Id = 4, Name = "Wealthy family", NameHu = "Gazdag család" },
-                new Merit { Id = 5, Name = "Expert marksman", NameHu = "Gyakorlott céllövő" },
+                new Merit { Id = 5, Name = "Experienced marksman", NameHu = "Gyakorlott céllövő" },
                 new Merit { Id = 6, Name = "Heat vision", NameHu = "Hőlátás" },
                 new Merit { Id = 7, Name = "Flexible joints", NameHu = "Hajlékony izületek" },
                 new Merit { Id = 8, Name = "Longevity", NameHu = "Hosszúélet" },

@@ -21,7 +21,7 @@ namespace EntityFramework.MonsterBook.Seeds
             await AddImperialBodyguard(context, GetIdentity());
             await AddNobleKnightOfTheEmpire(context, GetIdentity());
             
-            await AddNewbieAssassin(context, GetIdentity());
+            await AddNoviceAssassin(context, GetIdentity());
             await AddAssassin(context, GetIdentity());
             await AddProfessionalAssassin(context, GetIdentity());
             
@@ -36,7 +36,7 @@ namespace EntityFramework.MonsterBook.Seeds
 
             await AddGladiator(context, GetIdentity());
 
-            await AddNewbieArcher(context, GetIdentity());
+            await AddNoviceArcher(context, GetIdentity());
             await AddArcher(context, GetIdentity());
             await AddProfessionalArcher(context, GetIdentity());
 
@@ -56,7 +56,7 @@ namespace EntityFramework.MonsterBook.Seeds
             await AddPriestOfGood(context, GetIdentity());
             await AddPriestOfEvil(context, GetIdentity());
 
-            await AddNewbieThief(context, GetIdentity());
+            await AddNoviceThief(context, GetIdentity());
             await AddThief(context, GetIdentity());
             await AddProfessionalThief(context, GetIdentity());
 
@@ -66,7 +66,7 @@ namespace EntityFramework.MonsterBook.Seeds
 
             await AddBouncer(context, GetIdentity());
 
-            await AddNewbieMercenary(context, GetIdentity());
+            await AddNoviceMercenary(context, GetIdentity());
             await AddMercenary(context, GetIdentity());
             await AddProfessionalMercenary(context, GetIdentity());*/
 
@@ -236,7 +236,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
-                    NameHu = "Birodalmi Veteran katona",
+                    NameHu = "Birodalmi veterán katona",
                     Name = "Imperial veteran soldier",
                     KarmaMin = 0,
                     KarmaMax = 0,
@@ -858,7 +858,7 @@ namespace EntityFramework.MonsterBook.Seeds
             });
         }
         
-        public static async Task AddNewbieAssassin(DbContext dbContext, int identity)
+        public static async Task AddNoviceAssassin(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -866,7 +866,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 {
                     Id = identity,
                     NameHu = "Kezdő bérgyilkos",
-                    Name = "Newbie Assassin",
+                    Name = "Novice Assassin",
                     KarmaMin = 0,
                     KarmaMax = 0,
                     StrengthMin = 2,
@@ -2375,7 +2375,7 @@ namespace EntityFramework.MonsterBook.Seeds
             });
         }
 
-        public static async Task AddNewbieArcher(DbContext dbContext, int identity)
+        public static async Task AddNoviceArcher(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -2383,7 +2383,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 {
                     Id = identity,
                     NameHu = "Kezdő íjász",
-                    Name = "Newbie archer",
+                    Name = "Novice archer",
                     KarmaMin = 0,
                     KarmaMax = 0,
                     StrengthMin = 3,

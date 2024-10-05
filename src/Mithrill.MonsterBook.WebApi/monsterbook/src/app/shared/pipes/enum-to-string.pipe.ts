@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
 
