@@ -7,8 +7,12 @@ namespace Mithrill.MonsterBook.Domain
         public int Id { get; set; }
         public string Name { get; set; }
         public string NameHu { get; set; }
-        public AttackType AttackType { get; set; }
+        public int BaseAttackModifier { get; set; }
+        public int BaseDefenseModifier { get; set; }
+        public int BaseInitiativeModifier { get; set; }
 
+        public int BaseAttackTypeId { get; set; }
+        public AttackType BaseAttackType { get; set; }
         public ICollection<CreatureWeapon> CreatureWeapons { get; set; }
     }
 }

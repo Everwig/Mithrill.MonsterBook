@@ -107,8 +107,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 3,
                     DamageReductionMax = 3,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -259,8 +258,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 4,
                     DamageReductionMax = 4,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -437,8 +435,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 5,
                     DamageReductionMax = 5,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -638,8 +635,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 6,
                     DamageReductionMax = 6,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -891,7 +887,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
                     Difficulty = Difficulty.Newbie
                 }
             });
@@ -1021,8 +1016,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -1158,7 +1152,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
                     Difficulty = Difficulty.Expert
                 }
             });
@@ -1295,7 +1288,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 3,
                     DamageReductionMax = 5,
-                    IsUndead = false,
                     Difficulty = Difficulty.Expert
                 }
             });
@@ -1412,6 +1404,12 @@ namespace EntityFramework.MonsterBook.Seeds
                 new CreatureArmor
                 {
                     CreatureId = identity,
+                    ArmorId = 4,
+                    Material = Material.Steel
+                },
+                new CreatureArmor
+                {
+                    CreatureId = identity,
                     ArmorId = 14,
                     Material = Material.Steel
                 },
@@ -1424,13 +1422,13 @@ namespace EntityFramework.MonsterBook.Seeds
                 new CreatureArmor
                 {
                     CreatureId = identity,
-                    ArmorId = 17,
+                    ArmorId = 16,
                     Material = Material.Steel
                 },
                 new CreatureArmor
                 {
                     CreatureId = identity,
-                    ArmorId = 18,
+                    ArmorId = 17,
                     Material = Material.Steel
                 }
             });
@@ -1465,8 +1463,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -1601,7 +1598,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 7,
                     DamageReductionMax = 7,
-                    IsUndead = false,
                     Difficulty = Difficulty.Expert
                 }
             });
@@ -1727,7 +1723,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new CreatureArmor
                 {
                     CreatureId = identity,
-                    ArmorId = 19,
+                    ArmorId = 7,
                     Material = Material.Steel
                 }
             });
@@ -1776,8 +1772,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Intermediate
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -1886,8 +1881,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -2003,8 +1997,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -2120,8 +2113,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 5,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Skilled
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -2250,7 +2242,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 3,
                     DamageReductionMax = 7,
-                    IsUndead = false,
                     Difficulty = Difficulty.Expert
                 }
             });
@@ -2360,25 +2351,25 @@ namespace EntityFramework.MonsterBook.Seeds
                 new CreatureArmor
                 {
                     CreatureId = identity,
-                    ArmorId = 19,
+                    ArmorId = 18,
                     Material = Material.Leather
                 },
                 new CreatureArmor
                 {
                     CreatureId = identity,
-                    ArmorId = 18,
+                    ArmorId = 17,
+                    Material = Material.Iron
+                },
+                new CreatureArmor
+                {
+                    CreatureId = identity,
+                    ArmorId = 14,
                     Material = Material.Iron
                 },
                 new CreatureArmor
                 {
                     CreatureId = identity,
                     ArmorId = 15,
-                    Material = Material.Iron
-                },
-                new CreatureArmor
-                {
-                    CreatureId = identity,
-                    ArmorId = 16,
                     Material = Material.Iron
                 }
             });
@@ -2413,8 +2404,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 
@@ -2493,7 +2483,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Creature
                 {
                     Id = identity,
-                    NameHu = "Veterán íjász",
+                    NameHu = "Veteran íjász",
                     Name = "Archer",
                     KarmaMin = 0,
                     KarmaMax = 0,
@@ -2515,8 +2505,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Skillful
+                    Difficulty = Difficulty.Expert
                 }
             });
 
@@ -2645,7 +2634,6 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    IsUndead = false,
                     Difficulty = Difficulty.Expert
                 }
             });
@@ -2789,8 +2777,7 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 4,
                     DamageReductionMax = 4,
-                    IsUndead = false,
-                    Difficulty = Difficulty.Beginner
+                    Difficulty = Difficulty.Newbie
                 }
             });
 

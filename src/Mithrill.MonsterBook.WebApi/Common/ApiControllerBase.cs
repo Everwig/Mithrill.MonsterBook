@@ -8,7 +8,7 @@ namespace Mithrill.MonsterBook.WebApi.Common
     [ApiController]
     [Produces(MediaTypeNames.Application.Json, "application/problem+json")]
     [ApiConventionType(typeof(CustomApiConventions))]
-    [Route("api/[controller]/{id:int}")]
+    [Route("api/[controller]")]
     public abstract class ApiControllerBase : ControllerBase
     {
         private ISender _mediator;

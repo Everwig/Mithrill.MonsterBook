@@ -1,0 +1,20 @@
+export enum Race {
+  Goblin = 'goblin',
+  CivilizedHuman = 'civilizált ember',
+  Barbarian = 'barbár',
+  AncientOrc = 'ős ork',
+  Orc = 'ork',
+  HalfOrc = 'fél ork',
+  Elf = 'elda',
+  DarkElf = 'elf',
+  HalfElf = 'fél elda',
+  HalfDarkElf = 'fél elf',
+  Dwarf = 'törpe',
+  Undead = 'élőholt',
+  Animal = 'állat',
+  Bug = 'bogár',
+  Dragon = 'sárkány',
+  Mythical = 'mítikus lény',
+  CreatureOfDarkness = 'sötétség teremtménye',
+  CreatureOfLight = 'jóság teremtménye'
+}

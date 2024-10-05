@@ -2,8 +2,7 @@
 {
     public interface IAttackType
     {
-        string Name { get; }
-        int NumberOfDice { get; }
-        int ExtraDamage { get; }
+        int NumberOfDices { get; }
+        int GuaranteedDamage { get; }
     }
 }

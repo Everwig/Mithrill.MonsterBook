@@ -19,8 +19,8 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         private readonly IMapper _mapper;
         private readonly IMonsterBookDbContext _monsterBookDbContext;
         private readonly Random _random;
-        private GeneratedCreature _creature = new GeneratedCreature();
-        private MonsterBook.Domain.Creature _queriedCreature;
+        private GeneratedCreature _creature = new();
+        private MonsterBook.Domain.Creature? _queriedCreature;
 
         public CreatureBuilder(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
         {
@@ -88,7 +88,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            if (!isUndead || _queriedCreature.IsUndead)
+            if (!isUndead || _queriedCreature.Race == MonsterBook.Domain.Race.Undead)
                 return;
 
             _creature.Strength += 2;
@@ -107,32 +107,19 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
                     meritsToAdd = 1;
                     break;
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
+                case Difficulty.Experienced:
                     meritsToAdd = 2;
                     break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
-                    meritsToAdd = 3;
-                    break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
-                    meritsToAdd = 4;
-                    break;
-                case Difficulty.Proficient:
-                case Difficulty.Experienced:
-                    meritsToAdd = 5;
-                    break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                    meritsToAdd = 6;
-                    break;
                 case Difficulty.Expert:
-                    meritsToAdd = 7;
+                    meritsToAdd = _random.Next(3, 5);
+                    break;
+                case Difficulty.Veteran:
+                    meritsToAdd = _random.Next(5, 7);
+                    break;
+                case Difficulty.Demigodly:
+                    meritsToAdd = _random.Next(7, 9);
                     break;
                 default:
                     meritsToAdd = _queriedCreature.CreatureMerits.Count;
@@ -165,32 +152,20 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
-                    flawsToAdd = 7;
+                    flawsToAdd = _random.Next(6, 8);
                     break;
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
-                    flawsToAdd = 6;
-                    break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
-                    flawsToAdd = 5;
-                    break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
-                    flawsToAdd = 4;
-                    break;
-                case Difficulty.Proficient:
                 case Difficulty.Experienced:
-                    flawsToAdd = 3;
-                    break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                    flawsToAdd = 2;
+                    flawsToAdd = _random.Next(5, 7);
                     break;
                 case Difficulty.Expert:
-                    flawsToAdd = 1;
+                    flawsToAdd = _random.Next(3, 5);
+                    break;
+                case Difficulty.Veteran:
+                    flawsToAdd = _random.Next(1, 3);
+                    break;
+                case Difficulty.Demigodly:
+                case Difficulty.Godly:
+                    flawsToAdd = 0;
                     break;
                 default:
                     flawsToAdd = _queriedCreature.CreatureFlaws.Count;
@@ -221,26 +196,18 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
+                case Difficulty.Experienced:
                     break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
+                case Difficulty.Expert:
                     difficultyIncrease = 1;
                     break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
+                case Difficulty.Veteran:
                     difficultyIncrease = 2;
                     break;
-                case Difficulty.Proficient:
-                case Difficulty.Experienced:
+                case Difficulty.Demigodly:
                     difficultyIncrease = 3;
                     break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                case Difficulty.Expert:
+                case Difficulty.Godly:
                     difficultyIncrease = 4;
                     break;
             }
@@ -278,26 +245,18 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             switch (difficulty)
             {
                 case Difficulty.Newbie:
-                case Difficulty.Novice:
-                case Difficulty.Rookie:
-                case Difficulty.Beginner:
-                case Difficulty.Talented:
+                case Difficulty.Experienced:
                     break;
-                case Difficulty.Skilled:
-                case Difficulty.Intermediate:
+                case Difficulty.Expert:
                     absoluteKarma += 1;
                     break;
-                case Difficulty.Skillful:
-                case Difficulty.Seasoned:
+                case Difficulty.Veteran:
                     absoluteKarma += 2;
                     break;
-                case Difficulty.Proficient:
-                case Difficulty.Experienced:
+                case Difficulty.Demigodly:
                     absoluteKarma += 3;
                     break;
-                case Difficulty.Advanced:
-                case Difficulty.Senior:
-                case Difficulty.Expert:
+                case Difficulty.Godly:
                     absoluteKarma += 4;
                     break;
             }
@@ -312,55 +271,30 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            CalculateHitPoints(isUndead);
-            CalculateManaPoints();
-            CalculatePowerPoints();
+            _creature.HitPoint = Calculators.CalculateHitPoints(
+                _creature.Strength,
+                _creature.Body,
+                isUndead,
+                _creature.Merits);
+
+            _creature.ManaPoint = Calculators.CalculateManaPoints(
+                _creature.Intelligence,
+                _creature.Willpower,
+                _creature.Emotion,
+                _creature.Merits);
+
+            _creature.PowerPoint = Calculators.CalculatePowerPoints(_creature.Karma);
         }
 
         public IGeneratedCreature GetNpc()
         {
             if(_queriedCreature == null)
-                return null;
+                return GeneratedCreature.NullCreature();
 
             var monster = _creature;
             Reset();
 
             return monster;
-        }
-
-        private void CalculateManaPoints()
-        {
-            var mp = _creature.Intelligence + _creature.Willpower + _creature.Emotion;
-            
-            if (_creature.Merits != null && _creature.Merits.Any(m => m.NameHu == AttributeTraits.ManaPointIncreaseTrait))
-                mp += _creature.Intelligence + 3;
-
-            if (_creature.Intelligence > 7)
-                mp += _creature.Intelligence;
-
-            _creature.ManaPoint = mp;
-        }
-
-        private void CalculateHitPoints(bool isUndead)
-        {
-            if (isUndead)
-                _creature.HitPoint = (_creature.Strength + _creature.Body) * 5;
-            else
-            {
-                var hp = _creature.Body * 4 + 5;
-                if (_creature.Merits != null && _creature.Merits.Any(m => m.NameHu == AttributeTraits.HitPointIncreaseTrait))
-                    hp += _creature.Body;
-
-                if (_creature.Body > 7)
-                    hp *= 2;
-
-                _creature.HitPoint = hp;
-            }
-        }
-
-        private void CalculatePowerPoints()
-        {
-            _creature.PowerPoint = Math.Abs(_creature.Karma * 3);
         }
     }
 }

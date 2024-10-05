@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
+using Mithrill.MonsterBook.Application.Domain;
 using Xunit;
 
 namespace Mithrill.MonsterBook.Application.Tests
@@ -37,7 +38,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _npcDesigner.GetNpc();
 
             //Assert
-            generatedCreature.Should().BeNull();
+            generatedCreature.Should().BeEquivalentTo(GeneratedCreature.NullCreature());
         }
 
         [Fact]
@@ -62,8 +63,8 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.ManaPoint.Should().BeGreaterThan(0);
             c.PowerPoint.Should().Be(0);
             c.Karma.Should().Be(0);
-            c.Flaws.Should().BeNull();
-            c.Merits.Should().BeNull();
+            c.Flaws.Should().BeEmpty();
+            c.Merits.Should().BeEmpty();
             c.CreatureSkillCategories.Should().BeNull();
             c.Difficulty.Should().Be((Difficulty)difficulty);
         }
@@ -93,8 +94,8 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.ManaPoint.Should().BeGreaterThan(0);
             c.PowerPoint.Should().Be(karma * 3);
             c.Karma.Should().Be(karma);
-            c.Flaws.Should().BeNull();
-            c.Merits.Should().BeNull();
+            c.Flaws.Should().BeEmpty();
+            c.Merits.Should().BeEmpty();
             c.CreatureSkillCategories.Should().BeNull();
             c.Difficulty.Should().Be((Difficulty)difficulty);
         }

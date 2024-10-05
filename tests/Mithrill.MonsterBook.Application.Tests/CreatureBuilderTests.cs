@@ -202,7 +202,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Fact]
-        public async Task Given_SetKarmaIsCalledForSeasonedDifficultyForCreatureWithNegativeKarma_Then_KarmaShouldBeNegativeAndDecreasedByTwoRelativeToCreaturesBaseKarma()
+        public async Task Given_SetKarmaIsCalledForVeteranDifficultyForCreatureWithNegativeKarma_Then_KarmaShouldBeNegativeAndDecreasedByTwoRelativeToCreaturesBaseKarma()
         {
             //Arrange
             var creature = new Seeds().UndeadCreature;
@@ -211,7 +211,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
-            _creatureBuilder.GenerateKarma(true, Difficulty.Seasoned);
+            _creatureBuilder.GenerateKarma(true, Difficulty.Veteran);
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
@@ -219,7 +219,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Fact]
-        public async Task Given_SetKarmaIsCalledForSeasonedDifficultyForEvilCreatureWithNoKarma_Then_KarmaShouldBeNegativeAndDecreasedByTwoRelativeToCreaturesBaseKarma()
+        public async Task Given_SetKarmaIsCalledForVeteranDifficultyForEvilCreatureWithNoKarma_Then_KarmaShouldBeNegativeAndDecreasedByTwoRelativeToCreaturesBaseKarma()
         {
             //Arrange
             var creature = new Seeds().UndeadCreature;
@@ -230,7 +230,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
-            _creatureBuilder.GenerateKarma(true, Difficulty.Seasoned);
+            _creatureBuilder.GenerateKarma(true, Difficulty.Veteran);
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
@@ -238,7 +238,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Fact]
-        public async Task Given_SetKarmaIsCalledForSeasonedDifficultyForGoodCreatureWithNoKarma_Then_KarmaShouldBePositiveAndIncreasedByTwoRelativeToCreaturesBaseKarma()
+        public async Task Given_SetKarmaIsCalledForVeteranDifficultyForGoodCreatureWithNoKarma_Then_KarmaShouldBePositiveAndIncreasedByTwoRelativeToCreaturesBaseKarma()
         {
             //Arrange
             var creature = new Seeds().UndeadCreature;
@@ -249,7 +249,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
-            _creatureBuilder.GenerateKarma(false, Difficulty.Seasoned);
+            _creatureBuilder.GenerateKarma(false, Difficulty.Veteran);
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
@@ -367,7 +367,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
             _creatureBuilder.SetDefaultStats();
-            _creatureBuilder.AddMerits(Difficulty.Proficient);
+            _creatureBuilder.AddMerits(Difficulty.Veteran);
             _creatureBuilder.CalculateLifeSigns(false);
             var generatedCreature = _creatureBuilder.GetNpc();
 
@@ -392,7 +392,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
             _creatureBuilder.SetDefaultStats();
-            _creatureBuilder.AddMerits(Difficulty.Proficient);
+            _creatureBuilder.AddMerits(Difficulty.Veteran);
             _creatureBuilder.CalculateLifeSigns(false);
             var generatedCreature = _creatureBuilder.GetNpc();
 
@@ -435,7 +435,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
             _creatureBuilder.SetDefaultStats();
-            _creatureBuilder.AddMerits(Difficulty.Proficient);
+            _creatureBuilder.AddMerits(Difficulty.Veteran);
             _creatureBuilder.CalculateLifeSigns(false);
             var generatedCreature = _creatureBuilder.GetNpc();
 
@@ -456,7 +456,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
             _creatureBuilder.SetDefaultStats();
-            _creatureBuilder.AddMerits(Difficulty.Proficient);
+            _creatureBuilder.AddMerits(Difficulty.Veteran);
             _creatureBuilder.CalculateLifeSigns(false);
             var generatedCreature = _creatureBuilder.GetNpc();
 
@@ -521,7 +521,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
             _creatureBuilder.SetDefaultStats();
-            _creatureBuilder.AddMerits(Difficulty.Proficient);
+            _creatureBuilder.AddMerits(Difficulty.Veteran);
             _creatureBuilder.CalculateLifeSigns(true);
             var generatedCreature = _creatureBuilder.GetNpc();
 
@@ -544,7 +544,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
             _creatureBuilder.SetDefaultStats();
-            _creatureBuilder.AddMerits(Difficulty.Proficient);
+            _creatureBuilder.AddMerits(Difficulty.Veteran);
             _creatureBuilder.CalculateLifeSigns(true);
             var generatedCreature = _creatureBuilder.GetNpc();
 
@@ -584,7 +584,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var creature = new Seeds().Creature;
             creature.CreatureSkills = new List<CreatureSkill>
             {
-                new CreatureSkill
+                new()
                 {
                     CreatureId = creature.Id,
                     Creature = creature,
@@ -626,13 +626,13 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Fact]
-        public async Task Given_AddSkillsCalledDifficultySkillful_Then_SkillLevelShouldBeIncreasedByTwo()
+        public async Task Given_AddSkillsCalledDifficultyExpert_Then_SkillLevelShouldBeIncreasedByOne()
         {
             //Arrange
             var creature = new Seeds().Creature;
             creature.CreatureSkills = new List<CreatureSkill>
             {
-                new CreatureSkill
+                new()
                 {
                     CreatureId = creature.Id,
                     Creature = creature,
@@ -656,7 +656,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
-            _creatureBuilder.AddSkills(Difficulty.Skillful);
+            _creatureBuilder.AddSkills(Difficulty.Expert);
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
@@ -666,7 +666,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 {
                     Name = creature.CreatureSkills.First().Skill.Name,
                     NameHu = creature.CreatureSkills.First().Skill.NameHu,
-                    Level = 5,
+                    Level = 4,
                     GuaranteedSuccesses = creature.CreatureSkills.First().GuaranteedSuccesses,
                     Category = (Common.SkillCategories)creature.CreatureSkills.First().Skill.Category
                 }
@@ -722,7 +722,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Fact]
-        public async Task Given_AddMeritsCalledDifficultySetToSenior_Then_TwoMeritShouldBeAddedBecauseTheCreatureOnlyHaveTwoInDatabase()
+        public async Task Given_AddMeritsCalledDifficultySetToDemigodly_Then_TwoMeritShouldBeAddedBecauseTheCreatureOnlyHaveTwoInDatabase()
         {
             //Arrange
             var creature = new Seeds().Creature;
@@ -731,7 +731,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
-            _creatureBuilder.AddMerits(Difficulty.Senior);
+            _creatureBuilder.AddMerits(Difficulty.Demigodly);
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
@@ -758,7 +758,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             return new List<CreatureFlaw>
             {
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = creatureId,
                     FlawId = 1,
@@ -769,7 +769,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Flaw"
                     }
                 },
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = creatureId,
                     FlawId = 2,
@@ -780,7 +780,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Flaw"
                     }
                 },
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = creatureId,
                     FlawId = 3,
@@ -791,7 +791,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Flaw"
                     }
                 },
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = creatureId,
                     FlawId = 4,
@@ -802,7 +802,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Flaw"
                     }
                 },
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = creatureId,
                     FlawId = 5,
@@ -813,7 +813,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Flaw"
                     }
                 },
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = creatureId,
                     FlawId = 6,
@@ -824,7 +824,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Flaw"
                     }
                 },
-                new CreatureFlaw
+                new()
                 {
                     CreatureId = creatureId,
                     FlawId = 7,
@@ -857,7 +857,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Fact]
-        public async Task Given_AddFlawsCalledDifficultySetToSkilled_Then_SevenFlawsShouldBeAddedToTheCreature()
+        public async Task Given_AddFlawsCalledDifficultySetToExpert_Then_ThreeOrFourFlawsShouldBeAddedToTheCreature()
         {
             //Arrange
             var creature = new Seeds().Creature;
@@ -867,15 +867,15 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
-            _creatureBuilder.AddFlaws(Difficulty.Skilled);
+            _creatureBuilder.AddFlaws(Difficulty.Expert);
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Flaws.Count().Should().Be(5);
+            generatedCreature.Flaws.Count().Should().BeInRange(3, 4);
         }
 
         [Fact]
-        public async Task Given_AddFlawsCalledDifficultySetToSenior_Then_TwoFlawsShouldBeAddedToTheCreature()
+        public async Task Given_AddFlawsCalledDifficultySetToDemigodly_Then_ZeroFlawsShouldBeAddedToTheCreature()
         {
             //Arrange
             var creature = new Seeds().Creature;
@@ -885,11 +885,11 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Act
             await _creatureBuilder.GetMonsterFromDatabaseAsync(1, CancellationToken);
-            _creatureBuilder.AddFlaws(Difficulty.Senior);
+            _creatureBuilder.AddFlaws(Difficulty.Demigodly);
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Flaws.Count().Should().Be(2);
+            generatedCreature.Flaws.Count().Should().Be(0);
         }
 
         [Fact]

@@ -1,0 +1,114 @@
+<div class="global-container">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+  <ng-template *ngIf="(npcs$ | async)?.length ?? 0 > 0 && !(isLoading$ | async); then table; else emptyList"></ng-template>
+
+  <ng-template #table>
+    <table mat-table [dataSource]="dataSource$" matSort [matSortActive]="(sortInformation$ | async)!.sortProperty" [matSortDirection]="(sortInformation$ | async)!.sortDirection" (matSortChange)="onSortChanged($event)">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Név</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="race">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Faj</th>
+        <td mat-cell *matCellDef="let element">{{ element.race | enumToString }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="strength">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Erő</th>
+        <td mat-cell *matCellDef="let element">{{ element.strengthMin }} - {{ element.strengthMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="vitality">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Egészség</th>
+        <td mat-cell *matCellDef="let element">{{ element.vitalityMin }} - {{ element.vitalityMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="body">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Test</th>
+        <td mat-cell *matCellDef="let element">{{ element.bodyMin }} - {{ element.bodyMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="agility">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Gyorsaság</th>
+        <td mat-cell *matCellDef="let element">{{ element.agilityMin }} - {{ element.agilityMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dexterity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ügyesség</th>
+        <td mat-cell *matCellDef="let element">{{ element.dexterityMin }} - {{ element.dexterityMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="intelligence">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Intelligencia</th>
+        <td mat-cell *matCellDef="let element">{{ element.intelligenceMin }} - {{ element.intelligenceMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="willpower">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Akaraterő</th>
+        <td mat-cell *matCellDef="let element">{{ element.willpowerMin }} - {{ element.willpowerMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="emotion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Érzelem</th>
+        <td mat-cell *matCellDef="let element">{{ element.emotionMin }} - {{ element.emotionMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="karma">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Karma</th>
+        <td mat-cell *matCellDef="let element">{{ element.karmaMin }} - {{ element.karmaMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="hitPoint">
+        <th mat-header-cell *matHeaderCellDef>Testpont</th>
+        <td mat-cell *matCellDef="let element">{{ element.hitPointMin }} - {{ element.hitPointMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mana">
+        <th mat-header-cell *matHeaderCellDef>Varászpont</th>
+        <td mat-cell *matCellDef="let element">{{ element.manaMin }} - {{ element.manaMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="powerPoint">
+        <th mat-header-cell *matHeaderCellDef>Hatalompont</th>
+        <td mat-cell *matCellDef="let element">{{ element.powerPointMin }} - {{ element.powerPointMax }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="difficulity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nehézség</th>
+        <td mat-cell *matCellDef="let element">{{ element.difficulty | enumToString }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon class="mat-icon-no-color">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Részletek</button>
+            <button mat-menu-item (click)="onDelete(element.id)">Törlés</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </ng-template>
+
+  <ng-template #emptyList>
+    <div class="empty-list">{{ "Nincs megjeleníthető adat." }}</div>
+  </ng-template>
+
+  <mat-paginator
+    class="paginator"
+    [length]="(pageInformation$ | async)!.totalCount"
+    [pageSize]="(pageInformation$ | async)!.pageSize"
+    [pageIndex]="(pageInformation$ | async)!.pageIndex"
+    [pageSizeOptions]="[10, 25, 50, 100, 200]"
+    (page)="onPageChanged($event)"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

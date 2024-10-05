@@ -2,12 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="MediatR" Version="12.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
 
@@ -19,6 +21,7 @@
     <Folder Include="Creature\Command\AddCreatureCommand\" />
     <Folder Include="Creature\Command\DeleteCreatureCommand\" />
     <Folder Include="Creature\Command\UpdateCreatureCommand\" />
+    <Folder Include="Creature\Query\" />
   </ItemGroup>
 
 </Project>

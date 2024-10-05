@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Mithrill.MonsterBook.Infrastructure;
 
 namespace EntityFramework.MonsterBook
 {
-    internal sealed class EfMonsterBookDbContext : MonsterBookDbContext
+    public sealed class EfMonsterBookDbContext : MonsterBookDbContext
     {
-        private const string ConnectionString = "Server=.\\SQLEXPRESS;Database=MonsterBook;Trusted_Connection=true";
+        private const string ConnectionString = "Server=.;Database=MonsterBook;Trusted_Connection=true;TrustServerCertificate=True";
         
         public EfMonsterBookDbContext() : base(new DbContextOptionsBuilder<MonsterBookDbContext>()
             .UseSqlServer(ConnectionString)
@@ -13,6 +14,14 @@ namespace EntityFramework.MonsterBook
             .EnableDetailedErrors()
             .Options)
         {
+        }
+    }
+
+    public class EfMonsterBookDbContextFactory : IDesignTimeDbContextFactory<EfMonsterBookDbContext>
+    {
+        public EfMonsterBookDbContext CreateDbContext(string[] args)
+        {
+            return new EfMonsterBookDbContext();
         }
     }
 }

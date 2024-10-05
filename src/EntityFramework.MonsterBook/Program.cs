@@ -11,6 +11,7 @@ namespace EntityFramework.MonsterBook
             await Merits.AddOrUpdateMerits(context);
             await Flaws.AddOrUpdateFlaws(context);
             await Skills.AddOrUpdateSkills(context);
+            await WeaponsAndArmors.AddOrUpdateAttackTypes(context);
             await WeaponsAndArmors.AddOrUpdateWeapons(context);
             await WeaponsAndArmors.AddOrUpdateArmors(context);
             const int identitySeedStart = 1;
