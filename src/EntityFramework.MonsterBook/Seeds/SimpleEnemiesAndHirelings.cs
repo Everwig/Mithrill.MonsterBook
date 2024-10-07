@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿    using System.Threading.Tasks;
 using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Domain;
@@ -7,40 +7,40 @@ namespace EntityFramework.MonsterBook.Seeds
 {
     internal class SimpleEnemiesAndHirelings
     {
-        private int _identity;
+        private static int _identity;
 
         public SimpleEnemiesAndHirelings(int identitySeed)
         {
             _identity = identitySeed - 1;
         }
 
-        public async Task<int> AddOrUpdateCharacters(DbContext context)
+        public async Task<int> AddOrUpdateCharacters(DbContext dbContext)
         {
-            await AddImperialRegularSoldier(context, GetIdentity());
-            await AddImperialVeteranSoldier(context, GetIdentity());
-            await AddImperialBodyguard(context, GetIdentity());
-            await AddNobleKnightOfTheEmpire(context, GetIdentity());
+            await AddImperialRegularSoldier(dbContext, GetIdentity());
+            await AddImperialVeteranSoldier(dbContext, GetIdentity());
+            await AddImperialBodyguard(dbContext, GetIdentity());
+            await AddNobleKnightOfTheEmpire(dbContext, GetIdentity());
             
-            await AddNoviceAssassin(context, GetIdentity());
-            await AddAssassin(context, GetIdentity());
-            await AddProfessionalAssassin(context, GetIdentity());
+            await AddNoviceAssassin(dbContext, GetIdentity());
+            await AddAssassin(dbContext, GetIdentity());
+            await AddProfessionalAssassin(dbContext, GetIdentity());
             
-            await AddElvenWarrior(context, GetIdentity());
-            await AddElvenBorderHunter(context, GetIdentity());
-            await AddElvenMasterArcher(context, GetIdentity());
-            await AddElvenPriest(context, GetIdentity());
+            await AddElvenWarrior(dbContext, GetIdentity());
+            await AddElvenBorderHunter(dbContext, GetIdentity());
+            await AddElvenMasterArcher(dbContext, GetIdentity());
+            await AddElvenPriest(dbContext, GetIdentity());
             
-            await AddGoblinWarrior(context, GetIdentity());
-            await AddGoblinArcher(context, GetIdentity());
-            await AddGoblinShaman(context, GetIdentity());
+            await AddGoblinWarrior(dbContext, GetIdentity());
+            await AddGoblinArcher(dbContext, GetIdentity());
+            await AddGoblinShaman(dbContext, GetIdentity());
 
-            await AddGladiator(context, GetIdentity());
+            await AddGladiator(dbContext, GetIdentity());
 
-            await AddNoviceArcher(context, GetIdentity());
-            await AddArcher(context, GetIdentity());
-            await AddProfessionalArcher(context, GetIdentity());
+            await AddNoviceArcher(dbContext, GetIdentity());
+            await AddArcher(dbContext, GetIdentity());
+            await AddProfessionalArcher(dbContext, GetIdentity());
 
-            await AddPaladin(context, GetIdentity());
+            await AddPaladin(dbContext, GetIdentity());
             /*await AddDarkPaladin(context, GetIdentity());
 
             await AddBarbarianScout(context, GetIdentity());
@@ -73,7 +73,7 @@ namespace EntityFramework.MonsterBook.Seeds
             return _identity;
         }
 
-        private int GetIdentity()
+        private static int GetIdentity()
         {
             return _identity++;
         }
@@ -107,7 +107,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 3,
                     DamageReductionMax = 3,
-                    Difficulty = Difficulty.Newbie
+                    Difficulty = Difficulty.Newbie,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -258,7 +259,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 4,
                     DamageReductionMax = 4,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -435,7 +437,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 5,
                     DamageReductionMax = 5,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -635,7 +638,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 6,
                     DamageReductionMax = 6,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -887,7 +891,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Newbie
+                    Difficulty = Difficulty.Newbie,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -1016,7 +1021,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -1152,7 +1158,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -1288,7 +1295,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 3,
                     DamageReductionMax = 5,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.Elf
                 }
             });
 
@@ -1463,7 +1471,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Newbie
+                    Difficulty = Difficulty.Newbie,
+                    Race = Race.Elf
                 }
             });
 
@@ -1598,7 +1607,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 4,
                     DamageReductionMin = 7,
                     DamageReductionMax = 7,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.Elf
                 }
             });
 
@@ -1772,7 +1782,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.Elf
                 }
             });
 
@@ -1881,7 +1892,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Newbie
+                    Difficulty = Difficulty.Newbie,
+                    Race = Race.Goblin
                 }
             });
 
@@ -1997,7 +2009,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Newbie
+                    Difficulty = Difficulty.Newbie,
+                    Race = Race.Goblin
                 }
             });
 
@@ -2113,7 +2126,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 5,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.Goblin
                 }
             });
 
@@ -2242,7 +2256,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 2,
                     DamageReductionMin = 3,
                     DamageReductionMax = 7,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -2404,7 +2419,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Newbie
+                    Difficulty = Difficulty.Newbie,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -2505,7 +2521,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -2634,7 +2651,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 3,
                     DamageReductionMin = 0,
                     DamageReductionMax = 0,
-                    Difficulty = Difficulty.Expert
+                    Difficulty = Difficulty.Expert,
+                    Race = Race.CivilizedHuman
                 }
             });
 
@@ -2777,7 +2795,8 @@ namespace EntityFramework.MonsterBook.Seeds
                     EmotionMax = 6,
                     DamageReductionMin = 4,
                     DamageReductionMax = 4,
-                    Difficulty = Difficulty.Newbie
+                    Difficulty = Difficulty.Newbie,
+                    Race = Race.CivilizedHuman
                 }
             });
 

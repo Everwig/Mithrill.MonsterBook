@@ -7,9 +7,9 @@ namespace EntityFramework.MonsterBook.Seeds
 {
     public static class Skills
     {
-        public static Task AddOrUpdateSkills(DbContext context)
+        public static Task AddOrUpdateSkills(DbContext dbContext)
         {
-            return context.BulkInsertOrUpdateAsync(new[]
+            return dbContext.BulkInsertOrUpdateAsync(new[]
             {
                 new Skill { Id = 1, Name = "Small arms", NameHu = "Könnyű fegyver használat", Category = SkillCategories.Combat, Attribute1 = Attribute.Agility, Attribute2 = Attribute.Dexterity },
                 new Skill { Id = 2, Name = "Medium arms", NameHu = "Közepes fegyver használat", Category = SkillCategories.Combat, Attribute1 = Attribute.Agility, Attribute2 = Attribute.Dexterity },

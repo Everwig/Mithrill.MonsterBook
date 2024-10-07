@@ -7,9 +7,9 @@ namespace EntityFramework.MonsterBook.Seeds
 {
     public static class Merits
     {
-        public static Task AddOrUpdateMerits(DbContext context)
+        public static Task AddOrUpdateMerits(DbContext dbContext)
         {
-            return context.BulkInsertOrUpdateAsync(new[]
+            return dbContext.BulkInsertOrUpdateAsync(new[]
             {
                 new Merit { Id = 1, Name = "Steel bones", NameHu = "Acélos csontok" },
                 new Merit { Id = 2, Name = "Forest walker", NameHu = "Erdőjáró" },
