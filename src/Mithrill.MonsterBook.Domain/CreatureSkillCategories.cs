@@ -3,10 +3,10 @@
     public class CreatureSkillCategories
     {
         public int Id { get; set; }
-        public SkillCategories Primary { get; set; }
-        public SkillCategories FirstSecondary { get; set; }
-        public SkillCategories SecondSecondary { get; set; }
-        public SkillCategories Tertiary { get; set; }
+        public SkillCategory Primary { get; set; }
+        public SkillCategory FirstSecondary { get; set; }
+        public SkillCategory SecondSecondary { get; set; }
+        public SkillCategory Tertiary { get; set; }
 
         public int CreatureId { get; set; }
         public Creature Creature { get; set; }

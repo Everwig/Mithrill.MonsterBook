@@ -53,17 +53,17 @@ input::-webkit-inner-spin-button {
   margin-left: auto;
   box-sizing: border-box;
 
-  @include min(breakpoint(xl)){
+  @include min(breakpoint(xl)) {
     max-width: map-get($container-max-width, xl);
   }
 
-  @include min(breakpoint(2xl)){
+  @include min(breakpoint(2xl)) {
     max-width: map-get($container-max-width, 2xl);
     padding-right: 30px;
     padding-left: 30px;
   }
 
-  @include min(breakpoint(3xl)){
+  @include min(breakpoint(3xl)) {
     max-width: map-get($container-max-width, 3xl);
   }
 }

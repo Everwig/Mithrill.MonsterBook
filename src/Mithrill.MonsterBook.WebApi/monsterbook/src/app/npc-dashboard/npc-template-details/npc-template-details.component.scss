@@ -1,0 +1,51 @@
+@import '../../../styles/styles';
+
+.npc-template-section {
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-top: 30px;
+  width: fit-content;
+
+  @include min(breakpoint(lg)) {
+    max-width: 672px;
+  }
+}
+
+.npc-template-section-header {
+  top: -0.75rem;
+  left: 1.5rem;
+  position: relative;
+  background-color: #101414;
+  width: fit-content;
+}
+
+.npc-template-section-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.npc-slider {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 0 20px;
+
+  label:first-of-type {
+    padding-left: 20px;
+  }
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.margin-top {
+  margin-top: 20px;
+
+  @include max(breakpoint(lg)) {
+    margin-top: 5px;
+  }
+}

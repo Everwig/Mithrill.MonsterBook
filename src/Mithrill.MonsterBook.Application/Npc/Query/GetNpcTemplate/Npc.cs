@@ -47,20 +47,22 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
         public IEnumerable<Flaw> Flaws { get; set; }
         public IEnumerable<Weapon> Weapons { get; set; }
         public IEnumerable<Skill> Skills { get; set; }
+        public IEnumerable<Armor> Armors { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<MonsterBook.Domain.Creature, Npc>()
-                .ForMember(creature => creature.ManaMin, opt => opt.Ignore())
-                .ForMember(creature => creature.ManaMax, opt => opt.Ignore())
-                .ForMember(creature => creature.HitPointMin, opt => opt.Ignore())
-                .ForMember(creature => creature.HitPointMax, opt => opt.Ignore())
-                .ForMember(creature => creature.PowerPointMin, opt => opt.Ignore())
-                .ForMember(creature => creature.PowerPointMax, opt => opt.Ignore())
-                .ForMember(c => c.Merits, opt => opt.Ignore())
-                .ForMember(c => c.Flaws, opt => opt.Ignore())
-                .ForMember(c => c.Weapons, opt => opt.Ignore())
-                .ForMember(c => c.Skills, opt => opt.Ignore());
+                .ForMember(npc => npc.ManaMin, opt => opt.Ignore())
+                .ForMember(npc => npc.ManaMax, opt => opt.Ignore())
+                .ForMember(npc => npc.HitPointMin, opt => opt.Ignore())
+                .ForMember(npc => npc.HitPointMax, opt => opt.Ignore())
+                .ForMember(npc => npc.PowerPointMin, opt => opt.Ignore())
+                .ForMember(npc => npc.PowerPointMax, opt => opt.Ignore())
+                .ForMember(npc => npc.Merits, opt => opt.MapFrom(creature => creature.CreatureMerits))
+                .ForMember(npc => npc.Flaws, opt => opt.MapFrom(creature => creature.CreatureFlaws))
+                .ForMember(npc => npc.Weapons, opt => opt.MapFrom(creature => creature.CreatureWeapons))
+                .ForMember(npc => npc.Skills, opt => opt.MapFrom(creature => creature.CreatureSkills))
+                .ForMember(npc => npc.Armors, opt => opt.MapFrom(creature => creature.CreatureArmors));
         }
     }
 }

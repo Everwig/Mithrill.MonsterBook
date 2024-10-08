@@ -8,6 +8,10 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<CreatureWeapon> builder)
         {
+            builder.Property(creatureWeapon => creatureWeapon.Material)
+                .HasConversion<string>()
+                .HasMaxLength(16);
+
             builder.HasKey(creatureWeapon => new { creatureWeapon.CreatureId, creatureWeapon.WeaponId });
 
             builder.HasOne(creatureWeapon => creatureWeapon.Creature)

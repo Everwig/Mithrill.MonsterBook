@@ -36,12 +36,12 @@ namespace EntityFramework.MonsterBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("NameHu")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -60,8 +60,10 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DamageType")
-                        .HasColumnType("int");
+                    b.Property<string>("DamageType")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int>("GuaranteedDamage")
                         .HasColumnType("int");
@@ -106,8 +108,10 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<int>("DexterityMin")
                         .HasColumnType("int");
 
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("int");
+                    b.Property<string>("Difficulty")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int>("EmotionMax")
                         .HasColumnType("int");
@@ -121,9 +125,6 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<int>("IntelligenceMin")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsUndead")
-                        .HasColumnType("bit");
-
                     b.Property<int>("KarmaMax")
                         .HasColumnType("int");
 
@@ -136,8 +137,10 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<string>("NameHu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Race")
-                        .HasColumnType("int");
+                    b.Property<string>("Race")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<int>("StrengthMax")
                         .HasColumnType("int");
@@ -179,8 +182,10 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<bool>("IsOptional")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Material")
-                        .HasColumnType("int");
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.HasKey("CreatureId", "ArmorId");
 
@@ -263,17 +268,25 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<int>("CreatureId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FirstSecondary")
-                        .HasColumnType("int");
+                    b.Property<string>("FirstSecondary")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("Primary")
-                        .HasColumnType("int");
+                    b.Property<string>("Primary")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("SecondSecondary")
-                        .HasColumnType("int");
+                    b.Property<string>("SecondSecondary")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("Tertiary")
-                        .HasColumnType("int");
+                    b.Property<string>("Tertiary")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.HasKey("Id");
 
@@ -303,8 +316,10 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<bool>("IsOptional")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Material")
-                        .HasColumnType("int");
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.HasKey("CreatureId", "WeaponId");
 
@@ -340,12 +355,12 @@ namespace EntityFramework.MonsterBook.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("NameHu")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -365,12 +380,12 @@ namespace EntityFramework.MonsterBook.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("NameHu")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -389,22 +404,28 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Attribute1")
-                        .HasColumnType("int");
+                    b.Property<string>("Attribute1")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("Attribute2")
-                        .HasColumnType("int");
+                    b.Property<string>("Attribute2")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("NameHu")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -436,12 +457,12 @@ namespace EntityFramework.MonsterBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("NameHu")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 

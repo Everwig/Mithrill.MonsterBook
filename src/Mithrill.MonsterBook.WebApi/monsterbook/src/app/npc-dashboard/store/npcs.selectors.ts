@@ -22,3 +22,33 @@ export const sortInformationSelector = createSelector(
   npcsFeatureState,
   (state: fromNpcsReducer.NpcsState) => state.npcList.sortInformation
 );
+
+export const armorsSelector = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.armors
+);
+
+export const weaponsSelector = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.weapons
+);
+
+export const flawsSelector = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.flaws
+);
+
+export const meritsSelector = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.merits
+);
+
+export const skillsSelector = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.skills
+)
+
+export const npcTemplateSelector = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.npc
+)

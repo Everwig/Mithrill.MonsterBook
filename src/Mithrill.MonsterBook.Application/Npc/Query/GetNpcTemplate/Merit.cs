@@ -1,8 +1,21 @@
-﻿namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
+﻿using AutoMapper;
+using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Domain;
+
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
-    public class Merit
+    public class Merit : IMapFrom<CreatureMerit>
     {
         public int Id { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
+        public bool IsOptional { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<CreatureMerit, Merit>()
+                .ForMember(npc => npc.Id, opt => opt.MapFrom(creature => creature.MeritId))
+                .ForMember(npc => npc.Name, opt => opt.MapFrom(creature => creature.Merit.Name))
+                .ForMember(npc => npc.IsOptional, opt => opt.MapFrom(creature => creature.IsOptional));
+        }
     }
 }

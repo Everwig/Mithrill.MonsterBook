@@ -73,10 +73,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Assert
             mappedObject.Should().BeEquivalentTo(new CreatureSkillCategories
             {
-                Primary = (SkillCategories)creatureSkillCategories.Primary,
-                FirstSecondary = (SkillCategories)creatureSkillCategories.FirstSecondary,
-                SecondSecondary = (SkillCategories)creatureSkillCategories.SecondSecondary,
-                Tertiary = (SkillCategories)creatureSkillCategories.Tertiary
+                Primary = (SkillCategory)creatureSkillCategories.Primary,
+                FirstSecondary = (SkillCategory)creatureSkillCategories.FirstSecondary,
+                SecondSecondary = (SkillCategory)creatureSkillCategories.SecondSecondary,
+                Tertiary = (SkillCategory)creatureSkillCategories.Tertiary
             });
         }
         
@@ -129,7 +129,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Name = skill.Name,
                 NameHu = skill.NameHu,
                 Level = 0,
-                Category = (SkillCategories)skill.Category
+                Category = (SkillCategory)skill.Category
             });
         }
         

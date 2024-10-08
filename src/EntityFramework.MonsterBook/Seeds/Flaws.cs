@@ -7,9 +7,9 @@ namespace EntityFramework.MonsterBook.Seeds
 {
     public static class Flaws
     {
-        public static Task AddOrUpdateFlaws(DbContext context)
+        public static Task AddOrUpdateFlaws(DbContext dbContext)
         {
-            return context.BulkInsertOrUpdateAsync(new[]
+            return dbContext.BulkInsertOrUpdateAsync(new[]
             {
                 new Flaw { Id = 1, Name = "Ugly", NameHu = "Csúnya" },
                 new Flaw { Id = 2, Name = "Deserter", NameHu = "Dezertőr" },

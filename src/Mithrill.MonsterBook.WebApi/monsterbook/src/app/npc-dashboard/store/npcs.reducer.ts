@@ -2,10 +2,15 @@ import { createReducer, on } from '@ngrx/store';
 
 import { PageInformation } from '../../core/model/page-information.model';
 import { SortInformation } from '../../core/model/sort-information.model';
-import { Npc } from '../model/npc.model';
+import { Npc } from '../models/npc.model';
 
 import * as fromRoot from '../../store';
 import * as fromNpcActions from './npcs.actions';
+import { Weapon } from '../models/weapon.model';
+import { Armor } from '../models/armor.model';
+import { Flaw } from '../models/flaw.model';
+import { Merit } from '../models/merit.model';
+import { Skill } from '../models/skill.model';
 
 export const npcsFeatureKey = 'npcs';
 
@@ -15,6 +20,7 @@ export interface State extends fromRoot.State {
 
 export interface NpcsState {
   npcList: NpcListState;
+  npcTemplate: NpcTemplate;
 }
 
 export interface NpcListState {
@@ -23,6 +29,16 @@ export interface NpcListState {
   pageInformation: PageInformation;
   sortInformation: SortInformation;
   error: any;
+}
+
+export interface NpcTemplate {
+  weapons: Weapon [];
+  armors: Armor[];
+  flaws: Flaw[];
+  merits: Merit[];
+  skills: Skill[];
+  npc: Npc | undefined;
+  isLoading: boolean;
 }
 
 const initialState: NpcsState = {
@@ -39,6 +55,15 @@ const initialState: NpcsState = {
       sortProperty: 'name'
     },
     error: undefined
+  },
+  npcTemplate: {
+    armors: [],
+    flaws: [],
+    merits: [],
+    skills: [],
+    weapons: [],
+    npc: undefined,
+    isLoading: false
   }
 }
 
@@ -88,6 +113,69 @@ export const reducer = createReducer(
       ...state.npcList,
       isLoading: false,
       error: action.error
+    }
+  })),
+
+  on(fromNpcActions.loadArmorsSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      armors: action.armors,
+      isLoading: false
+    }
+  })),
+
+  on(fromNpcActions.loadFlawsSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      flaws: action.flaws,
+      isLoading: false
+    }
+  })),
+
+  on(fromNpcActions.loadMeritsSucccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      merits: action.merits,
+      isLoading: false
+    }
+  })),
+
+  on(fromNpcActions.loadSkillsSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      skills: action.skills,
+      isLoading: false
+    }
+  })),
+
+  on(fromNpcActions.loadWeaponsSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      weapons: action.weapons,
+      isLoading: false
+    }
+  })),
+
+  on(fromNpcActions.loadNpcTemplateSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      npc: action.npcTemplate,
+      isLoading: false
+    }
+  })),
+
+  on(fromNpcActions.clearTemplate, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      npc: undefined,
+      isLoading: false
     }
   }))
 );

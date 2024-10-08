@@ -9,6 +9,7 @@
         Wood,
         Brick,
         Copper,
+        Gold,
         Stone,
         Marble,
         Iron,

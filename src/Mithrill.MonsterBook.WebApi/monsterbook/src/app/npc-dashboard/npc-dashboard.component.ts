@@ -7,16 +7,17 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatPaginatorModule, MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table'
 import { MatSortModule, Sort } from '@angular/material/sort';
+import { RouterModule } from '@angular/router'
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Npc } from './model/npc.model';
+import { Npc } from './models/npc.model';
 import { State } from '../store';
 import { PageInformation } from '../core/model/page-information.model';
 import { SortInformation } from '../core/model/sort-information.model';
 import { ObservableDataSource } from '../core/model/observable-data-source';
 import { Material } from '../core/model/material.model';
-import { AttackType } from './model/attack-type.model';
+import { AttackType } from './models/attack-type.model';
 import { DamageType } from '../core/model/damage-type.model';
 import * as fromNpcsSelector from './store/npcs.selectors';
 import * as fromNpcsActions from './store/npcs.actions';
@@ -27,6 +28,7 @@ import { EnumToStringPipe } from '../shared/pipes/enum-to-string.pipe';
   standalone: true,
   imports: [
     CommonModule,
+    EnumToStringPipe,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
@@ -34,7 +36,7 @@ import { EnumToStringPipe } from '../shared/pipes/enum-to-string.pipe';
     MatProgressBarModule,
     MatTableModule,
     MatSortModule,
-    EnumToStringPipe
+    RouterModule
   ],
   templateUrl: './npc-dashboard.component.html',
   styleUrl: './npc-dashboard.component.scss'

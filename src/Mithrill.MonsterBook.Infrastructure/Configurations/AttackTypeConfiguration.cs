@@ -9,6 +9,9 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<AttackType> builder)
         {
             builder.ToTable("AttackType");
+            builder.Property(attackType => attackType.DamageType)
+                .HasConversion<string>()
+                .HasMaxLength(16);
         }
     }
 }

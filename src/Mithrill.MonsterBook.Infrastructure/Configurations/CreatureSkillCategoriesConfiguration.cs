@@ -8,6 +8,22 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<CreatureSkillCategories> builder)
         {
+            builder.Property(creatureSkillCategories => creatureSkillCategories.Primary)
+                .HasConversion<string>()
+                .HasMaxLength(16);
+
+            builder.Property(creatureSkillCategories => creatureSkillCategories.FirstSecondary)
+                .HasConversion<string>()
+                .HasMaxLength(16);
+
+            builder.Property(creatureSkillCategories => creatureSkillCategories.SecondSecondary)
+                .HasConversion<string>()
+                .HasMaxLength(16);
+
+            builder.Property(creatureSkillCategories => creatureSkillCategories.Tertiary)
+                .HasConversion<string>()
+                .HasMaxLength(16);
+
             builder.ToTable("CreatureSkillCategories");
         }
     }

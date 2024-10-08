@@ -34,10 +34,11 @@ namespace EntityFramework.MonsterBook.Seeds
             await AddTiger(dbContext, GetIdentity());
             await AddFalcon(dbContext, GetIdentity());
             await AddWarg(dbContext, GetIdentity());
+
             return _identity;
         }
 
-        public async Task AddWolf(DbContext dbContext, int identity)
+        private static async Task AddWolf(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -65,8 +66,12 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 5,
                     VitalityMin = 5,
                     WillpowerMax = 2,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(
+                new List<CreatureSkill>
                     {
                         new()
                         {
@@ -118,21 +123,20 @@ namespace EntityFramework.MonsterBook.Seeds
                             SkillLevelMax = 2,
                             SkillLevelMin = 1
                         }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40,
-                            Material = Material.Bone
-                        }
-                    }
+                    });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40,
+                    Material = Material.Bone
                 }
             });
         }
 
-        public async Task AddHyena(DbContext dbContext, int identity)
+        private static async Task AddHyena(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -160,59 +164,61 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 5,
                     VitalityMin = 5,
                     WillpowerMax = 1,
-                    WillpowerMin = 1,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 32,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40,
-                            Material = Material.Bone
-                        }
-                    }
+                    WillpowerMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 32,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40,
+                    Material = Material.Bone
                 }
             });
         }
 
-        public async Task AddVenomousSnake(DbContext dbContext, int identity)
+        private static async Task AddVenomousSnake(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -240,60 +246,62 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 3,
                     VitalityMin = 3,
                     WillpowerMax = 2,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 36,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 2,
-                            GuaranteedSuccesses = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40,
-                            Material = Material.Bone
-                        }
-                    }
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 36,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 2,
+                    GuaranteedSuccesses = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40,
+                    Material = Material.Bone
                 }
             });
         }
 
-        public async Task AddNonVenomousSnake(DbContext dbContext, int identity)
+        private static async Task AddNonVenomousSnake(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -321,67 +329,69 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 3,
                     VitalityMin = 3,
                     WillpowerMax = 2,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 36,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 2,
-                            GuaranteedSuccesses = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 5,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 3
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40,
-                            Material = Material.Bone
-                        }
-                    }
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 36,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 2,
+                    GuaranteedSuccesses = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 5,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40,
+                    Material = Material.Bone
                 }
             });
         }
 
-        public async Task AddCrocodile(DbContext dbContext, int identity)
+        private static async Task AddCrocodile(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -409,60 +419,63 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 7,
                     VitalityMin = 7,
                     WillpowerMax = 3,
-                    WillpowerMin = 3,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 5
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 36,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 4,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 41,
-                            Material = Material.Bone
-                        }
-                    },
-                    CreatureMerits = new List<CreatureMerit>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            MeritId = 26
-                        }
-                    }
+                    WillpowerMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 5
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 36,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 4,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 41,
+                    Material = Material.Bone
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    MeritId = 26
                 }
             });
         }
 
-        public async Task AddDog(DbContext dbContext, int identity)
+        private static async Task AddDog(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -490,73 +503,75 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 4,
                     VitalityMin = 4,
                     WillpowerMax = 2,
-                    WillpowerMin = 1,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 32,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 4,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40,
-                            Material = Material.Bone
-                        }
-                    }
+                    WillpowerMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 32,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 4,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40,
+                    Material = Material.Bone
                 }
             });
         }
-        
-        public async Task AddHeavyHorse(DbContext dbContext, int identity)
+
+        private static async Task AddHeavyHorse(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -584,71 +599,74 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 4,
                     VitalityMin = 4,
                     WillpowerMax = 2,
-                    WillpowerMin = 1,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 22,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 3,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 3
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 44
-                        }
-                    },
-                    CreatureMerits = new List<CreatureMerit>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            MeritId = 26
-                        }
-                    }
+                    WillpowerMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 22,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 3,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 44
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    MeritId = 26
                 }
             });
         }
 
-        public async Task AddLightHorse(DbContext dbContext, int identity)
+        private static async Task AddLightHorse(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -676,71 +694,74 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 4,
                     VitalityMin = 4,
                     WillpowerMax = 2,
-                    WillpowerMin = 1,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 22,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 3,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 3
-                        }
-                    },
-                    CreatureMerits = new List<CreatureMerit>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            MeritId = 26
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 44
-                        }
-                    }
+                    WillpowerMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 22,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 3,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    MeritId = 26
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 44
                 }
             });
         }
 
-        public async Task AddCat(DbContext dbContext, int identity)
+        private static async Task AddCat(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -768,70 +789,72 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 3,
                     VitalityMin = 3,
                     WillpowerMax = 3,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 1,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 32,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 3
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        }
-                    }
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 1,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 32,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
                 }
             });
         }
 
-        public async Task AddBear(DbContext dbContext, int identity)
+        private static async Task AddBear(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -859,78 +882,81 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 5,
                     VitalityMin = 5,
                     WillpowerMax = 3,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 20,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 1,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 32,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 3,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 41
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 44
-                        }
-                    },
-                    CreatureMerits = new List<CreatureMerit>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            MeritId = 26
-                        }
-                    }
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 20,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 1,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 32,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 3,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 41
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 44
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    MeritId = 26
                 }
             });
         }
 
-        public async Task AddLion(DbContext dbContext, int identity)
+        private static async Task AddLion(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -956,63 +982,65 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 5,
                     VitalityMin = 5,
                     WillpowerMax = 3,
-                    WillpowerMin = 3,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 1,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 3,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 41
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 44
-                        }
-                    }
+                    WillpowerMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 1,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 3,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 41
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 44
                 }
             });
         }
 
-        public async Task AddSpider(DbContext dbContext, int identity)
+        private static async Task AddSpider(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -1038,64 +1066,66 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 3,
                     VitalityMin = 3,
                     WillpowerMax = 2,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 20,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 1,
-                            GuaranteedSuccesses = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        }
-                    }
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 20,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 1,
+                    GuaranteedSuccesses = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
                 }
             });
         }
 
-        public async Task AddReu(DbContext dbContext, int identity)
+        private static async Task AddReu(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -1123,45 +1153,48 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 10,
                     VitalityMin = 10,
                     WillpowerMax = 3,
-                    WillpowerMin = 3,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 4,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        }
-                    },
-                    CreatureMerits = new List<CreatureMerit>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            MeritId = 26
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 44
-                        }
-                    }
+                    WillpowerMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 4,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    MeritId = 26
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 44
                 }
             });
         }
 
-        public async Task AddScorpion(DbContext dbContext, int identity)
+        private static async Task AddScorpion(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -1187,70 +1220,72 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 4,
                     VitalityMin = 4,
                     WillpowerMax = 2,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 1,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 36,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        }
-                    }
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 1,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 36,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
                 }
             });
         }
 
-        public async Task AddTiger(DbContext dbContext, int identity)
+        private static async Task AddTiger(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -1276,86 +1311,88 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 4,
                     VitalityMin = 4,
                     WillpowerMax = 3,
-                    WillpowerMin = 3,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 19,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 20,
-                            SkillLevelMax = 1,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 32,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2,
-                            GuaranteedSuccesses = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 2,
-                            GuaranteedSuccesses = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 3,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 41
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        }
-                    }
+                    WillpowerMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 19,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 20,
+                    SkillLevelMax = 1,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 32,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2,
+                    GuaranteedSuccesses = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 2,
+                    GuaranteedSuccesses = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 3,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 41
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
                 }
             });
         }
 
-        public async Task AddFalcon(DbContext dbContext, int identity)
+        private static async Task AddFalcon(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -1381,63 +1418,65 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 2,
                     VitalityMin = 2,
                     WillpowerMax = 3,
-                    WillpowerMin = 2,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 1,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 70,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 1,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 40
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        }
-                    }
+                    WillpowerMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 1,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 70,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 1,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 40
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
                 }
             });
         }
 
-        public async Task AddWarg(DbContext dbContext, int identity)
+        private static async Task AddWarg(DbContext dbContext, int identity)
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
@@ -1465,72 +1504,74 @@ namespace EntityFramework.MonsterBook.Seeds
                     VitalityMax = 5,
                     VitalityMin = 5,
                     WillpowerMax = 3,
-                    WillpowerMin = 3,
-                    CreatureSkills = new List<CreatureSkill>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 21,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 32,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 34,
-                            SkillLevelMax = 3,
-                            SkillLevelMin = 1
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 40,
-                            SkillLevelMax = 5,
-                            SkillLevelMin = 2
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 3,
-                            SkillLevelMax = 4,
-                            SkillLevelMin = 3
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            SkillId = 12,
-                            SkillLevelMax = 2,
-                            SkillLevelMin = 1
-                        }
-                    },
-                    CreatureWeapons = new List<CreatureWeapon>
-                    {
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 41
-                        },
-                        new()
-                        {
-                            CreatureId = identity,
-                            WeaponId = 43
-                        }
-                    }
+                    WillpowerMin = 3
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 21,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 32,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 34,
+                    SkillLevelMax = 3,
+                    SkillLevelMin = 1
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 40,
+                    SkillLevelMax = 5,
+                    SkillLevelMin = 2
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 3,
+                    SkillLevelMax = 4,
+                    SkillLevelMin = 3
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    SkillId = 12,
+                    SkillLevelMax = 2,
+                    SkillLevelMin = 1
+                }
+            });
+
+            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            {
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 41
+                },
+                new()
+                {
+                    CreatureId = identity,
+                    WeaponId = 43
                 }
             });
         }
 
         private static int GetIdentity()
         {
-             return _identity++;
+            return _identity++;
         }
     }
 }

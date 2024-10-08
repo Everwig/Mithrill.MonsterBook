@@ -16,7 +16,214 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
-export class NpcClient {
+export class ArmorsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    getAllForNpcTemplates(): Observable<Armor[]> {
+        let url_ = this.baseUrl + "/api/armors/getallfornpctemplates";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllForNpcTemplates(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllForNpcTemplates(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Armor[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Armor[]>;
+        }));
+    }
+
+    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Armor[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Armor.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+}
+
+@Injectable()
+export class FlawsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    getAllForNpcTemplates(): Observable<Flaw[]> {
+        let url_ = this.baseUrl + "/api/flaws/getallfornpctemplates";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllForNpcTemplates(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllForNpcTemplates(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Flaw[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Flaw[]>;
+        }));
+    }
+
+    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Flaw[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Flaw.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+}
+
+@Injectable()
+export class MeritsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    getAllForNpcTemplates(): Observable<Merit[]> {
+        let url_ = this.baseUrl + "/api/merits/getallfornpctemplates";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllForNpcTemplates(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllForNpcTemplates(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Merit[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Merit[]>;
+        }));
+    }
+
+    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Merit[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Merit.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+}
+
+@Injectable()
+export class NpcsClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -27,7 +234,7 @@ export class NpcClient {
     }
 
     getAll(sortDirection: SortDirection | undefined, sortProperty: SortProperty | undefined, pageIndex: number | undefined, pageSize: number | undefined): Observable<GetNpcTemplatesQueryResult> {
-        let url_ = this.baseUrl + "/api/npc/gettemplates?";
+        let url_ = this.baseUrl + "/api/npcs/gettemplates?";
         if (sortDirection === null)
             throw new Error("The parameter 'sortDirection' cannot be null.");
         else if (sortDirection !== undefined)
@@ -91,7 +298,7 @@ export class NpcClient {
     }
 
     get(id: number): Observable<Npc2> {
-        let url_ = this.baseUrl + "/api/npc/gettemplate/{id}";
+        let url_ = this.baseUrl + "/api/npcs/gettemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -151,7 +358,7 @@ export class NpcClient {
     }
 
     deleteTemplate(id: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/npc/deletetemplate/{id}";
+        let url_ = this.baseUrl + "/api/npcs/deletetemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -212,6 +419,336 @@ export class NpcClient {
             }));
         }
     }
+}
+
+@Injectable()
+export class SkillsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    getAllForNpcTemplates(): Observable<Skill2[]> {
+        let url_ = this.baseUrl + "/api/skills/getallfornpctemplates";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllForNpcTemplates(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllForNpcTemplates(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Skill2[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Skill2[]>;
+        }));
+    }
+
+    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Skill2[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Skill2.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+}
+
+@Injectable()
+export class WeaponsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    getAllForNpcTemplates(): Observable<Weapon2[]> {
+        let url_ = this.baseUrl + "/api/weapons/getallfornpctemplates";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllForNpcTemplates(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllForNpcTemplates(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Weapon2[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Weapon2[]>;
+        }));
+    }
+
+    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Weapon2[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Weapon2.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+}
+
+export class Armor implements IArmor {
+    id!: number;
+    name!: string;
+    baseArmorClass!: number;
+    baseMovementInhibitoryFactor!: number;
+
+    constructor(data?: IArmor) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.baseArmorClass = _data["baseArmorClass"];
+            this.baseMovementInhibitoryFactor = _data["baseMovementInhibitoryFactor"];
+        }
+    }
+
+    static fromJS(data: any): Armor {
+        data = typeof data === 'object' ? data : {};
+        let result = new Armor();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["baseArmorClass"] = this.baseArmorClass;
+        data["baseMovementInhibitoryFactor"] = this.baseMovementInhibitoryFactor;
+        return data;
+    }
+}
+
+export interface IArmor {
+    id: number;
+    name: string;
+    baseArmorClass: number;
+    baseMovementInhibitoryFactor: number;
+}
+
+export class ProblemDetails implements IProblemDetails {
+    type!: string | undefined;
+    title!: string | undefined;
+    status!: number | undefined;
+    detail!: string | undefined;
+    instance!: string | undefined;
+
+    [key: string]: any;
+
+    constructor(data?: IProblemDetails) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.type = _data["type"];
+            this.title = _data["title"];
+            this.status = _data["status"];
+            this.detail = _data["detail"];
+            this.instance = _data["instance"];
+        }
+    }
+
+    static fromJS(data: any): ProblemDetails {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProblemDetails();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["type"] = this.type;
+        data["title"] = this.title;
+        data["status"] = this.status;
+        data["detail"] = this.detail;
+        data["instance"] = this.instance;
+        return data;
+    }
+}
+
+export interface IProblemDetails {
+    type: string | undefined;
+    title: string | undefined;
+    status: number | undefined;
+    detail: string | undefined;
+    instance: string | undefined;
+
+    [key: string]: any;
+}
+
+export class Flaw implements IFlaw {
+    id!: number;
+    name!: string;
+
+    constructor(data?: IFlaw) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): Flaw {
+        data = typeof data === 'object' ? data : {};
+        let result = new Flaw();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+export interface IFlaw {
+    id: number;
+    name: string;
+}
+
+export class Merit implements IMerit {
+    id!: number;
+    name!: string;
+
+    constructor(data?: IMerit) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): Merit {
+        data = typeof data === 'object' ? data : {};
+        let result = new Merit();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+export interface IMerit {
+    id: number;
+    name: string;
 }
 
 export class GetNpcTemplatesQueryResult implements IGetNpcTemplatesQueryResult {
@@ -574,10 +1111,11 @@ export class Npc2 implements INpc2 {
     powerPointMin!: number;
     difficulty!: Difficulty;
     race!: Race;
-    merits!: Merit[];
-    flaws!: Flaw[];
+    merits!: Merit2[];
+    flaws!: Flaw2[];
     weapons!: Weapon[];
     skills!: Skill[];
+    armors!: Armor2[];
 
     constructor(data?: INpc2) {
         if (data) {
@@ -621,12 +1159,12 @@ export class Npc2 implements INpc2 {
             if (Array.isArray(_data["merits"])) {
                 this.merits = [] as any;
                 for (let item of _data["merits"])
-                    this.merits!.push(Merit.fromJS(item));
+                    this.merits!.push(Merit2.fromJS(item));
             }
             if (Array.isArray(_data["flaws"])) {
                 this.flaws = [] as any;
                 for (let item of _data["flaws"])
-                    this.flaws!.push(Flaw.fromJS(item));
+                    this.flaws!.push(Flaw2.fromJS(item));
             }
             if (Array.isArray(_data["weapons"])) {
                 this.weapons = [] as any;
@@ -637,6 +1175,11 @@ export class Npc2 implements INpc2 {
                 this.skills = [] as any;
                 for (let item of _data["skills"])
                     this.skills!.push(Skill.fromJS(item));
+            }
+            if (Array.isArray(_data["armors"])) {
+                this.armors = [] as any;
+                for (let item of _data["armors"])
+                    this.armors!.push(Armor2.fromJS(item));
             }
         }
     }
@@ -698,6 +1241,11 @@ export class Npc2 implements INpc2 {
             for (let item of this.skills)
                 data["skills"].push(item.toJSON());
         }
+        if (Array.isArray(this.armors)) {
+            data["armors"] = [];
+            for (let item of this.armors)
+                data["armors"].push(item.toJSON());
+        }
         return data;
     }
 }
@@ -731,17 +1279,19 @@ export interface INpc2 {
     powerPointMin: number;
     difficulty: Difficulty;
     race: Race;
-    merits: Merit[];
-    flaws: Flaw[];
+    merits: Merit2[];
+    flaws: Flaw2[];
     weapons: Weapon[];
     skills: Skill[];
+    armors: Armor2[];
 }
 
-export class Merit implements IMerit {
+export class Merit2 implements IMerit2 {
     id!: number;
-    name!: number;
+    name!: string;
+    isOptional!: boolean;
 
-    constructor(data?: IMerit) {
+    constructor(data?: IMerit2) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -754,12 +1304,13 @@ export class Merit implements IMerit {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
+            this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Merit {
+    static fromJS(data: any): Merit2 {
         data = typeof data === 'object' ? data : {};
-        let result = new Merit();
+        let result = new Merit2();
         result.init(data);
         return result;
     }
@@ -768,20 +1319,23 @@ export class Merit implements IMerit {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
+        data["isOptional"] = this.isOptional;
         return data;
     }
 }
 
-export interface IMerit {
+export interface IMerit2 {
     id: number;
-    name: number;
+    name: string;
+    isOptional: boolean;
 }
 
-export class Flaw implements IFlaw {
+export class Flaw2 implements IFlaw2 {
     id!: number;
-    name!: number;
+    name!: string;
+    isOptional!: boolean;
 
-    constructor(data?: IFlaw) {
+    constructor(data?: IFlaw2) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -794,12 +1348,13 @@ export class Flaw implements IFlaw {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
+            this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Flaw {
+    static fromJS(data: any): Flaw2 {
         data = typeof data === 'object' ? data : {};
-        let result = new Flaw();
+        let result = new Flaw2();
         result.init(data);
         return result;
     }
@@ -808,19 +1363,29 @@ export class Flaw implements IFlaw {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
+        data["isOptional"] = this.isOptional;
         return data;
     }
 }
 
-export interface IFlaw {
+export interface IFlaw2 {
     id: number;
-    name: number;
+    name: string;
+    isOptional: boolean;
 }
 
 export class Weapon implements IWeapon {
     id!: number;
-    name!: number;
-    attackType!: AttackType;
+    name!: string;
+    baseAttackModifier!: number;
+    baseDefenseModifier!: number;
+    baseInitiativeModifier!: number;
+    additionalAttackModifier!: number;
+    additionalDefenseModifier!: number;
+    additionalInitiativeModifier!: number;
+    material!: Material;
+    isOptional!: boolean;
+    attackType!: AttackType[];
 
     constructor(data?: IWeapon) {
         if (data) {
@@ -835,7 +1400,19 @@ export class Weapon implements IWeapon {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
-            this.attackType = _data["attackType"] ? AttackType.fromJS(_data["attackType"]) : <any>undefined;
+            this.baseAttackModifier = _data["baseAttackModifier"];
+            this.baseDefenseModifier = _data["baseDefenseModifier"];
+            this.baseInitiativeModifier = _data["baseInitiativeModifier"];
+            this.additionalAttackModifier = _data["additionalAttackModifier"];
+            this.additionalDefenseModifier = _data["additionalDefenseModifier"];
+            this.additionalInitiativeModifier = _data["additionalInitiativeModifier"];
+            this.material = _data["material"];
+            this.isOptional = _data["isOptional"];
+            if (Array.isArray(_data["attackType"])) {
+                this.attackType = [] as any;
+                for (let item of _data["attackType"])
+                    this.attackType!.push(AttackType.fromJS(item));
+            }
         }
     }
 
@@ -850,22 +1427,64 @@ export class Weapon implements IWeapon {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
-        data["attackType"] = this.attackType ? this.attackType.toJSON() : <any>undefined;
+        data["baseAttackModifier"] = this.baseAttackModifier;
+        data["baseDefenseModifier"] = this.baseDefenseModifier;
+        data["baseInitiativeModifier"] = this.baseInitiativeModifier;
+        data["additionalAttackModifier"] = this.additionalAttackModifier;
+        data["additionalDefenseModifier"] = this.additionalDefenseModifier;
+        data["additionalInitiativeModifier"] = this.additionalInitiativeModifier;
+        data["material"] = this.material;
+        data["isOptional"] = this.isOptional;
+        if (Array.isArray(this.attackType)) {
+            data["attackType"] = [];
+            for (let item of this.attackType)
+                data["attackType"].push(item.toJSON());
+        }
         return data;
     }
 }
 
 export interface IWeapon {
     id: number;
-    name: number;
-    attackType: AttackType;
+    name: string;
+    baseAttackModifier: number;
+    baseDefenseModifier: number;
+    baseInitiativeModifier: number;
+    additionalAttackModifier: number;
+    additionalDefenseModifier: number;
+    additionalInitiativeModifier: number;
+    material: Material;
+    isOptional: boolean;
+    attackType: AttackType[];
+}
+
+export enum Material {
+    Bone = "Bone",
+    Cloth = "Cloth",
+    Leather = "Leather",
+    DragonHide = "DragonHide",
+    Wood = "Wood",
+    Brick = "Brick",
+    Copper = "Copper",
+    Gold = "Gold",
+    Stone = "Stone",
+    Marble = "Marble",
+    Iron = "Iron",
+    Steel = "Steel",
+    Mithrill = "Mithrill",
+    Granite = "Granite",
+    Ruby = "Ruby",
+    Diamond = "Diamond",
+    Adamar = "Adamar",
+    Adamir = "Adamir",
 }
 
 export class AttackType implements IAttackType {
     id!: number;
-    name!: string;
-    numberOfDice!: number;
-    extraDamage!: number;
+    damageType!: DamageType;
+    numberOfDices!: number;
+    guaranteedDamage!: number;
+    isBaseAttackType!: boolean;
 
     constructor(data?: IAttackType) {
         if (data) {
@@ -879,9 +1498,10 @@ export class AttackType implements IAttackType {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.name = _data["name"];
-            this.numberOfDice = _data["numberOfDice"];
-            this.extraDamage = _data["extraDamage"];
+            this.damageType = _data["damageType"];
+            this.numberOfDices = _data["numberOfDices"];
+            this.guaranteedDamage = _data["guaranteedDamage"];
+            this.isBaseAttackType = _data["isBaseAttackType"];
         }
     }
 
@@ -895,24 +1515,46 @@ export class AttackType implements IAttackType {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["name"] = this.name;
-        data["numberOfDice"] = this.numberOfDice;
-        data["extraDamage"] = this.extraDamage;
+        data["damageType"] = this.damageType;
+        data["numberOfDices"] = this.numberOfDices;
+        data["guaranteedDamage"] = this.guaranteedDamage;
+        data["isBaseAttackType"] = this.isBaseAttackType;
         return data;
     }
 }
 
 export interface IAttackType {
     id: number;
-    name: string;
-    numberOfDice: number;
-    extraDamage: number;
+    damageType: DamageType;
+    numberOfDices: number;
+    guaranteedDamage: number;
+    isBaseAttackType: boolean;
+}
+
+export enum DamageType {
+    Slashing = "Slashing",
+    Stabbing = "Stabbing",
+    Bludgeoning = "Bludgeoning",
+    Fire = "Fire",
+    Lightning = "Lightning",
+    Ice = "Ice",
+    Light = "Light",
+    Dark = "Dark",
+    Acid = "Acid",
+    Poison = "Poison",
+    None = "None",
 }
 
 export class Skill implements ISkill {
     id!: number;
-    name!: number;
-    level!: number;
+    name!: string;
+    minLevel!: number;
+    maxLevel!: number;
+    guaranteedSuccesses!: number;
+    isOptional!: boolean;
+    attribute1!: Attribute;
+    attribute2!: Attribute;
+    category!: SkillCategory;
 
     constructor(data?: ISkill) {
         if (data) {
@@ -927,7 +1569,13 @@ export class Skill implements ISkill {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
-            this.level = _data["level"];
+            this.minLevel = _data["minLevel"];
+            this.maxLevel = _data["maxLevel"];
+            this.guaranteedSuccesses = _data["guaranteedSuccesses"];
+            this.isOptional = _data["isOptional"];
+            this.attribute1 = _data["attribute1"];
+            this.attribute2 = _data["attribute2"];
+            this.category = _data["category"];
         }
     }
 
@@ -942,27 +1590,60 @@ export class Skill implements ISkill {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
-        data["level"] = this.level;
+        data["minLevel"] = this.minLevel;
+        data["maxLevel"] = this.maxLevel;
+        data["guaranteedSuccesses"] = this.guaranteedSuccesses;
+        data["isOptional"] = this.isOptional;
+        data["attribute1"] = this.attribute1;
+        data["attribute2"] = this.attribute2;
+        data["category"] = this.category;
         return data;
     }
 }
 
 export interface ISkill {
     id: number;
-    name: number;
-    level: number;
+    name: string;
+    minLevel: number;
+    maxLevel: number;
+    guaranteedSuccesses: number;
+    isOptional: boolean;
+    attribute1: Attribute;
+    attribute2: Attribute;
+    category: SkillCategory;
 }
 
-export class ProblemDetails implements IProblemDetails {
-    type!: string | undefined;
-    title!: string | undefined;
-    status!: number | undefined;
-    detail!: string | undefined;
-    instance!: string | undefined;
+export enum Attribute {
+    Optional = "Optional",
+    Strength = "Strength",
+    Vitality = "Vitality",
+    Body = "Body",
+    Agility = "Agility",
+    Dexterity = "Dexterity",
+    Intelligence = "Intelligence",
+    Willpower = "Willpower",
+    Emotion = "Emotion",
+    Karma = "Karma",
+}
 
-    [key: string]: any;
+export enum SkillCategory {
+    Combat = "Combat",
+    Secular = "Secular",
+    Underworld = "Underworld",
+    Scholar = "Scholar",
+}
 
-    constructor(data?: IProblemDetails) {
+export class Armor2 implements IArmor2 {
+    id!: number;
+    name!: string;
+    baseArmorClass!: number;
+    baseMovementInhibitoryFactor!: number;
+    material!: Material;
+    additionalArmorClass!: number;
+    additionalMovementInhibitoryFactor!: number;
+    isOptional!: boolean;
+
+    constructor(data?: IArmor2) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -973,48 +1654,203 @@ export class ProblemDetails implements IProblemDetails {
 
     init(_data?: any) {
         if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.type = _data["type"];
-            this.title = _data["title"];
-            this.status = _data["status"];
-            this.detail = _data["detail"];
-            this.instance = _data["instance"];
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.baseArmorClass = _data["baseArmorClass"];
+            this.baseMovementInhibitoryFactor = _data["baseMovementInhibitoryFactor"];
+            this.material = _data["material"];
+            this.additionalArmorClass = _data["additionalArmorClass"];
+            this.additionalMovementInhibitoryFactor = _data["additionalMovementInhibitoryFactor"];
+            this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): ProblemDetails {
+    static fromJS(data: any): Armor2 {
         data = typeof data === 'object' ? data : {};
-        let result = new ProblemDetails();
+        let result = new Armor2();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["type"] = this.type;
-        data["title"] = this.title;
-        data["status"] = this.status;
-        data["detail"] = this.detail;
-        data["instance"] = this.instance;
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["baseArmorClass"] = this.baseArmorClass;
+        data["baseMovementInhibitoryFactor"] = this.baseMovementInhibitoryFactor;
+        data["material"] = this.material;
+        data["additionalArmorClass"] = this.additionalArmorClass;
+        data["additionalMovementInhibitoryFactor"] = this.additionalMovementInhibitoryFactor;
+        data["isOptional"] = this.isOptional;
         return data;
     }
 }
 
-export interface IProblemDetails {
-    type: string | undefined;
-    title: string | undefined;
-    status: number | undefined;
-    detail: string | undefined;
-    instance: string | undefined;
+export interface IArmor2 {
+    id: number;
+    name: string;
+    baseArmorClass: number;
+    baseMovementInhibitoryFactor: number;
+    material: Material;
+    additionalArmorClass: number;
+    additionalMovementInhibitoryFactor: number;
+    isOptional: boolean;
+}
 
-    [key: string]: any;
+export class Skill2 implements ISkill2 {
+    id!: number;
+    name!: string;
+    attribute1!: Attribute;
+    attribute2!: Attribute;
+    category!: SkillCategory;
+
+    constructor(data?: ISkill2) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.attribute1 = _data["attribute1"];
+            this.attribute2 = _data["attribute2"];
+            this.category = _data["category"];
+        }
+    }
+
+    static fromJS(data: any): Skill2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Skill2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["attribute1"] = this.attribute1;
+        data["attribute2"] = this.attribute2;
+        data["category"] = this.category;
+        return data;
+    }
+}
+
+export interface ISkill2 {
+    id: number;
+    name: string;
+    attribute1: Attribute;
+    attribute2: Attribute;
+    category: SkillCategory;
+}
+
+export class Weapon2 implements IWeapon2 {
+    id!: number;
+    name!: string;
+    baseAttackModifier!: number;
+    baseDefenseModifier!: number;
+    baseInitiativeModifier!: number;
+    baseAttackType!: AttackType2;
+
+    constructor(data?: IWeapon2) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.baseAttackModifier = _data["baseAttackModifier"];
+            this.baseDefenseModifier = _data["baseDefenseModifier"];
+            this.baseInitiativeModifier = _data["baseInitiativeModifier"];
+            this.baseAttackType = _data["baseAttackType"] ? AttackType2.fromJS(_data["baseAttackType"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): Weapon2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Weapon2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["baseAttackModifier"] = this.baseAttackModifier;
+        data["baseDefenseModifier"] = this.baseDefenseModifier;
+        data["baseInitiativeModifier"] = this.baseInitiativeModifier;
+        data["baseAttackType"] = this.baseAttackType ? this.baseAttackType.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IWeapon2 {
+    id: number;
+    name: string;
+    baseAttackModifier: number;
+    baseDefenseModifier: number;
+    baseInitiativeModifier: number;
+    baseAttackType: AttackType2;
+}
+
+export class AttackType2 implements IAttackType2 {
+    id!: number;
+    damageType!: DamageType;
+    numberOfDices!: number;
+    guaranteedDamage!: number;
+
+    constructor(data?: IAttackType2) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.damageType = _data["damageType"];
+            this.numberOfDices = _data["numberOfDices"];
+            this.guaranteedDamage = _data["guaranteedDamage"];
+        }
+    }
+
+    static fromJS(data: any): AttackType2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new AttackType2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["damageType"] = this.damageType;
+        data["numberOfDices"] = this.numberOfDices;
+        data["guaranteedDamage"] = this.guaranteedDamage;
+        return data;
+    }
+}
+
+export interface IAttackType2 {
+    id: number;
+    damageType: DamageType;
+    numberOfDices: number;
+    guaranteedDamage: number;
 }
 
 export class ApiException extends Error {

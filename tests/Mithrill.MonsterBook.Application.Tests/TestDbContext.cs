@@ -4,9 +4,10 @@ using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Domain;
 using CreatureSkillCategories = Mithrill.MonsterBook.Domain.CreatureSkillCategories;
+using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Domain.Difficulty;
 using Race = Mithrill.MonsterBook.Domain.Race;
-using SkillCategories = Mithrill.MonsterBook.Domain.SkillCategories;
+using SkillCategory = Mithrill.MonsterBook.Domain.SkillCategory;
 
 namespace Mithrill.MonsterBook.Application.Tests
 {
@@ -19,6 +20,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         public DbSet<Flaw> Flaws { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<Armor> Armors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -75,10 +77,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             {
                 CreatureId = 1,
                 Id = 1,
-                Primary = SkillCategories.Secular,
-                FirstSecondary = SkillCategories.Combat,
-                SecondSecondary = SkillCategories.Scholar,
-                Tertiary = SkillCategories.Underworld
+                Primary = SkillCategory.Secular,
+                FirstSecondary = SkillCategory.Combat,
+                SecondSecondary = SkillCategory.Scholar,
+                Tertiary = SkillCategory.Underworld
             },
             CreatureSkills = new List<CreatureSkill>
             {
@@ -96,7 +98,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "SkillNameHu",
                         Attribute1 = Attribute.Dexterity,
                         Attribute2 = Attribute.Strength,
-                        Category = SkillCategories.Combat
+                        Category = SkillCategory.Combat
                     }
                 }
             },
@@ -175,10 +177,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             {
                 CreatureId = 1,
                 Id = 1,
-                Primary = SkillCategories.Secular,
-                FirstSecondary = SkillCategories.Combat,
-                SecondSecondary = SkillCategories.Scholar,
-                Tertiary = SkillCategories.Underworld
+                Primary = SkillCategory.Secular,
+                FirstSecondary = SkillCategory.Combat,
+                SecondSecondary = SkillCategory.Scholar,
+                Tertiary = SkillCategory.Underworld
             },
             CreatureSkills = new List<CreatureSkill>
             {
@@ -196,7 +198,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "SkillNameHu",
                         Attribute1 = Attribute.Dexterity,
                         Attribute2 = Attribute.Strength,
-                        Category = SkillCategories.Combat
+                        Category = SkillCategory.Combat
                     }
                 }
             },

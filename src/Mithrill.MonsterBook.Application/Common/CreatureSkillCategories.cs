@@ -4,9 +4,9 @@ namespace Mithrill.MonsterBook.Application.Common
 {
     public class CreatureSkillCategories : IMapFrom<MonsterBook.Domain.CreatureSkillCategories>
     {
-        public SkillCategories Primary { get; set; }
-        public SkillCategories FirstSecondary { get; set; }
-        public SkillCategories SecondSecondary { get; set; }
-        public SkillCategories Tertiary { get; set; }
+        public SkillCategory Primary { get; set; }
+        public SkillCategory FirstSecondary { get; set; }
+        public SkillCategory SecondSecondary { get; set; }
+        public SkillCategory Tertiary { get; set; }
     }
 }

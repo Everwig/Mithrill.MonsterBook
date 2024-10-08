@@ -1,0 +1,120 @@
+<!--
+- Arkánum rangok, ha van értelme
+- Lehetséges képzettségek
+- Lehetséges előnyök
+- Lehetséges hátrányok
+- Fegyverek
+- Vértek
+-->
+<div class="global-container">
+  <form [formGroup]="npcTemplateDetails">
+    <div class="flex">
+
+      <div class="npc-template-section">
+        <div class="margin-top flex">
+        <mat-form-field>
+          <mat-label>Név</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Faj</mat-label>
+          <mat-select formControlName="race">
+            <mat-option *ngFor="let r of race | keyvalue" [value]="r.key">{{r.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="npc-slider">
+          <label>Karma</label>
+          <mat-slider min="0" max="12" showTickMarks discrete>
+            <input value="0" matSliderStartThumb formControlName="karmaMin">
+            <input value="12" matSliderEndThumb formControlName="karmaMax">
+          </mat-slider>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Nehézség</mat-label>
+          <mat-select formControlName="difficulty">
+            <mat-option *ngFor="let d of difficulty | keyvalue" [value]="d.key">{{d.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+      </div>
+
+      <div class="npc-template-section">
+        <label class="npc-template-section-header">Tulajdonságok</label>
+        <div class="npc-template-section-content">
+          <div class="npc-slider">
+            <label>Erő</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="strengthMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="strengthMax">
+            </mat-slider>
+          </div>
+
+          <div class="npc-slider">
+            <label>Test</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="bodyMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="bodyMax">
+            </mat-slider>
+          </div>
+
+          <div class="npc-slider">
+            <label>Egészség</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="vitalityMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="vitalityMax">
+            </mat-slider>
+          </div>
+
+          <div class="npc-slider">
+            <label>Gyorsaság</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="agilityMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="agilityMax">
+            </mat-slider>
+          </div>
+
+          <div class="npc-slider">
+            <label>Ügyesség</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="dexterityMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="dexterityMax">
+            </mat-slider>
+          </div>
+
+          <div class="npc-slider">
+            <label>Intelligencia</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="intelligenceMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="intelligenceMax">
+            </mat-slider>
+          </div>
+
+          <div class="npc-slider">
+            <label>Akaraterő</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="willpowerMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="willpowerMax">
+            </mat-slider>
+          </div>
+
+          <div class="npc-slider">
+            <label>Érzelem</label>
+            <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+              <input value="1" matSliderStartThumb formControlName="emotionMin">
+              <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="emotionMax">
+            </mat-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    Skill kategóriák
+
+    <label>Test pont: {{hitPointMin}} - {{hitPointMax}}</label>
+    <label>Mana pont: {{manaPointMin}} - {{manaPointMax}}</label>
+    <label>Hatalom pont: {{powerPointMin}} - {{powerPointMax}}</label>
+  </form>
+</div>
