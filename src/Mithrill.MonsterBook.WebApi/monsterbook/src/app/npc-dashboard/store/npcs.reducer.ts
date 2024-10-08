@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import { PageInformation } from '../../core/model/page-information.model';
 import { SortInformation } from '../../core/model/sort-information.model';
-import { Npc } from '../model/npc.model';
+import { Npc } from '../models/npc.model';
 
 import * as fromRoot from '../../store';
 import * as fromNpcActions from './npcs.actions';

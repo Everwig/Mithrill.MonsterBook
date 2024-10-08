@@ -42,7 +42,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Race = Race.Animal,
                     Name = "Wolf",
@@ -71,32 +71,32 @@ namespace EntityFramework.MonsterBook.Seeds
             });
 
             await dbContext.BulkInsertOrUpdateAsync(
-                new List<CreatureSkill>
+                new List<CharacterSkill>
                     {
                         new()
                         {
-                            CreatureId = identity,
+                            NpcTemplateId = identity,
                             SkillId = 21,
                             SkillLevelMax = 2,
                             SkillLevelMin = 1
                         },
                         new()
                         {
-                            CreatureId = identity,
+                            NpcTemplateId = identity,
                             SkillId = 32,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
                         new()
                         {
-                            CreatureId = identity,
+                            NpcTemplateId = identity,
                             SkillId = 34,
                             SkillLevelMax = 5,
                             SkillLevelMin = 3
                         },
                         new()
                         {
-                            CreatureId = identity,
+                            NpcTemplateId = identity,
                             SkillId = 40,
                             SkillLevelMax = 1,
                             SkillLevelMin = 1,
@@ -104,32 +104,32 @@ namespace EntityFramework.MonsterBook.Seeds
                         },
                         new()
                         {
-                            CreatureId = identity,
+                            NpcTemplateId = identity,
                             SkillId = 19,
                             SkillLevelMax = 2,
                             SkillLevelMin = 2
                         },
                         new()
                         {
-                            CreatureId = identity,
+                            NpcTemplateId = identity,
                             SkillId = 1,
                             SkillLevelMax = 4,
                             SkillLevelMin = 3
                         },
                         new()
                         {
-                            CreatureId = identity,
+                            NpcTemplateId = identity,
                             SkillId = 12,
                             SkillLevelMax = 2,
                             SkillLevelMin = 1
                         }
                     });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40,
                     Material = Material.Bone
                 }
@@ -140,7 +140,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -168,50 +168,50 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 32,
                     SkillLevelMax = 5,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 5,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40,
                     Material = Material.Bone
                 }
@@ -222,7 +222,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -250,25 +250,25 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 5,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 36,
                     SkillLevelMax = 3,
                     SkillLevelMin = 2,
@@ -276,25 +276,25 @@ namespace EntityFramework.MonsterBook.Seeds
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40,
                     Material = Material.Bone
                 }
@@ -305,7 +305,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -333,25 +333,25 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 5,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 36,
                     SkillLevelMax = 3,
                     SkillLevelMin = 2,
@@ -359,32 +359,32 @@ namespace EntityFramework.MonsterBook.Seeds
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 5,
                     SkillLevelMax = 5,
                     SkillLevelMin = 3
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40,
                     Material = Material.Bone
                 }
@@ -395,7 +395,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -423,53 +423,53 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 5,
                     SkillLevelMin = 5
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 5,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 36,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 4,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 41,
                     Material = Material.Bone
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     MeritId = 26
                 }
             });
@@ -479,7 +479,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -507,64 +507,64 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 32,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 4,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40,
                     Material = Material.Bone
                 }
@@ -575,7 +575,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -603,64 +603,64 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 3,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 22,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 3,
                     SkillLevelMax = 3,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 3,
                     SkillLevelMin = 3
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 44
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     MeritId = 26
                 }
             });
@@ -670,7 +670,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -698,64 +698,64 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 3,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 22,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 3,
                     SkillLevelMax = 3,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 3,
                     SkillLevelMin = 3
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     MeritId = 26
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 44
                 }
             });
@@ -765,7 +765,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -793,62 +793,62 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 1,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 32,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 5,
                     SkillLevelMin = 3
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 }
             });
@@ -858,7 +858,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -886,71 +886,71 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 20,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 1,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 32,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 3,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 41
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 44
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     MeritId = 26
                 }
             });
@@ -960,7 +960,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -986,55 +986,55 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 1,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 3,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 41
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 44
                 }
             });
@@ -1044,7 +1044,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -1070,11 +1070,11 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 20,
                     SkillLevelMax = 5,
                     SkillLevelMin = 1,
@@ -1082,44 +1082,44 @@ namespace EntityFramework.MonsterBook.Seeds
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 }
             });
@@ -1129,7 +1129,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -1157,38 +1157,38 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 4,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureMerit>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     MeritId = 26
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 44
                 }
             });
@@ -1198,7 +1198,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -1224,62 +1224,62 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 1,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 3,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 36,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 }
             });
@@ -1289,7 +1289,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -1315,39 +1315,39 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 19,
                     SkillLevelMax = 3,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 20,
                     SkillLevelMax = 1,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 2,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 3,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 32,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2,
@@ -1355,7 +1355,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 5,
                     SkillLevelMin = 2,
@@ -1363,30 +1363,30 @@ namespace EntityFramework.MonsterBook.Seeds
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 3,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 41
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 }
             });
@@ -1396,7 +1396,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -1422,55 +1422,55 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 1,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 70,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 40
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 }
             });
@@ -1480,7 +1480,7 @@ namespace EntityFramework.MonsterBook.Seeds
         {
             await dbContext.BulkInsertOrUpdateAsync(new[]
             {
-                new Creature
+                new NpcTemplate
                 {
                     Id = identity,
                     Race = Race.Animal,
@@ -1508,62 +1508,62 @@ namespace EntityFramework.MonsterBook.Seeds
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureSkill>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 21,
                     SkillLevelMax = 3,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 32,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 34,
                     SkillLevelMax = 3,
                     SkillLevelMin = 1
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 40,
                     SkillLevelMax = 5,
                     SkillLevelMin = 2
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 3,
                     SkillLevelMax = 4,
                     SkillLevelMin = 3
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     SkillId = 12,
                     SkillLevelMax = 2,
                     SkillLevelMin = 1
                 }
             });
 
-            await dbContext.BulkInsertOrUpdateAsync(new List<CreatureWeapon>
+            await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 41
                 },
                 new()
                 {
-                    CreatureId = identity,
+                    NpcTemplateId = identity,
                     WeaponId = 43
                 }
             });

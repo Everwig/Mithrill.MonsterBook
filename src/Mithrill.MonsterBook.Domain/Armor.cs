@@ -10,6 +10,6 @@ namespace Mithrill.MonsterBook.Domain
         public int BaseArmorClass { get; set; }
         public int BaseMovementInhibitoryFactor { get; set; }
 
-        public ICollection<CreatureArmor> CreatureArmors { get; set; }
+        public ICollection<CharacterArmor> CharacterArmors { get; set; }
     }
 }

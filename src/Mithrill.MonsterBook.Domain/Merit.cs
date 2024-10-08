@@ -8,6 +8,6 @@ namespace Mithrill.MonsterBook.Domain
         public string Name { get; set; }
         public string NameHu { get; set; }
 
-        public ICollection<CreatureMerit> CreatureMerits { get; set; }
+        public ICollection<CharacterMerit> CreatureMerits { get; set; }
     }
 }

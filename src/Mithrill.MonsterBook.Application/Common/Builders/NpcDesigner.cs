@@ -13,9 +13,9 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             _npcBuilder = npcBuilder;
         }
 
-        public async Task DesignNpcAsync(int creatureId, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
+        public async Task DesignNpcAsync(int npcTemplateId, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
         {
-            await _npcBuilder.GetMonsterFromDatabaseAsync(creatureId, cancellationToken);
+            await _npcBuilder.GetMonsterFromDatabaseAsync(npcTemplateId, cancellationToken);
             _npcBuilder.SetDefaultStats(difficulty);
             _npcBuilder.AddRacialModifiers(isUndead);
             _npcBuilder.AddSkills(difficulty);
@@ -23,16 +23,16 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             _npcBuilder.CalculateLifeSigns(isUndead);
         }
 
-        public async Task DesignNpcWithKarmaAsync(int creatureId, bool isEvil, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
+        public async Task DesignNpcWithKarmaAsync(int npcTemplateId, bool isEvil, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
         {
-            await DesignNpcAsync(creatureId, isUndead, difficulty, cancellationToken);
+            await DesignNpcAsync(npcTemplateId, isUndead, difficulty, cancellationToken);
             _npcBuilder.GenerateKarma(isEvil, difficulty);
             _npcBuilder.CalculateLifeSigns(isUndead);
         }
 
-        public async Task DesignProminentNpcAsync(int creatureId, bool isEvil, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
+        public async Task DesignProminentNpcAsync(int npcTemplateId, bool isEvil, bool isUndead, Difficulty? difficulty, CancellationToken cancellationToken)
         {
-            await DesignNpcWithKarmaAsync(creatureId, isEvil, isUndead, difficulty, cancellationToken);
+            await DesignNpcWithKarmaAsync(npcTemplateId, isEvil, isUndead, difficulty, cancellationToken);
             _npcBuilder.SetSkillCategories();
             _npcBuilder.AddMerits(difficulty);
             _npcBuilder.AddFlaws(difficulty);

@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
-    public class Npc : IMapFrom<MonsterBook.Domain.Creature>
+    public class Npc : IMapFrom<MonsterBook.Domain.NpcTemplate>
     {
         public Npc()
         {
@@ -50,13 +50,13 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<MonsterBook.Domain.Creature, Npc>()
-                .ForMember(creature => creature.ManaMin, opt => opt.Ignore())
-                .ForMember(creature => creature.ManaMax, opt => opt.Ignore())
-                .ForMember(creature => creature.HitPointMin, opt => opt.Ignore())
-                .ForMember(creature => creature.HitPointMax, opt => opt.Ignore())
-                .ForMember(creature => creature.PowerPointMin, opt => opt.Ignore())
-                .ForMember(creature => creature.PowerPointMax, opt => opt.Ignore())
+            profile.CreateMap<MonsterBook.Domain.NpcTemplate, Npc>()
+                .ForMember(npcTemplate => npcTemplate.ManaMin, opt => opt.Ignore())
+                .ForMember(npcTemplate => npcTemplate.ManaMax, opt => opt.Ignore())
+                .ForMember(npcTemplate => npcTemplate.HitPointMin, opt => opt.Ignore())
+                .ForMember(npcTemplate => npcTemplate.HitPointMax, opt => opt.Ignore())
+                .ForMember(npcTemplate => npcTemplate.PowerPointMin, opt => opt.Ignore())
+                .ForMember(npcTemplate => npcTemplate.PowerPointMax, opt => opt.Ignore())
                 .ForMember(c => c.Merits, opt => opt.Ignore())
                 .ForMember(c => c.Flaws, opt => opt.Ignore())
                 .ForMember(c => c.Weapons, opt => opt.Ignore())

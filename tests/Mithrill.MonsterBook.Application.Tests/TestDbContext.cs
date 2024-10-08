@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Domain;
-using CreatureSkillCategories = Mithrill.MonsterBook.Domain.CreatureSkillCategories;
 using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Domain.Difficulty;
 using Race = Mithrill.MonsterBook.Domain.Race;
@@ -15,7 +14,7 @@ namespace Mithrill.MonsterBook.Application.Tests
     {
         public TestDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Creature> Creatures { get; set; }
+        public DbSet<NpcTemplate> NpcTemplates { get; set; }
         public DbSet<Merit> Merits { get; set; }
         public DbSet<Flaw> Flaws { get; set; }
         public DbSet<Skill> Skills { get; set; }
@@ -30,15 +29,15 @@ namespace Mithrill.MonsterBook.Application.Tests
 
     public class Seeds
     {
-        public Creature Creature = new()
+        public NpcTemplate NpcTemplate = new()
         {
             Name = "Creature",
             NameHu = "CreatureHu",
-            CreatureFlaws = new List<CreatureFlaw>
+            CreatureFlaws = new List<CharacterFlaw>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     FlawId = 1,
                     Flaw = new Flaw
                     {
@@ -48,11 +47,11 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            CreatureMerits = new List<CreatureMerit>
+            CreatureMerits = new List<CharacterMerit>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     MeritId = 1,
                     Merit = new Merit
                     {
@@ -63,7 +62,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 },
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     MeritId = 2,
                     Merit = new Merit
                     {
@@ -73,20 +72,20 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            CreatureSkillCategories = new CreatureSkillCategories
+            CharacterSkillCategories = new CharacterSkillCategories
             {
-                CreatureId = 1,
+                NpcTemplateId = 1,
                 Id = 1,
                 Primary = SkillCategory.Secular,
                 FirstSecondary = SkillCategory.Combat,
                 SecondSecondary = SkillCategory.Scholar,
                 Tertiary = SkillCategory.Underworld
             },
-            CreatureSkills = new List<CreatureSkill>
+            CreatureSkills = new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2,
@@ -102,11 +101,11 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            CreatureWeapons = new List<CreatureWeapon>
+            CreatureWeapons = new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     WeaponId = 1,
                     Weapon = new Weapon
                     {
@@ -138,18 +137,18 @@ namespace Mithrill.MonsterBook.Application.Tests
             Id = 1
         };
 
-        public Creature UndeadCreature = new()
+        public NpcTemplate UndeadNpcTemplate = new()
         {
             Name = "Creature",
             NameHu = "CreatureHu",
             Race = Race.Undead,
             KarmaMax = -3,
             KarmaMin = -3,
-            CreatureFlaws = new List<CreatureFlaw>
+            CreatureFlaws = new List<CharacterFlaw>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     FlawId = 1,
                     Flaw = new Flaw
                     {
@@ -159,11 +158,11 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            CreatureMerits = new List<CreatureMerit>
+            CreatureMerits = new List<CharacterMerit>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     MeritId = 1,
                     Merit = new Merit
                     {
@@ -173,20 +172,20 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            CreatureSkillCategories = new CreatureSkillCategories
+            CharacterSkillCategories = new CharacterSkillCategories
             {
-                CreatureId = 1,
+                NpcTemplateId = 1,
                 Id = 1,
                 Primary = SkillCategory.Secular,
                 FirstSecondary = SkillCategory.Combat,
                 SecondSecondary = SkillCategory.Scholar,
                 Tertiary = SkillCategory.Underworld
             },
-            CreatureSkills = new List<CreatureSkill>
+            CreatureSkills = new List<CharacterSkill>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     SkillId = 1,
                     SkillLevelMax = 4,
                     SkillLevelMin = 2,
@@ -202,11 +201,11 @@ namespace Mithrill.MonsterBook.Application.Tests
                     }
                 }
             },
-            CreatureWeapons = new List<CreatureWeapon>
+            CreatureWeapons = new List<CharacterWeapon>
             {
                 new()
                 {
-                    CreatureId = 1,
+                    NpcTemplateId = 1,
                     WeaponId = 1,
                     Weapon = new Weapon
                     {

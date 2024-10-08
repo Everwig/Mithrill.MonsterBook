@@ -16,7 +16,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
-export class NpcClient {
+export class NpcsClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -27,7 +27,7 @@ export class NpcClient {
     }
 
     getAll(sortDirection: SortDirection | undefined, sortProperty: SortProperty | undefined, pageIndex: number | undefined, pageSize: number | undefined): Observable<GetNpcTemplatesQueryResult> {
-        let url_ = this.baseUrl + "/api/npc/gettemplates?";
+        let url_ = this.baseUrl + "/api/npcs/gettemplates?";
         if (sortDirection === null)
             throw new Error("The parameter 'sortDirection' cannot be null.");
         else if (sortDirection !== undefined)
@@ -91,7 +91,7 @@ export class NpcClient {
     }
 
     get(id: number): Observable<Npc2> {
-        let url_ = this.baseUrl + "/api/npc/gettemplate/{id}";
+        let url_ = this.baseUrl + "/api/npcs/gettemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -151,7 +151,7 @@ export class NpcClient {
     }
 
     deleteTemplate(id: number): Observable<void> {
-        let url_ = this.baseUrl + "/api/npc/deletetemplate/{id}";
+        let url_ = this.baseUrl + "/api/npcs/deletetemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));

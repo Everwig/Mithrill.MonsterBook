@@ -5,7 +5,7 @@ import { provideEffects } from '@ngrx/effects';
 import * as fromNpcs from './npc-dashboard/store/npcs.reducer';
 import { NpcsEffects } from './npc-dashboard/store/npcs.effects';
 import { NpcDashboardService } from './npc-dashboard/services/npc-dashboard.service';
-import { NpcClient } from './shared/services/web-api-client';
+import { NpcsClient } from './shared/services/web-api-client';
 
 export const routes: Routes = [
   {
@@ -15,7 +15,7 @@ export const routes: Routes = [
       provideState(fromNpcs.npcsFeatureKey, fromNpcs.reducer),
       provideEffects(NpcsEffects),
       NpcDashboardService,
-      NpcClient
+      NpcsClient
     ]
   },
   { path: '**', redirectTo: 'npcs' }

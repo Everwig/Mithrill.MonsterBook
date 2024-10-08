@@ -21,7 +21,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 
         public async Task<Npc> Handle(GetNpcTemplateQuery request, CancellationToken cancellationToken)
         {
-            var monster = await _monsterBookDbContext.Creatures
+            var monster = await _monsterBookDbContext.NpcTemplates
                 .Where(m => m.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
