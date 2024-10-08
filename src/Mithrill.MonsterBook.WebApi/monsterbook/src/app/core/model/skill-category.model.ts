@@ -1,6 +1,6 @@
 export enum SkillCategory {
-  Combat,
-  Secular,
-  Underworld,
-  Scholar
+  Combat = "Combat",
+  Secular = "Secular",
+  Underworld = "Underworld",
+  Scholar = "Scholar"
 }

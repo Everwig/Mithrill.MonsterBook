@@ -9,7 +9,6 @@ using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Domain;
 using Flaw = Mithrill.MonsterBook.Application.Domain.Flaw;
 using Merit = Mithrill.MonsterBook.Application.Domain.Merit;
-using Skill = Mithrill.MonsterBook.Application.Domain.Skill;
 using Weapon = Mithrill.MonsterBook.Application.Domain.Weapon;
 
 namespace Mithrill.MonsterBook.Application.Common.Builders

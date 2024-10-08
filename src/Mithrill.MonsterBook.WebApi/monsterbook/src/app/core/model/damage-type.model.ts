@@ -1,10 +1,10 @@
 export enum DamageType {
-  Slashing,
-  Stabbing,
-  Bludgeoning,
-  Fire,
-  Lightning,
-  Ice,
-  Light,
-  Dark
+  Slashing = "Slashing",
+  Stabbing = "Stabbing",
+  Bludgeoning = "Bludgeoning",
+  Fire = "Fire",
+  Lightning = "Lightning",
+  Ice = "Ice",
+  Light = "Light",
+  Dark = "Dark"
 }

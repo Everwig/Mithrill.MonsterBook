@@ -7,14 +7,12 @@ using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
-using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Domain;
 using Xunit;
 using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
-using SkillCategories = Mithrill.MonsterBook.Domain.SkillCategories;
 
 namespace Mithrill.MonsterBook.Application.Tests
 {
@@ -599,7 +597,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Skill",
                         Attribute1 = Attribute.Dexterity,
                         Attribute2 = Attribute.Strength,
-                        Category = SkillCategories.Combat
+                        Category = SkillCategory.Combat
                     }
                 }
             };
@@ -620,7 +618,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                     NameHu = creature.CreatureSkills.First().Skill.NameHu,
                     Level = 3,
                     GuaranteedSuccesses = creature.CreatureSkills.First().GuaranteedSuccesses,
-                    Category = (Common.SkillCategories)creature.CreatureSkills.First().Skill.Category
+                    Category = (Common.SkillCategory)creature.CreatureSkills.First().Skill.Category
                 }
             });
         }
@@ -647,7 +645,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = "Skill",
                         Attribute1 = Attribute.Dexterity,
                         Attribute2 = Attribute.Strength,
-                        Category = SkillCategories.Combat
+                        Category = SkillCategory.Combat
                     }
                 }
             };
@@ -668,7 +666,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                     NameHu = creature.CreatureSkills.First().Skill.NameHu,
                     Level = 4,
                     GuaranteedSuccesses = creature.CreatureSkills.First().GuaranteedSuccesses,
-                    Category = (Common.SkillCategories)creature.CreatureSkills.First().Skill.Category
+                    Category = (Common.SkillCategory)creature.CreatureSkills.First().Skill.Category
                 }
             });
         }

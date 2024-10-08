@@ -129,10 +129,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.Flaws.Should().NotBeNullOrEmpty();
             c.CreatureSkillCategories.Should().BeEquivalentTo(new CreatureSkillCategories
             {
-                Primary = (SkillCategories)creature.CreatureSkillCategories.Primary,
-                FirstSecondary = (SkillCategories)creature.CreatureSkillCategories.FirstSecondary,
-                SecondSecondary = (SkillCategories)creature.CreatureSkillCategories.SecondSecondary,
-                Tertiary = (SkillCategories)creature.CreatureSkillCategories.Tertiary
+                Primary = (SkillCategory)creature.CreatureSkillCategories.Primary,
+                FirstSecondary = (SkillCategory)creature.CreatureSkillCategories.FirstSecondary,
+                SecondSecondary = (SkillCategory)creature.CreatureSkillCategories.SecondSecondary,
+                Tertiary = (SkillCategory)creature.CreatureSkillCategories.Tertiary
             });
             c.Difficulty.Should().Be((Difficulty)difficulty);
         }
