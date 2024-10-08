@@ -9,7 +9,6 @@ using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Domain;
 using Flaw = Mithrill.MonsterBook.Application.Domain.Flaw;
 using Merit = Mithrill.MonsterBook.Application.Domain.Merit;
-using Skill = Mithrill.MonsterBook.Application.Domain.Skill;
 using Weapon = Mithrill.MonsterBook.Application.Domain.Weapon;
 
 namespace Mithrill.MonsterBook.Application.Common.Builders
@@ -20,7 +19,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         private readonly IMonsterBookDbContext _monsterBookDbContext;
         private readonly Random _random;
         private GeneratedCreature _creature = new();
-        private MonsterBook.Domain.Creature? _queriedCreature;
+        private MonsterBook.Domain.NpcTemplate? _queriedCreature;
 
         public CreatureBuilder(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
         {
@@ -33,13 +32,13 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         public void Reset()
         {
             _creature = new GeneratedCreature();
-            _queriedCreature = new MonsterBook.Domain.Creature();
+            _queriedCreature = new MonsterBook.Domain.NpcTemplate();
         }
 
         public async Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken)
         {
-            _queriedCreature = await _monsterBookDbContext.Creatures
-                .Include(c => c.CreatureSkillCategories)
+            _queriedCreature = await _monsterBookDbContext.NpcTemplates
+                .Include(c => c.CharacterSkillCategories)
                 .Include(c => c.CreatureFlaws)
                 .ThenInclude(cf => cf.Flaw)
                 .Include(c => c.CreatureMerits)
@@ -80,7 +79,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            _creature.CreatureSkillCategories = _mapper.Map<CreatureSkillCategories>(_queriedCreature.CreatureSkillCategories);
+            _creature.CreatureSkillCategories = _mapper.Map<CreatureSkillCategories>(_queriedCreature.CharacterSkillCategories);
         }
 
         public void AddRacialModifiers(bool isUndead)
@@ -214,11 +213,11 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
             var skills = new List<Skill>();
 
-            foreach (var creatureSkill in _queriedCreature.CreatureSkills)
+            foreach (var characterSkill in _queriedCreature.CreatureSkills)
             {
-                var mappedSkill = _mapper.Map<Skill>(creatureSkill.Skill);
-                mappedSkill.Level = _random.Next(creatureSkill.SkillLevelMin, creatureSkill.SkillLevelMax + 1) + difficultyIncrease;
-                mappedSkill.GuaranteedSuccesses = creatureSkill.GuaranteedSuccesses;
+                var mappedSkill = _mapper.Map<Skill>(characterSkill.Skill);
+                mappedSkill.Level = _random.Next(characterSkill.SkillLevelMin, characterSkill.SkillLevelMax + 1) + difficultyIncrease;
+                mappedSkill.GuaranteedSuccesses = characterSkill.GuaranteedSuccesses;
                 skills.Add(mappedSkill);
             }
 

@@ -13,6 +13,6 @@ namespace Mithrill.MonsterBook.Domain
 
         public int BaseAttackTypeId { get; set; }
         public AttackType BaseAttackType { get; set; }
-        public ICollection<CreatureWeapon> CreatureWeapons { get; set; }
+        public ICollection<CharacterWeapon> CreatureWeapons { get; set; }
     }
 }

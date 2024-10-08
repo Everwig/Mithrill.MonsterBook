@@ -2,25 +2,17 @@ import { Injectable } from '@angular/core';
 import { SortDirection as AngularSortDirection } from '@angular/material/sort';
 import { map, Observable } from 'rxjs';
 
-import { NpcClient, SortDirection, SortProperty } from '../../shared/services/web-api-client';
-import { Npc } from '../model/npc.model';
+import { NpcsClient, SortDirection, SortProperty } from '../../shared/services/web-api-client';
+import { Npc } from '../models/npc.model';
 import { PageInformation } from '../../core/model/page-information.model';
 import { SortInformation } from '../../core/model/sort-information.model';
-import { GetStoredNpcsResult } from '../model/get-stored-npcs-result.model';
+import { GetStoredNpcsResult } from '../models/get-stored-npcs-result.model';
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
-import { Skill } from '../model/skill.model';
-import { Merit } from '../model/merit.model';
-import { Flaw } from '../model/flaw.model';
-import { Armor } from '../model/armor.model';
-import { Material } from '../../core/model/material.model';
-import { Weapon } from '../model/weapon.model';
-import { AttackType } from '../model/attack-type.model';
-import { DamageType } from '../../core/model/damage-type.model';
 
 @Injectable()
 export class NpcDashboardService {
-  constructor(private creatureClient: NpcClient) { }
+  constructor(private creatureClient: NpcsClient) { }
 
   getAllNpcs(
     sortInformation: SortInformation,

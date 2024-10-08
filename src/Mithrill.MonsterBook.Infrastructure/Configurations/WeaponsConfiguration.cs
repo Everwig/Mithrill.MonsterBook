@@ -9,8 +9,8 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Weapon> builder)
         {
             builder.HasIndex(nameof(Weapon.Name), nameof(Weapon.NameHu)).IsUnique();
-            builder.Property(nameof(Weapon.Name)).HasMaxLength(50);
-            builder.Property(nameof(Weapon.NameHu)).HasMaxLength(50);
+            builder.Property(nameof(Weapon.Name)).HasMaxLength(64);
+            builder.Property(nameof(Weapon.NameHu)).HasMaxLength(64);
             builder.ToTable("Weapon");
 
             builder.HasOne(weapon => weapon.BaseAttackType)

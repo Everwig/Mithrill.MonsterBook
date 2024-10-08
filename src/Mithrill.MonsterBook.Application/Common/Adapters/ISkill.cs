@@ -6,6 +6,6 @@
         string NameHu { get; }
         int Level { get; }
         public int GuaranteedSuccesses { get; set; }
-        SkillCategories Category { get; }
+        SkillCategory Category { get; }
     }
 }

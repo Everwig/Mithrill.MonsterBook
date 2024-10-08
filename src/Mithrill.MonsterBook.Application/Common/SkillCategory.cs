@@ -1,6 +1,6 @@
-﻿namespace Mithrill.MonsterBook.Domain
+﻿namespace Mithrill.MonsterBook.Application.Common
 {
-    public enum SkillCategories
+    public enum SkillCategory
     {
         Combat,
         Secular,

@@ -86,7 +86,7 @@
             <mat-icon class="mat-icon-no-color">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Részletek</button>
+            <button mat-menu-item routerLink="/npcs/{{element.id}}">Részletek</button>
             <button mat-menu-item (click)="onDelete(element.id)">Törlés</button>
           </mat-menu>
         </td>

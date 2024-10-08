@@ -11,7 +11,7 @@ namespace Mithrill.MonsterBook.Application.Domain
         public string NameHu { get; set; }
         public int Level { get; set; }
         public int GuaranteedSuccesses { get; set; }
-        public SkillCategories Category { get; set; }
+        public SkillCategory Category { get; set; }
 
         public void Mapping(Profile profile)
         {

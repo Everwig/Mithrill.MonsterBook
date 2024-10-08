@@ -45,9 +45,9 @@ namespace Mithrill.MonsterBook.Application.Tests
         public async Task Given_DesignNpcAsyncCalled_Then_ReturnBasicCreature()
         {
             //Arrange
-            var creature = new Seeds().Creature;
-            var difficulty = creature.Difficulty;
-            await _monsterBookDbContext.Creatures.AddAsync(creature);
+            var npcTemplate = new Seeds().NpcTemplate;
+            var difficulty = npcTemplate.Difficulty;
+            await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
 
             //Act
@@ -74,11 +74,11 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             //Arrange
             const int karma = 4;
-            var creature = new Seeds().Creature;
-            creature.KarmaMax = karma;
-            creature.KarmaMin = karma;
-            var difficulty = creature.Difficulty;
-            await _monsterBookDbContext.Creatures.AddAsync(creature);
+            var npcTemplate = new Seeds().NpcTemplate;
+            npcTemplate.KarmaMax = karma;
+            npcTemplate.KarmaMin = karma;
+            var difficulty = npcTemplate.Difficulty;
+            await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
 
             //Act
@@ -105,11 +105,11 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             //Arrange
             const int karma = 4;
-            var creature = new Seeds().Creature;
-            creature.KarmaMax = karma;
-            creature.KarmaMin = karma;
-            var difficulty = creature.Difficulty;
-            await _monsterBookDbContext.Creatures.AddAsync(creature);
+            var npcTemplate = new Seeds().NpcTemplate;
+            npcTemplate.KarmaMax = karma;
+            npcTemplate.KarmaMin = karma;
+            var difficulty = npcTemplate.Difficulty;
+            await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
 
             //Act
@@ -129,10 +129,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.Flaws.Should().NotBeNullOrEmpty();
             c.CreatureSkillCategories.Should().BeEquivalentTo(new CreatureSkillCategories
             {
-                Primary = (SkillCategories)creature.CreatureSkillCategories.Primary,
-                FirstSecondary = (SkillCategories)creature.CreatureSkillCategories.FirstSecondary,
-                SecondSecondary = (SkillCategories)creature.CreatureSkillCategories.SecondSecondary,
-                Tertiary = (SkillCategories)creature.CreatureSkillCategories.Tertiary
+                Primary = (SkillCategory)npcTemplate.CharacterSkillCategories.Primary,
+                FirstSecondary = (SkillCategory)npcTemplate.CharacterSkillCategories.FirstSecondary,
+                SecondSecondary = (SkillCategory)npcTemplate.CharacterSkillCategories.SecondSecondary,
+                Tertiary = (SkillCategory)npcTemplate.CharacterSkillCategories.Tertiary
             });
             c.Difficulty.Should().Be((Difficulty)difficulty);
         }

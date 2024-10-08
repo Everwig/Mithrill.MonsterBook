@@ -25,9 +25,9 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
 
     public async Task<GetNpcTemplatesQueryResult> Handle(GetNpcTemplatesQuery request, CancellationToken cancellationToken)
     {
-        var baseQuery = _monsterBookDbContext.Creatures
-            .Include(creature => creature.CreatureMerits)
-            .ThenInclude(creatureMerit => creatureMerit.Merit);
+        var baseQuery = _monsterBookDbContext.NpcTemplates
+            .Include(npcTemplate => npcTemplate.CreatureMerits)
+            .ThenInclude(characterMerit => characterMerit.Merit);
 
         var orderedCreatures = OrderBaseQuery(baseQuery, request.SortProperty, request.SortDirection);
         var totalCount = await orderedCreatures.CountAsync(cancellationToken);
@@ -55,8 +55,8 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
         };
     }
 
-    private static IQueryable<MonsterBook.Domain.Creature> OrderBaseQuery(
-        IQueryable<MonsterBook.Domain.Creature> baseQuery,
+    private static IQueryable<MonsterBook.Domain.NpcTemplate> OrderBaseQuery(
+        IQueryable<MonsterBook.Domain.NpcTemplate> baseQuery,
         SortProperty sortProperty,
         SortDirection sortDirection)
     {
@@ -64,92 +64,92 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
         {
             case SortProperty.Vitality:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.VitalityMin)
-                    : baseQuery.OrderByDescending(creature => creature.VitalityMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.VitalityMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.VitalityMax);
             case SortProperty.Body:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.BodyMin)
-                    : baseQuery.OrderByDescending(creature => creature.BodyMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.BodyMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.BodyMax);
             case SortProperty.Agility:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.AgilityMin)
-                    : baseQuery.OrderByDescending(creature => creature.AgilityMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.AgilityMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.AgilityMax);
             case SortProperty.Dexterity:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.DexterityMin)
-                    : baseQuery.OrderByDescending(creature => creature.DexterityMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.DexterityMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.DexterityMax);
             case SortProperty.Intelligence:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.IntelligenceMin)
-                    : baseQuery.OrderByDescending(creature => creature.IntelligenceMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.IntelligenceMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.IntelligenceMax);
             case SortProperty.Willpower:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.WillpowerMin)
-                    : baseQuery.OrderByDescending(creature => creature.WillpowerMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.WillpowerMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.WillpowerMax);
             case SortProperty.Emotion:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.EmotionMin)
-                    : baseQuery.OrderByDescending(creature => creature.EmotionMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.EmotionMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.EmotionMax);
             case SortProperty.Karma:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.KarmaMax)
-                    : baseQuery.OrderByDescending(creature => creature.KarmaMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.KarmaMax)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.KarmaMax);
             case SortProperty.Strength:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.StrengthMin)
-                    : baseQuery.OrderByDescending(creature => creature.StrengthMax);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.StrengthMin)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.StrengthMax);
             case SortProperty.Race:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.Race)
-                    : baseQuery.OrderByDescending(creature => creature.Race);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Race)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Race);
             case SortProperty.Name:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.Name)
-                    : baseQuery.OrderByDescending(creature => creature.Name);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Name)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Name);
             case SortProperty.Difficulty:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.Difficulty)
-                    : baseQuery.OrderByDescending(creature => creature.Difficulty);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Difficulty)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Difficulty);
             case SortProperty.Id:
             default:
                 return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(creature => creature.Id)
-                    : baseQuery.OrderByDescending(creature => creature.Id);
+                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Id)
+                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Id);
         }
     }
 
-    private static void CalculateAttributes(IEnumerable<Npc> creatures, IEnumerable<MonsterBook.Domain.Creature> queriedCreatures)
+    private static void CalculateAttributes(IEnumerable<Npc> creatures, IEnumerable<MonsterBook.Domain.NpcTemplate> queriedCreatures)
     {
-        foreach (var creature in creatures)
+        foreach (var npcTemplate in creatures)
         {
-            var storedCreature = queriedCreatures.Single(c => c.Id == creature.Id);
+            var storedCreature = queriedCreatures.Single(c => c.Id == npcTemplate.Id);
 
-            creature.HitPointMin = Calculators.CalculateHitPoints(
-                creature.StrengthMin,
-                creature.BodyMin,
+            npcTemplate.HitPointMin = Calculators.CalculateHitPoints(
+                npcTemplate.StrengthMin,
+                npcTemplate.BodyMin,
                 MonsterBook.Domain.Race.Undead,
                 Enumerable.Empty<MonsterBook.Domain.Merit>());
 
-            creature.HitPointMax = Calculators.CalculateHitPoints(
-                creature.StrengthMax,
-                creature.BodyMax,
+            npcTemplate.HitPointMax = Calculators.CalculateHitPoints(
+                npcTemplate.StrengthMax,
+                npcTemplate.BodyMax,
                 storedCreature.Race,
-                storedCreature.CreatureMerits.Select(creatureMerit => creatureMerit.Merit));
+                storedCreature.CreatureMerits.Select(characterMerit => characterMerit.Merit));
 
-            creature.ManaMin = Calculators.CalculateManaPoints(
-                creature.IntelligenceMin,
-                creature.WillpowerMin,
-                creature.EmotionMin,
+            npcTemplate.ManaMin = Calculators.CalculateManaPoints(
+                npcTemplate.IntelligenceMin,
+                npcTemplate.WillpowerMin,
+                npcTemplate.EmotionMin,
                 Enumerable.Empty<MonsterBook.Domain.Merit>());
 
-            creature.ManaMax = Calculators.CalculateManaPoints(
-                creature.IntelligenceMin,
-                creature.WillpowerMin,
-                creature.EmotionMin,
-                storedCreature.CreatureMerits.Select(creatureMerit => creatureMerit.Merit));
+            npcTemplate.ManaMax = Calculators.CalculateManaPoints(
+                npcTemplate.IntelligenceMin,
+                npcTemplate.WillpowerMin,
+                npcTemplate.EmotionMin,
+                storedCreature.CreatureMerits.Select(characterMerit => characterMerit.Merit));
 
-            creature.PowerPointMin = Calculators.CalculatePowerPoints(creature.KarmaMin);
-            creature.PowerPointMax = Calculators.CalculatePowerPoints(creature.KarmaMax);
+            npcTemplate.PowerPointMin = Calculators.CalculatePowerPoints(npcTemplate.KarmaMin);
+            npcTemplate.PowerPointMax = Calculators.CalculatePowerPoints(npcTemplate.KarmaMax);
         }
     }
 }

@@ -12,5 +12,8 @@ public enum DamageType
     Lightning,
     Ice,
     Light,
-    Dark
+    Dark,
+    Acid,
+    Poison,
+    None
 }

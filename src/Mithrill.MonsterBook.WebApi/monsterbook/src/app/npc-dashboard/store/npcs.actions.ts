@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { PageInformation } from '../../core/model/page-information.model';
 import { SortInformation } from '../../core/model/sort-information.model';
-import { GetStoredNpcsResult } from '../model/get-stored-npcs-result.model';
+import { GetStoredNpcsResult } from '../models/get-stored-npcs-result.model';
 
 export const loadNpcs = createAction('[NPCs] Load NPCs');
 export const loadNpcsSuccess = createAction(

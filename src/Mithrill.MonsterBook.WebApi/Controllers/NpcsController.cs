@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
 using Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
-using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 using Mithrill.MonsterBook.WebApi.Common;
 using GetNpcTemplateQuery = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.GetNpcTemplateQuery;
@@ -11,7 +10,7 @@ using Npc = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Npc;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers
 {
-    public class NpcController : ApiControllerBase
+    public class NpcsController : ApiControllerBase
     {
         /*
         [HttpGet("Generate")]
