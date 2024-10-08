@@ -1,9 +1,9 @@
 ﻿namespace Mithrill.MonsterBook.Domain
 {
-    public class CreatureArmor
+    public class CharacterArmor
     {
-        public int CreatureId { get; set; }
-        public Creature Creature { get; set; }
+        public int NpcTemplateId { get; set; }
+        public NpcTemplate NpcTemplate { get; set; }
         public int ArmorId { get; set; }
         public Armor Armor { get; set; }
 

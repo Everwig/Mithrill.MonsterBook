@@ -12,9 +12,9 @@ import { Race } from '../../core/model/race.model';
 
 @Injectable()
 export class NpcDashboardService {
-  constructor (private creatureClient: NpcsClient) { }
+  constructor(private creatureClient: NpcsClient) { }
 
-  getAllNpcs (
+  getAllNpcs(
     sortInformation: SortInformation,
     pageSize: number,
     pageIndex: number
@@ -78,7 +78,7 @@ export class NpcDashboardService {
     )
   }
 
-  delete (npcId: number): Observable<void> {
+  delete(npcId: number): Observable<void> {
     return this.creatureClient.deleteTemplate(npcId);
   }
 }

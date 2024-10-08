@@ -4,7 +4,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
-    public class Skill : IMapFrom<MonsterBook.Domain.CreatureSkill>
+    public class Skill : IMapFrom<MonsterBook.Domain.CharacterSkill>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +18,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<MonsterBook.Domain.CreatureSkill, Skill>()
+            profile.CreateMap<MonsterBook.Domain.CharacterSkill, Skill>()
                 .ForMember(skill => skill.Id, option => option.MapFrom(creatureSkill => creatureSkill.Skill.Id))
                 .ForMember(skill => skill.Name, option => option.MapFrom(creatureSkill => creatureSkill.Skill.Name))
                 .ForMember(skill => skill.MinLevel, option => option.MapFrom(creatureSkill => creatureSkill.SkillLevelMin))

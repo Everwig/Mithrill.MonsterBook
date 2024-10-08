@@ -4,10 +4,11 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Infrastructure.Configurations
 {
-    internal sealed class CreaturesConfiguration : IEntityTypeConfiguration<Creature>
+    internal sealed class NpcTemplateConfiguration : IEntityTypeConfiguration<NpcTemplate>
     {
-        public void Configure(EntityTypeBuilder<Creature> builder)
+        public void Configure(EntityTypeBuilder<NpcTemplate> builder)
         {
+            builder.ToTable("NpcTemplate");
             builder.Property(creature => creature.Race)
                 .HasConversion<string>()
                 .HasMaxLength(32);
@@ -15,8 +16,6 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
             builder.Property(creature => creature.Difficulty)
                 .HasConversion<string>()
                 .HasMaxLength(16);
-
-            builder.ToTable("Creature");
         }
     }
 }

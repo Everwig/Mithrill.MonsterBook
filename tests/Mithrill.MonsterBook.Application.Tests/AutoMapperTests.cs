@@ -65,7 +65,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         public void DomainCreatureSkillCategories_To_ApplicationDomainCreatureSkillCategories()
         {
             //Arrange
-            var creatureSkillCategories = _fixture.Create<MonsterBook.Domain.CreatureSkillCategories>();
+            var creatureSkillCategories = _fixture.Create<MonsterBook.Domain.CharacterSkillCategories>();
 
             //Act
             var mappedObject = _mapper.Map<CreatureSkillCategories>(creatureSkillCategories);
@@ -207,47 +207,47 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainGeneratedCreature_To_GeneratedNpc()
         {
             //Arrange
-            var creature = _fixture.Create<Domain.GeneratedCreature>();
+            var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpc.GeneratedNpc>(creature);
+            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpc.GeneratedNpc>(generatedCreature);
 
             //Assert
             mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpc.GeneratedNpc
             {
-                Agility = creature.Agility,
-                Body = creature.Body,
-                DamageReduction = creature.DamageReduction,
-                Dexterity = creature.Dexterity,
-                Difficulty = creature.Difficulty,
-                Emotion = creature.Emotion,
-                HitPoint = creature.HitPoint,
-                Intelligence = creature.Intelligence,
-                ManaPoint = creature.ManaPoint,
-                Strength = creature.Strength,
-                Vitality = creature.Vitality,
-                Willpower = creature.Willpower,
+                Agility = generatedCreature.Agility,
+                Body = generatedCreature.Body,
+                DamageReduction = generatedCreature.DamageReduction,
+                Dexterity = generatedCreature.Dexterity,
+                Difficulty = generatedCreature.Difficulty,
+                Emotion = generatedCreature.Emotion,
+                HitPoint = generatedCreature.HitPoint,
+                Intelligence = generatedCreature.Intelligence,
+                ManaPoint = generatedCreature.ManaPoint,
+                Strength = generatedCreature.Strength,
+                Vitality = generatedCreature.Vitality,
+                Willpower = generatedCreature.Willpower,
                 Skills = new []
                 {
                     new Npc.Query.GetGeneratedNpc.Skill
                     {
-                        Name = creature.Skills.First().Name,
-                        NameHu = creature.Skills.First().NameHu,
-                        Level = creature.Skills.First().Level,
-                        Category = creature.Skills.First().Category,
-                        GuaranteedSuccesses = creature.Skills.First().GuaranteedSuccesses
+                        Name = generatedCreature.Skills.First().Name,
+                        NameHu = generatedCreature.Skills.First().NameHu,
+                        Level = generatedCreature.Skills.First().Level,
+                        Category = generatedCreature.Skills.First().Category,
+                        GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                     }
                 },
                 Weapons = new []
                 {
                     new Npc.Query.GetGeneratedNpc.Weapon
                     {
-                        Name = creature.Weapons.First().Name,
-                        NameHu = creature.Weapons.First().NameHu,
+                        Name = generatedCreature.Weapons.First().Name,
+                        NameHu = generatedCreature.Weapons.First().NameHu,
                         AttackType = new Npc.Query.GetGeneratedNpc.AttackType
                         {
-                            GuaranteedDamage = creature.Weapons.First().AttackType.GuaranteedDamage,
-                            NumberOfDices = creature.Weapons.First().AttackType.NumberOfDices
+                            GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
+                            NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                         } 
                     }
                 }
@@ -311,52 +311,52 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainGeneratedCreature_To_GetGeneratedNpcWithKarma()
         {
             //Arrange
-            var creature = _fixture.Create<Domain.GeneratedCreature>();
+            var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma>(creature);
+            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma>(generatedCreature);
 
             //Assert
             mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma
             {
-                Agility = creature.Agility,
-                Body = creature.Body,
-                DamageReduction = creature.DamageReduction,
-                Dexterity = creature.Dexterity,
-                Difficulty = creature.Difficulty,
-                Emotion = creature.Emotion,
-                HitPoint = creature.HitPoint,
-                Intelligence = creature.Intelligence,
-                ManaPoint = creature.ManaPoint,
-                Strength = creature.Strength,
-                Vitality = creature.Vitality,
-                Willpower = creature.Willpower,
+                Agility = generatedCreature.Agility,
+                Body = generatedCreature.Body,
+                DamageReduction = generatedCreature.DamageReduction,
+                Dexterity = generatedCreature.Dexterity,
+                Difficulty = generatedCreature.Difficulty,
+                Emotion = generatedCreature.Emotion,
+                HitPoint = generatedCreature.HitPoint,
+                Intelligence = generatedCreature.Intelligence,
+                ManaPoint = generatedCreature.ManaPoint,
+                Strength = generatedCreature.Strength,
+                Vitality = generatedCreature.Vitality,
+                Willpower = generatedCreature.Willpower,
                 Skills = new []
                 {
                     new Npc.Query.GetGeneratedNpc.Skill
                     {
-                        Name = creature.Skills.First().Name,
-                        NameHu = creature.Skills.First().NameHu,
-                        Level = creature.Skills.First().Level,
-                        Category = creature.Skills.First().Category,
-                        GuaranteedSuccesses = creature.Skills.First().GuaranteedSuccesses
+                        Name = generatedCreature.Skills.First().Name,
+                        NameHu = generatedCreature.Skills.First().NameHu,
+                        Level = generatedCreature.Skills.First().Level,
+                        Category = generatedCreature.Skills.First().Category,
+                        GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                     }
                 },
                 Weapons = new []
                 {
                     new Npc.Query.GetGeneratedNpc.Weapon
                     {
-                        Name = creature.Weapons.First().Name,
-                        NameHu = creature.Weapons.First().NameHu,
+                        Name = generatedCreature.Weapons.First().Name,
+                        NameHu = generatedCreature.Weapons.First().NameHu,
                         AttackType = new Npc.Query.GetGeneratedNpc.AttackType
                         {
-                            GuaranteedDamage = creature.Weapons.First().AttackType.GuaranteedDamage,
-                            NumberOfDices = creature.Weapons.First().AttackType.NumberOfDices
+                            GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
+                            NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                         } 
                     }
                 },
-                PowerPoint = creature.PowerPoint,
-                Karma = creature.Karma
+                PowerPoint = generatedCreature.PowerPoint,
+                Karma = generatedCreature.Karma
             });
         }
 
@@ -451,47 +451,47 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainGeneratedCreature_To_GeneratedProminentNpc()
         {
             //Arrange
-            var creature = _fixture.Create<Domain.GeneratedCreature>();
+            var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc>(creature);
+            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc>(generatedCreature);
 
             //Assert
             mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc
             {
-                Agility = creature.Agility,
-                Body = creature.Body,
-                DamageReduction = creature.DamageReduction,
-                Dexterity = creature.Dexterity,
-                Difficulty = creature.Difficulty,
-                Emotion = creature.Emotion,
-                HitPoint = creature.HitPoint,
-                Intelligence = creature.Intelligence,
-                ManaPoint = creature.ManaPoint,
-                Strength = creature.Strength,
-                Vitality = creature.Vitality,
-                Willpower = creature.Willpower,
+                Agility = generatedCreature.Agility,
+                Body = generatedCreature.Body,
+                DamageReduction = generatedCreature.DamageReduction,
+                Dexterity = generatedCreature.Dexterity,
+                Difficulty = generatedCreature.Difficulty,
+                Emotion = generatedCreature.Emotion,
+                HitPoint = generatedCreature.HitPoint,
+                Intelligence = generatedCreature.Intelligence,
+                ManaPoint = generatedCreature.ManaPoint,
+                Strength = generatedCreature.Strength,
+                Vitality = generatedCreature.Vitality,
+                Willpower = generatedCreature.Willpower,
                 Skills = new []
                 {
                     new Npc.Query.GetGeneratedProminentNpc.Skill
                     {
-                        Name = creature.Skills.First().Name,
-                        NameHu = creature.Skills.First().NameHu,
-                        Level = creature.Skills.First().Level,
-                        Category = creature.Skills.First().Category,
-                        GuaranteedSuccesses = creature.Skills.First().GuaranteedSuccesses
+                        Name = generatedCreature.Skills.First().Name,
+                        NameHu = generatedCreature.Skills.First().NameHu,
+                        Level = generatedCreature.Skills.First().Level,
+                        Category = generatedCreature.Skills.First().Category,
+                        GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                     }
                 },
                 Weapons = new []
                 {
                     new Npc.Query.GetGeneratedProminentNpc.Weapon
                     {
-                        Name = creature.Weapons.First().Name,
-                        NameHu = creature.Weapons.First().NameHu,
+                        Name = generatedCreature.Weapons.First().Name,
+                        NameHu = generatedCreature.Weapons.First().NameHu,
                         AttackType = new Npc.Query.GetGeneratedProminentNpc.AttackType
                         {
-                            GuaranteedDamage = creature.Weapons.First().AttackType.GuaranteedDamage,
-                            NumberOfDices = creature.Weapons.First().AttackType.NumberOfDices
+                            GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
+                            NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                         } 
                     }
                 },
@@ -499,20 +499,20 @@ namespace Mithrill.MonsterBook.Application.Tests
                 {
                     new Npc.Query.GetGeneratedProminentNpc.Flaw
                     {
-                        Name = creature.Flaws.First().Name,
-                        NameHu = creature.Flaws.First().NameHu
+                        Name = generatedCreature.Flaws.First().Name,
+                        NameHu = generatedCreature.Flaws.First().NameHu
                     }
                 },
                 Merits = new []
                 {
                     new Npc.Query.GetGeneratedProminentNpc.Merit
                     {
-                        Name = creature.Merits.First().Name,
-                        NameHu = creature.Merits.First().NameHu
+                        Name = generatedCreature.Merits.First().Name,
+                        NameHu = generatedCreature.Merits.First().NameHu
                     }
                 },
-                PowerPoint = creature.PowerPoint,
-                Karma = creature.Karma
+                PowerPoint = generatedCreature.PowerPoint,
+                Karma = generatedCreature.Karma
             });
         }
     }

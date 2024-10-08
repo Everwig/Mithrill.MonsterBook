@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
-    public class Npc : IMapFrom<MonsterBook.Domain.Creature>
+    public class Npc : IMapFrom<MonsterBook.Domain.NpcTemplate>
     {
         public Npc()
         {
@@ -51,18 +51,18 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<MonsterBook.Domain.Creature, Npc>()
+            profile.CreateMap<MonsterBook.Domain.NpcTemplate, Npc>()
                 .ForMember(npc => npc.ManaMin, opt => opt.Ignore())
                 .ForMember(npc => npc.ManaMax, opt => opt.Ignore())
                 .ForMember(npc => npc.HitPointMin, opt => opt.Ignore())
                 .ForMember(npc => npc.HitPointMax, opt => opt.Ignore())
                 .ForMember(npc => npc.PowerPointMin, opt => opt.Ignore())
                 .ForMember(npc => npc.PowerPointMax, opt => opt.Ignore())
-                .ForMember(npc => npc.Merits, opt => opt.MapFrom(creature => creature.CreatureMerits))
-                .ForMember(npc => npc.Flaws, opt => opt.MapFrom(creature => creature.CreatureFlaws))
-                .ForMember(npc => npc.Weapons, opt => opt.MapFrom(creature => creature.CreatureWeapons))
-                .ForMember(npc => npc.Skills, opt => opt.MapFrom(creature => creature.CreatureSkills))
-                .ForMember(npc => npc.Armors, opt => opt.MapFrom(creature => creature.CreatureArmors));
+                .ForMember(npc => npc.Merits, opt => opt.MapFrom(creature => creature.CharacterMerits))
+                .ForMember(npc => npc.Flaws, opt => opt.MapFrom(creature => creature.CharacterFlaws))
+                .ForMember(npc => npc.Weapons, opt => opt.MapFrom(creature => creature.CharacterWeapons))
+                .ForMember(npc => npc.Skills, opt => opt.MapFrom(creature => creature.CharacterSkills))
+                .ForMember(npc => npc.Armors, opt => opt.MapFrom(creature => creature.CharacterArmors));
         }
     }
 }

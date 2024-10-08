@@ -10,6 +10,6 @@ namespace Mithrill.MonsterBook.Domain
         public int GuaranteedDamage { get; set; }
         
         public ICollection<Weapon> Weapons { get; set; }
-        public ICollection<CreatureWeaponAttackType> CreatureWeaponAttackTypes { get; set; }
+        public ICollection<CharacterWeaponAttackType> CharacterWeaponAttackTypes { get; set; }
     }
 }

@@ -17,13 +17,13 @@ internal sealed class DeleteNpcTemplateCommandHandler : IRequestHandler<DeleteNp
 
     public async Task Handle(DeleteNpcTemplateCommand request, CancellationToken cancellationToken)
     {
-        var npc = await _monsterBookDbContext.Creatures.SingleOrDefaultAsync(
-            creature => creature.Id == request.TemplateId,
+        var npc = await _monsterBookDbContext.NpcTemplates.SingleOrDefaultAsync(
+            npcTemplate => npcTemplate.Id == request.TemplateId,
             cancellationToken);
 
         if (npc != null)
         {
-            _monsterBookDbContext.Creatures.Remove(npc);
+            _monsterBookDbContext.NpcTemplates.Remove(npc);
         }
     }
 }

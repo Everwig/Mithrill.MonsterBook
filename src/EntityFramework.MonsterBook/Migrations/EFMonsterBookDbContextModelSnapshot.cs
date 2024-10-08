@@ -22,646 +22,646 @@ namespace EntityFramework.MonsterBook.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Armor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BaseArmorClass")
-                        .HasColumnType("int");
+                b.Property<int>("BaseArmorClass")
+                    .HasColumnType("int");
 
-                    b.Property<int>("BaseMovementInhibitoryFactor")
-                        .HasColumnType("int");
+                b.Property<int>("BaseMovementInhibitoryFactor")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("Name")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.Property<string>("NameHu")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("NameHu")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("Name", "NameHu")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+                b.HasIndex("Name", "NameHu")
+                    .IsUnique()
+                    .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
 
-                    b.ToTable("Armor", (string)null);
-                });
+                b.ToTable("Armor", (string)null);
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.AttackType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DamageType")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                b.Property<string>("DamageType")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("GuaranteedDamage")
-                        .HasColumnType("int");
+                b.Property<int>("GuaranteedDamage")
+                    .HasColumnType("int");
 
-                    b.Property<int>("NumberOfDices")
-                        .HasColumnType("int");
+                b.Property<int>("NumberOfDices")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("AttackType", (string)null);
-                });
+                b.ToTable("AttackType", (string)null);
+            });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.Creature", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterArmor", b =>
+            {
+                b.Property<int>("NpcTemplateId")
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                b.Property<int>("ArmorId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("AgilityMax")
-                        .HasColumnType("int");
+                b.Property<int>("AdditionalArmorClass")
+                    .HasColumnType("int");
 
-                    b.Property<int>("AgilityMin")
-                        .HasColumnType("int");
+                b.Property<int>("AdditionalMovementInhibitoryFactor")
+                    .HasColumnType("int");
 
-                    b.Property<int>("BodyMax")
-                        .HasColumnType("int");
+                b.Property<bool>("IsOptional")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("BodyMin")
-                        .HasColumnType("int");
+                b.Property<string>("Material")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.Property<int>("DamageReductionMax")
-                        .HasColumnType("int");
+                b.HasKey("NpcTemplateId", "ArmorId");
 
-                    b.Property<int>("DamageReductionMin")
-                        .HasColumnType("int");
+                b.HasIndex("ArmorId");
 
-                    b.Property<int>("DexterityMax")
-                        .HasColumnType("int");
+                b.ToTable("CharacterArmor", (string)null);
+            });
 
-                    b.Property<int>("DexterityMin")
-                        .HasColumnType("int");
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterFlaw", b =>
+            {
+                b.Property<int>("NpcTemplateId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Difficulty")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                b.Property<int>("FlawId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("EmotionMax")
-                        .HasColumnType("int");
+                b.Property<bool>("IsOptional")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("EmotionMin")
-                        .HasColumnType("int");
+                b.HasKey("NpcTemplateId", "FlawId");
 
-                    b.Property<int>("IntelligenceMax")
-                        .HasColumnType("int");
+                b.HasIndex("FlawId");
 
-                    b.Property<int>("IntelligenceMin")
-                        .HasColumnType("int");
+                b.ToTable("CharacterFlaw", (string)null);
+            });
 
-                    b.Property<int>("KarmaMax")
-                        .HasColumnType("int");
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterMerit", b =>
+            {
+                b.Property<int>("NpcTemplateId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("KarmaMin")
-                        .HasColumnType("int");
+                b.Property<int>("MeritId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<bool>("IsOptional")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("NameHu")
-                        .HasColumnType("nvarchar(max)");
+                b.HasKey("NpcTemplateId", "MeritId");
 
-                    b.Property<string>("Race")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                b.HasIndex("MeritId");
 
-                    b.Property<int>("StrengthMax")
-                        .HasColumnType("int");
+                b.ToTable("CharacterMerit", (string)null);
+            });
 
-                    b.Property<int>("StrengthMin")
-                        .HasColumnType("int");
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterSkill", b =>
+            {
+                b.Property<int>("NpcTemplateId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("VitalityMax")
-                        .HasColumnType("int");
+                b.Property<int>("SkillId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("VitalityMin")
-                        .HasColumnType("int");
+                b.Property<int>("GuaranteedSuccesses")
+                    .HasColumnType("int");
 
-                    b.Property<int>("WillpowerMax")
-                        .HasColumnType("int");
+                b.Property<bool>("IsOptional")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("WillpowerMin")
-                        .HasColumnType("int");
+                b.Property<int>("SkillLevelMax")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.Property<int>("SkillLevelMin")
+                    .HasColumnType("int");
 
-                    b.ToTable("Creature", (string)null);
-                });
+                b.HasKey("NpcTemplateId", "SkillId");
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureArmor", b =>
-                {
-                    b.Property<int>("CreatureId")
-                        .HasColumnType("int");
+                b.HasIndex("SkillId");
 
-                    b.Property<int>("ArmorId")
-                        .HasColumnType("int");
+                b.ToTable("CharacterSkill", (string)null);
+            });
 
-                    b.Property<int>("AdditionalArmorClass")
-                        .HasColumnType("int");
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterSkillCategories", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.Property<int>("AdditionalMovementInhibitoryFactor")
-                        .HasColumnType("int");
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsOptional")
-                        .HasColumnType("bit");
+                b.Property<string>("FirstSecondary")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                b.Property<int>("NpcTemplateId")
+                    .HasColumnType("int");
 
-                    b.HasKey("CreatureId", "ArmorId");
+                b.Property<string>("Primary")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.HasIndex("ArmorId");
+                b.Property<string>("SecondSecondary")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.ToTable("CreatureArmor", (string)null);
-                });
+                b.Property<string>("Tertiary")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureFlaw", b =>
-                {
-                    b.Property<int>("CreatureId")
-                        .HasColumnType("int");
+                b.HasKey("Id");
 
-                    b.Property<int>("FlawId")
-                        .HasColumnType("int");
+                b.HasIndex("NpcTemplateId")
+                    .IsUnique();
 
-                    b.Property<bool>("IsOptional")
-                        .HasColumnType("bit");
+                b.ToTable("CharacterSkillCategories", (string)null);
+            });
 
-                    b.HasKey("CreatureId", "FlawId");
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterWeapon", b =>
+            {
+                b.Property<int>("NpcTemplateId")
+                    .HasColumnType("int");
 
-                    b.HasIndex("FlawId");
+                b.Property<int>("WeaponId")
+                    .HasColumnType("int");
 
-                    b.ToTable("CreatureFlaw", (string)null);
-                });
+                b.Property<int>("AdditionalAttackModifier")
+                    .HasColumnType("int");
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureMerit", b =>
-                {
-                    b.Property<int>("CreatureId")
-                        .HasColumnType("int");
+                b.Property<int>("AdditionalDefenseModifier")
+                    .HasColumnType("int");
 
-                    b.Property<int>("MeritId")
-                        .HasColumnType("int");
+                b.Property<int>("AdditionalInitiativeModifier")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsOptional")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsOptional")
+                    .HasColumnType("bit");
 
-                    b.HasKey("CreatureId", "MeritId");
+                b.Property<string>("Material")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.HasIndex("MeritId");
+                b.HasKey("NpcTemplateId", "WeaponId");
 
-                    b.ToTable("CreatureMerit", (string)null);
-                });
+                b.HasIndex("WeaponId");
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureSkill", b =>
-                {
-                    b.Property<int>("CreatureId")
-                        .HasColumnType("int");
+                b.ToTable("CharacterWeapon", (string)null);
+            });
 
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterWeaponAttackType", b =>
+            {
+                b.Property<int>("AttackTypeId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("GuaranteedSuccesses")
-                        .HasColumnType("int");
+                b.Property<int>("NpcTemplateId")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsOptional")
-                        .HasColumnType("bit");
+                b.Property<int>("WeaponId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("SkillLevelMax")
-                        .HasColumnType("int");
+                b.HasKey("AttackTypeId", "NpcTemplateId", "WeaponId");
 
-                    b.Property<int>("SkillLevelMin")
-                        .HasColumnType("int");
+                b.HasIndex("NpcTemplateId", "WeaponId");
 
-                    b.HasKey("CreatureId", "SkillId");
-
-                    b.HasIndex("SkillId");
-
-                    b.ToTable("CreatureSkill", (string)null);
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureSkillCategories", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreatureId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstSecondary")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
-                    b.Property<string>("Primary")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
-                    b.Property<string>("SecondSecondary")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
-                    b.Property<string>("Tertiary")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatureId")
-                        .IsUnique();
-
-                    b.ToTable("CreatureSkillCategories", (string)null);
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureWeapon", b =>
-                {
-                    b.Property<int>("CreatureId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeaponId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AdditionalAttackModifier")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AdditionalDefenseModifier")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AdditionalInitiativeModifier")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsOptional")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
-
-                    b.HasKey("CreatureId", "WeaponId");
-
-                    b.HasIndex("WeaponId");
-
-                    b.ToTable("CreatureWeapon", (string)null);
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureWeaponAttackType", b =>
-                {
-                    b.Property<int>("AttackTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatureId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeaponId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AttackTypeId", "CreatureId", "WeaponId");
-
-                    b.HasIndex("CreatureId", "WeaponId");
-
-                    b.ToTable("CreatureWeaponAttackType", (string)null);
-                });
+                b.ToTable("CharacterWeaponAttackType", (string)null);
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Flaw", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("Name")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.Property<string>("NameHu")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("NameHu")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("Name", "NameHu")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+                b.HasIndex("Name", "NameHu")
+                    .IsUnique()
+                    .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
 
-                    b.ToTable("Flaw", (string)null);
-                });
+                b.ToTable("Flaw", (string)null);
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Merit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("Name")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.Property<string>("NameHu")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("NameHu")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("Name", "NameHu")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+                b.HasIndex("Name", "NameHu")
+                    .IsUnique()
+                    .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
 
-                    b.ToTable("Merit", (string)null);
-                });
+                b.ToTable("Merit", (string)null);
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.NpcTemplate", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<int>("AgilityMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("AgilityMin")
+                    .HasColumnType("int");
+
+                b.Property<int>("BodyMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("BodyMin")
+                    .HasColumnType("int");
+
+                b.Property<int>("DamageReductionMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("DamageReductionMin")
+                    .HasColumnType("int");
+
+                b.Property<int>("DexterityMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("DexterityMin")
+                    .HasColumnType("int");
+
+                b.Property<string>("Difficulty")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
+
+                b.Property<int>("EmotionMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("EmotionMin")
+                    .HasColumnType("int");
+
+                b.Property<int>("IntelligenceMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("IntelligenceMin")
+                    .HasColumnType("int");
+
+                b.Property<int>("KarmaMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("KarmaMin")
+                    .HasColumnType("int");
+
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("NameHu")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("Race")
+                    .IsRequired()
+                    .HasMaxLength(32)
+                    .HasColumnType("nvarchar(32)");
+
+                b.Property<int>("StrengthMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("StrengthMin")
+                    .HasColumnType("int");
+
+                b.Property<int>("VitalityMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("VitalityMin")
+                    .HasColumnType("int");
+
+                b.Property<int>("WillpowerMax")
+                    .HasColumnType("int");
+
+                b.Property<int>("WillpowerMin")
+                    .HasColumnType("int");
+
+                b.HasKey("Id");
+
+                b.ToTable("NpcTemplate", (string)null);
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Skill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Attribute1")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                b.Property<string>("Attribute1")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.Property<string>("Attribute2")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                b.Property<string>("Attribute2")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                b.Property<string>("Category")
+                    .IsRequired()
+                    .HasMaxLength(16)
+                    .HasColumnType("nvarchar(16)");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("Name")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.Property<string>("NameHu")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                b.Property<string>("NameHu")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("Name", "NameHu", "Category", "Attribute1", "Attribute2")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+                b.HasIndex("Name", "NameHu", "Category", "Attribute1", "Attribute2")
+                    .IsUnique()
+                    .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
 
-                    b.ToTable("Skill", (string)null);
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.Weapon", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BaseAttackModifier")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BaseAttackTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BaseDefenseModifier")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BaseInitiativeModifier")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("NameHu")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BaseAttackTypeId");
-
-                    b.HasIndex("Name", "NameHu")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
-
-                    b.ToTable("Weapon", (string)null);
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureArmor", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Armor", "Armor")
-                        .WithMany("CreatureArmors")
-                        .HasForeignKey("ArmorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
-                        .WithMany("CreatureArmors")
-                        .HasForeignKey("CreatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Armor");
-
-                    b.Navigation("Creature");
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureFlaw", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
-                        .WithMany("CreatureFlaws")
-                        .HasForeignKey("CreatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mithrill.MonsterBook.Domain.Flaw", "Flaw")
-                        .WithMany("CreatureFlaws")
-                        .HasForeignKey("FlawId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creature");
-
-                    b.Navigation("Flaw");
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureMerit", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
-                        .WithMany("CreatureMerits")
-                        .HasForeignKey("CreatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mithrill.MonsterBook.Domain.Merit", "Merit")
-                        .WithMany("CreatureMerits")
-                        .HasForeignKey("MeritId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creature");
-
-                    b.Navigation("Merit");
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureSkill", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
-                        .WithMany("CreatureSkills")
-                        .HasForeignKey("CreatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mithrill.MonsterBook.Domain.Skill", "Skill")
-                        .WithMany("CreatureSkills")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creature");
-
-                    b.Navigation("Skill");
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureSkillCategories", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
-                        .WithOne("CreatureSkillCategories")
-                        .HasForeignKey("Mithrill.MonsterBook.Domain.CreatureSkillCategories", "CreatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creature");
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureWeapon", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.Creature", "Creature")
-                        .WithMany("CreatureWeapons")
-                        .HasForeignKey("CreatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mithrill.MonsterBook.Domain.Weapon", "Weapon")
-                        .WithMany("CreatureWeapons")
-                        .HasForeignKey("WeaponId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creature");
-
-                    b.Navigation("Weapon");
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureWeaponAttackType", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.AttackType", "AttackType")
-                        .WithMany("CreatureWeaponAttackTypes")
-                        .HasForeignKey("AttackTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mithrill.MonsterBook.Domain.CreatureWeapon", "CreatureWeapon")
-                        .WithMany("AdditionalAttackTypes")
-                        .HasForeignKey("CreatureId", "WeaponId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AttackType");
-
-                    b.Navigation("CreatureWeapon");
-                });
+                b.ToTable("Skill", (string)null);
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Weapon", b =>
-                {
-                    b.HasOne("Mithrill.MonsterBook.Domain.AttackType", "BaseAttackType")
-                        .WithMany("Weapons")
-                        .HasForeignKey("BaseAttackTypeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.Navigation("BaseAttackType");
-                });
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<int>("BaseAttackModifier")
+                    .HasColumnType("int");
+
+                b.Property<int>("BaseAttackTypeId")
+                    .HasColumnType("int");
+
+                b.Property<int>("BaseDefenseModifier")
+                    .HasColumnType("int");
+
+                b.Property<int>("BaseInitiativeModifier")
+                    .HasColumnType("int");
+
+                b.Property<string>("Name")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
+
+                b.Property<string>("NameHu")
+                    .HasMaxLength(64)
+                    .HasColumnType("nvarchar(64)");
+
+                b.HasKey("Id");
+
+                b.HasIndex("BaseAttackTypeId");
+
+                b.HasIndex("Name", "NameHu")
+                    .IsUnique()
+                    .HasFilter("[Name] IS NOT NULL AND [NameHu] IS NOT NULL");
+
+                b.ToTable("Weapon", (string)null);
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterArmor", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.Armor", "Armor")
+                    .WithMany("CharacterArmors")
+                    .HasForeignKey("ArmorId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
+                    .WithMany("CreatureArmors")
+                    .HasForeignKey("NpcTemplateId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Armor");
+
+                b.Navigation("NpcTemplate");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterFlaw", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.Flaw", "Flaw")
+                    .WithMany("CreatureFlaws")
+                    .HasForeignKey("FlawId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
+                    .WithMany("CreatureFlaws")
+                    .HasForeignKey("NpcTemplateId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Flaw");
+
+                b.Navigation("NpcTemplate");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterMerit", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.Merit", "Merit")
+                    .WithMany("CreatureMerits")
+                    .HasForeignKey("MeritId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
+                    .WithMany("CreatureMerits")
+                    .HasForeignKey("NpcTemplateId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Merit");
+
+                b.Navigation("NpcTemplate");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterSkill", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
+                    .WithMany("CreatureSkills")
+                    .HasForeignKey("NpcTemplateId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("Mithrill.MonsterBook.Domain.Skill", "Skill")
+                    .WithMany("CreatureSkills")
+                    .HasForeignKey("SkillId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("NpcTemplate");
+
+                b.Navigation("Skill");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterSkillCategories", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
+                    .WithOne("CharacterSkillCategories")
+                    .HasForeignKey("Mithrill.MonsterBook.Domain.CharacterSkillCategories", "NpcTemplateId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("NpcTemplate");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterWeapon", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
+                    .WithMany("CreatureWeapons")
+                    .HasForeignKey("NpcTemplateId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("Mithrill.MonsterBook.Domain.Weapon", "Weapon")
+                    .WithMany("CreatureWeapons")
+                    .HasForeignKey("WeaponId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("NpcTemplate");
+
+                b.Navigation("Weapon");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterWeaponAttackType", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.AttackType", "AttackType")
+                    .WithMany("CharacterWeaponAttackTypes")
+                    .HasForeignKey("AttackTypeId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("Mithrill.MonsterBook.Domain.CharacterWeapon", "CharacterWeapon")
+                    .WithMany("AdditionalAttackTypes")
+                    .HasForeignKey("NpcTemplateId", "WeaponId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("AttackType");
+
+                b.Navigation("CharacterWeapon");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.Weapon", b =>
+            {
+                b.HasOne("Mithrill.MonsterBook.Domain.AttackType", "BaseAttackType")
+                    .WithMany("Weapons")
+                    .HasForeignKey("BaseAttackTypeId")
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .IsRequired();
+
+                b.Navigation("BaseAttackType");
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Armor", b =>
-                {
-                    b.Navigation("CreatureArmors");
-                });
+            {
+                b.Navigation("CharacterArmors");
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.AttackType", b =>
-                {
-                    b.Navigation("CreatureWeaponAttackTypes");
+            {
+                b.Navigation("CharacterWeaponAttackTypes");
 
-                    b.Navigation("Weapons");
-                });
+                b.Navigation("Weapons");
+            });
 
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.Creature", b =>
-                {
-                    b.Navigation("CreatureArmors");
-
-                    b.Navigation("CreatureFlaws");
-
-                    b.Navigation("CreatureMerits");
-
-                    b.Navigation("CreatureSkillCategories");
-
-                    b.Navigation("CreatureSkills");
-
-                    b.Navigation("CreatureWeapons");
-                });
-
-            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CreatureWeapon", b =>
-                {
-                    b.Navigation("AdditionalAttackTypes");
-                });
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterWeapon", b =>
+            {
+                b.Navigation("AdditionalAttackTypes");
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Flaw", b =>
-                {
-                    b.Navigation("CreatureFlaws");
-                });
+            {
+                b.Navigation("CreatureFlaws");
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Merit", b =>
-                {
-                    b.Navigation("CreatureMerits");
-                });
+            {
+                b.Navigation("CreatureMerits");
+            });
+
+            modelBuilder.Entity("Mithrill.MonsterBook.Domain.NpcTemplate", b =>
+            {
+                b.Navigation("CharacterSkillCategories");
+
+                b.Navigation("CreatureArmors");
+
+                b.Navigation("CreatureFlaws");
+
+                b.Navigation("CreatureMerits");
+
+                b.Navigation("CreatureSkills");
+
+                b.Navigation("CreatureWeapons");
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Skill", b =>
-                {
-                    b.Navigation("CreatureSkills");
-                });
+            {
+                b.Navigation("CreatureSkills");
+            });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Weapon", b =>
-                {
-                    b.Navigation("CreatureWeapons");
-                });
+            {
+                b.Navigation("CreatureWeapons");
+            });
 #pragma warning restore 612, 618
         }
     }

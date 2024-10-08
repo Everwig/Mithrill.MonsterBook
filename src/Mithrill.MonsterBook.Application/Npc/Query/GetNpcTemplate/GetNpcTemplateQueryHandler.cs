@@ -21,22 +21,22 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 
         public async Task<Npc> Handle(GetNpcTemplateQuery request, CancellationToken cancellationToken)
         {
-            var npcTemplate = await _monsterBookDbContext.Creatures
-                .Include(creature => creature.CreatureArmors)
+            var npcTemplate = await _monsterBookDbContext.NpcTemplates
+                .Include(creature => creature.CharacterArmors)
                 .ThenInclude(creatureArmor => creatureArmor.Armor)
-                .Include(creature => creature.CreatureWeapons)
+                .Include(creature => creature.CharacterWeapons)
                 .ThenInclude(creatureWeapon => creatureWeapon.Weapon)
                 .ThenInclude(weapon => weapon.BaseAttackType)
-                .Include(creature => creature.CreatureWeapons)
+                .Include(creature => creature.CharacterWeapons)
                 .ThenInclude(creature => creature.AdditionalAttackTypes)
                 .ThenInclude(attackTypes => attackTypes.AttackType)
-                .Include(creature => creature.CreatureMerits)
+                .Include(creature => creature.CharacterMerits)
                 .ThenInclude(creatureMerit => creatureMerit.Merit)
-                .Include(creature => creature.CreatureFlaws)
+                .Include(creature => creature.CharacterFlaws)
                 .ThenInclude(creatureFlaw => creatureFlaw.Flaw)
-                .Include(creature => creature.CreatureSkills)
+                .Include(creature => creature.CharacterSkills)
                 .ThenInclude(creatureSkill => creatureSkill.Skill)
-                .Include(creature => creature.CreatureSkillCategories)
+                .Include(creature => creature.CharacterSkillCategories)
                 .Where(m => m.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 

@@ -7,7 +7,7 @@ using DamageType = Mithrill.MonsterBook.Application.Domain.DamageType;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
-    public class Weapon : IMapFrom<CreatureWeapon>
+    public class Weapon : IMapFrom<CharacterWeapon>
     {
         public Weapon()
         {
@@ -29,8 +29,8 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreatureWeapon, Weapon>()
-                .ForMember(weapon => weapon.Id, opt => opt.MapFrom(creatureWeapon => creatureWeapon.CreatureId))
+            profile.CreateMap<CharacterWeapon, Weapon>()
+                .ForMember(weapon => weapon.Id, opt => opt.MapFrom(creatureWeapon => creatureWeapon.NpcTemplateId))
                 .ForMember(weapon => weapon.Name, opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.Name))
                 .ForMember(weapon => weapon.BaseAttackModifier,
                     opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.BaseAttackModifier))

@@ -4,10 +4,11 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Infrastructure.Configurations
 {
-    internal sealed class CreatureSkillCategoriesConfiguration : IEntityTypeConfiguration<CreatureSkillCategories>
+    internal sealed class CharacterSkillCategoriesConfiguration : IEntityTypeConfiguration<CharacterSkillCategories>
     {
-        public void Configure(EntityTypeBuilder<CreatureSkillCategories> builder)
+        public void Configure(EntityTypeBuilder<CharacterSkillCategories> builder)
         {
+            builder.ToTable("CharacterSkillCategories");
             builder.Property(creatureSkillCategories => creatureSkillCategories.Primary)
                 .HasConversion<string>()
                 .HasMaxLength(16);
@@ -23,8 +24,6 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
             builder.Property(creatureSkillCategories => creatureSkillCategories.Tertiary)
                 .HasConversion<string>()
                 .HasMaxLength(16);
-
-            builder.ToTable("CreatureSkillCategories");
         }
     }
 }

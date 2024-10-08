@@ -2,7 +2,7 @@
 
 namespace Mithrill.MonsterBook.Domain
 {
-    public class Creature
+    public class NpcTemplate
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -29,11 +29,11 @@ namespace Mithrill.MonsterBook.Domain
         public int KarmaMin { get; set; }
         public Race Race { get; set; }
         public Difficulty Difficulty { get; set; }
-        public CreatureSkillCategories CreatureSkillCategories { get; set; }
-        public ICollection<CreatureMerit> CreatureMerits { get; set; }
-        public ICollection<CreatureFlaw> CreatureFlaws { get; set; }
-        public ICollection<CreatureWeapon> CreatureWeapons { get; set; }
-        public ICollection<CreatureArmor> CreatureArmors { get; set; }
-        public ICollection<CreatureSkill> CreatureSkills { get; set; }
+        public CharacterSkillCategories CharacterSkillCategories { get; set; }
+        public ICollection<CharacterMerit> CharacterMerits { get; set; }
+        public ICollection<CharacterFlaw> CharacterFlaws { get; set; }
+        public ICollection<CharacterWeapon> CharacterWeapons { get; set; }
+        public ICollection<CharacterArmor> CharacterArmors { get; set; }
+        public ICollection<CharacterSkill> CharacterSkills { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 
-public class Armor : IMapFrom<MonsterBook.Domain.CreatureArmor>
+public class Armor : IMapFrom<MonsterBook.Domain.CharacterArmor>
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -17,7 +17,7 @@ public class Armor : IMapFrom<MonsterBook.Domain.CreatureArmor>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<MonsterBook.Domain.CreatureArmor, Armor>()
+        profile.CreateMap<MonsterBook.Domain.CharacterArmor, Armor>()
             .ForMember(armor => armor.Id, opt => opt.MapFrom(creatureArmor => creatureArmor.ArmorId))
             .ForMember(armor => armor.Name, opt => opt.MapFrom(creatureArmor => creatureArmor.Armor.Name))
             .ForMember(armor => armor.BaseArmorClass,
