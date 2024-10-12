@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ArmorsClient, FlawsClient, MeritsClient, NpcsClient, SkillsClient, WeaponsClient } from '../../shared/services/web-api-client';
 import { map, Observable } from 'rxjs';
 
 import { Skill } from '../models/skill.model';
@@ -12,9 +11,18 @@ import { Material } from '../../core/model/material.model';
 import { AttackType } from '../models/attack-type.model';
 import { DamageType } from '../../core/model/damage-type.model';
 import { Armor } from '../models/armor.model';
-import { Npc } from '../models/npc.model';
+import { NpcTemplate } from '../models/npc-template.model';
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
+import {
+  ArmorsClient,
+  FlawsClient,
+  MeritsClient,
+  NpcsClient,
+  SkillsClient,
+  WeaponsClient
+} from '../../shared/services/web-api-client';
+import { SkillCategories } from '../../core/model/skill-categories.model';
 
 @Injectable()
 export class NpcTemplateDetailsService {
@@ -35,10 +43,10 @@ export class NpcTemplateDetailsService {
         minLevel: 0,
         maxLevel: 0,
         guaranteedSuccesses: 0,
-        isOptional: true,
-        attribute1: skill.attribute1 as any as Attribute,
-        attribute2: skill.attribute2 as any as Attribute,
-        category: skill.category as SkillCategory
+        isOptional: false,
+        attribute1: Attribute[skill.attribute1 as keyof typeof Attribute],
+        attribute2: Attribute[skill.attribute2 as keyof typeof Attribute],
+        category: SkillCategory[skill.category as keyof typeof SkillCategory]
       }) as Skill))
     );
   }
@@ -77,7 +85,10 @@ export class NpcTemplateDetailsService {
           guaranteedDamage: weapon.baseAttackType.numberOfDices,
           numberOfDices: weapon.baseAttackType.guaranteedDamage
         }) as AttackType],
-        isOptional: true
+        isOptional: true,
+        additionalAttackModifier: 0,
+        additionalDefenseModifier: 0,
+        additionalInitiativeModifier: 0
       }) as Weapon))
     );
   }
@@ -92,10 +103,22 @@ export class NpcTemplateDetailsService {
         baseArmorClass: armor.baseArmorClass,
         baseMovementInhibitoryFactor: armor.baseMovementInhibitoryFactor
       }) as Armor))
-    )
+    );
   }
 
-  getNpcTemplate(id: number): Observable<Npc> {
+  getAttackTypes(): Observable<AttackType[]> {
+    return this.weaponsClient.getAllAttackTypes().pipe(
+      map(attackTypes => attackTypes.map(attackType => ({
+        id: attackType.id,
+        damageType: attackType.damageType,
+        guaranteedDamage: attackType.guaranteedDamage,
+        isBaseAttackType: false,
+        numberOfDices: attackType.numberOfDices
+      }) as AttackType))
+    );
+  }
+
+  getNpcTemplate(id: number): Observable<NpcTemplate> {
     return this.npcsClient.get(id).pipe(
       map(npc => ({
         agilityMax: npc.agilityMax,
@@ -114,8 +137,8 @@ export class NpcTemplateDetailsService {
         intelligenceMin: npc.intelligenceMin,
         karmaMax: npc.karmaMax,
         karmaMin: npc.karmaMin,
-        manaMax: npc.manaMax,
-        manaMin: npc.manaMin,
+        manaPointMax: npc.manaPointMax,
+        manaPointMin: npc.manaPointMin,
         name: npc.name,
         powerPointMax: npc.powerPointMax,
         powerPointMin: npc.powerPointMin,
@@ -126,6 +149,13 @@ export class NpcTemplateDetailsService {
         vitalityMin: npc.vitalityMin,
         willpowerMax: npc.willpowerMax,
         willpowerMin: npc.willpowerMin,
+        isUndead: npc.isUndead,
+        skillCategories: ({
+          primary: SkillCategory.Combat,
+          firstSecondary: SkillCategory.Scholar,
+          secondSecondary: SkillCategory.Secular,
+          tertiary: SkillCategory.Underworld
+        }) as SkillCategories,
         armors: npc.armors.map(armor => ({
           id: armor.id,
           name: armor.name,
@@ -177,6 +207,46 @@ export class NpcTemplateDetailsService {
           }) as AttackType)
         }) as Weapon)
       }))
-    )
+    );
+  }
+
+  getHitPointMinMaxValues(
+    strengthMin: number,
+    strengthMax: number,
+    bodyMin: number,
+    bodyMax: number,
+    isUndead: boolean,
+    meritIds: number[]
+  ): Observable<{ hitPointMin: number, hitPointMax: number }> {
+    return this.npcsClient.getHitPointMinMaxValues(strengthMin, strengthMax, bodyMin, bodyMax, isUndead, meritIds).pipe(
+      map((tuple) => ({ hitPointMin: tuple.item1, hitPointMax: tuple.item2 }))
+    );
+  }
+
+  getManaPointMinMaxValues(
+    intelligenceMin: number,
+    intelligenceMax: number,
+    willpowerMin: number,
+    willpowerMax: number,
+    emotionMin: number,
+    emotionMax: number,
+    meritIds: number[]
+  ): Observable<{ manaPointMin: number, manaPointMax: number }> {
+    return this.npcsClient.getManaPointMinMaxValues(
+      intelligenceMin,
+      intelligenceMax,
+      willpowerMin,
+      willpowerMax,
+      emotionMin,
+      emotionMax,
+      meritIds).pipe(
+        map((tuple) => ({ manaPointMin: tuple.item1, manaPointMax: tuple.item2 }))
+    );
+  }
+
+  getPowerPointMinMaxValues(karmaMin: number, karmaMax: number): Observable<{ powerPointMin: number, powerPointMax: number }> {
+    return this.npcsClient.getPowerPointMinMaxValues(karmaMin, karmaMax).pipe(
+      map((tuple) => ({ powerPointMin: tuple.item1, powerPointMax: tuple.item2 }))
+    );
   }
 }

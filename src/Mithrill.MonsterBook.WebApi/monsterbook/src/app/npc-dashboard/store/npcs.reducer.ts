@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import { PageInformation } from '../../core/model/page-information.model';
 import { SortInformation } from '../../core/model/sort-information.model';
-import { Npc } from '../models/npc.model';
+import { NpcTemplate } from '../models/npc-template.model';
 
 import * as fromRoot from '../../store';
 import * as fromNpcActions from './npcs.actions';
@@ -11,6 +11,7 @@ import { Armor } from '../models/armor.model';
 import { Flaw } from '../models/flaw.model';
 import { Merit } from '../models/merit.model';
 import { Skill } from '../models/skill.model';
+import { AttackType } from '../models/attack-type.model';
 
 export const npcsFeatureKey = 'npcs';
 
@@ -20,24 +21,25 @@ export interface State extends fromRoot.State {
 
 export interface NpcsState {
   npcList: NpcListState;
-  npcTemplate: NpcTemplate;
+  npcTemplate: NpcTemplateState;
 }
 
 export interface NpcListState {
   isLoading: boolean;
-  npcs: Npc[];
+  npcs: NpcTemplate[];
   pageInformation: PageInformation;
   sortInformation: SortInformation;
   error: any;
 }
 
-export interface NpcTemplate {
+export interface NpcTemplateState {
   weapons: Weapon [];
   armors: Armor[];
   flaws: Flaw[];
   merits: Merit[];
   skills: Skill[];
-  npc: Npc | undefined;
+  attackTypes: AttackType[];
+  template: NpcTemplate | undefined;
   isLoading: boolean;
 }
 
@@ -62,7 +64,8 @@ const initialState: NpcsState = {
     merits: [],
     skills: [],
     weapons: [],
-    npc: undefined,
+    attackTypes: [],
+    template: undefined,
     isLoading: false
   }
 }
@@ -161,11 +164,20 @@ export const reducer = createReducer(
     }
   })),
 
+  on(fromNpcActions.loadAttackTypesSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      attackTypes: action.attackTypes,
+      isLoading: false
+    }
+  })),
+
   on(fromNpcActions.loadNpcTemplateSuccess, (state, action) => ({
     ...state,
     npcTemplate: {
       ...state.npcTemplate,
-      npc: action.npcTemplate,
+      template: action.npcTemplate,
       isLoading: false
     }
   })),
@@ -174,7 +186,7 @@ export const reducer = createReducer(
     ...state,
     npcTemplate: {
       ...state.npcTemplate,
-      npc: undefined,
+      template: undefined,
       isLoading: false
     }
   }))

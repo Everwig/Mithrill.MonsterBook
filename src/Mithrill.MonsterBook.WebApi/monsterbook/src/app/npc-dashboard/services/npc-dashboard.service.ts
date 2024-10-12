@@ -3,7 +3,7 @@ import { SortDirection as AngularSortDirection } from '@angular/material/sort';
 import { map, Observable } from 'rxjs';
 
 import { NpcsClient, SortDirection, SortProperty } from '../../shared/services/web-api-client';
-import { Npc } from '../models/npc.model';
+import { NpcTemplate } from '../models/npc-template.model';
 import { PageInformation } from '../../core/model/page-information.model';
 import { SortInformation } from '../../core/model/sort-information.model';
 import { GetStoredNpcsResult } from '../models/get-stored-npcs-result.model';
@@ -26,7 +26,7 @@ export class NpcDashboardService {
       pageIndex
     ).pipe(
       map(result => {
-        const npcs: Npc[] = result.creatures.map(npc => ({
+        const npcs: NpcTemplate[] = result.creatures.map(npc => ({
           id: npc.id,
           strengthMax: npc.strengthMax,
           strengthMin: npc.strengthMin,
@@ -46,21 +46,23 @@ export class NpcDashboardService {
           willpowerMin: npc.willpowerMin,
           hitPointMax: npc.hitPointMax,
           hitPointMin: npc.hitPointMin,
-          manaMax: npc.manaMax,
-          manaMin: npc.manaMin,
+          manaPointMax: npc.manaPointMax,
+          manaPointMin: npc.manaPointMin,
           karmaMax: npc.karmaMax,
           karmaMin: npc.karmaMin,
           name: npc.name,
           powerPointMax: npc.powerPointMax,
           powerPointMin: npc.powerPointMin,
-          difficulty: npc.difficulty as unknown as Difficulty,
-          race: npc.race as unknown as Race,
+          difficulty: Difficulty[npc.difficulty as keyof typeof Difficulty],
+          race: Race[npc.race as keyof typeof Race],
+          skillCategories: undefined,
           armors: [],
           flaws: [],
           merits: [],
           skills: [],
-          weapons: []
-        }) as Npc);
+          weapons: [],
+          isUndead: false,
+        }) as NpcTemplate);
 
         const pageInformation: PageInformation = {
           totalCount: result.pageInformation.totalCount,

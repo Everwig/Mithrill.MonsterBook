@@ -1,9 +1,9 @@
 import { PageInformation } from '../../core/model/page-information.model';
 import { SortInformation } from '../../core/model/sort-information.model';
-import { Npc } from './npc.model';
+import { NpcTemplate } from './npc-template.model';
 
 export interface GetStoredNpcsResult {
-  npcs: Npc[],
+  npcs: NpcTemplate[],
   pageInformation: PageInformation,
   sortInformation: SortInformation
 }

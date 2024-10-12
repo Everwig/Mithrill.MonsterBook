@@ -66,4 +66,8 @@ input::-webkit-inner-spin-button {
   @include min(breakpoint(3xl)) {
     max-width: map-get($container-max-width, 3xl);
   }
+
+  @include min(breakpoint(4xl)) {
+    max-width: map-get($container-max-width, 4xl);
+  }
 }

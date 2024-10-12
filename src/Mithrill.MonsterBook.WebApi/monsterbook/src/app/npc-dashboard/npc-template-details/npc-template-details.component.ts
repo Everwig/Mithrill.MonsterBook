@@ -1,9 +1,15 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -12,15 +18,18 @@ import { Difficulty } from '../../core/model/difficulty.model';
 import { State } from '../../store';
 import * as fromNpcsSelector from '../store/npcs.selectors';
 import * as fromNpcsActions from '../store/npcs.actions';
-import { NpcTemplateDetailsService } from '../services/npc-template-details.service';
-import { Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { Flaw } from '../models/flaw.model';
 import { Skill } from '../models/skill.model';
 import { Merit } from '../models/merit.model';
 import { Armor } from '../models/armor.model';
 import { Weapon } from '../models/weapon.model';
-import { Npc } from '../models/npc.model';
+import { NpcTemplate } from '../models/npc-template.model';
 import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
+import { SkillCategory } from '../../core/model/skill-category.model';
+import { armorOnlyMaterials, Material } from '../../core/model/material.model';
+import { baseDamageTypes, DamageType } from '../../core/model/damage-type.model';
+import { AttackType } from '../models/attack-type.model';
 
 @Component({
   selector: 'app-npc-template-details',
@@ -28,9 +37,14 @@ import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
   imports: [
     CommonModule,
     FormsModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatExpansionModule,
+    MatIconModule,
     MatInputModule,
     MatSelectModule,
     MatSliderModule,
+    MatSlideToggleModule,
     ReactiveFormsModule
   ],
   templateUrl: './npc-template-details.component.html',
@@ -39,6 +53,13 @@ import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 export class NpcTemplateDetailsComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
 
+  selectedSkill: Skill | undefined;
+  selectedMerit: Merit | undefined;
+  selectedFlaw: Flaw | undefined;
+  selectedWeapon: Weapon | undefined;
+  selectedArmor: Armor | undefined;
+  selectedDamageType: AttackType | undefined;
+  skillCategories: SkillCategory[] = [];
   npcTemplateDetails: FormGroup;
   npcTemplateDetailsMode: DetailsViewMode;
   race = Race;
@@ -55,7 +76,9 @@ export class NpcTemplateDetailsComponent implements OnInit {
   readonly armors$: Observable<Armor[]>;
   readonly weapons$: Observable<Weapon[]>;
   readonly skills$: Observable<Skill[]>;
-  readonly npcTemplate$: Observable<Npc | undefined>;
+  readonly attackTypes$: Observable<AttackType[]>;
+  readonly npcTemplate$: Observable<NpcTemplate | undefined>;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private store$: Store<State>) {
     this.npcTemplateDetailsMode = DetailsViewMode.Create;
@@ -64,6 +87,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.armors$ = this.store$.select(fromNpcsSelector.armorsSelector);
     this.weapons$ = this.store$.select(fromNpcsSelector.weaponsSelector);
     this.skills$ = this.store$.select(fromNpcsSelector.skillsSelector);
+    this.attackTypes$ = this.store$.select(fromNpcsSelector.attackTypesSelector);
     this.npcTemplate$ = this.store$.select(fromNpcsSelector.npcTemplateSelector);
 
     this.npcTemplateDetails = this.formBuilder.group({
@@ -93,7 +117,9 @@ export class NpcTemplateDetailsComponent implements OnInit {
       merits: new FormControl([]),
       flaws: new FormControl([]),
       weapons: new FormControl([]),
-      armors: new FormControl([])
+      armors: new FormControl([]),
+      isUndead: new FormControl(false),
+      skillCategories: new FormControl([])
     });
   }
 
@@ -103,6 +129,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.store$.dispatch(fromNpcsActions.loadArmors());
     this.store$.dispatch(fromNpcsActions.loadWeapons());
     this.store$.dispatch(fromNpcsActions.loadSkills());
+    this.store$.dispatch(fromNpcsActions.loadAttackTypes());
 
     const routeSubscription = this.route.paramMap.subscribe(paramMap => {
       if (paramMap.has('id')) {
@@ -119,13 +146,33 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.subscriptions.add(routeSubscription);
   }
 
+  getSkillCategories(): SkillCategory[] {
+    const skillCategories: SkillCategory[] = Object.values(SkillCategory);
+    const selectedCategories: SkillCategory[] = this.npcTemplateDetails.value.skillCategories;
+
+    return skillCategories.filter(category => !selectedCategories.includes(category));
+  }
+
+  onSkillCategoryRemove(skillCategory: SkillCategory): void {
+    const selectedCategories: SkillCategory[] = this.npcTemplateDetails.value.skillCategories;
+    const updatedSkillCategories = selectedCategories.filter(category => category !== skillCategory);
+    this.npcTemplateDetails.patchValue({ skillCategories: updatedSkillCategories });
+  }
+
+  onSkillCategory(matSelectChange: MatSelectChange): void {
+    const skillCategory: SkillCategory = matSelectChange.value as SkillCategory;
+    const selectedCategories: SkillCategory[] = this.npcTemplateDetails.value.skillCategories;
+    this.npcTemplateDetails.patchValue({ skillCategories: selectedCategories.push(skillCategory) });
+  }
+
   getMaxValueBaseOnRace(): number {
-    const currentRace: Race = this.npcTemplateDetails.controls['race'].value;
+    const currentRace: Race = this.npcTemplateDetails.value.race;
+    const isUndead: boolean = this.npcTemplateDetails.value.isUndead;
 
     switch(currentRace) {
       case Race.CreatureOfLight:
       case Race.CreatureOfDarkness:
-        return 20;
+        return isUndead ? 16 : 20;
       case Race.Mythical:
       case Race.Bug:
         return 30;
@@ -134,6 +181,130 @@ export class NpcTemplateDetailsComponent implements OnInit {
       default:
         return 16;
     }
+  }
+
+  getFilteredSkills(): Observable<Skill[]> {
+    return this.skills$.pipe(
+      map(skills => skills.filter(skill => {
+        const templateSkills: Skill[] = this.npcTemplateDetails.value.skills;
+        return templateSkills.findIndex(s => s.id === skill.id) === -1;
+      }))
+    );
+  }
+
+  onSkillSelect(matSelectChange: MatSelectChange): void {
+    const templateSkills: Skill[] = this.npcTemplateDetails.value.skills;
+    templateSkills.push(matSelectChange.value as Skill);
+    this.npcTemplateDetails.patchValue({ skills: templateSkills });
+    setTimeout(() => this.selectedSkill = undefined, 100);
+  }
+
+  onRemoveSkill(id: number): void {
+    const templateSkills: Skill[] = this.npcTemplateDetails.value.skills;
+    this.npcTemplateDetails.patchValue({ skills: templateSkills.filter(skill => skill.id !== id) });
+  }
+
+  getFilteredMerits(): Observable<Merit[]> {
+    return this.merits$.pipe(
+      map(merits => merits.filter(merit => {
+        const templateMerits: Merit[] = this.npcTemplateDetails.value.merits;
+        return templateMerits.findIndex(m => m.id === merit.id);
+      }))
+    );
+  }
+
+  onMeritSelect(matSelectChange: MatSelectChange): void {
+    const templateMerits: Merit[] = this.npcTemplateDetails.value.merits;
+    templateMerits.push(matSelectChange.value as Merit);
+    this.npcTemplateDetails.patchValue({ merits: templateMerits });
+    setTimeout(() => this.selectedMerit = undefined, 100);
+  }
+
+  onRemoveMerit(id: number): void {
+    const templateMerits: Merit[] = this.npcTemplateDetails.value.merits;
+    this.npcTemplateDetails.patchValue({ merits: templateMerits.filter(merit => merit.id !== id) });
+  }
+
+  getFilteredFlaws(): Observable<Flaw[]> {
+    return this.flaws$.pipe(
+      map(flaws => flaws.filter(flaw => {
+        const templateFlaws: Flaw[] = this.npcTemplateDetails.value.flaws;
+        return templateFlaws.findIndex(f => f.id === flaw.id);
+      }))
+    );
+  }
+
+  onFlawSelect(matSelectChange: MatSelectChange): void {
+    const templateFlaws: Flaw[] = this.npcTemplateDetails.value.flaws;
+    templateFlaws.push(matSelectChange.value as Flaw);
+    this.npcTemplateDetails.patchValue({ flaws: templateFlaws });
+    setTimeout(() => this.selectedFlaw = undefined, 100);
+  }
+
+  onRemoveFlaw(id: number): void {
+    const templateFlaws: Flaw[] = this.npcTemplateDetails.value.flaws;
+    this.npcTemplateDetails.patchValue({ flaws: templateFlaws.filter(flaw => flaw.id !== id) });
+  }
+
+  getFilteredMaterialTypes(): Material[] {
+    return Object.values(Material).filter(material => !armorOnlyMaterials.includes(material));
+  }
+
+  onWeaponSelect(matSelectChange: MatSelectChange): void {
+    const templateWeapons: Weapon[] = this.npcTemplateDetails.value.weapons;
+    templateWeapons.push(matSelectChange.value as Weapon);
+    this.npcTemplateDetails.patchValue({ weapons: templateWeapons });
+    setTimeout(() => this.selectedWeapon = undefined, 100);
+  }
+
+  onRemoveWeapon(weapon: Weapon): void {
+    const templateWeapons: Weapon[] = this.npcTemplateDetails.value.weapons;
+    this.npcTemplateDetails.patchValue({ weapons: templateWeapons.filter(w => w !== weapon) });
+  }
+
+  onDamageTypeSelect(matSelectChange: MatSelectChange, weapon: Weapon): void {
+    const damageType: DamageType = matSelectChange.value as DamageType;
+
+    weapon.attackTypes.push({
+      damageType: damageType,
+      guaranteedDamage: 0,
+      id: 0,
+      isBaseAttackType: false,
+      numberOfDices: 0
+    });
+
+    setTimeout(() => this.selectedDamageType = undefined, 100);
+  }
+
+  getFilteredDamageTypes(attackTypes: AttackType[]): DamageType[] {
+    const selectedDamage: DamageType[] = attackTypes.map(attackType => attackType.damageType);
+
+    return Object.values(DamageType)
+      .filter(damageType => !selectedDamage.includes(damageType))
+      .filter(damageType => !baseDamageTypes.includes(damageType));
+  }
+
+  getBaseAttackTypes(attackTypes: AttackType[]): string {
+    const baseAttackType: AttackType = attackTypes.filter(attackType => attackType.isBaseAttackType)[0];
+
+    if (baseAttackType) {
+      return `${baseAttackType.damageType} (${baseAttackType.numberOfDices}D6` +
+        `${baseAttackType.guaranteedDamage === 0 ? '' : '+' + baseAttackType.guaranteedDamage})`;
+    }
+
+    return '0';
+  }
+
+  getAdditionalAttackTypes(attackTypes: AttackType[]): AttackType[] {
+    return attackTypes.filter(attackType => !attackType.isBaseAttackType);
+  }
+
+  onAttackTypeDamageChange(numberOfDices: number, attackType: AttackType): void {
+    attackType.numberOfDices = numberOfDices;
+  }
+
+  onAttackTypeRemove(attackType: AttackType, weapon: Weapon): void {
+    weapon.attackTypes = weapon.attackTypes.filter(aT => aT !== attackType);
   }
 
   private updateFormInEditMode(): void {
@@ -160,21 +331,24 @@ export class NpcTemplateDetailsComponent implements OnInit {
           emotionMax: npcTemplate.emotionMax,
           karmaMin: npcTemplate.karmaMin,
           karmaMax: npcTemplate.karmaMax,
-          hitPointMin: npcTemplate.hitPointMin,
-          hitPointMax: npcTemplate.hitPointMax,
-          manaMin: npcTemplate.manaMin,
-          manaMax: npcTemplate.manaMax,
-          powerPointMin: npcTemplate.powerPointMin,
-          powerPointMax: npcTemplate.powerPointMax,
           race: npcTemplate.race,
           difficulty: npcTemplate.difficulty,
           skills: npcTemplate.skills,
           merits: npcTemplate.merits,
           flaws: npcTemplate.flaws,
           weapons: npcTemplate.weapons,
-          armors: npcTemplate.armors
+          armors: npcTemplate.armors,
+          isUndead: npcTemplate.isUndead
         });
+
+
+        this.hitPointMin = npcTemplate.hitPointMin;
+        this.hitPointMax = npcTemplate.hitPointMax;
+        this.manaPointMin = npcTemplate.manaPointMin;
+        this.manaPointMax = npcTemplate.manaPointMax;
+        this.powerPointMin = npcTemplate.powerPointMin;
+        this.powerPointMax = npcTemplate.powerPointMax;
       }
-    }))
+    }));
   }
 }

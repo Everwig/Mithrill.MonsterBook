@@ -94,11 +94,66 @@ export class NpcsEffects {
     )
   );
 
+  loadAttackTypes$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromNpcsActions.loadAttackTypes),
+      switchMap(_ => this.npcTemplateDetailsService.getAttackTypes().pipe(
+        map(attackTypes => fromNpcsActions.loadAttackTypesSuccess({ attackTypes })),
+        catchError(errors => of(fromNpcsActions.loadNpcTemplateFailed({ errors })))
+      ))
+    )
+  );
+
   loadNpcTemplate$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromNpcsActions.loadNpcTemplate),
       switchMap(payload => this.npcTemplateDetailsService.getNpcTemplate(payload.id).pipe(
         map(npcTemplate => fromNpcsActions.loadNpcTemplateSuccess({ npcTemplate })),
+        catchError(errors => of(fromNpcsActions.loadNpcTemplateFailed({ errors })))
+      ))
+    )
+  );
+
+  loadHitPointMinMaxValues$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromNpcsActions.calculateHitPointMinMaxValues),
+      switchMap(payload => this.npcTemplateDetailsService.getHitPointMinMaxValues(
+        payload.strengthMin,
+        payload.strengthMax,
+        payload.bodyMin,
+        payload.bodyMax,
+        payload.isUndead,
+        payload.meritIds
+      ).pipe(
+        map(({ hitPointMin, hitPointMax }) => fromNpcsActions.calculateHitPointMinMaxValuesSuccess({ hitPointMin, hitPointMax })),
+        catchError(errors => of(fromNpcsActions.loadNpcTemplateFailed({ errors })))
+      ))
+    )
+  );
+
+  loadManaPointMinMaxValues$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromNpcsActions.calculateManaPointMinMaxValues),
+      switchMap(payload => this.npcTemplateDetailsService.getManaPointMinMaxValues(
+        payload.intelligenceMin,
+        payload.intelligenceMax,
+        payload.willpowerMin,
+        payload.willpowerMax,
+        payload.emotionMin,
+        payload.emotionMax,
+        payload.meritIds
+      ).pipe(
+        map(({ manaPointMin, manaPointMax }) => fromNpcsActions.calculateManaPointMinMaxValuesSuccess({ manaPointMin, manaPointMax })),
+        catchError(errors => of(fromNpcsActions.loadNpcTemplateFailed({ errors })))
+      ))
+    )
+  );
+
+  loadPowerPointMinMaxValue$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromNpcsActions.calculatePowerPointMinMaxValues),
+      switchMap(payload => this.npcTemplateDetailsService.getPowerPointMinMaxValues(payload.karmaMin, payload.karmaMax).pipe(
+        map(({ powerPointMin, powerPointMax }) => fromNpcsActions.calculatePowerPointMinMaxValuesSuccess({ powerPointMin, powerPointMax })),
         catchError(errors => of(fromNpcsActions.loadNpcTemplateFailed({ errors })))
       ))
     )

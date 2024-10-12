@@ -4,42 +4,280 @@
   border: 1px solid white;
   border-radius: 10px;
   margin-top: 30px;
-  width: fit-content;
 
-  @include min(breakpoint(lg)) {
-    max-width: 672px;
+  .npc-template-section-header {
+    top: -0.75rem;
+    left: 1.5rem;
+    position: relative;
+    background-color: #101414;
+    width: fit-content;
   }
-}
 
-.npc-template-section-header {
-  top: -0.75rem;
-  left: 1.5rem;
-  position: relative;
-  background-color: #101414;
-  width: fit-content;
-}
+  .npc-template-section-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 
-.npc-template-section-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
+    @include max(breakpoint(lg)) {
+      flex-direction: column;
 
-.npc-slider {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  padding: 0 20px;
+      mat-form-field {
+        margin: 0 20px;
+      }
+    }
 
-  label:first-of-type {
-    padding-left: 20px;
+    mat-form-field:not(:only-of-type) {
+      width: calc((100% - 120px)/ 3);
+      margin: 0 20px;
+
+      @include max(breakpoint(lg)) {
+        width: calc(100% - 40px);
+        margin: 0 20px;
+      }
+    }
+
+    .npc-attribute-slider {
+      display: flex;
+      flex-direction: column;
+      width: calc(80% / 3);
+      padding: 0 20px;
+
+      label:first-of-type {
+        padding-left: 20px;
+      }
+
+      mat-slider {
+        width: 100%;
+        margin: 0;
+      }
+
+      @include max(breakpoint(lg)) {
+        width: 90%;
+      }
+    }
+
+    .npc-template-item-section {
+      display: flex;
+      gap: 20px;
+
+      @include max(breakpoint(xl)) {
+        border-bottom: 1px solid white;
+        padding: 20px 0;
+      }
+
+      .npc-template-skill-properties {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+        gap: 20px;
+        width: calc(100% - 2vw);
+
+        @include max(breakpoint(xl)) {
+          flex-direction: column;
+        }
+
+        .npc-skill-slider {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          gap: 20px;
+          width: 50%;
+
+          .name-label {
+            width: 16em;
+          }
+
+          .guaranteed-success-label {
+            width: 10em;
+          }
+
+          mat-slider {
+            width: 100%;
+          }
+
+          @include max(breakpoint(md)) {
+            label {
+              text-align: center;
+            }
+
+            flex-direction: column;
+            width: fit-content;
+          }
+
+          @include max(breakpoint(xl)) {
+            width: 100%;
+          }
+        }
+
+        div:last-of-type {
+          align-content: center;
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+          align-items: center;
+        }
+      }
+
+      .flaws-and-merits-content {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+
+        div:first-of-type {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          @include max(breakpoint(lg)) {
+            gap: 5px;
+          }
+        }
+      }
+
+      div:last-of-type {
+        align-content: center;
+      }
+    }
+
+    .npc-template-item-section:last-of-type {
+      margin-bottom: 20px;
+      border-bottom: 0;
+    }
+
+    mat-expansion-panel {
+      mat-expansion-panel-header {
+        .npc-template-equipment-properties-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-right: 20px;
+
+          div {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
+
+          @include max(breakpoint(xl)) {
+            div, label:not(:first-of-type) {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .npc-template-equipment-properties {
+        > label, div.is-optional {
+          display: none;
+        }
+
+        .additional-modifiers {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 20px;
+          margin-bottom: 20px;
+
+          label {
+            width: 4vw;
+          }
+        }
+
+        .npc-skill-slider {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          width: calc((100% - 40px)/ 3);
+        }
+
+        .additional-damage {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: 20px;
+          margin-top: 20px;
+
+          .additional-damage > label {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+
+          .npc-skill-slider {
+            label {
+              width: 7vw;
+            }
+          }
+        }
+
+        mat-form-field {
+          width: calc((100% - 120px) / 3);
+          margin: 0 20px 0 0;
+        }
+
+        @include max(breakpoint(xl)) {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+
+          .additional-modifiers {
+            .npc-skill-slider {
+              width: calc(100% - 40px);
+            }
+          }
+
+          .additional-damage {
+            .npc-skill-slider {
+              width: calc((100% - 40px) / 2);
+            }
+          }
+
+          mat-form-field {
+            width: calc((100% - 20px)/2);
+            margin: 0;
+          }
+
+          > label {
+            display: block;
+            flex: 0 0 20%;
+          }
+
+          div.is-optional {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
+        }
+
+        @include max(breakpoint(md)) {
+          margin: 0 -20px;
+          display: block;
+
+          > label, > div {
+            margin-bottom: 10px;
+          }
+
+          .additional-modifiers .npc-skill-slider,
+          .additional-damage .npc-skill-slider {
+            width: 100%;
+            justify-content: space-between;
+
+            mat-slider {
+              width: 60%;
+            }
+          }
+
+          mat-form-field {
+            width: 100%;
+            margin: 0;
+          }
+        }
+      }
+    }
   }
-}
-
-.flex {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
 }
 
 .margin-top {
@@ -48,4 +286,31 @@
   @include max(breakpoint(lg)) {
     margin-top: 5px;
   }
+}
+
+.flaws-and-merits {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 20px;
+
+  @include max(breakpoint(lg)) {
+    flex-direction: column;
+  }
+}
+
+.column {
+  flex-direction: column;
+}
+
+.side-margin {
+  margin: 0 20px;
+}
+
+.full-wide {
+  width: 100%;
+}
+
+mat-icon {
+  color: #690005;
 }

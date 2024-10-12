@@ -16,7 +16,7 @@ export const npcsSelector = createSelector(
 export const pageInformationSelector = createSelector(
   npcsFeatureState,
   (state: fromNpcsReducer.NpcsState) => state.npcList.pageInformation
-)
+);
 
 export const sortInformationSelector = createSelector(
   npcsFeatureState,
@@ -46,9 +46,14 @@ export const meritsSelector = createSelector(
 export const skillsSelector = createSelector(
   npcsFeatureState,
   (state: fromNpcsReducer.NpcsState) => state.npcTemplate.skills
-)
+);
+
+export const attackTypesSelector = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.attackTypes
+);
 
 export const npcTemplateSelector = createSelector(
   npcsFeatureState,
-  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.npc
-)
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.template
+);

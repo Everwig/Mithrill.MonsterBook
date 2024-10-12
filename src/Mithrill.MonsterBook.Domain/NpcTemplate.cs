@@ -35,5 +35,6 @@ namespace Mithrill.MonsterBook.Domain
         public ICollection<CharacterWeapon> CharacterWeapons { get; set; }
         public ICollection<CharacterArmor> CharacterArmors { get; set; }
         public ICollection<CharacterSkill> CharacterSkills { get; set; }
+        public bool IsUndead { get; set; }
     }
 }

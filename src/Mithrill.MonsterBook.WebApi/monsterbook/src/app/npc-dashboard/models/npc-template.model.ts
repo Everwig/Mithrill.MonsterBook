@@ -1,12 +1,13 @@
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
+import { SkillCategories } from '../../core/model/skill-categories.model';
 import { Armor } from './armor.model';
 import { Flaw } from './flaw.model';
 import { Merit } from './merit.model';
 import { Skill } from './skill.model';
 import { Weapon } from './weapon.model';
 
-export interface Npc {
+export interface NpcTemplate {
   id: number;
   name: string;
   strengthMin: number;
@@ -29,13 +30,15 @@ export interface Npc {
   karmaMax: number;
   hitPointMin: number;
   hitPointMax: number;
-  manaMin: number;
-  manaMax: number;
+  manaPointMin: number;
+  manaPointMax: number;
   powerPointMin: number;
   powerPointMax: number;
   race: Race;
   difficulty: Difficulty;
+  isUndead: boolean;
   skills: Skill[];
+  skillCategories: SkillCategories | undefined;
   merits: Merit[];
   flaws: Flaw[];
   weapons: Weapon[];

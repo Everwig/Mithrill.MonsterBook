@@ -297,7 +297,7 @@ export class NpcsClient {
         return _observableOf(null as any);
     }
 
-    get(id: number): Observable<Npc2> {
+    get(id: number): Observable<NpcTemplate> {
         let url_ = this.baseUrl + "/api/npcs/gettemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -319,14 +319,14 @@ export class NpcsClient {
                 try {
                     return this.processGet(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Npc2>;
+                    return _observableThrow(e) as any as Observable<NpcTemplate>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Npc2>;
+                return _observableThrow(response_) as any as Observable<NpcTemplate>;
         }));
     }
 
-    protected processGet(response: HttpResponseBase): Observable<Npc2> {
+    protected processGet(response: HttpResponseBase): Observable<NpcTemplate> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -337,7 +337,7 @@ export class NpcsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = Npc2.fromJS(resultData200);
+            result200 = NpcTemplate.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 404) {
@@ -418,6 +418,210 @@ export class NpcsClient {
             return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
             }));
         }
+    }
+
+    getHitPointMinMaxValues(strengthMin: number | undefined, strengthMax: number | undefined, bodyMin: number | undefined, bodyMax: number | undefined, isUndead: boolean | undefined, meritIds: number[]): Observable<ValueTupleOfIntegerAndInteger> {
+        let url_ = this.baseUrl + "/api/npcs/gethitpointminmaxvalues?";
+        if (strengthMin === null)
+            throw new Error("The parameter 'strengthMin' cannot be null.");
+        else if (strengthMin !== undefined)
+            url_ += "strengthMin=" + encodeURIComponent("" + strengthMin) + "&";
+        if (strengthMax === null)
+            throw new Error("The parameter 'strengthMax' cannot be null.");
+        else if (strengthMax !== undefined)
+            url_ += "strengthMax=" + encodeURIComponent("" + strengthMax) + "&";
+        if (bodyMin === null)
+            throw new Error("The parameter 'bodyMin' cannot be null.");
+        else if (bodyMin !== undefined)
+            url_ += "bodyMin=" + encodeURIComponent("" + bodyMin) + "&";
+        if (bodyMax === null)
+            throw new Error("The parameter 'bodyMax' cannot be null.");
+        else if (bodyMax !== undefined)
+            url_ += "bodyMax=" + encodeURIComponent("" + bodyMax) + "&";
+        if (isUndead === null)
+            throw new Error("The parameter 'isUndead' cannot be null.");
+        else if (isUndead !== undefined)
+            url_ += "isUndead=" + encodeURIComponent("" + isUndead) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(meritIds);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetHitPointMinMaxValues(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetHitPointMinMaxValues(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ValueTupleOfIntegerAndInteger>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ValueTupleOfIntegerAndInteger>;
+        }));
+    }
+
+    protected processGetHitPointMinMaxValues(response: HttpResponseBase): Observable<ValueTupleOfIntegerAndInteger> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ValueTupleOfIntegerAndInteger.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getManaPointMinMaxValues(intelligenceMin: number | undefined, intelligenceMax: number | undefined, willpowerMin: number | undefined, willpowerMax: number | undefined, emotionMin: number | undefined, emotionMax: number | undefined, meritIds: number[]): Observable<ValueTupleOfIntegerAndInteger> {
+        let url_ = this.baseUrl + "/api/npcs/getmanapointminmaxvalues?";
+        if (intelligenceMin === null)
+            throw new Error("The parameter 'intelligenceMin' cannot be null.");
+        else if (intelligenceMin !== undefined)
+            url_ += "intelligenceMin=" + encodeURIComponent("" + intelligenceMin) + "&";
+        if (intelligenceMax === null)
+            throw new Error("The parameter 'intelligenceMax' cannot be null.");
+        else if (intelligenceMax !== undefined)
+            url_ += "intelligenceMax=" + encodeURIComponent("" + intelligenceMax) + "&";
+        if (willpowerMin === null)
+            throw new Error("The parameter 'willpowerMin' cannot be null.");
+        else if (willpowerMin !== undefined)
+            url_ += "willpowerMin=" + encodeURIComponent("" + willpowerMin) + "&";
+        if (willpowerMax === null)
+            throw new Error("The parameter 'willpowerMax' cannot be null.");
+        else if (willpowerMax !== undefined)
+            url_ += "willpowerMax=" + encodeURIComponent("" + willpowerMax) + "&";
+        if (emotionMin === null)
+            throw new Error("The parameter 'emotionMin' cannot be null.");
+        else if (emotionMin !== undefined)
+            url_ += "emotionMin=" + encodeURIComponent("" + emotionMin) + "&";
+        if (emotionMax === null)
+            throw new Error("The parameter 'emotionMax' cannot be null.");
+        else if (emotionMax !== undefined)
+            url_ += "emotionMax=" + encodeURIComponent("" + emotionMax) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(meritIds);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetManaPointMinMaxValues(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetManaPointMinMaxValues(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ValueTupleOfIntegerAndInteger>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ValueTupleOfIntegerAndInteger>;
+        }));
+    }
+
+    protected processGetManaPointMinMaxValues(response: HttpResponseBase): Observable<ValueTupleOfIntegerAndInteger> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ValueTupleOfIntegerAndInteger.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getPowerPointMinMaxValues(karmaMin: number | undefined, karmaMax: number | undefined): Observable<ValueTupleOfIntegerAndInteger> {
+        let url_ = this.baseUrl + "/api/npcs/getpowerpointminmaxvalues?";
+        if (karmaMin === null)
+            throw new Error("The parameter 'karmaMin' cannot be null.");
+        else if (karmaMin !== undefined)
+            url_ += "karmaMin=" + encodeURIComponent("" + karmaMin) + "&";
+        if (karmaMax === null)
+            throw new Error("The parameter 'karmaMax' cannot be null.");
+        else if (karmaMax !== undefined)
+            url_ += "karmaMax=" + encodeURIComponent("" + karmaMax) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPowerPointMinMaxValues(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPowerPointMinMaxValues(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ValueTupleOfIntegerAndInteger>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ValueTupleOfIntegerAndInteger>;
+        }));
+    }
+
+    protected processGetPowerPointMinMaxValues(response: HttpResponseBase): Observable<ValueTupleOfIntegerAndInteger> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ValueTupleOfIntegerAndInteger.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
     }
 }
 
@@ -542,6 +746,63 @@ export class WeaponsClient {
                 result200 = [] as any;
                 for (let item of resultData200)
                     result200!.push(Weapon2.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    getAllAttackTypes(): Observable<AttackType3[]> {
+        let url_ = this.baseUrl + "/api/weapons/getallattacktypes";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllAttackTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllAttackTypes(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<AttackType3[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<AttackType3[]>;
+        }));
+    }
+
+    protected processGetAllAttackTypes(response: HttpResponseBase): Observable<AttackType3[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(AttackType3.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -826,12 +1087,13 @@ export class Npc implements INpc {
     karmaMin!: number;
     hitPointMax!: number;
     hitPointMin!: number;
-    manaMax!: number;
-    manaMin!: number;
+    manaPointMax!: number;
+    manaPointMin!: number;
     powerPointMax!: number;
     powerPointMin!: number;
     difficulty!: Difficulty;
     race!: Race;
+    isUndead!: boolean;
 
     constructor(data?: INpc) {
         if (data) {
@@ -866,12 +1128,13 @@ export class Npc implements INpc {
             this.karmaMin = _data["karmaMin"];
             this.hitPointMax = _data["hitPointMax"];
             this.hitPointMin = _data["hitPointMin"];
-            this.manaMax = _data["manaMax"];
-            this.manaMin = _data["manaMin"];
+            this.manaPointMax = _data["manaPointMax"];
+            this.manaPointMin = _data["manaPointMin"];
             this.powerPointMax = _data["powerPointMax"];
             this.powerPointMin = _data["powerPointMin"];
             this.difficulty = _data["difficulty"];
             this.race = _data["race"];
+            this.isUndead = _data["isUndead"];
         }
     }
 
@@ -906,12 +1169,13 @@ export class Npc implements INpc {
         data["karmaMin"] = this.karmaMin;
         data["hitPointMax"] = this.hitPointMax;
         data["hitPointMin"] = this.hitPointMin;
-        data["manaMax"] = this.manaMax;
-        data["manaMin"] = this.manaMin;
+        data["manaPointMax"] = this.manaPointMax;
+        data["manaPointMin"] = this.manaPointMin;
         data["powerPointMax"] = this.powerPointMax;
         data["powerPointMin"] = this.powerPointMin;
         data["difficulty"] = this.difficulty;
         data["race"] = this.race;
+        data["isUndead"] = this.isUndead;
         return data;
     }
 }
@@ -939,12 +1203,13 @@ export interface INpc {
     karmaMin: number;
     hitPointMax: number;
     hitPointMin: number;
-    manaMax: number;
-    manaMin: number;
+    manaPointMax: number;
+    manaPointMin: number;
     powerPointMax: number;
     powerPointMin: number;
     difficulty: Difficulty;
     race: Race;
+    isUndead: boolean;
 }
 
 export enum Difficulty {
@@ -1082,7 +1347,7 @@ export interface IPageInformation {
     pageIndex: number;
 }
 
-export class Npc2 implements INpc2 {
+export class NpcTemplate implements INpcTemplate {
     id!: number;
     name!: string;
     strengthMax!: number;
@@ -1105,19 +1370,20 @@ export class Npc2 implements INpc2 {
     karmaMin!: number;
     hitPointMax!: number;
     hitPointMin!: number;
-    manaMax!: number;
-    manaMin!: number;
+    manaPointMax!: number;
+    manaPointMin!: number;
     powerPointMax!: number;
     powerPointMin!: number;
     difficulty!: Difficulty;
     race!: Race;
+    isUndead!: boolean;
     merits!: Merit2[];
     flaws!: Flaw2[];
     weapons!: Weapon[];
     skills!: Skill[];
     armors!: Armor2[];
 
-    constructor(data?: INpc2) {
+    constructor(data?: INpcTemplate) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1150,12 +1416,13 @@ export class Npc2 implements INpc2 {
             this.karmaMin = _data["karmaMin"];
             this.hitPointMax = _data["hitPointMax"];
             this.hitPointMin = _data["hitPointMin"];
-            this.manaMax = _data["manaMax"];
-            this.manaMin = _data["manaMin"];
+            this.manaPointMax = _data["manaPointMax"];
+            this.manaPointMin = _data["manaPointMin"];
             this.powerPointMax = _data["powerPointMax"];
             this.powerPointMin = _data["powerPointMin"];
             this.difficulty = _data["difficulty"];
             this.race = _data["race"];
+            this.isUndead = _data["isUndead"];
             if (Array.isArray(_data["merits"])) {
                 this.merits = [] as any;
                 for (let item of _data["merits"])
@@ -1184,9 +1451,9 @@ export class Npc2 implements INpc2 {
         }
     }
 
-    static fromJS(data: any): Npc2 {
+    static fromJS(data: any): NpcTemplate {
         data = typeof data === 'object' ? data : {};
-        let result = new Npc2();
+        let result = new NpcTemplate();
         result.init(data);
         return result;
     }
@@ -1215,12 +1482,13 @@ export class Npc2 implements INpc2 {
         data["karmaMin"] = this.karmaMin;
         data["hitPointMax"] = this.hitPointMax;
         data["hitPointMin"] = this.hitPointMin;
-        data["manaMax"] = this.manaMax;
-        data["manaMin"] = this.manaMin;
+        data["manaPointMax"] = this.manaPointMax;
+        data["manaPointMin"] = this.manaPointMin;
         data["powerPointMax"] = this.powerPointMax;
         data["powerPointMin"] = this.powerPointMin;
         data["difficulty"] = this.difficulty;
         data["race"] = this.race;
+        data["isUndead"] = this.isUndead;
         if (Array.isArray(this.merits)) {
             data["merits"] = [];
             for (let item of this.merits)
@@ -1250,7 +1518,7 @@ export class Npc2 implements INpc2 {
     }
 }
 
-export interface INpc2 {
+export interface INpcTemplate {
     id: number;
     name: string;
     strengthMax: number;
@@ -1273,12 +1541,13 @@ export interface INpc2 {
     karmaMin: number;
     hitPointMax: number;
     hitPointMin: number;
-    manaMax: number;
-    manaMin: number;
+    manaPointMax: number;
+    manaPointMin: number;
     powerPointMax: number;
     powerPointMin: number;
     difficulty: Difficulty;
     race: Race;
+    isUndead: boolean;
     merits: Merit2[];
     flaws: Flaw2[];
     weapons: Weapon[];
@@ -1697,6 +1966,46 @@ export interface IArmor2 {
     isOptional: boolean;
 }
 
+export class ValueTupleOfIntegerAndInteger implements IValueTupleOfIntegerAndInteger {
+    item1!: number;
+    item2!: number;
+
+    constructor(data?: IValueTupleOfIntegerAndInteger) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.item1 = _data["item1"];
+            this.item2 = _data["item2"];
+        }
+    }
+
+    static fromJS(data: any): ValueTupleOfIntegerAndInteger {
+        data = typeof data === 'object' ? data : {};
+        let result = new ValueTupleOfIntegerAndInteger();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["item1"] = this.item1;
+        data["item2"] = this.item2;
+        return data;
+    }
+}
+
+export interface IValueTupleOfIntegerAndInteger {
+    item1: number;
+    item2: number;
+}
+
 export class Skill2 implements ISkill2 {
     id!: number;
     name!: string;
@@ -1847,6 +2156,54 @@ export class AttackType2 implements IAttackType2 {
 }
 
 export interface IAttackType2 {
+    id: number;
+    damageType: DamageType;
+    numberOfDices: number;
+    guaranteedDamage: number;
+}
+
+export class AttackType3 implements IAttackType3 {
+    id!: number;
+    damageType!: DamageType;
+    numberOfDices!: number;
+    guaranteedDamage!: number;
+
+    constructor(data?: IAttackType3) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.damageType = _data["damageType"];
+            this.numberOfDices = _data["numberOfDices"];
+            this.guaranteedDamage = _data["guaranteedDamage"];
+        }
+    }
+
+    static fromJS(data: any): AttackType3 {
+        data = typeof data === 'object' ? data : {};
+        let result = new AttackType3();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["damageType"] = this.damageType;
+        data["numberOfDices"] = this.numberOfDices;
+        data["guaranteedDamage"] = this.guaranteedDamage;
+        return data;
+    }
+}
+
+export interface IAttackType3 {
     id: number;
     damageType: DamageType;
     numberOfDices: number;

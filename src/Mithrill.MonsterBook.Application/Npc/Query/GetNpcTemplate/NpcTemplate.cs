@@ -5,14 +5,15 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
-    public class Npc : IMapFrom<MonsterBook.Domain.NpcTemplate>
+    public class NpcTemplate : IMapFrom<MonsterBook.Domain.NpcTemplate>
     {
-        public Npc()
+        public NpcTemplate()
         {
             Flaws = new List<Flaw>();
             Merits = new List<Merit>();
             Weapons = new List<Weapon>();
             Skills = new List<Skill>();
+            Armors = new List<Armor>();
         }
 
         public int Id { get; set; }
@@ -37,12 +38,13 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
         public int KarmaMin { get; set; }
         public int HitPointMax { get; set; }
         public int HitPointMin { get; set; }
-        public int ManaMax { get; set; }
-        public int ManaMin { get; set; }
+        public int ManaPointMax { get; set; }
+        public int ManaPointMin { get; set; }
         public int PowerPointMax { get; set; }
         public int PowerPointMin { get; set; }
         public Difficulty Difficulty { get; set; }
         public Race Race { get; set; }
+        public bool IsUndead { get; set; }
         public IEnumerable<Merit> Merits { get; set; }
         public IEnumerable<Flaw> Flaws { get; set; }
         public IEnumerable<Weapon> Weapons { get; set; }
@@ -51,9 +53,9 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<MonsterBook.Domain.NpcTemplate, Npc>()
-                .ForMember(npc => npc.ManaMin, opt => opt.Ignore())
-                .ForMember(npc => npc.ManaMax, opt => opt.Ignore())
+            profile.CreateMap<MonsterBook.Domain.NpcTemplate, NpcTemplate>()
+                .ForMember(npc => npc.ManaPointMin, opt => opt.Ignore())
+                .ForMember(npc => npc.ManaPointMax, opt => opt.Ignore())
                 .ForMember(npc => npc.HitPointMin, opt => opt.Ignore())
                 .ForMember(npc => npc.HitPointMax, opt => opt.Ignore())
                 .ForMember(npc => npc.PowerPointMin, opt => opt.Ignore())

@@ -5,7 +5,6 @@ using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Domain;
 using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Domain.Difficulty;
-using Race = Mithrill.MonsterBook.Domain.Race;
 using SkillCategory = Mithrill.MonsterBook.Domain.SkillCategory;
 
 namespace Mithrill.MonsterBook.Application.Tests
@@ -20,6 +19,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<Armor> Armors { get; set; }
+        public DbSet<AttackType> AttackTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -141,7 +141,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         {
             Name = "Creature",
             NameHu = "CreatureHu",
-            Race = Race.Undead,
+            IsUndead = true,
             KarmaMax = -3,
             KarmaMin = -3,
             CharacterFlaws = new List<CharacterFlaw>

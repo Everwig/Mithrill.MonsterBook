@@ -1,12 +1,16 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
 using Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
+using Mithrill.MonsterBook.Application.Npc.Query.GetHitPointMinMaxValues;
+using Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
+using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
+using Mithrill.MonsterBook.Application.Npc.Query.GetPowerPointMinMaxValues;
 using Mithrill.MonsterBook.WebApi.Common;
 using GetNpcTemplateQuery = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.GetNpcTemplateQuery;
-using Npc = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Npc;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers
 {
@@ -51,7 +55,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
         }
 
         [HttpGet("GetTemplate/{id:int}")]
-        public async Task<Npc> Get(int id, CancellationToken cancellationToken)
+        public async Task<NpcTemplate> Get(int id, CancellationToken cancellationToken)
         {
             return await Mediator.Send(new GetNpcTemplateQuery { Id = id }, cancellationToken);
         }
@@ -78,6 +82,64 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
                     IsSoftDelete = false
                 },
                 cancellationToken);
+        }
+
+        [HttpGet("GetHitPointMinMaxValues")]
+        public async Task<(int HitPointMin, int HitPointMax)> GetHitPointMinMaxValues(
+            int strengthMin,
+            int strengthMax,
+            int bodyMin,
+            int bodyMax,
+            bool isUndead,
+            IEnumerable<int> meritIds,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(new GetHitPointMinMaxValuesQuery
+            {
+                BodyMax = bodyMax,
+                BodyMin = bodyMin,
+                IsUndead = isUndead,
+                MeritIds = meritIds,
+                StrengthMin = strengthMin,
+                StrengthMax = strengthMax
+            }, cancellationToken);
+        }
+
+        [HttpGet("GetManaPointMinMaxValues")]
+        public async Task<(int ManaPointMin, int ManaPointMax)> GetManaPointMinMaxValues(
+            int intelligenceMin,
+            int intelligenceMax,
+            int willpowerMin,
+            int willpowerMax,
+            int emotionMin,
+            int emotionMax,
+            IEnumerable<int> meritIds,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(new GetManaPointMinMaxValuesQuery
+            {
+                MeritIds = meritIds,
+                EmotionMax = emotionMax,
+                EmotionMin = emotionMin,
+                IntelligenceMax = intelligenceMax,
+                IntelligenceMin = intelligenceMin,
+                WillpowerMax = willpowerMax,
+                WillpowerMin = willpowerMin
+            }, cancellationToken);
+        }
+
+
+        [HttpGet("GetPowerPointMinMaxValues")]
+        public async Task<(int PowerPointMin, int PowerPointMax)> GetPowerPointMinMaxValues(
+            int karmaMin,
+            int karmaMax,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(new GetPowerPointMinMaxValuesQuery
+            {
+                KarmaMin = karmaMin,
+                KarmaMax = karmaMax,
+            }, cancellationToken);
         }
     }
 }

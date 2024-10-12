@@ -25,7 +25,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
         public int AdditionalInitiativeModifier { get; set; }
         public Common.Material Material { get; set; }
         public bool IsOptional { get; set; }
-        public IEnumerable<AttackType> AttackType { get; set; }
+        public List<AttackType> AttackType { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -39,7 +39,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
                 .ForMember(weapon => weapon.BaseInitiativeModifier,
                     opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.BaseInitiativeModifier))
                 .ForMember(weapon => weapon.AttackType, opt => opt.MapFrom(creatureWeapon => creatureWeapon.AdditionalAttackTypes.Select(attackType => attackType.AttackType)))
-                .AfterMap((creatureWeapon, weapon) => weapon.AttackType.Append(new AttackType
+                .AfterMap((creatureWeapon, weapon) => weapon.AttackType.Add(new AttackType
                 {
                     IsBaseAttackType = true,
                     DamageType = (DamageType)creatureWeapon.Weapon.BaseAttackType.DamageType,

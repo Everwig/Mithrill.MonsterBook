@@ -5,8 +5,8 @@ import { provideEffects } from '@ngrx/effects';
 import * as fromNpcs from './npc-dashboard/store/npcs.reducer';
 import { NpcsEffects } from './npc-dashboard/store/npcs.effects';
 import { NpcDashboardService } from './npc-dashboard/services/npc-dashboard.service';
-import { ArmorsClient, FlawsClient, MeritsClient, NpcsClient, SkillsClient, WeaponsClient } from './shared/services/web-api-client';
 import { NpcTemplateDetailsService } from './npc-dashboard/services/npc-template-details.service';
+import { ArmorsClient, FlawsClient, MeritsClient, NpcsClient, SkillsClient, WeaponsClient } from './shared/services/web-api-client';
 
 export const routes: Routes = [
   {

@@ -7,7 +7,8 @@ import { Weapon } from '../models/weapon.model';
 import { Flaw } from '../models/flaw.model';
 import { Merit } from '../models/merit.model';
 import { Skill } from '../models/skill.model';
-import { Npc } from '../models/npc.model';
+import { NpcTemplate } from '../models/npc-template.model';
+import { AttackType } from '../models/attack-type.model';
 
 export const loadNpcs = createAction('[NPCs] Load NPCs');
 export const loadNpcsSuccess = createAction(
@@ -78,15 +79,22 @@ export const loadSkillsSuccess = createAction(
   props<{ skills: Skill[] }>()
 );
 
+export const loadAttackTypes = createAction(
+  '[NPC Tempalte] Load AttackTypes'
+);
+export const loadAttackTypesSuccess = createAction(
+  '[NPC Tempalte] Load AttackTypes Success',
+  props<{ attackTypes: AttackType[] }>()
+);
+
 export const loadNpcTemplate = createAction(
   '[NPC Template] Load NPC Template',
   props<{ id: number}>()
 );
 export const loadNpcTemplateSuccess = createAction(
   '[NPC Template] Load NPC Template Success',
-  props<{ npcTemplate: Npc }>()
+  props<{ npcTemplate: NpcTemplate }>()
 );
-
 export const loadNpcTemplateFailed = createAction(
   '[NPC Template] Load NPC Template failed',
   props<{ errors: any }>()
@@ -94,4 +102,46 @@ export const loadNpcTemplateFailed = createAction(
 
 export const clearTemplate = createAction(
   '[NPC Template] Clearing NPC Template'
+);
+
+export const calculateHitPointMinMaxValues = createAction(
+  '[NPC Template] Calculate Hit Point min-max values',
+  props<{
+    strengthMin: number,
+    strengthMax: number,
+    bodyMin: number,
+    bodyMax: number,
+    isUndead: boolean,
+    meritIds: number[]
+  }>()
+);
+export const calculateHitPointMinMaxValuesSuccess = createAction(
+  '[NPC Template] Calculate Hit Point min-max values success',
+  props<{ hitPointMin: number, hitPointMax: number }>()
+);
+
+export const calculateManaPointMinMaxValues = createAction(
+  '[NPC Template] Calculate Mana Point min-max values',
+  props<{
+    intelligenceMin: number,
+    intelligenceMax: number,
+    willpowerMin: number,
+    willpowerMax: number,
+    emotionMin: number,
+    emotionMax: number,
+    meritIds: number[]
+  }>()
+);
+export const calculateManaPointMinMaxValuesSuccess = createAction(
+  '[NPC Template] Calculate Mana Point min-max values success',
+  props<{ manaPointMin: number, manaPointMax: number }>()
+);
+
+export const calculatePowerPointMinMaxValues = createAction(
+  '[NPC Template] Calculate Power Point min-max values',
+  props<{karmaMin: number, karmaMax: number }>()
+);
+export const calculatePowerPointMinMaxValuesSuccess = createAction(
+  '[NPC Template] Calculate Power Point min-max values success',
+  props<{ powerPointMin: number, powerPointMax: number }>()
 );
