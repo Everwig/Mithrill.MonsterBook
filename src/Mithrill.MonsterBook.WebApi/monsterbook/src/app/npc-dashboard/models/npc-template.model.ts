@@ -1,3 +1,4 @@
+import { Arcanum } from '../../core/model/arcanum.model';
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
 import { SkillCategories } from '../../core/model/skill-categories.model';
@@ -39,8 +40,17 @@ export interface NpcTemplate {
   isUndead: boolean;
   skills: Skill[];
   skillCategories: SkillCategories | undefined;
+  arcanumRanks: ArcanumRanks | undefined;
   merits: Merit[];
   flaws: Flaw[];
   weapons: Weapon[];
   armors: Armor[];
+}
+
+export interface ArcanumRanks {
+  primary: Arcanum;
+  secondary: Arcanum;
+  tertiary: Arcanum[];
+  quaternary: Arcanum;
+  quinary: Arcanum;
 }

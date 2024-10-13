@@ -11,7 +11,7 @@ import { Material } from '../../core/model/material.model';
 import { AttackType } from '../models/attack-type.model';
 import { DamageType } from '../../core/model/damage-type.model';
 import { Armor } from '../models/armor.model';
-import { NpcTemplate } from '../models/npc-template.model';
+import { ArcanumRanks, NpcTemplate } from '../models/npc-template.model';
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
 import {
@@ -23,6 +23,7 @@ import {
   WeaponsClient
 } from '../../shared/services/web-api-client';
 import { SkillCategories } from '../../core/model/skill-categories.model';
+import { Arcanum } from '../../core/model/arcanum.model';
 
 @Injectable()
 export class NpcTemplateDetailsService {
@@ -156,6 +157,7 @@ export class NpcTemplateDetailsService {
           secondSecondary: SkillCategory.Secular,
           tertiary: SkillCategory.Underworld
         }) as SkillCategories,
+        arcanumRanks: undefined,
         armors: npc.armors.map(armor => ({
           id: armor.id,
           name: armor.name,

@@ -24,12 +24,15 @@ import { Skill } from '../models/skill.model';
 import { Merit } from '../models/merit.model';
 import { Armor } from '../models/armor.model';
 import { Weapon } from '../models/weapon.model';
-import { NpcTemplate } from '../models/npc-template.model';
+import { ArcanumRanks, NpcTemplate } from '../models/npc-template.model';
 import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 import { SkillCategory } from '../../core/model/skill-category.model';
 import { armorOnlyMaterials, Material } from '../../core/model/material.model';
 import { baseDamageTypes, DamageType } from '../../core/model/damage-type.model';
 import { AttackType } from '../models/attack-type.model';
+import { SkillCategories } from '../../core/model/skill-categories.model';
+import { CategoryNumber } from '../../core/model/category-number.model';
+import { Arcanum } from '../../core/model/arcanum.model';
 
 @Component({
   selector: 'app-npc-template-details',
@@ -53,6 +56,14 @@ import { AttackType } from '../models/attack-type.model';
 export class NpcTemplateDetailsComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
 
+  primarySkillCategory: SkillCategory | undefined;
+  secondarySkillCategories: SkillCategory[] = [];
+  tertiarySkillCategory: SkillCategory | undefined;
+  primaryArcanum: Arcanum | undefined;
+  secondaryArcanum: Arcanum | undefined;
+  tertiaryArcanum: Arcanum[] = [];
+  quaternaryArcanum: Arcanum | undefined;
+  quinaryArcanum: Arcanum | undefined;
   selectedSkill: Skill | undefined;
   selectedMerit: Merit | undefined;
   selectedFlaw: Flaw | undefined;
@@ -79,6 +90,12 @@ export class NpcTemplateDetailsComponent implements OnInit {
   readonly attackTypes$: Observable<AttackType[]>;
   readonly npcTemplate$: Observable<NpcTemplate | undefined>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly categoryNumbers = CategoryNumber;
+  private readonly timeOut = 150;
+  private readonly wizardUniversity = "Wizarding university";
+  private readonly arcane = "arcane";
+  private readonly maxSecondarySkillCategories = 2;
+  private readonly maxTertiaryArcanums = 5;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private store$: Store<State>) {
     this.npcTemplateDetailsMode = DetailsViewMode.Create;
@@ -119,7 +136,8 @@ export class NpcTemplateDetailsComponent implements OnInit {
       weapons: new FormControl([]),
       armors: new FormControl([]),
       isUndead: new FormControl(false),
-      skillCategories: new FormControl([])
+      skillCategories: new FormControl(undefined),
+      arcanumRanks: new FormControl(undefined)
     });
   }
 
@@ -146,23 +164,102 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.subscriptions.add(routeSubscription);
   }
 
-  getSkillCategories(): SkillCategory[] {
-    const skillCategories: SkillCategory[] = Object.values(SkillCategory);
-    const selectedCategories: SkillCategory[] = this.npcTemplateDetails.value.skillCategories;
+  getSkillCategories(skillCategoryNumbers: CategoryNumber): SkillCategory[] {
+    let skillCategories: SkillCategory[] = Object.values(SkillCategory);
+    const currentSkillCategories = this.npcTemplateDetails.value.skillCategories as SkillCategories;
+    if (!currentSkillCategories) {
+      return skillCategories;
+    }
 
-    return skillCategories.filter(category => !selectedCategories.includes(category));
+    const selectedSkillCategories: SkillCategory[] = [
+      skillCategoryNumbers === CategoryNumber.Primary ? undefined : currentSkillCategories.primary,
+      skillCategoryNumbers === CategoryNumber.Secondry ? undefined : currentSkillCategories.firstSecondary,
+      skillCategoryNumbers === CategoryNumber.Secondry ? undefined : currentSkillCategories.secondSecondary,
+      skillCategoryNumbers === CategoryNumber.Tertiary ? undefined : currentSkillCategories.tertiary
+    ].filter(skillCategory => skillCategory !== undefined);
+
+    return skillCategories.filter(category => !selectedSkillCategories.includes(category));
   }
 
-  onSkillCategoryRemove(skillCategory: SkillCategory): void {
-    const selectedCategories: SkillCategory[] = this.npcTemplateDetails.value.skillCategories;
-    const updatedSkillCategories = selectedCategories.filter(category => category !== skillCategory);
-    this.npcTemplateDetails.patchValue({ skillCategories: updatedSkillCategories });
+  onSkillCategorySelect(matSelectChange: MatSelectChange, skillCategoryNumbers: CategoryNumber): void {
+    const selectedCategories: SkillCategories = this.npcTemplateDetails.value.skillCategories;
+    if (skillCategoryNumbers === CategoryNumber.Primary) {
+      selectedCategories.primary = matSelectChange.value;
+    }
+
+    if (skillCategoryNumbers === CategoryNumber.Tertiary) {
+      selectedCategories.tertiary = matSelectChange.value;
+    }
+
+    if (skillCategoryNumbers === CategoryNumber.Secondry) {
+      const selection = matSelectChange.value as SkillCategories[];
+      if (selection.length === 0) {
+        selectedCategories.firstSecondary = undefined;
+        selectedCategories.secondSecondary = undefined;
+      } else {
+        selectedCategories.firstSecondary = selection[0] as unknown as SkillCategory;
+        selectedCategories.secondSecondary = selection[1] ? selection[1] as unknown as SkillCategory : undefined;
+      }
+    }
+
+    this.npcTemplateDetails.patchValue({ skillCategories: selectedCategories });
   }
 
-  onSkillCategory(matSelectChange: MatSelectChange): void {
-    const skillCategory: SkillCategory = matSelectChange.value as SkillCategory;
-    const selectedCategories: SkillCategory[] = this.npcTemplateDetails.value.skillCategories;
-    this.npcTemplateDetails.patchValue({ skillCategories: selectedCategories.push(skillCategory) });
+  isSkillCategoryOptionDisabled(skillCategory: SkillCategory): boolean {
+    return !this.secondarySkillCategories.includes(skillCategory) && this.secondarySkillCategories.length === this.maxSecondarySkillCategories;
+  }
+
+  isArcanumRankOptionDisabled(arcanum: Arcanum): boolean {
+    return !this.tertiaryArcanum.includes(arcanum) && this.tertiaryArcanum.length === this.maxTertiaryArcanums;
+  }
+
+  getArcanums(arcanumRankNumber: CategoryNumber): Arcanum[] {
+    let arcanumRanks: Arcanum[] = Object.values(Arcanum);
+    const currentArcanumRanks = this.npcTemplateDetails.value.arcanumRanks as ArcanumRanks;
+    if (!currentArcanumRanks) {
+      return arcanumRanks;
+    }
+
+    const selectedArcanumRanks: Arcanum[] = [
+      arcanumRankNumber === CategoryNumber.Primary ? undefined : currentArcanumRanks.primary,
+      arcanumRankNumber === CategoryNumber.Secondry ? undefined : currentArcanumRanks.secondary,
+      ...(arcanumRankNumber === CategoryNumber.Tertiary ? [] : currentArcanumRanks.tertiary),
+      arcanumRankNumber === CategoryNumber.Quaternary ? undefined : currentArcanumRanks.quaternary,
+      arcanumRankNumber === CategoryNumber.Quinary ? undefined : currentArcanumRanks.quinary,
+    ].filter(arcanumRank => arcanumRank !== undefined);
+
+    return arcanumRanks.filter(arcanumRank => !selectedArcanumRanks.includes(arcanumRank));
+  }
+
+  onArcanumSelect(matSelectChange: MatSelectChange, arcanumRankNumber: CategoryNumber): void {
+    const currentArcanumRanks = this.npcTemplateDetails.value.arcanumRanks as ArcanumRanks;
+
+    switch(arcanumRankNumber) {
+      case CategoryNumber.Primary:
+        currentArcanumRanks.primary = matSelectChange.value;
+        break;
+      case CategoryNumber.Secondry:
+        currentArcanumRanks.secondary = matSelectChange.value;
+        break;
+      case CategoryNumber.Tertiary:
+        if (this.tertiaryArcanum.length > 1 && !this.doesNpcHaveMagicUniversityMerit(this.npcTemplateDetails.value.merits)) {
+          this.tertiaryArcanum = [matSelectChange.value];
+          currentArcanumRanks.tertiary = [matSelectChange.value]
+        } else if (this.doesNpcHaveMagicUniversityMerit(this.npcTemplateDetails.value.merits)) {
+          currentArcanumRanks.tertiary = matSelectChange.value;
+        } else {
+          currentArcanumRanks.tertiary = [matSelectChange.value]
+        }
+        break;
+      case CategoryNumber.Quaternary:
+        currentArcanumRanks.quaternary = matSelectChange.value;
+        break;
+      case CategoryNumber.Quinary:
+        currentArcanumRanks.quinary = matSelectChange.value;
+        break;
+    }
+
+    this.npcTemplateDetails.patchValue({ arcanumRanks: currentArcanumRanks });
   }
 
   getMaxValueBaseOnRace(): number {
@@ -196,7 +293,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
     const templateSkills: Skill[] = this.npcTemplateDetails.value.skills;
     templateSkills.push(matSelectChange.value as Skill);
     this.npcTemplateDetails.patchValue({ skills: templateSkills });
-    setTimeout(() => this.selectedSkill = undefined, 100);
+    setTimeout(() => this.selectedSkill = undefined, this.timeOut);
   }
 
   onRemoveSkill(id: number): void {
@@ -206,31 +303,61 @@ export class NpcTemplateDetailsComponent implements OnInit {
 
   getFilteredMerits(): Observable<Merit[]> {
     return this.merits$.pipe(
-      map(merits => merits.filter(merit => {
-        const templateMerits: Merit[] = this.npcTemplateDetails.value.merits;
-        return templateMerits.findIndex(m => m.id === merit.id);
-      }))
+      map(merits => {
+        const templateMeritsIds: number[] = this.npcTemplateDetails.value.merits.map((merit: Merit) => merit.id);
+        return merits.filter(merit => !templateMeritsIds.includes(merit.id));
+      })
     );
   }
 
   onMeritSelect(matSelectChange: MatSelectChange): void {
     const templateMerits: Merit[] = this.npcTemplateDetails.value.merits;
-    templateMerits.push(matSelectChange.value as Merit);
-    this.npcTemplateDetails.patchValue({ merits: templateMerits });
-    setTimeout(() => this.selectedMerit = undefined, 100);
+    const selectedMerit: Merit = matSelectChange.value as Merit;
+    setTimeout(() => this.selectedMerit = undefined, this.timeOut);
+
+    if (this.npcTemplateDetails.value.arcanumRanks &&
+        this.doesNpcHaveMagicUniversityMerit([selectedMerit]) &&
+        !this.doesNpcHaveMagicUniversityMerit(templateMerits)) {
+      templateMerits.push(selectedMerit);
+      this.tertiaryArcanum = [...this.tertiaryArcanum, this.quaternaryArcanum!, this.quinaryArcanum!]
+        .filter(arcanum => arcanum !== undefined);
+
+      this.quaternaryArcanum = undefined;
+      this.quinaryArcanum = undefined;
+      this.npcTemplateDetails.patchValue({
+        merits: templateMerits,
+        arcanumRanks: ({
+          ...this.npcTemplateDetails.value.arcanumRanks,
+          tertiary: [
+            ...this.npcTemplateDetails.value.arcanumRanks.tertiary,
+            this.npcTemplateDetails.value.arcanumRanks.quaternary,
+            this.npcTemplateDetails.value.arcanumRanks.quinary
+          ].filter(arcanum => arcanum !== undefined),
+          quaternary: undefined,
+          quinary: undefined
+        }) as ArcanumRanks
+      });
+    } else {
+      templateMerits.push(selectedMerit);
+      this.npcTemplateDetails.patchValue({ merits: templateMerits });
+    }
   }
 
-  onRemoveMerit(id: number): void {
+  onRemoveMerit(merit: Merit): void {
     const templateMerits: Merit[] = this.npcTemplateDetails.value.merits;
-    this.npcTemplateDetails.patchValue({ merits: templateMerits.filter(merit => merit.id !== id) });
+    this.npcTemplateDetails.patchValue({ merits: templateMerits.filter(m => m.id !== merit.id) });
+
+    if (this.doesNpcHaveMagicUniversityMerit([merit])) {
+      this.tertiaryArcanum = [this.tertiaryArcanum[0]];
+    }
   }
 
   getFilteredFlaws(): Observable<Flaw[]> {
     return this.flaws$.pipe(
-      map(flaws => flaws.filter(flaw => {
-        const templateFlaws: Flaw[] = this.npcTemplateDetails.value.flaws;
-        return templateFlaws.findIndex(f => f.id === flaw.id);
-      }))
+      map(flaws => {
+        const templateFlawIds: number[] = this.npcTemplateDetails.value.flaws.map((flaw: Flaw) => flaw.id);
+        return flaws.filter(flaw => !templateFlawIds.includes(flaw.id));
+      })
     );
   }
 
@@ -238,7 +365,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
     const templateFlaws: Flaw[] = this.npcTemplateDetails.value.flaws;
     templateFlaws.push(matSelectChange.value as Flaw);
     this.npcTemplateDetails.patchValue({ flaws: templateFlaws });
-    setTimeout(() => this.selectedFlaw = undefined, 100);
+    setTimeout(() => this.selectedFlaw = undefined, this.timeOut);
   }
 
   onRemoveFlaw(id: number): void {
@@ -246,15 +373,19 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.npcTemplateDetails.patchValue({ flaws: templateFlaws.filter(flaw => flaw.id !== id) });
   }
 
+  getMaterialTypes(): Material[] {
+    return Object.values(Material);
+  }
+
   getFilteredMaterialTypes(): Material[] {
-    return Object.values(Material).filter(material => !armorOnlyMaterials.includes(material));
+    return this.getMaterialTypes().filter(material => !armorOnlyMaterials.includes(material));
   }
 
   onWeaponSelect(matSelectChange: MatSelectChange): void {
     const templateWeapons: Weapon[] = this.npcTemplateDetails.value.weapons;
     templateWeapons.push(matSelectChange.value as Weapon);
     this.npcTemplateDetails.patchValue({ weapons: templateWeapons });
-    setTimeout(() => this.selectedWeapon = undefined, 100);
+    setTimeout(() => this.selectedWeapon = undefined, this.timeOut);
   }
 
   onRemoveWeapon(weapon: Weapon): void {
@@ -273,7 +404,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
       numberOfDices: 0
     });
 
-    setTimeout(() => this.selectedDamageType = undefined, 100);
+    setTimeout(() => this.selectedDamageType = undefined, this.timeOut);
   }
 
   getFilteredDamageTypes(attackTypes: AttackType[]): DamageType[] {
@@ -307,6 +438,26 @@ export class NpcTemplateDetailsComponent implements OnInit {
     weapon.attackTypes = weapon.attackTypes.filter(aT => aT !== attackType);
   }
 
+  onArmorSelect(matSelectChange: MatSelectChange): void {
+    const templateArmors: Armor[] = this.npcTemplateDetails.value.armors;
+    templateArmors.push(matSelectChange.value as Armor);
+    this.npcTemplateDetails.patchValue({ armors: templateArmors });
+    setTimeout(() => this.selectedArmor = undefined, this.timeOut);
+  }
+
+  onRemoveArmor(armor: Armor): void {
+    const templateArmors: Armor[] = this.npcTemplateDetails.value.armors;
+    this.npcTemplateDetails.patchValue({ armors: templateArmors.filter(a => a !== armor) });
+  }
+
+  doesNpcHaveMagicUniversityMerit(merits: Merit[]): boolean {
+    return merits.findIndex(merit => merit.name === this.wizardUniversity) > -1;
+  }
+
+  doesNpcHaveArcanums(): boolean {
+    return (this.npcTemplateDetails.value.skills as Skill[]).findIndex(skill => skill.name.endsWith(this.arcane)) > -1;
+  }
+
   private updateFormInEditMode(): void {
     this.subscriptions.add(this.npcTemplate$.subscribe((npcTemplate) => {
       if (npcTemplate) {
@@ -338,9 +489,10 @@ export class NpcTemplateDetailsComponent implements OnInit {
           flaws: npcTemplate.flaws,
           weapons: npcTemplate.weapons,
           armors: npcTemplate.armors,
-          isUndead: npcTemplate.isUndead
+          isUndead: npcTemplate.isUndead,
+          skillCategories: npcTemplate.skillCategories,
+          arcanumRanks: npcTemplate.arcanumRanks
         });
-
 
         this.hitPointMin = npcTemplate.hitPointMin;
         this.hitPointMax = npcTemplate.hitPointMax;
@@ -348,6 +500,16 @@ export class NpcTemplateDetailsComponent implements OnInit {
         this.manaPointMax = npcTemplate.manaPointMax;
         this.powerPointMin = npcTemplate.powerPointMin;
         this.powerPointMax = npcTemplate.powerPointMax;
+        this.primarySkillCategory = npcTemplate.skillCategories?.primary;
+        this.secondarySkillCategories.push(
+          npcTemplate.skillCategories?.firstSecondary!,
+          npcTemplate.skillCategories?.secondSecondary!);
+        this.tertiarySkillCategory = npcTemplate.skillCategories?.tertiary;
+        this.primaryArcanum = npcTemplate.arcanumRanks?.primary;
+        this.secondaryArcanum = npcTemplate.arcanumRanks?.secondary;
+        this.tertiaryArcanum = npcTemplate.arcanumRanks?.tertiary ?? [];
+        this.quaternaryArcanum = npcTemplate.arcanumRanks?.quaternary;
+        this.quinaryArcanum = npcTemplate.arcanumRanks?.quinary;
       }
     }));
   }

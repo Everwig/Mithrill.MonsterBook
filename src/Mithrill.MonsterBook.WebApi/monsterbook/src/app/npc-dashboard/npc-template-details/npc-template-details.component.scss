@@ -278,6 +278,29 @@
       }
     }
   }
+
+  .npc-template-section-calculated-values {
+    display: flex;
+    justify-content: space-between;
+
+    @include max(breakpoint(md)) {
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  }
+
+  .npc-template-calculated-values {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    @include max(breakpoint(sm)) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 }
 
 .margin-top {

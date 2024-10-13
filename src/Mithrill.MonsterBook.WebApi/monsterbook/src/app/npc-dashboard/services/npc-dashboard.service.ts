@@ -56,6 +56,7 @@ export class NpcDashboardService {
           difficulty: Difficulty[npc.difficulty as keyof typeof Difficulty],
           race: Race[npc.race as keyof typeof Race],
           skillCategories: undefined,
+          arcanumRanks: undefined,
           armors: [],
           flaws: [],
           merits: [],

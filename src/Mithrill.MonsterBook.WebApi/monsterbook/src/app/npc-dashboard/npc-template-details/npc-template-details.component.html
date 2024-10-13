@@ -8,8 +8,8 @@
 -->
 <div class="global-container">
   <form [formGroup]="npcTemplateDetails" class="full-wide">
-    <div class="npc-template-section">
-      <label class="npc-template-section-header">Alap cuccok</label>
+    <div class="npc-template-section full-wide">
+      <label class="npc-template-section-header">Alap tulajdonságok</label>
       <div class="npc-template-section-content">
         <mat-form-field>
           <mat-label>Név</mat-label>
@@ -31,28 +31,137 @@
         </mat-form-field>
       </div>
 
-      <div class="npc-template-section-content">
-        <mat-form-field>
-          <mat-label>Képzettség kategóriák</mat-label>
-
-          <mat-chip-set #skillCategoriesGrid>
-            <mat-chip-row *ngFor="let skillCategory of npcTemplateDetails.value.skillCategories" (removed)="onSkillCategoryRemove(skillCategory)">
-              {{ skillCategory }}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip-row>
-          </mat-chip-set>
-
-          <mat-select (selectionChange)="onSkillCategory($event)">
-            <mat-option *ngFor="let skillCategory of getSkillCategories()" [value]="skillCategory">{{ skillCategory }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
+      <div class="npc-template-calculated-values full-wide">
         <label>Test pont: {{hitPointMin}} - {{hitPointMax}}</label>
         <label>Mana pont: {{manaPointMin}} - {{manaPointMax}}</label>
         <label>Hatalom pont: {{powerPointMin}} - {{powerPointMax}}</label>
       </div>
+    </div>
+
+    <div class="npc-template-section full-wide">
+      <label class="npc-template-section-header">Képzettség kategóriák</label>
+      <div class="npc-template-section-content full-wide">
+        <mat-form-field class="side-margin">
+          <mat-label>Elsődleges képzettség kategória</mat-label>
+          <mat-select (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Primary)" [(value)]="primarySkillCategory">
+            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Primary)" [value]="skillCategory">
+              {{ skillCategory }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="side-margin">
+          <mat-label>Másodlagos képzettség kategóriák</mat-label>
+          <mat-select multiple (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Secondry)" [(value)]="secondarySkillCategories">
+            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Secondry)" [value]="skillCategory" [disabled]="isSkillCategoryOptionDisabled(skillCategory)">
+              {{ skillCategory }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="side-margin">
+          <mat-label>Harmadlagos képzettség kategória</mat-label>
+          <mat-select (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Tertiary)" [(value)]="tertiarySkillCategory">
+            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Tertiary)" [value]="skillCategory">
+              {{ skillCategory }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="npc-template-section full-wide" *ngIf="doesNpcHaveArcanums()">
+      <label class="npc-template-section-header">Arkánum rangok</label>
+      <ng-template *ngIf="doesNpcHaveMagicUniversityMerit(npcTemplateDetails.value.merits); then withUniversity; else withoutUniversity;"></ng-template>
+
+      <ng-template #withUniversity>
+        <div class="npc-template-section-content full-wide">
+          <mat-form-field class="side-margin">
+          <mat-label>Elsődleges arkánum</mat-label>
+          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Primary)" [(value)]="primaryArcanum">
+            <mat-option [value]="undefined">--Válasz arkánumot--</mat-option>
+            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Primary)" [value]="arcanum">
+              {{ arcanum }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="side-margin">
+          <mat-label>Másodlagos arkánum</mat-label>
+          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Secondry)" [(value)]="secondaryArcanum">
+            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Secondry)" [value]="arcanum">
+              {{ arcanum }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="side-margin">
+          <mat-label>Harmadlagos arkánumok</mat-label>
+          <mat-select multiple (selectionChange)="onArcanumSelect($event, categoryNumbers.Tertiary)" [(value)]="tertiaryArcanum">
+            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Tertiary)" [value]="arcanum" [disabled]="isArcanumRankOptionDisabled(arcanum)">
+              {{ arcanum }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+        </div>
+      </ng-template>
+
+      <ng-template class="npc-template-section-content full-wide" #withoutUniversity>
+        <div class="npc-template-section-content full-wide">
+          <mat-form-field class="side-margin">
+          <mat-label>Elsődleges arkánum</mat-label>
+          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Primary)" [(value)]="primaryArcanum">
+            <mat-option [value]="undefined">--Válasz arkánumot--</mat-option>
+            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Primary)" [value]="arcanum">
+              {{ arcanum }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="side-margin">
+          <mat-label>Másodlagos arkánum</mat-label>
+          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Secondry)" [(value)]="secondaryArcanum">
+            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Secondry)" [value]="arcanum">
+              {{ arcanum }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="side-margin">
+          <mat-label>Harmadlagos arkánumok</mat-label>
+          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Tertiary)" [(value)]="tertiaryArcanum[0]">
+            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Tertiary)" [value]="arcanum">
+              {{ arcanum }}
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="side-margin">
+            <mat-label>Negyedleges arkánumok</mat-label>
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Quaternary)" [(value)]="quaternaryArcanum">
+              <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Quaternary)" [value]="arcanum">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="side-margin">
+              <mat-label>Ötödleges arkánumok</mat-label>
+              <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Quinary)" [(value)]="quinaryArcanum">
+                <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+                <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Quinary)" [value]="arcanum">
+                  {{ arcanum }}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+        </div>
+      </ng-template>
     </div>
 
     <div class="npc-template-section full-wide">
@@ -200,7 +309,7 @@
             </div>
 
             <div>
-              <button mat-icon-button (click)="onRemoveMerit(merit.id)">
+              <button mat-icon-button (click)="onRemoveMerit(merit)">
                 <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
               </button>
             </div>
@@ -339,7 +448,76 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="npc-template-section full-wide">
+      <label class="npc-template-section-header">Páncélzat</label>
+      <div class="npc-template-section-content column full-wide">
+        <mat-form-field class="side-margin">
+          <mat-label>Páncélzat hozzáadása</mat-label>
+          <mat-select (selectionChange)="onArmorSelect($event)" [(value)]="selectedArmor">
+            <mat-option *ngFor="let armor of (armors$ | async)" [value]="armor">
+              {{ armor.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="npc-template-item-section side-margin" *ngFor="let armor of npcTemplateDetails.value.armors">
+          <mat-expansion-panel class="full-wide">
+            <mat-expansion-panel-header>
+              <div class="npc-template-equipment-properties-header full-wide">
+                <label>{{ armor.name }}</label>
+                <label>Alap SFÉ: {{ armor.baseArmorClass }}</label>
+                <label>Alap MGT: {{ armor.baseMovementInhibitoryFactor }}</label>
+
+                <div>
+                  <label>Opcionális</label>
+                  <mat-slide-toggle [checked]="armor.isOptional" color="error"></mat-slide-toggle>
+                </div>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div class="npc-template-equipment-properties full-wide">
+              <label>Alap SFÉ: {{ armor.baseArmorClass }}</label>
+              <label>Alap MGT: {{ armor.baseMovementInhibitoryFactor }}</label>
+
+              <mat-form-field>
+                <mat-label>Alapanyag</mat-label>
+                <mat-select [value]="armor.material">
+                  <mat-option *ngFor="let material of getMaterialTypes()" [value]="material">{{ material }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div class="additional-modifiers full-wide">
+                <div class="npc-skill-slider">
+                  <label class="guaranteed-success-label">Bónusz SFÉ</label>
+                  <mat-slider class="full-wide" min="0" max="5" showTickMarks discrete>
+                    <input value="{{armor.additionalArmorClass}}" matSliderThumb>
+                  </mat-slider>
+                </div>
+
+                <div class="npc-skill-slider">
+                  <label class="guaranteed-success-label">MGT módosító</label>
+                  <mat-slider class="full-wide"  min="-5" max="5" showTickMarks discrete>
+                    <input value="{{armor.additionalMovementInhibitoryFactor}}" matSliderThumb>
+                  </mat-slider>
+                </div>
+              </div>
+
+              <div class="is-optional">
+                <label>Opcionális</label>
+                <mat-slide-toggle [checked]="armor.isOptional" color="error"></mat-slide-toggle>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <div>
+            <button mat-icon-button (click)="onRemoveArmor(armor)">
+              <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </form>
 </div>
