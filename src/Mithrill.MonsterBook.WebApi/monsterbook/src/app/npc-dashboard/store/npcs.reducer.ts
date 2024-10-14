@@ -41,6 +41,12 @@ export interface NpcTemplateState {
   attackTypes: AttackType[];
   template: NpcTemplate | undefined;
   isLoading: boolean;
+  manaPointMin: number;
+  manaPointMax: number;
+  hitPointMin: number;
+  hitPointMax: number;
+  powerPointMin: number;
+  powerPointMax: number;
 }
 
 const initialState: NpcsState = {
@@ -66,7 +72,13 @@ const initialState: NpcsState = {
     weapons: [],
     attackTypes: [],
     template: undefined,
-    isLoading: false
+    isLoading: false,
+    powerPointMax: 0,
+    powerPointMin: 0,
+    manaPointMax: 0,
+    manaPointMin: 0,
+    hitPointMax: 0,
+    hitPointMin: 0
   }
 }
 
@@ -178,16 +190,49 @@ export const reducer = createReducer(
     npcTemplate: {
       ...state.npcTemplate,
       template: action.npcTemplate,
-      isLoading: false
-    }
+      isLoading: false,
+      hitPointMax: action.npcTemplate.hitPointMax,
+      hitPointMin: action.npcTemplate.hitPointMin,
+      manaPointMax: action.npcTemplate.manaPointMax,
+      manaPointMin: action.npcTemplate.manaPointMin,
+      powerPointMax: action.npcTemplate.powerPointMax,
+      powerPointMin: action.npcTemplate.powerPointMin
+    },
   })),
 
-  on(fromNpcActions.clearTemplate, (state, action) => ({
+  on(fromNpcActions.clearTemplate, (state, _) => ({
     ...state,
     npcTemplate: {
       ...state.npcTemplate,
       template: undefined,
       isLoading: false
+    }
+  })),
+
+  on(fromNpcActions.calculateHitPointMinMaxValuesSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      hitPointMax: action.hitPointMax,
+      hitPointMin: action.hitPointMin
+    }
+  })),
+
+  on(fromNpcActions.calculateManaPointMinMaxValuesSuccess, (state, value) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      manaPointMax: value.manaPointMax,
+      manaPointMin: value.manaPointMin
+    }
+  })),
+
+  on(fromNpcActions.calculatePowerPointMinMaxValuesSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      powerPointMax: action.powerPointMax,
+      powerPointMin: action.powerPointMin
     }
   }))
 );

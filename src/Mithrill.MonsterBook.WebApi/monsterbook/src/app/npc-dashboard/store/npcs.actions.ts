@@ -139,7 +139,7 @@ export const calculateManaPointMinMaxValuesSuccess = createAction(
 
 export const calculatePowerPointMinMaxValues = createAction(
   '[NPC Template] Calculate Power Point min-max values',
-  props<{karmaMin: number, karmaMax: number }>()
+  props<{ karmaMin: number, karmaMax: number }>()
 );
 export const calculatePowerPointMinMaxValuesSuccess = createAction(
   '[NPC Template] Calculate Power Point min-max values success',

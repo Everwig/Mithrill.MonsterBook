@@ -79,7 +79,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            _creature.CreatureSkillCategories = _mapper.Map<CreatureSkillCategories>(_queriedCreature.CharacterSkillCategories);
+            _creature.SkillCategories = _mapper.Map<SkillCategories>(_queriedCreature.CharacterSkillCategories);
         }
 
         public void AddRacialModifiers(bool isUndead)

@@ -293,8 +293,15 @@
   .npc-template-calculated-values {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     flex-wrap: wrap;
     margin-bottom: 20px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
     @include max(breakpoint(sm)) {
       flex-direction: column;

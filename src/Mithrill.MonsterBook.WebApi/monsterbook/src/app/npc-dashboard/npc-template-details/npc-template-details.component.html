@@ -1,11 +1,4 @@
-<!--
-- Arkánum rangok, ha van értelme
-- Lehetséges képzettségek
-- Lehetséges előnyök
-- Lehetséges hátrányok
-- Fegyverek
-- Vértek
--->
+
 <div class="global-container">
   <form [formGroup]="npcTemplateDetails" class="full-wide">
     <div class="npc-template-section full-wide">
@@ -32,9 +25,14 @@
       </div>
 
       <div class="npc-template-calculated-values full-wide">
-        <label>Test pont: {{hitPointMin}} - {{hitPointMax}}</label>
-        <label>Mana pont: {{manaPointMin}} - {{manaPointMax}}</label>
-        <label>Hatalom pont: {{powerPointMin}} - {{powerPointMax}}</label>
+        <label>Test pont: {{ hitPointMin$ | async }} - {{ hitPointMax$ | async }}</label>
+        <label>Mana pont: {{ manaPointMin$ | async }} - {{ manaPointMax$ | async }}</label>
+        <label>Hatalom pont: {{ powerPointMin$ | async }} - {{ powerPointMax$ | async }}</label>
+
+        <div>
+          <label>Élőholt?</label>
+          <mat-slide-toggle [checked]="npcTemplateDetails.value.isUndead" color="error" (change)="onIsUndeadChange($event)"></mat-slide-toggle>
+        </div>
       </div>
     </div>
 
@@ -170,16 +168,16 @@
         <div class="npc-attribute-slider">
           <label>Erő</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="strengthMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="strengthMax">
+            <input value="1" matSliderStartThumb formControlName="strengthMin" (valueChange)="onStrengthChange()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="strengthMax" (valueChange)="onStrengthChange()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Test</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="bodyMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="bodyMax">
+            <input value="1" matSliderStartThumb formControlName="bodyMin" (valueChange)="triggerHitPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="bodyMax" (valueChange)="triggerHitPointRecalculation()">
           </mat-slider>
         </div>
 
@@ -210,32 +208,32 @@
         <div class="npc-attribute-slider">
           <label>Intelligencia</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="intelligenceMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="intelligenceMax">
+            <input value="1" matSliderStartThumb formControlName="intelligenceMin" (valueChange)="triggerManaPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="intelligenceMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Akaraterő</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="willpowerMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="willpowerMax">
+            <input value="1" matSliderStartThumb formControlName="willpowerMin" (valueChange)="triggerManaPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="willpowerMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Érzelem</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="emotionMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="emotionMax">
+            <input value="1" matSliderStartThumb formControlName="emotionMin" (valueChange)="triggerManaPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="emotionMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Karma</label>
           <mat-slider min="0" max="12" showTickMarks discrete>
-            <input value="0" matSliderStartThumb formControlName="karmaMin">
-            <input value="12" matSliderEndThumb formControlName="karmaMax">
+            <input value="0" matSliderStartThumb formControlName="karmaMin" (valueChange)="triggerPowerPointRecalculation()">
+            <input value="12" matSliderEndThumb formControlName="karmaMax" (valueChange)="triggerPowerPointRecalculation()">
           </mat-slider>
         </div>
       </div>

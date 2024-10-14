@@ -50,6 +50,8 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
         public IEnumerable<Weapon> Weapons { get; set; }
         public IEnumerable<Skill> Skills { get; set; }
         public IEnumerable<Armor> Armors { get; set; }
+        public SkillCategories? SkillCategories { get; set; }
+        public ArcanumRanks? ArcanumRanks { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -64,7 +66,9 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
                 .ForMember(npc => npc.Flaws, opt => opt.MapFrom(creature => creature.CharacterFlaws))
                 .ForMember(npc => npc.Weapons, opt => opt.MapFrom(creature => creature.CharacterWeapons))
                 .ForMember(npc => npc.Skills, opt => opt.MapFrom(creature => creature.CharacterSkills))
-                .ForMember(npc => npc.Armors, opt => opt.MapFrom(creature => creature.CharacterArmors));
+                .ForMember(npc => npc.Armors, opt => opt.MapFrom(creature => creature.CharacterArmors))
+                .ForMember(npc => npc.SkillCategories, opt => opt.MapFrom(creature => creature.CharacterSkillCategories))
+                .ForMember(npc => npc.ArcanumRanks, opt => opt.Ignore());
         }
     }
 }

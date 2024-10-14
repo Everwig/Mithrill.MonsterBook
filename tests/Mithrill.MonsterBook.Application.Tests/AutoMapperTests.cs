@@ -68,10 +68,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             var creatureSkillCategories = _fixture.Create<MonsterBook.Domain.CharacterSkillCategories>();
 
             //Act
-            var mappedObject = _mapper.Map<CreatureSkillCategories>(creatureSkillCategories);
+            var mappedObject = _mapper.Map<SkillCategories>(creatureSkillCategories);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new CreatureSkillCategories
+            mappedObject.Should().BeEquivalentTo(new SkillCategories
             {
                 Primary = (SkillCategory)creatureSkillCategories.Primary,
                 FirstSecondary = (SkillCategory)creatureSkillCategories.FirstSecondary,

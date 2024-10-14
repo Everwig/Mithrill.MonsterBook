@@ -420,7 +420,7 @@ export class NpcsClient {
         }
     }
 
-    getHitPointMinMaxValues(strengthMin: number | undefined, strengthMax: number | undefined, bodyMin: number | undefined, bodyMax: number | undefined, isUndead: boolean | undefined, meritIds: number[]): Observable<ValueTupleOfIntegerAndInteger> {
+    getHitPointMinMaxValues(strengthMin: number | undefined, strengthMax: number | undefined, bodyMin: number | undefined, bodyMax: number | undefined, isUndead: boolean | undefined, meritIds: number[] | undefined): Observable<ValueTupleOfIntegerAndInteger> {
         let url_ = this.baseUrl + "/api/npcs/gethitpointminmaxvalues?";
         if (strengthMin === null)
             throw new Error("The parameter 'strengthMin' cannot be null.");
@@ -442,16 +442,16 @@ export class NpcsClient {
             throw new Error("The parameter 'isUndead' cannot be null.");
         else if (isUndead !== undefined)
             url_ += "isUndead=" + encodeURIComponent("" + isUndead) + "&";
+        if (meritIds === null)
+            throw new Error("The parameter 'meritIds' cannot be null.");
+        else if (meritIds !== undefined)
+            meritIds && meritIds.forEach(item => { url_ += "meritIds=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(meritIds);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -492,7 +492,7 @@ export class NpcsClient {
         return _observableOf(null as any);
     }
 
-    getManaPointMinMaxValues(intelligenceMin: number | undefined, intelligenceMax: number | undefined, willpowerMin: number | undefined, willpowerMax: number | undefined, emotionMin: number | undefined, emotionMax: number | undefined, meritIds: number[]): Observable<ValueTupleOfIntegerAndInteger> {
+    getManaPointMinMaxValues(intelligenceMin: number | undefined, intelligenceMax: number | undefined, willpowerMin: number | undefined, willpowerMax: number | undefined, emotionMin: number | undefined, emotionMax: number | undefined, meritIds: number[] | undefined): Observable<ValueTupleOfIntegerAndInteger> {
         let url_ = this.baseUrl + "/api/npcs/getmanapointminmaxvalues?";
         if (intelligenceMin === null)
             throw new Error("The parameter 'intelligenceMin' cannot be null.");
@@ -518,16 +518,16 @@ export class NpcsClient {
             throw new Error("The parameter 'emotionMax' cannot be null.");
         else if (emotionMax !== undefined)
             url_ += "emotionMax=" + encodeURIComponent("" + emotionMax) + "&";
+        if (meritIds === null)
+            throw new Error("The parameter 'meritIds' cannot be null.");
+        else if (meritIds !== undefined)
+            meritIds && meritIds.forEach(item => { url_ += "meritIds=" + encodeURIComponent("" + item) + "&"; });
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(meritIds);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -1382,6 +1382,8 @@ export class NpcTemplate implements INpcTemplate {
     weapons!: Weapon[];
     skills!: Skill[];
     armors!: Armor2[];
+    skillCategories!: SkillCategories | undefined;
+    arcanumRanks!: ArcanumRanks | undefined;
 
     constructor(data?: INpcTemplate) {
         if (data) {
@@ -1448,6 +1450,8 @@ export class NpcTemplate implements INpcTemplate {
                 for (let item of _data["armors"])
                     this.armors!.push(Armor2.fromJS(item));
             }
+            this.skillCategories = _data["skillCategories"] ? SkillCategories.fromJS(_data["skillCategories"]) : <any>undefined;
+            this.arcanumRanks = _data["arcanumRanks"] ? ArcanumRanks.fromJS(_data["arcanumRanks"]) : <any>undefined;
         }
     }
 
@@ -1514,6 +1518,8 @@ export class NpcTemplate implements INpcTemplate {
             for (let item of this.armors)
                 data["armors"].push(item.toJSON());
         }
+        data["skillCategories"] = this.skillCategories ? this.skillCategories.toJSON() : <any>undefined;
+        data["arcanumRanks"] = this.arcanumRanks ? this.arcanumRanks.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -1553,6 +1559,8 @@ export interface INpcTemplate {
     weapons: Weapon[];
     skills: Skill[];
     armors: Armor2[];
+    skillCategories: SkillCategories | undefined;
+    arcanumRanks: ArcanumRanks | undefined;
 }
 
 export class Merit2 implements IMerit2 {
@@ -1964,6 +1972,124 @@ export interface IArmor2 {
     additionalArmorClass: number;
     additionalMovementInhibitoryFactor: number;
     isOptional: boolean;
+}
+
+export class SkillCategories implements ISkillCategories {
+    primary!: SkillCategory;
+    firstSecondary!: SkillCategory;
+    secondSecondary!: SkillCategory;
+    tertiary!: SkillCategory;
+
+    constructor(data?: ISkillCategories) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.primary = _data["primary"];
+            this.firstSecondary = _data["firstSecondary"];
+            this.secondSecondary = _data["secondSecondary"];
+            this.tertiary = _data["tertiary"];
+        }
+    }
+
+    static fromJS(data: any): SkillCategories {
+        data = typeof data === 'object' ? data : {};
+        let result = new SkillCategories();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["primary"] = this.primary;
+        data["firstSecondary"] = this.firstSecondary;
+        data["secondSecondary"] = this.secondSecondary;
+        data["tertiary"] = this.tertiary;
+        return data;
+    }
+}
+
+export interface ISkillCategories {
+    primary: SkillCategory;
+    firstSecondary: SkillCategory;
+    secondSecondary: SkillCategory;
+    tertiary: SkillCategory;
+}
+
+export class ArcanumRanks implements IArcanumRanks {
+    primary!: Arcanum;
+    secondary!: Arcanum;
+    tertiaries!: Arcanum[];
+    quaternary!: Arcanum | undefined;
+    quinary!: Arcanum | undefined;
+
+    constructor(data?: IArcanumRanks) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.primary = _data["primary"];
+            this.secondary = _data["secondary"];
+            if (Array.isArray(_data["tertiaries"])) {
+                this.tertiaries = [] as any;
+                for (let item of _data["tertiaries"])
+                    this.tertiaries!.push(item);
+            }
+            this.quaternary = _data["quaternary"];
+            this.quinary = _data["quinary"];
+        }
+    }
+
+    static fromJS(data: any): ArcanumRanks {
+        data = typeof data === 'object' ? data : {};
+        let result = new ArcanumRanks();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["primary"] = this.primary;
+        data["secondary"] = this.secondary;
+        if (Array.isArray(this.tertiaries)) {
+            data["tertiaries"] = [];
+            for (let item of this.tertiaries)
+                data["tertiaries"].push(item);
+        }
+        data["quaternary"] = this.quaternary;
+        data["quinary"] = this.quinary;
+        return data;
+    }
+}
+
+export interface IArcanumRanks {
+    primary: Arcanum;
+    secondary: Arcanum;
+    tertiaries: Arcanum[];
+    quaternary: Arcanum | undefined;
+    quinary: Arcanum | undefined;
+}
+
+export enum Arcanum {
+    Will = "Will",
+    Emotion = "Emotion",
+    Earth = "Earth",
+    Air = "Air",
+    Fire = "Fire",
+    Water = "Water",
+    Time = "Time",
 }
 
 export class ValueTupleOfIntegerAndInteger implements IValueTupleOfIntegerAndInteger {

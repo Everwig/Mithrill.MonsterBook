@@ -65,7 +65,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.Karma.Should().Be(0);
             c.Flaws.Should().BeEmpty();
             c.Merits.Should().BeEmpty();
-            c.CreatureSkillCategories.Should().BeNull();
+            c.SkillCategories.Should().BeNull();
             c.Difficulty.Should().Be((Difficulty)difficulty);
         }
 
@@ -96,7 +96,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.Karma.Should().Be(karma);
             c.Flaws.Should().BeEmpty();
             c.Merits.Should().BeEmpty();
-            c.CreatureSkillCategories.Should().BeNull();
+            c.SkillCategories.Should().BeNull();
             c.Difficulty.Should().Be((Difficulty)difficulty);
         }
 
@@ -127,7 +127,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             c.Karma.Should().Be(karma);
             c.Flaws.Should().NotBeNullOrEmpty();
             c.Flaws.Should().NotBeNullOrEmpty();
-            c.CreatureSkillCategories.Should().BeEquivalentTo(new CreatureSkillCategories
+            c.SkillCategories.Should().BeEquivalentTo(new SkillCategories
             {
                 Primary = (SkillCategory)npcTemplate.CharacterSkillCategories.Primary,
                 FirstSecondary = (SkillCategory)npcTemplate.CharacterSkillCategories.FirstSecondary,

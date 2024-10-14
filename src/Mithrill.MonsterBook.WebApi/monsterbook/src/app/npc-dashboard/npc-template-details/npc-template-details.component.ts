@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -75,12 +75,6 @@ export class NpcTemplateDetailsComponent implements OnInit {
   npcTemplateDetailsMode: DetailsViewMode;
   race = Race;
   difficulty = Difficulty;
-  hitPointMin: number = 0;
-  hitPointMax: number = 0;
-  manaPointMin: number = 0;
-  manaPointMax: number = 0;
-  powerPointMin: number = 0;
-  powerPointMax: number = 0;
 
   readonly flaws$: Observable<Flaw[]>;
   readonly merits$: Observable<Merit[]>;
@@ -88,11 +82,20 @@ export class NpcTemplateDetailsComponent implements OnInit {
   readonly weapons$: Observable<Weapon[]>;
   readonly skills$: Observable<Skill[]>;
   readonly attackTypes$: Observable<AttackType[]>;
+  readonly hitPointMin$: Observable<number>;
+  readonly hitPointMax$: Observable<number>;
+  readonly manaPointMin$: Observable<number>;
+  readonly manaPointMax$: Observable<number>;
+  readonly powerPointMin$: Observable<number>;
+  readonly powerPointMax$: Observable<number>;
   readonly npcTemplate$: Observable<NpcTemplate | undefined>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly categoryNumbers = CategoryNumber;
   private readonly timeOut = 150;
   private readonly wizardUniversity = "Wizarding university";
+  private readonly magicChalice = "Magic chalice";
+  private readonly undead = "Undead";
+  private readonly tough = "Tough";
   private readonly arcane = "arcane";
   private readonly maxSecondarySkillCategories = 2;
   private readonly maxTertiaryArcanums = 5;
@@ -106,6 +109,12 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.skills$ = this.store$.select(fromNpcsSelector.skillsSelector);
     this.attackTypes$ = this.store$.select(fromNpcsSelector.attackTypesSelector);
     this.npcTemplate$ = this.store$.select(fromNpcsSelector.npcTemplateSelector);
+    this.hitPointMax$ = this.store$.select(fromNpcsSelector.hitPointMax);
+    this.hitPointMin$ = this.store$.select(fromNpcsSelector.hitPointMin);
+    this.manaPointMax$ = this.store$.select(fromNpcsSelector.manaPointMax);
+    this.manaPointMin$ = this.store$.select(fromNpcsSelector.manaPointMin);
+    this.powerPointMax$ = this.store$.select(fromNpcsSelector.powerPointMax);
+    this.powerPointMin$ = this.store$.select(fromNpcsSelector.powerPointMin);
 
     this.npcTemplateDetails = this.formBuilder.group({
       id: new FormControl(null),
@@ -162,6 +171,14 @@ export class NpcTemplateDetailsComponent implements OnInit {
     });
 
     this.subscriptions.add(routeSubscription);
+  }
+
+  onIsUndeadChange(matSlideToggleChange: MatSlideToggleChange): void {
+    this.npcTemplateDetails.patchValue({
+      isUndead: matSlideToggleChange.checked
+    });
+
+    this.triggerHitPointRecalculation();
   }
 
   getSkillCategories(skillCategoryNumbers: CategoryNumber): SkillCategory[] {
@@ -341,6 +358,8 @@ export class NpcTemplateDetailsComponent implements OnInit {
       templateMerits.push(selectedMerit);
       this.npcTemplateDetails.patchValue({ merits: templateMerits });
     }
+
+    this.updateTemplateBasedOnMerit(selectedMerit);
   }
 
   onRemoveMerit(merit: Merit): void {
@@ -458,6 +477,62 @@ export class NpcTemplateDetailsComponent implements OnInit {
     return (this.npcTemplateDetails.value.skills as Skill[]).findIndex(skill => skill.name.endsWith(this.arcane)) > -1;
   }
 
+  onStrengthChange(): void {
+    if (this.npcTemplateDetails.value.isUndead) {
+      this.triggerHitPointRecalculation();
+    }
+  }
+
+  updateTemplateBasedOnMerit(merit: Merit): void {
+    switch(merit.name) {
+      case this.magicChalice:
+        this.triggerManaPointRecalculation();
+        break;
+      case this.undead:
+        this.npcTemplateDetails.patchValue({
+          isUndead: true
+        });
+        this.triggerHitPointRecalculation();
+        break;
+      case this.tough:
+        this.triggerHitPointRecalculation();
+        break;
+    }
+  }
+
+  triggerManaPointRecalculation(): void {
+    const npcTemplate: NpcTemplate = this.npcTemplateDetails.value as NpcTemplate;
+    this.store$.dispatch(fromNpcsActions.calculateManaPointMinMaxValues({
+      emotionMax: npcTemplate.emotionMax,
+      emotionMin: npcTemplate.emotionMin,
+      intelligenceMax: npcTemplate.intelligenceMax,
+      intelligenceMin: npcTemplate.intelligenceMin,
+      meritIds: npcTemplate.merits.map(merit => merit.id),
+      willpowerMax: npcTemplate.willpowerMax,
+      willpowerMin: npcTemplate.willpowerMin
+    }));
+  }
+
+  triggerHitPointRecalculation(): void {
+    const npcTemplate: NpcTemplate = this.npcTemplateDetails.value as NpcTemplate;
+    this.store$.dispatch(fromNpcsActions.calculateHitPointMinMaxValues({
+      bodyMax: npcTemplate.bodyMax,
+      bodyMin: npcTemplate.bodyMin,
+      isUndead: npcTemplate.isUndead,
+      meritIds: npcTemplate.merits.map(merit => merit.id),
+      strengthMax: npcTemplate.strengthMax,
+      strengthMin: npcTemplate.strengthMin
+    }));
+  }
+
+  triggerPowerPointRecalculation(): void {
+    const npcTemplate: NpcTemplate = this.npcTemplateDetails.value as NpcTemplate;
+    this.store$.dispatch(fromNpcsActions.calculatePowerPointMinMaxValues({
+      karmaMax: npcTemplate.karmaMax,
+      karmaMin: npcTemplate.karmaMin
+    }));
+  }
+
   private updateFormInEditMode(): void {
     this.subscriptions.add(this.npcTemplate$.subscribe((npcTemplate) => {
       if (npcTemplate) {
@@ -494,12 +569,6 @@ export class NpcTemplateDetailsComponent implements OnInit {
           arcanumRanks: npcTemplate.arcanumRanks
         });
 
-        this.hitPointMin = npcTemplate.hitPointMin;
-        this.hitPointMax = npcTemplate.hitPointMax;
-        this.manaPointMin = npcTemplate.manaPointMin;
-        this.manaPointMax = npcTemplate.manaPointMax;
-        this.powerPointMin = npcTemplate.powerPointMin;
-        this.powerPointMax = npcTemplate.powerPointMax;
         this.primarySkillCategory = npcTemplate.skillCategories?.primary;
         this.secondarySkillCategories.push(
           npcTemplate.skillCategories?.firstSecondary!,

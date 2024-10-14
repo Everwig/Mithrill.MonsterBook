@@ -53,6 +53,36 @@ export const attackTypesSelector = createSelector(
   (state: fromNpcsReducer.NpcsState) => state.npcTemplate.attackTypes
 );
 
+export const hitPointMin = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.hitPointMin
+);
+
+export const hitPointMax = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.hitPointMax
+);
+
+export const manaPointMin = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.manaPointMin
+);
+
+export const manaPointMax = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.manaPointMax
+);
+
+export const powerPointMin = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.powerPointMin
+);
+
+export const powerPointMax = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.powerPointMax
+);
+
 export const npcTemplateSelector = createSelector(
   npcsFeatureState,
   (state: fromNpcsReducer.NpcsState) => state.npcTemplate.template

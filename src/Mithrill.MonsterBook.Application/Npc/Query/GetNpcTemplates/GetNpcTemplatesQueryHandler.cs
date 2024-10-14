@@ -60,62 +60,51 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
         SortProperty sortProperty,
         SortDirection sortDirection)
     {
-        switch (sortProperty)
+        return sortProperty switch
         {
-            case SortProperty.Vitality:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.VitalityMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.VitalityMax);
-            case SortProperty.Body:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.BodyMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.BodyMax);
-            case SortProperty.Agility:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.AgilityMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.AgilityMax);
-            case SortProperty.Dexterity:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.DexterityMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.DexterityMax);
-            case SortProperty.Intelligence:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.IntelligenceMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.IntelligenceMax);
-            case SortProperty.Willpower:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.WillpowerMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.WillpowerMax);
-            case SortProperty.Emotion:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.EmotionMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.EmotionMax);
-            case SortProperty.Karma:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.KarmaMax)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.KarmaMax);
-            case SortProperty.Strength:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.StrengthMin)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.StrengthMax);
-            case SortProperty.Race:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Race)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Race);
-            case SortProperty.Name:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Name)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Name);
-            case SortProperty.Difficulty:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Difficulty)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Difficulty);
-            case SortProperty.Id:
-            default:
-                return sortDirection == SortDirection.Asc
-                    ? baseQuery.OrderBy(npcTemplate => npcTemplate.Id)
-                    : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Id);
-        }
+            SortProperty.Vitality => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.VitalityMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.VitalityMax),
+            SortProperty.Body => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.BodyMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.BodyMax),
+            SortProperty.Agility => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.AgilityMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.AgilityMax),
+            SortProperty.Dexterity => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.DexterityMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.DexterityMax),
+            SortProperty.Intelligence => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.IntelligenceMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.IntelligenceMax),
+            SortProperty.Willpower => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.WillpowerMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.WillpowerMax),
+            SortProperty.Emotion => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.EmotionMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.EmotionMax),
+            SortProperty.Karma => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.KarmaMax)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.KarmaMax),
+            SortProperty.Strength => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.StrengthMin)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.StrengthMax),
+            SortProperty.Race => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.Race)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Race),
+            SortProperty.Name => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.Name)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Name),
+            SortProperty.Difficulty => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.Difficulty)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Difficulty),
+            SortProperty.Id => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.Id)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Id),
+            _ => sortDirection == SortDirection.Asc
+                ? baseQuery.OrderBy(npcTemplate => npcTemplate.Id)
+                : baseQuery.OrderByDescending(npcTemplate => npcTemplate.Id)
+        };
     }
 
     private static void CalculateAttributes(IEnumerable<Npc> creatures, IEnumerable<MonsterBook.Domain.NpcTemplate> queriedCreatures)

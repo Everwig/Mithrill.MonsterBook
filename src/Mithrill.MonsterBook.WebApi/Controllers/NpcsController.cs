@@ -91,7 +91,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
             int bodyMin,
             int bodyMax,
             bool isUndead,
-            IEnumerable<int> meritIds,
+            [FromQuery] IEnumerable<int> meritIds,
             CancellationToken cancellationToken)
         {
             return await Mediator.Send(new GetHitPointMinMaxValuesQuery
@@ -113,7 +113,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
             int willpowerMax,
             int emotionMin,
             int emotionMax,
-            IEnumerable<int> meritIds,
+            [FromQuery]IEnumerable<int> meritIds,
             CancellationToken cancellationToken)
         {
             return await Mediator.Send(new GetManaPointMinMaxValuesQuery

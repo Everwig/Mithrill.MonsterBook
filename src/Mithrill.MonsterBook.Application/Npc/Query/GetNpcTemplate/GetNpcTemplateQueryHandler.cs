@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
+using Mithrill.MonsterBook.Application.Common.Exceptions;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {
@@ -41,6 +42,11 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
                 .Include(creature => creature.CharacterSkillCategories)
                 .Where(template => template.Id == request.Id)
                 .SingleOrDefaultAsync(cancellationToken);
+
+            if (npcTemplate == null)
+            {
+                throw new NotFoundException("Template not found", request.Id);
+            }
 
             var merits = npcTemplate.CharacterMerits.Select(characterMerit => characterMerit.Merit);
             var mappedTemplate = _mapper.Map<NpcTemplate>(npcTemplate);

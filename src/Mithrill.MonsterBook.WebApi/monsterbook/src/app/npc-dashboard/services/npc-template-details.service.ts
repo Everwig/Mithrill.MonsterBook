@@ -151,13 +151,16 @@ export class NpcTemplateDetailsService {
         willpowerMax: npc.willpowerMax,
         willpowerMin: npc.willpowerMin,
         isUndead: npc.isUndead,
-        skillCategories: ({
-          primary: SkillCategory.Combat,
-          firstSecondary: SkillCategory.Scholar,
-          secondSecondary: SkillCategory.Secular,
-          tertiary: SkillCategory.Underworld
-        }) as SkillCategories,
-        arcanumRanks: undefined,
+        skillCategories: npc.skillCategories,
+        arcanumRanks: npc.arcanumRanks
+          ? ({
+            primary: npc.arcanumRanks.primary,
+            secondary: npc.arcanumRanks.secondary,
+            tertiary: npc.arcanumRanks.tertiaries,
+            quaternary: npc.arcanumRanks.quaternary,
+            quinary: npc.arcanumRanks.quinary
+          }) as ArcanumRanks
+          : undefined,
         armors: npc.armors.map(armor => ({
           id: armor.id,
           name: armor.name,
