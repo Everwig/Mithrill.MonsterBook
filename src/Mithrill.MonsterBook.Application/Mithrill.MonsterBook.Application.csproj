@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Mithrill.MonsterBook.Domain\Mithrill.MonsterBook.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Npc\Command\CreateNpcTemplate\" />
+  </ItemGroup>
+
 </Project>

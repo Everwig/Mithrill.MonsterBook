@@ -234,5 +234,20 @@ export const reducer = createReducer(
       powerPointMax: action.powerPointMax,
       powerPointMin: action.powerPointMin
     }
+  })),
+
+  on(fromNpcActions.saveNpcTemplate, (state, _) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      isLoading: true
+    }
+  })),
+  on(fromNpcActions.saveNpcTemplateSuccess, (state, _) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      isLoading: false
+    }
   }))
 );

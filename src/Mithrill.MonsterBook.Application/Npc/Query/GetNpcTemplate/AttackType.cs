@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
-using Mithrill.MonsterBook.Application.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {

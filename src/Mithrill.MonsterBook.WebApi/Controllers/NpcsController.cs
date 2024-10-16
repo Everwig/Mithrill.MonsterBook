@@ -4,13 +4,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
 using Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
+using Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Query.GetHitPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
-using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 using Mithrill.MonsterBook.Application.Npc.Query.GetPowerPointMinMaxValues;
 using Mithrill.MonsterBook.WebApi.Common;
 using GetNpcTemplateQuery = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.GetNpcTemplateQuery;
+using NpcTemplate = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.NpcTemplate;
+using UpdateNpcTemplate = Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate.NpcTemplate;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers
 {
@@ -60,17 +62,22 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
             return await Mediator.Send(new GetNpcTemplateQuery { Id = id }, cancellationToken);
         }
 
-        /*[HttpPost("CreateTemplate")]
-        public async Task<int> CreateTemplate(Npc npc, CancellationToken cancellationToken)
+        [HttpPost("CreateTemplate")]
+        public async Task<int> CreateTemplate(CancellationToken cancellationToken)
         {
             return 0;
         }
 
         [HttpPatch("UpdateTemplate/{id:int}")]
-        public async Task UpdateTemplate(int id, Npc npc, CancellationToken cancellationToken)
+        public async Task UpdateTemplate(int id, UpdateNpcTemplate npcTemplate, CancellationToken cancellationToken)
         {
-
-        }*/
+            return;
+            await Mediator.Send(new UpdateNpcTemplateCommand
+            {
+                Id = id,
+                NpcTemplate = npcTemplate
+            }, cancellationToken);
+        }
 
         [HttpDelete("DeleteTemplate/{id:int}")]
         public async Task DeleteTemplate(int id, CancellationToken cancellationToken)

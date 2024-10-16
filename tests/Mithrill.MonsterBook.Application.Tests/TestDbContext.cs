@@ -19,7 +19,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<Armor> Armors { get; set; }
-        public DbSet<AttackType> AttackTypes { get; set; }
+        public DbSet<MonsterBook.Domain.AttackType> AttackTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

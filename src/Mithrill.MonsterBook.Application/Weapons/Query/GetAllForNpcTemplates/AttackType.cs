@@ -1,5 +1,5 @@
-﻿using Mithrill.MonsterBook.Application.Common.Mappings;
-using Mithrill.MonsterBook.Application.Domain;
+﻿using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Weapons.Query.GetAllForNpcTemplates;
 

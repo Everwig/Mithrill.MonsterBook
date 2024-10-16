@@ -26,7 +26,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IMeritFlaw), typeof(Domain.Merit)));
             _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IMeritFlaw), typeof(Domain.Flaw)));
             _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IWeapon), typeof(Domain.Weapon)));
-            _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IAttackType), typeof(Domain.AttackType)));
+            _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IAttackType), typeof(AttackType)));
             _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.ISkill), typeof(Domain.Skill)));
             _fixture.RepeatCount = 1;
         }
@@ -50,13 +50,13 @@ namespace Mithrill.MonsterBook.Application.Tests
 
 
             //Act
-            var mappedObject = _mapper.Map<Domain.AttackType>(attackType);
+            var mappedObject = _mapper.Map<AttackType>(attackType);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Domain.AttackType
+            mappedObject.Should().BeEquivalentTo(new AttackType
             {
                 NumberOfDices = attackType.NumberOfDices,
-                DamageType = (Domain.DamageType)attackType.DamageType,
+                DamageType = (DamageType)attackType.DamageType,
                 GuaranteedDamage = attackType.GuaranteedDamage,
             });
         }
@@ -151,7 +151,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
         
         [Theory, AutoData]
-        internal void ApplicationDomainAttackType_To_GeneratedNpcAttackType(Domain.AttackType attackType)
+        internal void ApplicationDomainAttackType_To_GeneratedNpcAttackType(AttackType attackType)
         {
             //Act
             var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpc.AttackType>(attackType);
@@ -255,7 +255,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Theory, AutoData]
-        internal void ApplicationDomainAttackType_To_GeneratedNpcWithKarmaAttackType(Domain.AttackType attackType)
+        internal void ApplicationDomainAttackType_To_GeneratedNpcWithKarmaAttackType(AttackType attackType)
         {
             //Act
             var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpcWithKarma.AttackType>(attackType);
@@ -361,7 +361,7 @@ namespace Mithrill.MonsterBook.Application.Tests
         }
 
         [Theory, AutoData]
-        internal void ApplicationDomainAttackType_To_GeneratedProminentNpcAttackType(Domain.AttackType attackType)
+        internal void ApplicationDomainAttackType_To_GeneratedProminentNpcAttackType(AttackType attackType)
         {
             //Act
             var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.AttackType>(attackType);

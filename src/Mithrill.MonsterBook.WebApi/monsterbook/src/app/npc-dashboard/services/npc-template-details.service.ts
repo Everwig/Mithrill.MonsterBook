@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 import { Skill } from '../models/skill.model';
 import { Attribute } from '../../core/model/attribute.model';
@@ -20,7 +20,15 @@ import {
   MeritsClient,
   NpcsClient,
   SkillsClient,
-  WeaponsClient
+  WeaponsClient,
+  Armor3 as UpdateArmor,
+  Flaw3 as UpdateFlaw,
+  Merit3 as UpdateMerit,
+  Skill2 as UpdateSkill,
+  Weapon2 as UpdateWeapon,
+  AttackType2 as UpdateAttackType,
+  SkillCategories as TemplateSkillCategories,
+  NpcTemplate2 as UpdateNpcTemplate
 } from '../../shared/services/web-api-client';
 import { SkillCategories } from '../../core/model/skill-categories.model';
 import { Arcanum } from '../../core/model/arcanum.model';
@@ -151,7 +159,12 @@ export class NpcTemplateDetailsService {
         willpowerMax: npc.willpowerMax,
         willpowerMin: npc.willpowerMin,
         isUndead: npc.isUndead,
-        skillCategories: npc.skillCategories,
+        skillCategories: ({
+          firstSecondary: npc.skillCategories?.firstSecondary,
+          primary: npc.skillCategories?.primary,
+          secondSecondary: npc.skillCategories?.secondSecondary,
+          tertiary: npc.skillCategories?.tertiary
+        }),
         arcanumRanks: npc.arcanumRanks
           ? ({
             primary: npc.arcanumRanks.primary,
@@ -253,5 +266,86 @@ export class NpcTemplateDetailsService {
     return this.npcsClient.getPowerPointMinMaxValues(karmaMin, karmaMax).pipe(
       map((tuple) => ({ powerPointMin: tuple.item1, powerPointMax: tuple.item2 }))
     );
+  }
+
+  createTemplate(npcTemplate: NpcTemplate): Observable<number>{
+    return this.npcsClient.createTemplate();
+  }
+
+  updateTemplate(npcTemplate: NpcTemplate): Observable<void> {
+    console.log(npcTemplate);
+    return this.npcsClient.updateTemplate(
+      npcTemplate.id,
+      new UpdateNpcTemplate({
+        agilityMax: npcTemplate.agilityMax,
+        agilityMin: npcTemplate.agilityMin,
+        armors: npcTemplate.armors.map(armor => new UpdateArmor({
+          id: armor.id,
+          material: armor.material!,
+          additionalArmorClass: armor.additionalArmorClass,
+          additionalMovementInhibitoryFactor: armor.additionalMovementInhibitoryFactor,
+          isOptional: armor.isOptional
+        }) as UpdateArmor),
+        bodyMax: npcTemplate.bodyMax,
+        bodyMin: npcTemplate.bodyMin,
+        damageReductionMax: 0,
+        damageReductionMin: 0,
+        dexterityMax: npcTemplate.dexterityMax,
+        dexterityMin: npcTemplate.dexterityMin,
+        difficulty: npcTemplate.difficulty,
+        emotionMax: npcTemplate.emotionMax,
+        emotionMin: npcTemplate.emotionMin,
+        flaws: npcTemplate.flaws.map(flaw => new UpdateFlaw({
+          id: flaw.id,
+          isOptional: flaw.isOptional
+        })),
+        id: npcTemplate.id,
+        intelligenceMax: npcTemplate.intelligenceMax,
+        intelligenceMin: npcTemplate.intelligenceMin,
+        isUndead: npcTemplate.isUndead,
+        karmaMax: npcTemplate.karmaMax,
+        karmaMin: npcTemplate.karmaMin,
+        merits: npcTemplate.merits.map(merit => new UpdateMerit({
+          id: merit.id,
+          isOptional: merit.isOptional
+        })),
+        name: npcTemplate.name,
+        nameHu: '',
+        race: npcTemplate.race,
+        skillCategories: new TemplateSkillCategories({
+          firstSecondary: npcTemplate.skillCategories?.firstSecondary!,
+          primary: npcTemplate.skillCategories?.primary!,
+          secondSecondary: npcTemplate.skillCategories?.secondSecondary!,
+          tertiary: npcTemplate.skillCategories?.tertiary!
+        }),
+        skills: npcTemplate.skills.map(skill => new UpdateSkill({
+          id: skill.id,
+          guaranteedSuccesses: skill.guaranteedSuccesses,
+          isOptional: skill.isOptional,
+          maxLevel: skill.maxLevel,
+          minLevel: skill.minLevel
+        })),
+        strengthMax: npcTemplate.strengthMax,
+        strengthMin: npcTemplate.strengthMin,
+        vitalityMax: npcTemplate.vitalityMax,
+        vitalityMin: npcTemplate.vitalityMin,
+        weapons: npcTemplate.weapons.map(weapon => new UpdateWeapon({
+          id: weapon.id,
+          additionalAttackModifier: weapon.additionalAttackModifier,
+          additionalAttackTypes: weapon.attackTypes
+            .filter(attackType => !attackType.isBaseAttackType)
+            .map(attackType => new UpdateAttackType({
+              damageType: attackType.damageType,
+              guaranteedDamage: attackType.guaranteedDamage,
+              numberOfDices: attackType.numberOfDices
+            })),
+          additionalDefenseModifier: weapon.additionalDefenseModifier,
+          additionalInitiativeModifier: weapon.additionalInitiativeModifier,
+          isOptional: weapon.isOptional,
+          material: weapon.material!
+        })),
+        willpowerMax: npcTemplate.willpowerMax,
+        willpowerMin: npcTemplate.willpowerMin
+      }));
   }
 }

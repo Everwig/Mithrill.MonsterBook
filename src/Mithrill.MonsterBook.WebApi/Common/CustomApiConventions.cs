@@ -39,7 +39,7 @@ namespace Mithrill.MonsterBook.WebApi.Common
 
         // POST
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(HttpValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType(typeof(ProblemDetails))]
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
         public static void Post(
@@ -50,7 +50,7 @@ namespace Mithrill.MonsterBook.WebApi.Common
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(HttpValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
         [ProducesDefaultResponseType(typeof(ProblemDetails))]
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
@@ -64,7 +64,7 @@ namespace Mithrill.MonsterBook.WebApi.Common
         // PUT
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(HttpValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType(typeof(ProblemDetails))]
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
         public static void Put(
@@ -78,7 +78,7 @@ namespace Mithrill.MonsterBook.WebApi.Common
 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(HttpValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType(typeof(ProblemDetails))]
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
         public static void Edit(
@@ -92,7 +92,7 @@ namespace Mithrill.MonsterBook.WebApi.Common
 
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(HttpValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType(typeof(ProblemDetails))]
         [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
         public static void Update(

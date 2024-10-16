@@ -3,7 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Domain;
-using DamageType = Mithrill.MonsterBook.Application.Domain.DamageType;
+using DamageType = Mithrill.MonsterBook.Application.Common.DamageType;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
 {

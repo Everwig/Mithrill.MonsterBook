@@ -2,6 +2,7 @@
 {
     public interface IAttackType
     {
+        DamageType DamageType { get; }
         int NumberOfDices { get; }
         int GuaranteedDamage { get; }
     }

@@ -9,6 +9,7 @@ import { Merit } from '../models/merit.model';
 import { Skill } from '../models/skill.model';
 import { NpcTemplate } from '../models/npc-template.model';
 import { AttackType } from '../models/attack-type.model';
+import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 
 export const loadNpcs = createAction('[NPCs] Load NPCs');
 export const loadNpcsSuccess = createAction(
@@ -144,4 +145,16 @@ export const calculatePowerPointMinMaxValues = createAction(
 export const calculatePowerPointMinMaxValuesSuccess = createAction(
   '[NPC Template] Calculate Power Point min-max values success',
   props<{ powerPointMin: number, powerPointMax: number }>()
+);
+
+export const saveNpcTemplate = createAction(
+  '[NPC Template] Save NPC Template',
+  props<{ npcTemplate: NpcTemplate, detailsViewMode: DetailsViewMode }>()
+);
+export const saveNpcTemplateSuccess = createAction(
+  '[NPC Template] Save NPC Template success'
+);
+export const saveNpcTemplateFailed = createAction(
+  '[NPC Template] Save NPC Template failed',
+  props<{ error: any }>()
 );

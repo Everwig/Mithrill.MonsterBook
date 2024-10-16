@@ -1,20 +1,25 @@
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, exhaustMap, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, map, Observable, of, switchMap, tap, withLatestFrom } from 'rxjs';
 
 import { State } from './npcs.reducer';
 import * as fromNpcsActions from './npcs.actions';
 import * as fromNpcsSelector from './npcs.selectors';
 import { NpcDashboardService } from '../services/npc-dashboard.service';
 import { NpcTemplateDetailsService } from '../services/npc-template-details.service';
+import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 
 @Injectable()
 export class NpcsEffects {
   private actions$ = inject(Actions);
   private store$ = inject(Store<State>);
+  private router = inject(Router)
 
-  constructor(private npcDashboardService: NpcDashboardService, private npcTemplateDetailsService: NpcTemplateDetailsService) { }
+  constructor(
+    private npcDashboardService: NpcDashboardService,
+     private npcTemplateDetailsService: NpcTemplateDetailsService) { }
 
   loadNpcs$ = createEffect(() =>
     this.actions$.pipe(
@@ -156,6 +161,27 @@ export class NpcsEffects {
         map(({ powerPointMin, powerPointMax }) => fromNpcsActions.calculatePowerPointMinMaxValuesSuccess({ powerPointMin, powerPointMax })),
         catchError(errors => of(fromNpcsActions.loadNpcTemplateFailed({ errors })))
       ))
+    )
+  );
+
+  saveTemplate$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromNpcsActions.saveNpcTemplate),
+      switchMap(payload => {
+        if (payload.detailsViewMode === DetailsViewMode.Create) {
+          return this.npcTemplateDetailsService.createTemplate(payload.npcTemplate).pipe(
+            tap(id => this.router.navigate([`/npcs/${id}`])),
+            map(_ => fromNpcsActions.saveNpcTemplateSuccess()),
+            catchError(error => of(fromNpcsActions.saveNpcTemplateFailed({ error })))
+          );
+        }
+
+        return this.npcTemplateDetailsService.updateTemplate(payload.npcTemplate).pipe(
+          map(_ => fromNpcsActions.saveNpcTemplateSuccess()),
+          tap(_ => this.router.navigate(['/npcs'])),
+          catchError(error => of(fromNpcsActions.saveNpcTemplateFailed({ error })))
+        );
+      })
     )
   );
 }

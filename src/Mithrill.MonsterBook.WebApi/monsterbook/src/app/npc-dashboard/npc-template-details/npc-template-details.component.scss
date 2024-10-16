@@ -5,6 +5,10 @@
   border-radius: 10px;
   margin-top: 30px;
 
+  mat-icon {
+    color: #690005;
+  }
+
   .npc-template-section-header {
     top: -0.75rem;
     left: 1.5rem;
@@ -341,6 +345,48 @@
   width: 100%;
 }
 
-mat-icon {
-  color: #690005;
+.menu {
+  position: sticky;
+  z-index: 9999;
+  top: 85vh;
+  float:right;
+  right: 5vh;
+
+  > button {
+    position: absolute;
+  }
+
+  > button:first-of-type {
+    @include min(breakpoint(lg)) {
+      display: none;
+    }
+  }
+
+  > button:last-of-type {
+    @include max(breakpoint(lg)) {
+      display: none;
+    }
+  }
+}
+
+
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  @include max(breakpoint(lg)) {
+    display: none;
+  }
+}
+
+.mini-menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  @include min(breakpoint(lg)) {
+    display: none;
+  }
 }

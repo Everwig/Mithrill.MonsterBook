@@ -1,3 +1,47 @@
+<div class="menu">
+  <button mat-mini-fab (click)="menuToggle = !menuToggle" cdkOverlayOrigin #miniMenu="cdkOverlayOrigin" color="primary">
+    <mat-icon>{{ menuToggle ? "keyboard_arrow_down" : "keyboard_arrow_up" }}</mat-icon>
+  </button>
+  <button mat-fab (click)="menuToggle = !menuToggle" cdkOverlayOrigin #menu="cdkOverlayOrigin" color="primary">
+    <mat-icon>{{ menuToggle ? "keyboard_arrow_down" : "keyboard_arrow_up" }}</mat-icon>
+  </button>
+
+  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="miniMenu" [cdkConnectedOverlayOpen]="menuToggle"
+    [cdkConnectedOverlayPositions]="[{
+      originX: 'end',
+      originY: 'top',
+      overlayX: 'end',
+      overlayY: 'top',
+      offsetY: -96
+    }]">
+    <div class="mini-menu-content">
+      <button class="mini" mat-mini-fab color="primary" (click)="saveTemplate()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button class="mini" mat-mini-fab color="primary" (click)="deleteTemplate()" [disabled]="!isFormInEditMode()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="menu" [cdkConnectedOverlayOpen]="menuToggle"
+    [cdkConnectedOverlayPositions]="[{
+      originX: 'end',
+      originY: 'top',
+      overlayX: 'end',
+      overlayY: 'top',
+      offsetY: -122
+    }]">
+    <div class="menu-content">
+      <button mat-fab color="primary" (click)="saveTemplate()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-fab color="primary" (click)="deleteTemplate()" [disabled]="!isFormInEditMode()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </ng-template>
+</div>
 
 <div class="global-container">
   <form [formGroup]="npcTemplateDetails" class="full-wide">
@@ -31,7 +75,8 @@
 
         <div>
           <label>Élőholt?</label>
-          <mat-slide-toggle [checked]="npcTemplateDetails.value.isUndead" color="error" (change)="onIsUndeadChange($event)"></mat-slide-toggle>
+          <mat-slide-toggle [checked]="npcTemplateDetails.value.isUndead" color="error"
+            (change)="onIsUndeadChange($event)"></mat-slide-toggle>
         </div>
       </div>
     </div>
@@ -41,9 +86,11 @@
       <div class="npc-template-section-content full-wide">
         <mat-form-field class="side-margin">
           <mat-label>Elsődleges képzettség kategória</mat-label>
-          <mat-select (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Primary)" [(value)]="primarySkillCategory">
+          <mat-select (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Primary)"
+            [(value)]="primarySkillCategory">
             <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
-            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Primary)" [value]="skillCategory">
+            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Primary)"
+              [value]="skillCategory">
               {{ skillCategory }}
             </mat-option>
           </mat-select>
@@ -51,8 +98,10 @@
 
         <mat-form-field class="side-margin">
           <mat-label>Másodlagos képzettség kategóriák</mat-label>
-          <mat-select multiple (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Secondry)" [(value)]="secondarySkillCategories">
-            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Secondry)" [value]="skillCategory" [disabled]="isSkillCategoryOptionDisabled(skillCategory)">
+          <mat-select multiple (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Secondry)"
+            [(value)]="secondarySkillCategories">
+            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Secondry)"
+              [value]="skillCategory" [disabled]="isSkillCategoryOptionDisabled(skillCategory)">
               {{ skillCategory }}
             </mat-option>
           </mat-select>
@@ -60,9 +109,11 @@
 
         <mat-form-field class="side-margin">
           <mat-label>Harmadlagos képzettség kategória</mat-label>
-          <mat-select (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Tertiary)" [(value)]="tertiarySkillCategory">
+          <mat-select (selectionChange)="onSkillCategorySelect($event, categoryNumbers.Tertiary)"
+            [(value)]="tertiarySkillCategory">
             <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
-            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Tertiary)" [value]="skillCategory">
+            <mat-option *ngFor="let skillCategory of getSkillCategories(categoryNumbers.Tertiary)"
+              [value]="skillCategory">
               {{ skillCategory }}
             </mat-option>
           </mat-select>
@@ -72,37 +123,41 @@
 
     <div class="npc-template-section full-wide" *ngIf="doesNpcHaveArcanums()">
       <label class="npc-template-section-header">Arkánum rangok</label>
-      <ng-template *ngIf="doesNpcHaveMagicUniversityMerit(npcTemplateDetails.value.merits); then withUniversity; else withoutUniversity;"></ng-template>
+      <ng-template
+        *ngIf="doesNpcHaveMagicUniversityMerit(npcTemplateDetails.value.merits); then withUniversity; else withoutUniversity;"></ng-template>
 
       <ng-template #withUniversity>
         <div class="npc-template-section-content full-wide">
           <mat-form-field class="side-margin">
-          <mat-label>Elsődleges arkánum</mat-label>
-          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Primary)" [(value)]="primaryArcanum">
-            <mat-option [value]="undefined">--Válasz arkánumot--</mat-option>
-            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Primary)" [value]="arcanum">
-              {{ arcanum }}
-            </mat-option>
-          </mat-select>
+            <mat-label>Elsődleges arkánum</mat-label>
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Primary)" [(value)]="primaryArcanum">
+              <mat-option [value]="undefined">--Válasz arkánumot--</mat-option>
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Primary)" [value]="arcanum">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field class="side-margin">
-          <mat-label>Másodlagos arkánum</mat-label>
-          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Secondry)" [(value)]="secondaryArcanum">
-            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
-            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Secondry)" [value]="arcanum">
-              {{ arcanum }}
-            </mat-option>
-          </mat-select>
+            <mat-label>Másodlagos arkánum</mat-label>
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Secondry)"
+              [(value)]="secondaryArcanum">
+              <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Secondry)" [value]="arcanum">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field class="side-margin">
-          <mat-label>Harmadlagos arkánumok</mat-label>
-          <mat-select multiple (selectionChange)="onArcanumSelect($event, categoryNumbers.Tertiary)" [(value)]="tertiaryArcanum">
-            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Tertiary)" [value]="arcanum" [disabled]="isArcanumRankOptionDisabled(arcanum)">
-              {{ arcanum }}
-            </mat-option>
-          </mat-select>
+            <mat-label>Harmadlagos arkánumok</mat-label>
+            <mat-select multiple (selectionChange)="onArcanumSelect($event, categoryNumbers.Tertiary)"
+              [(value)]="tertiaryArcanum">
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Tertiary)" [value]="arcanum"
+                [disabled]="isArcanumRankOptionDisabled(arcanum)">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </ng-template>
@@ -110,54 +165,57 @@
       <ng-template class="npc-template-section-content full-wide" #withoutUniversity>
         <div class="npc-template-section-content full-wide">
           <mat-form-field class="side-margin">
-          <mat-label>Elsődleges arkánum</mat-label>
-          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Primary)" [(value)]="primaryArcanum">
-            <mat-option [value]="undefined">--Válasz arkánumot--</mat-option>
-            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Primary)" [value]="arcanum">
-              {{ arcanum }}
-            </mat-option>
-          </mat-select>
+            <mat-label>Elsődleges arkánum</mat-label>
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Primary)" [(value)]="primaryArcanum">
+              <mat-option [value]="undefined">--Válasz arkánumot--</mat-option>
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Primary)" [value]="arcanum">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field class="side-margin">
-          <mat-label>Másodlagos arkánum</mat-label>
-          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Secondry)" [(value)]="secondaryArcanum">
-            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
-            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Secondry)" [value]="arcanum">
-              {{ arcanum }}
-            </mat-option>
-          </mat-select>
+            <mat-label>Másodlagos arkánum</mat-label>
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Secondry)"
+              [(value)]="secondaryArcanum">
+              <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Secondry)" [value]="arcanum">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field class="side-margin">
-          <mat-label>Harmadlagos arkánumok</mat-label>
-          <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Tertiary)" [(value)]="tertiaryArcanum[0]">
-            <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
-            <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Tertiary)" [value]="arcanum">
-              {{ arcanum }}
-            </mat-option>
-          </mat-select>
+            <mat-label>Harmadlagos arkánumok</mat-label>
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Tertiary)"
+              [(value)]="tertiaryArcanum[0]">
+              <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Tertiary)" [value]="arcanum">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field class="side-margin">
             <mat-label>Negyedleges arkánumok</mat-label>
-            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Quaternary)" [(value)]="quaternaryArcanum">
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Quaternary)"
+              [(value)]="quaternaryArcanum">
               <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
               <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Quaternary)" [value]="arcanum">
                 {{ arcanum }}
               </mat-option>
             </mat-select>
-            </mat-form-field>
+          </mat-form-field>
 
-            <mat-form-field class="side-margin">
-              <mat-label>Ötödleges arkánumok</mat-label>
-              <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Quinary)" [(value)]="quinaryArcanum">
-                <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
-                <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Quinary)" [value]="arcanum">
-                  {{ arcanum }}
-                </mat-option>
-              </mat-select>
-              </mat-form-field>
+          <mat-form-field class="side-margin">
+            <mat-label>Ötödleges arkánumok</mat-label>
+            <mat-select (selectionChange)="onArcanumSelect($event, categoryNumbers.Quinary)" [(value)]="quinaryArcanum">
+              <mat-option [value]="undefined">--Válasz kategóriát--</mat-option>
+              <mat-option *ngFor="let arcanum of getArcanums(categoryNumbers.Quinary)" [value]="arcanum">
+                {{ arcanum }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </ng-template>
     </div>
@@ -169,15 +227,18 @@
           <label>Erő</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
             <input value="1" matSliderStartThumb formControlName="strengthMin" (valueChange)="onStrengthChange()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="strengthMax" (valueChange)="onStrengthChange()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="strengthMax"
+              (valueChange)="onStrengthChange()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Test</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="bodyMin" (valueChange)="triggerHitPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="bodyMax" (valueChange)="triggerHitPointRecalculation()">
+            <input value="1" matSliderStartThumb formControlName="bodyMin"
+              (valueChange)="triggerHitPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="bodyMax"
+              (valueChange)="triggerHitPointRecalculation()">
           </mat-slider>
         </div>
 
@@ -208,32 +269,40 @@
         <div class="npc-attribute-slider">
           <label>Intelligencia</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="intelligenceMin" (valueChange)="triggerManaPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="intelligenceMax" (valueChange)="triggerManaPointRecalculation()">
+            <input value="1" matSliderStartThumb formControlName="intelligenceMin"
+              (valueChange)="triggerManaPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="intelligenceMax"
+              (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Akaraterő</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="willpowerMin" (valueChange)="triggerManaPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="willpowerMax" (valueChange)="triggerManaPointRecalculation()">
+            <input value="1" matSliderStartThumb formControlName="willpowerMin"
+              (valueChange)="triggerManaPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="willpowerMax"
+              (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Érzelem</label>
           <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="emotionMin" (valueChange)="triggerManaPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="emotionMax" (valueChange)="triggerManaPointRecalculation()">
+            <input value="1" matSliderStartThumb formControlName="emotionMin"
+              (valueChange)="triggerManaPointRecalculation()">
+            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="emotionMax"
+              (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Karma</label>
           <mat-slider min="0" max="12" showTickMarks discrete>
-            <input value="0" matSliderStartThumb formControlName="karmaMin" (valueChange)="triggerPowerPointRecalculation()">
-            <input value="12" matSliderEndThumb formControlName="karmaMax" (valueChange)="triggerPowerPointRecalculation()">
+            <input value="0" matSliderStartThumb formControlName="karmaMin"
+              (valueChange)="triggerPowerPointRecalculation()">
+            <input value="12" matSliderEndThumb formControlName="karmaMax"
+              (valueChange)="triggerPowerPointRecalculation()">
           </mat-slider>
         </div>
       </div>
@@ -251,41 +320,44 @@
           </mat-select>
         </mat-form-field>
 
-        <div class="npc-template-item-section side-margin" *ngFor="let skill of npcTemplateDetails.value.skills">
-          <div class="npc-template-skill-properties">
-            <div class="npc-skill-slider">
-              <label class="name-label">{{skill.name}}</label>
-              <mat-slider min="0" max="15" showTickMarks discrete>
-                <input value="{{skill.minLevel}}" matSliderStartThumb>
-                <input value="{{skill.maxLevel}}" matSliderEndThumb>
-              </mat-slider>
-            </div>
+        <ng-container formArrayName="skills">
+          <div class="npc-template-item-section side-margin" *ngFor="let skill of skills.controls; let i = index" [formGroupName]="i">
+            <div class="npc-template-skill-properties">
+              <div class="npc-skill-slider">
+                <label class="name-label">{{skill.value.name}}</label>
+                <mat-slider min="0" max="15" showTickMarks discrete>
+                  <input formControlName="minLevel" matSliderStartThumb>
+                  <input formControlName="maxLevel" matSliderEndThumb>
+                </mat-slider>
+              </div>
 
-            <div class="npc-skill-slider">
-              <label class="guaranteed-success-label">Garantált sikerek</label>
-              <mat-slider min="0" max="5" showTickMarks discrete>
-                <input value="{{skill.guaranteedSuccesses}}" matSliderThumb>
-              </mat-slider>
+              <div class="npc-skill-slider">
+                <label class="guaranteed-success-label">Garantált sikerek</label>
+                <mat-slider min="0" max="5" showTickMarks discrete>
+                  <input formControlName="guaranteedSuccesses" matSliderThumb>
+                </mat-slider>
+              </div>
+
+              <div>
+                <label>Opcionális</label>
+                <mat-slide-toggle formControlName="isOptional" color="error"></mat-slide-toggle>
+              </div>
             </div>
 
             <div>
-              <label>Opcionális</label>
-              <mat-slide-toggle [checked]="skill.isOptional" color="error"></mat-slide-toggle>
+              <button mat-icon-button (click)="onRemoveSkill(i)">
+                <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
+              </button>
             </div>
           </div>
-
-          <div>
-            <button mat-icon-button (click)="onRemoveSkill(skill.id)">
-              <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
-            </button>
-          </div>
-        </div>
+        </ng-container>
       </div>
     </div>
 
     <div class="flaws-and-merits">
       <div class="npc-template-section full-wide">
         <label class="npc-template-section-header">Előnyök</label>
+
         <div class="npc-template-section-content column full-wide">
           <mat-form-field class="side-margin">
             <mat-label>Előny hozzáadása</mat-label>
@@ -296,22 +368,24 @@
             </mat-select>
           </mat-form-field>
 
-          <div class="npc-template-item-section side-margin" *ngFor="let merit of npcTemplateDetails.value.merits">
-            <div class="flaws-and-merits-content full-wide">
-              <label class="name-label">{{merit.name}}</label>
+          <ng-container formArrayName="merits">
+            <div class="npc-template-item-section side-margin" *ngFor="let merit of merits.controls; let i = index" [formGroupName]="i">
+              <div class="flaws-and-merits-content full-wide">
+                <label class="name-label">{{merit.value.name}}</label>
+
+                <div>
+                  <label>Opcionális</label>
+                  <mat-slide-toggle formControlName="isOptional" color="error"></mat-slide-toggle>
+                </div>
+              </div>
 
               <div>
-                <label>Opcionális</label>
-                <mat-slide-toggle [checked]="merit.isOptional" color="error"></mat-slide-toggle>
+                <button mat-icon-button (click)="onRemoveMerit(i)">
+                  <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
+                </button>
               </div>
             </div>
-
-            <div>
-              <button mat-icon-button (click)="onRemoveMerit(merit)">
-                <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
-              </button>
-            </div>
-          </div>
+          </ng-container>
         </div>
       </div>
 
@@ -327,22 +401,24 @@
             </mat-select>
           </mat-form-field>
 
-          <div class="npc-template-item-section side-margin" *ngFor="let flaw of npcTemplateDetails.value.flaws">
-            <div class="flaws-and-merits-content full-wide">
-              <label class="name-label">{{flaw.name}}</label>
+          <ng-container formArrayName="flaws">
+            <div class="npc-template-item-section side-margin" *ngFor="let flaw of flaws.controls;let i = index" [formGroupName]="i">
+              <div class="flaws-and-merits-content full-wide">
+                <label class="name-label">{{flaw.value.name}}</label>
+
+                <div>
+                  <label>Opcionális</label>
+                  <mat-slide-toggle formControlName="isOptional" color="error"></mat-slide-toggle>
+                </div>
+              </div>
 
               <div>
-                <label>Opcionális</label>
-                <mat-slide-toggle [checked]="flaw.isOptional" color="error"></mat-slide-toggle>
+                <button mat-icon-button (click)="onRemoveFlaw(i)">
+                  <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
+                </button>
               </div>
             </div>
-
-            <div>
-              <button mat-icon-button (click)="onRemoveFlaw(flaw.id)">
-                <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
-              </button>
-            </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -359,97 +435,103 @@
           </mat-select>
         </mat-form-field>
 
-        <div class="npc-template-item-section side-margin" *ngFor="let weapon of npcTemplateDetails.value.weapons">
-          <mat-expansion-panel class="full-wide">
-            <mat-expansion-panel-header>
-              <div class="npc-template-equipment-properties-header full-wide">
-                <label>{{ weapon.name }}</label>
-                <label>Alap KÉ: {{ weapon.baseInitiativeModifier }}</label>
-                <label>Alap TÉ: {{ weapon.baseAttackModifier }}</label>
-                <label>Alap VÉ: {{ weapon.baseDefenseModifier }}</label>
-                <label>Alap sebzés: {{ getBaseAttackTypes(weapon.attackTypes) }}</label>
+        <ng-container formArrayName="weapons">
+          <div class="npc-template-item-section side-margin" *ngFor="let weapon of weapons.controls; let i = index" [formGroupName]="i">
+            <mat-expansion-panel class="full-wide">
+              <mat-expansion-panel-header>
+                <div class="npc-template-equipment-properties-header full-wide">
+                  <label>{{ weapon.value.name }}</label>
+                  <label>Alap KÉ: {{ weapon.value.baseInitiativeModifier }}</label>
+                  <label>Alap TÉ: {{ weapon.value.baseAttackModifier }}</label>
+                  <label>Alap VÉ: {{ weapon.value.baseDefenseModifier }}</label>
+                  <label>Alap sebzés: {{ getBaseAttackTypes(weapon.value.attackTypes) }}</label>
 
-                <div>
+                  <div>
+                    <label>Opcionális</label>
+                    <mat-slide-toggle formControlName="isOptional" color="error"></mat-slide-toggle>
+                  </div>
+                </div>
+              </mat-expansion-panel-header>
+
+              <div class="npc-template-equipment-properties full-wide">
+                <label>Alap KÉ: {{ weapon.value.baseInitiativeModifier }}</label>
+                <label>Alap TÉ: {{ weapon.value.baseAttackModifier }}</label>
+                <label>Alap VÉ: {{ weapon.value.baseDefenseModifier }}</label>
+                <label>Alap sebzés: {{ getBaseAttackTypes(weapon.value.attackTypes) }}</label>
+
+                <div class="additional-modifiers full-wide">
+                  <div class="npc-skill-slider">
+                    <label class="guaranteed-success-label">Bónusz KÉ</label>
+                    <mat-slider class="full-wide" min="0" max="5" showTickMarks discrete>
+                      <input formControlName="additionalInitiativeModifier" matSliderThumb>
+                    </mat-slider>
+                  </div>
+
+                  <div class="npc-skill-slider">
+                    <label class="guaranteed-success-label">Bónusz TÉ</label>
+                    <mat-slider class="full-wide" min="0" max="5" showTickMarks discrete>
+                      <input formControlName="additionalAttackModifier" matSliderThumb>
+                    </mat-slider>
+                  </div>
+
+                  <div class="npc-skill-slider">
+                    <label class="guaranteed-success-label">Bónusz VÉ</label>
+                    <mat-slider class="full-wide" min="0" max="5" showTickMarks discrete>
+                      <input formControlName="additionalDefenseModifier" matSliderThumb>
+                    </mat-slider>
+                  </div>
+                </div>
+
+                <mat-form-field>
+                  <mat-label>Alapanyag</mat-label>
+                  <mat-select formControlName="material">
+                    <mat-option *ngFor="let material of getFilteredMaterialTypes()" [value]="material">{{ material
+                      }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="getFilteredDamageTypes(weapon.value.attackTypes).length > 0">
+                  <mat-label>Sebzés típus hozzáadása</mat-label>
+                  <mat-select (selectionChange)="onDamageTypeSelect($event, weapon)" [(value)]="selectedDamageType">
+                    <mat-option *ngFor="let damageType of getFilteredDamageTypes(weapon.value.attackTypes)"
+                      [value]="damageType">{{ damageType }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <div class="additional-damage full-wide" *ngIf="weapon.value.attackTypes.length > 1">
+                  <label class="full-wide">További sebzések:</label>
+                  <div class="npc-skill-slider" *ngFor="let attackType of getAdditionalAttackTypes(weapon.value.attackTypes)">
+                    <label>{{ attackType.damageType }} ({{attackType.numberOfDices}}D)</label>
+                    <mat-slider class="full-wide" min="0" max="8" showTickMarks discrete>
+                      <input value="{{attackType.numberOfDices}}" matSliderThumb
+                        (valueChange)="onAttackTypeDamageChange($event, attackType.damageType, weapon)">
+                    </mat-slider>
+                    <button mat-icon-button (click)="onAttackTypeRemove(attackType, weapon)">
+                      <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="is-optional">
                   <label>Opcionális</label>
-                  <mat-slide-toggle [checked]="weapon.isOptional" color="error"></mat-slide-toggle>
+                  <mat-slide-toggle formControlName="isOptional" color="error"></mat-slide-toggle>
                 </div>
               </div>
-            </mat-expansion-panel-header>
+            </mat-expansion-panel>
 
-            <div class="npc-template-equipment-properties full-wide">
-              <label>Alap KÉ: {{ weapon.baseInitiativeModifier }}</label>
-              <label>Alap TÉ: {{ weapon.baseAttackModifier }}</label>
-              <label>Alap VÉ: {{ weapon.baseDefenseModifier }}</label>
-              <label>Alap sebzés: {{ getBaseAttackTypes(weapon.attackTypes) }}</label>
-
-              <div class="additional-modifiers full-wide">
-                <div class="npc-skill-slider">
-                  <label class="guaranteed-success-label">Bónusz KÉ</label>
-                  <mat-slider class="full-wide" min="0" max="5" showTickMarks discrete>
-                    <input value="{{weapon.additionalInitiativeModifier}}" matSliderThumb>
-                  </mat-slider>
-                </div>
-
-                <div class="npc-skill-slider">
-                  <label class="guaranteed-success-label">Bónusz TÉ</label>
-                  <mat-slider class="full-wide"  min="0" max="5" showTickMarks discrete>
-                    <input value="{{weapon.additionalAttackModifier}}" matSliderThumb>
-                  </mat-slider>
-                </div>
-
-                <div class="npc-skill-slider">
-                  <label class="guaranteed-success-label">Bónusz VÉ</label>
-                  <mat-slider class="full-wide"  min="0" max="5" showTickMarks discrete>
-                    <input value="{{weapon.additionalDefenseModifier}}" matSliderThumb>
-                  </mat-slider>
-                </div>
-              </div>
-
-              <mat-form-field>
-                <mat-label>Alapanyag</mat-label>
-                <mat-select [value]="weapon.material">
-                  <mat-option *ngFor="let material of getFilteredMaterialTypes()" [value]="material">{{ material }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field *ngIf="getFilteredDamageTypes(weapon.attackTypes).length > 0">
-                <mat-label>Sebzés típus hozzáadása</mat-label>
-                <mat-select (selectionChange)="onDamageTypeSelect($event, weapon)" [(value)]="selectedDamageType">
-                  <mat-option *ngFor="let damageType of getFilteredDamageTypes(weapon.attackTypes)" [value]="damageType">{{ damageType }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <div class="additional-damage full-wide" *ngIf="weapon.attackTypes.length > 1">
-                <label class="full-wide">További sebzések:</label>
-                <div class="npc-skill-slider" *ngFor="let attackType of getAdditionalAttackTypes(weapon.attackTypes)">
-                  <label>{{ attackType.damageType }} ({{attackType.numberOfDices}}D)</label>
-                  <mat-slider class="full-wide" min="0" max="8" showTickMarks discrete>
-                    <input value="{{attackType.numberOfDices}}" matSliderThumb (valueChange)="onAttackTypeDamageChange($event, attackType)">
-                  </mat-slider>
-                  <button mat-icon-button (click)="onAttackTypeRemove(attackType, weapon)">
-                    <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
-                  </button>
-                </div>
-              </div>
-
-              <div class="is-optional">
-                <label>Opcionális</label>
-                <mat-slide-toggle [checked]="weapon.isOptional" color="error"></mat-slide-toggle>
-              </div>
+            <div>
+              <button mat-icon-button (click)="onRemoveWeapon(i)">
+                <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
+              </button>
             </div>
-          </mat-expansion-panel>
-
-          <div>
-            <button mat-icon-button (click)="onRemoveWeapon(weapon)">
-              <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
-            </button>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
 
     <div class="npc-template-section full-wide">
       <label class="npc-template-section-header">Páncélzat</label>
+
       <div class="npc-template-section-content column full-wide">
         <mat-form-field class="side-margin">
           <mat-label>Páncélzat hozzáadása</mat-label>
@@ -460,61 +542,58 @@
           </mat-select>
         </mat-form-field>
 
-        <div class="npc-template-item-section side-margin" *ngFor="let armor of npcTemplateDetails.value.armors">
-          <mat-expansion-panel class="full-wide">
-            <mat-expansion-panel-header>
-              <div class="npc-template-equipment-properties-header full-wide">
-                <label>{{ armor.name }}</label>
-                <label>Alap SFÉ: {{ armor.baseArmorClass }}</label>
-                <label>Alap MGT: {{ armor.baseMovementInhibitoryFactor }}</label>
+        <ng-container formArrayName="armors">
+          <div class="npc-template-item-section side-margin" *ngFor="let armor of armors.controls; let i = index" [formGroupName]="i">
+            <mat-expansion-panel class="full-wide">
+              <mat-expansion-panel-header>
+                <div class="npc-template-equipment-properties-header full-wide">
+                  <label>{{ armor.value.name }}</label>
+                  <label>Alap SFÉ: {{ armor.value.baseArmorClass }}</label>
+                  <label>Alap MGT: {{ armor.value.baseMovementInhibitoryFactor }}</label>
+                  <div>
+                    <label>Opcionális</label>
+                    <mat-slide-toggle [checked]="armor.value.isOptional" color="error"></mat-slide-toggle>
+                  </div>
+                </div>
+              </mat-expansion-panel-header>
 
-                <div>
+              <div class="npc-template-equipment-properties full-wide">
+                <label>Alap SFÉ: {{ armor.value.baseArmorClass }}</label>
+                <label>Alap MGT: {{ armor.value.baseMovementInhibitoryFactor }}</label>
+                <mat-form-field>
+                  <mat-label>Alapanyag</mat-label>
+                  <mat-select formControlName="material">
+                    <mat-option *ngFor="let material of getMaterialTypes()" [value]="material">{{ material }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div class="additional-modifiers full-wide">
+                  <div class="npc-skill-slider">
+                    <label class="guaranteed-success-label">Bónusz SFÉ</label>
+                    <mat-slider class="full-wide" min="0" max="5" showTickMarks discrete>
+                      <input formControlName="additionalArmorClass" matSliderThumb>
+                    </mat-slider>
+                  </div>
+                  <div class="npc-skill-slider">
+                    <label class="guaranteed-success-label">MGT módosító</label>
+                    <mat-slider class="full-wide" min="-5" max="5" showTickMarks discrete>
+                      <input formControlName="additionalMovementInhibitoryFactor" matSliderThumb>
+                    </mat-slider>
+                  </div>
+                </div>
+                <div class="is-optional">
                   <label>Opcionális</label>
-                  <mat-slide-toggle [checked]="armor.isOptional" color="error"></mat-slide-toggle>
+                  <mat-slide-toggle formControlName="isOptional" color="error"></mat-slide-toggle>
                 </div>
               </div>
-            </mat-expansion-panel-header>
+            </mat-expansion-panel>
 
-            <div class="npc-template-equipment-properties full-wide">
-              <label>Alap SFÉ: {{ armor.baseArmorClass }}</label>
-              <label>Alap MGT: {{ armor.baseMovementInhibitoryFactor }}</label>
-
-              <mat-form-field>
-                <mat-label>Alapanyag</mat-label>
-                <mat-select [value]="armor.material">
-                  <mat-option *ngFor="let material of getMaterialTypes()" [value]="material">{{ material }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <div class="additional-modifiers full-wide">
-                <div class="npc-skill-slider">
-                  <label class="guaranteed-success-label">Bónusz SFÉ</label>
-                  <mat-slider class="full-wide" min="0" max="5" showTickMarks discrete>
-                    <input value="{{armor.additionalArmorClass}}" matSliderThumb>
-                  </mat-slider>
-                </div>
-
-                <div class="npc-skill-slider">
-                  <label class="guaranteed-success-label">MGT módosító</label>
-                  <mat-slider class="full-wide"  min="-5" max="5" showTickMarks discrete>
-                    <input value="{{armor.additionalMovementInhibitoryFactor}}" matSliderThumb>
-                  </mat-slider>
-                </div>
-              </div>
-
-              <div class="is-optional">
-                <label>Opcionális</label>
-                <mat-slide-toggle [checked]="armor.isOptional" color="error"></mat-slide-toggle>
-              </div>
+            <div>
+              <button mat-icon-button (click)="onRemoveArmor(i)">
+                <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
+              </button>
             </div>
-          </mat-expansion-panel>
-
-          <div>
-            <button mat-icon-button (click)="onRemoveArmor(armor)">
-              <mat-icon class="mat-icon-no-color" color="error">close</mat-icon>
-            </button>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
   </form>
