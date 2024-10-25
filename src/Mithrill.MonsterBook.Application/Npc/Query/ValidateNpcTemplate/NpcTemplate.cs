@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using Mithrill.MonsterBook.Application.Common;
-using Mithrill.MonsterBook.Application.Common.Mappings;
 
-namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
+namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
-public class NpcTemplate : IMapTo<MonsterBook.Domain.NpcTemplate>
+public class NpcTemplate
 {
     public NpcTemplate()
     {
@@ -16,7 +14,7 @@ public class NpcTemplate : IMapTo<MonsterBook.Domain.NpcTemplate>
         Weapons = new List<Weapon>();
     }
 
-    public int Id { get; set; }
+    public int? Id { get; set; }
     public string Name { get; set; }
     public string NameHu { get; set; }
     public int StrengthMax { get; set; }
@@ -48,15 +46,4 @@ public class NpcTemplate : IMapTo<MonsterBook.Domain.NpcTemplate>
     public IEnumerable<Skill> Skills { get; set; }
     public IEnumerable<Armor> Armors { get; set; }
     public IEnumerable<Weapon> Weapons { get; set; }
-
-    public void Mapping(Profile profile)
-    {
-        profile.CreateMap<NpcTemplate, MonsterBook.Domain.NpcTemplate>()
-            .ForMember(template => template.CharacterMerits, opt => opt.MapFrom(template => template.Merits))
-            .ForMember(template => template.CharacterFlaws, opt => opt.MapFrom(template => template.Flaws))
-            .ForMember(template => template.CharacterSkills, opt => opt.MapFrom(template => template.Skills))
-            .ForMember(template => template.CharacterArmors, opt => opt.MapFrom(template => template.Armors))
-            .ForMember(template => template.CharacterWeapons, opt => opt.MapFrom(template => template.Weapons))
-            .ForMember(template => template.CharacterSkillCategories, opt => opt.MapFrom(template => template.SkillCategories));
-    }
 }

@@ -1,0 +1,50 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using FluentValidation;
+using FluentValidation.Results;
+using MediatR;
+using Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
+
+namespace Mithrill.MonsterBook.Application.Common.Behaviours
+{
+    public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : IRequest<TResponse>
+    {
+        private readonly IEnumerable<IValidator<TRequest>> _validators;
+
+        public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+        {
+            _validators = validators;
+        }
+
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        {
+            if (typeof(TRequest) != typeof(ValidateNpcTemplateQuery) &&
+                _validators.Any())
+            {
+                var context = new ValidationContext<TRequest>(request);
+                var validationResults = await Task.WhenAll(
+                    _validators.Select(validator => validator.ValidateAsync(context, cancellationToken)));
+
+                var failures = validationResults.SelectMany(result => result.Errors)
+                    .Where(failure => failure != null)
+                    .Select(failure => new ValidationFailure
+                    {
+                        ErrorCode = failure.ErrorCode,
+                        ErrorMessage = failure.ErrorMessage,
+                        PropertyName = failure.PropertyName
+                    })
+                    .ToArray();
+
+                if (failures.Length > 0)
+                {
+                    throw new Exceptions.ValidationException(failures);
+                }
+            }
+
+            return await next();
+        }
+    }
+}

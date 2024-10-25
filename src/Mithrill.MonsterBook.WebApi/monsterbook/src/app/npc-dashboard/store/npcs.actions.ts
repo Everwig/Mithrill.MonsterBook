@@ -10,6 +10,7 @@ import { Skill } from '../models/skill.model';
 import { NpcTemplate } from '../models/npc-template.model';
 import { AttackType } from '../models/attack-type.model';
 import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
+import { ValidationResult } from '../../shared/models/validation-result.model';
 
 export const loadNpcs = createAction('[NPCs] Load NPCs');
 export const loadNpcsSuccess = createAction(
@@ -157,4 +158,13 @@ export const saveNpcTemplateSuccess = createAction(
 export const saveNpcTemplateFailed = createAction(
   '[NPC Template] Save NPC Template failed',
   props<{ error: any }>()
+);
+
+export const validateNpcTemplate = createAction(
+  '[NPC Template] Validate NPC Template',
+  props<{ npcTemplate: NpcTemplate, detailsViewMode: DetailsViewMode }>()
+);
+export const validateNpcTemplateSuccess = createAction(
+  '[NPC Template] Validate NPC Template success',
+  props<{ validationResult: ValidationResult }>()
 );

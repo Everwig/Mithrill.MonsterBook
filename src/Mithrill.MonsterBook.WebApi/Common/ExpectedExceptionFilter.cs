@@ -47,6 +47,18 @@ namespace Mithrill.MonsterBook.WebApi.Common
                         Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3",
                         Status = StatusCodes.Status403Forbidden
                     }
+                },
+                {
+                    typeof(ValidationException),
+                    ex =>
+                    {
+                        var details = new ValidationProblemDetails(((ValidationException)ex).Failures)
+                        {
+                            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                            Status = StatusCodes.Status400BadRequest
+                        };
+                        return details;
+                    }
                 }
             };
 

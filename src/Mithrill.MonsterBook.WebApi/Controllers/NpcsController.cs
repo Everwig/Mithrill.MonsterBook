@@ -3,12 +3,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
+using Mithrill.MonsterBook.Application.Common.Validation;
+using Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Query.GetHitPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 using Mithrill.MonsterBook.Application.Npc.Query.GetPowerPointMinMaxValues;
+using Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 using Mithrill.MonsterBook.WebApi.Common;
 using GetNpcTemplateQuery = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.GetNpcTemplateQuery;
 using NpcTemplate = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.NpcTemplate;
@@ -63,15 +66,14 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
         }
 
         [HttpPost("CreateTemplate")]
-        public async Task<int> CreateTemplate(CancellationToken cancellationToken)
+        public async Task<int> CreateTemplate(CreateNpcTemplateCommand createNpcTemplateCommand, CancellationToken cancellationToken)
         {
-            return 0;
+            return await Mediator.Send(createNpcTemplateCommand, cancellationToken);
         }
 
         [HttpPatch("UpdateTemplate/{id:int}")]
         public async Task UpdateTemplate(int id, UpdateNpcTemplate npcTemplate, CancellationToken cancellationToken)
         {
-            return;
             await Mediator.Send(new UpdateNpcTemplateCommand
             {
                 Id = id,
@@ -89,6 +91,14 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
                     IsSoftDelete = false
                 },
                 cancellationToken);
+        }
+
+        [HttpPost("Validate")]
+        public async Task<ValidationResult> Validate(
+            ValidateNpcTemplateQuery validateNpcTemplateQuery,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(validateNpcTemplateQuery, cancellationToken);
         }
 
         [HttpGet("GetHitPointMinMaxValues")]

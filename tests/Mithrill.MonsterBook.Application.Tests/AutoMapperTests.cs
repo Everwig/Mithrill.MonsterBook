@@ -232,7 +232,6 @@ namespace Mithrill.MonsterBook.Application.Tests
                     new Npc.Query.GetGeneratedNpc.Skill
                     {
                         Name = generatedCreature.Skills.First().Name,
-                        NameHu = generatedCreature.Skills.First().NameHu,
                         Level = generatedCreature.Skills.First().Level,
                         Category = generatedCreature.Skills.First().Category,
                         GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
@@ -336,7 +335,6 @@ namespace Mithrill.MonsterBook.Application.Tests
                     new Npc.Query.GetGeneratedNpc.Skill
                     {
                         Name = generatedCreature.Skills.First().Name,
-                        NameHu = generatedCreature.Skills.First().NameHu,
                         Level = generatedCreature.Skills.First().Level,
                         Category = generatedCreature.Skills.First().Category,
                         GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
@@ -476,7 +474,6 @@ namespace Mithrill.MonsterBook.Application.Tests
                     new Npc.Query.GetGeneratedProminentNpc.Skill
                     {
                         Name = generatedCreature.Skills.First().Name,
-                        NameHu = generatedCreature.Skills.First().NameHu,
                         Level = generatedCreature.Skills.First().Level,
                         Category = generatedCreature.Skills.First().Category,
                         GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses

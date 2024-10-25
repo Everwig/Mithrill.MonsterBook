@@ -83,6 +83,7 @@
 
     <div class="npc-template-section full-wide">
       <label class="npc-template-section-header">Képzettség kategóriák</label>
+
       <div class="npc-template-section-content full-wide">
         <mat-form-field class="side-margin">
           <mat-label>Elsődleges képzettség kategória</mat-label>
@@ -222,6 +223,7 @@
 
     <div class="npc-template-section full-wide">
       <label class="npc-template-section-header">Tulajdonságok</label>
+
       <div class="npc-template-section-content full-wide">
         <div class="npc-attribute-slider">
           <label>Erő</label>
@@ -310,6 +312,7 @@
 
     <div class="npc-template-section full-wide">
       <label class="npc-template-section-header">Képzettségek</label>
+
       <div class="npc-template-section-content column full-wide">
         <mat-form-field class="side-margin">
           <mat-label>Képzettség hozzáadása</mat-label>
@@ -391,6 +394,7 @@
 
       <div class="npc-template-section full-wide">
         <label class="npc-template-section-header">Hátrányok</label>
+
         <div class="npc-template-section-content column full-wide">
           <mat-form-field class="side-margin">
             <mat-label>Hátrány hozzáadása</mat-label>
@@ -425,6 +429,7 @@
 
     <div class="npc-template-section full-wide">
       <label class="npc-template-section-header">Fegyverek</label>
+
       <div class="npc-template-section-content column full-wide">
         <mat-form-field class="side-margin">
           <mat-label>Fegyver hozzáadása</mat-label>
@@ -502,7 +507,7 @@
                   <label class="full-wide">További sebzések:</label>
                   <div class="npc-skill-slider" *ngFor="let attackType of getAdditionalAttackTypes(weapon.value.attackTypes)">
                     <label>{{ attackType.damageType }} ({{attackType.numberOfDices}}D)</label>
-                    <mat-slider class="full-wide" min="0" max="8" showTickMarks discrete>
+                    <mat-slider class="full-wide" min="1" max="8" showTickMarks discrete>
                       <input value="{{attackType.numberOfDices}}" matSliderThumb
                         (valueChange)="onAttackTypeDamageChange($event, attackType.damageType, weapon)">
                     </mat-slider>

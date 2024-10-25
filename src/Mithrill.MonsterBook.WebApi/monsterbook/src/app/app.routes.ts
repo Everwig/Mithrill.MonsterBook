@@ -26,6 +26,22 @@ export const routes: Routes = [
     ]
   },
   {
+    path: "npcs/create",
+    loadComponent: () => import('./npc-dashboard/npc-template-details/npc-template-details.component').then(mod => mod.NpcTemplateDetailsComponent),
+    providers: [
+      provideState(fromNpcs.npcsFeatureKey, fromNpcs.reducer),
+      provideEffects(NpcsEffects),
+      NpcTemplateDetailsService,
+      NpcDashboardService,
+      NpcsClient,
+      SkillsClient,
+      MeritsClient,
+      FlawsClient,
+      ArmorsClient,
+      WeaponsClient
+    ]
+  },
+  {
     path: 'npcs',
     loadComponent: () => import('./npc-dashboard/npc-dashboard.component').then(mod => mod.NpcDashboardComponent),
     providers: [

@@ -249,5 +249,13 @@ export const reducer = createReducer(
       ...state.npcTemplate,
       isLoading: false
     }
+  })),
+
+  on(fromNpcActions.validateNpcTemplateSuccess, (state, action) => ({
+    ...state,
+    npcTemplate: {
+      ...state.npcTemplate,
+      errors: action.validationResult
+    }
   }))
 );

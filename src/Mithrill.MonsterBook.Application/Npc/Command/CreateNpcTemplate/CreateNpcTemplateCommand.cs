@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using MediatR;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
+using Race = Mithrill.MonsterBook.Application.Common.Race;
 
-namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
+namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public class NpcTemplate : IMapTo<MonsterBook.Domain.NpcTemplate>
+public class CreateNpcTemplateCommand :
+    IRequest<int>,
+    IMapTo<MonsterBook.Domain.NpcTemplate>
 {
-    public NpcTemplate()
+    public CreateNpcTemplateCommand()
     {
         Merits = new List<Merit>();
         Flaws = new List<Flaw>();
@@ -16,7 +21,6 @@ public class NpcTemplate : IMapTo<MonsterBook.Domain.NpcTemplate>
         Weapons = new List<Weapon>();
     }
 
-    public int Id { get; set; }
     public string Name { get; set; }
     public string NameHu { get; set; }
     public int StrengthMax { get; set; }
@@ -51,7 +55,8 @@ public class NpcTemplate : IMapTo<MonsterBook.Domain.NpcTemplate>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<NpcTemplate, MonsterBook.Domain.NpcTemplate>()
+        profile.CreateMap<CreateNpcTemplateCommand, MonsterBook.Domain.NpcTemplate>()
+            .ForMember(template => template.Id, opt => opt.Ignore())
             .ForMember(template => template.CharacterMerits, opt => opt.MapFrom(template => template.Merits))
             .ForMember(template => template.CharacterFlaws, opt => opt.MapFrom(template => template.Flaws))
             .ForMember(template => template.CharacterSkills, opt => opt.MapFrom(template => template.Skills))

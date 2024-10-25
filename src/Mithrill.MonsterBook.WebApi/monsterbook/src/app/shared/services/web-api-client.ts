@@ -357,14 +357,18 @@ export class NpcsClient {
         }
     }
 
-    createTemplate(): Observable<number> {
+    createTemplate(createNpcTemplateCommand: CreateNpcTemplateCommand): Observable<number> {
         let url_ = this.baseUrl + "/api/npcs/createtemplate";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(createNpcTemplateCommand);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -390,20 +394,36 @@ export class NpcsClient {
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
+        if (status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            let result201: any = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result201 = resultData201 !== undefined ? resultData201 : <any>null;
     
-            return _observableOf(result200);
+            return _observableOf(result201);
             }));
-        } else if (status !== 200 && status !== 204) {
+        } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = HttpValidationProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 409) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result409: any = null;
+            let resultData409 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result409 = ProblemDetails.fromJS(resultData409);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result409);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
             }));
         }
-        return _observableOf(null as any);
     }
 
     updateTemplate(id: number, npcTemplate: NpcTemplate2): Observable<void> {
@@ -534,6 +554,58 @@ export class NpcsClient {
             return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
             }));
         }
+    }
+
+    validate(validateNpcTemplateQuery: ValidateNpcTemplateQuery): Observable<ValidationResult> {
+        let url_ = this.baseUrl + "/api/npcs/validate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(validateNpcTemplateQuery);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processValidate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processValidate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ValidationResult>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ValidationResult>;
+        }));
+    }
+
+    protected processValidate(response: HttpResponseBase): Observable<ValidationResult> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ValidationResult.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
     }
 
     getHitPointMinMaxValues(strengthMin: number | undefined, strengthMax: number | undefined, bodyMin: number | undefined, bodyMax: number | undefined, isUndead: boolean | undefined, meritIds: number[] | undefined): Observable<ValueTupleOfIntegerAndInteger> {
@@ -752,7 +824,7 @@ export class SkillsClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getAllForNpcTemplates(): Observable<Skill3[]> {
+    getAllForNpcTemplates(): Observable<Skill5[]> {
         let url_ = this.baseUrl + "/api/skills/getallfornpctemplates";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -771,14 +843,14 @@ export class SkillsClient {
                 try {
                     return this.processGetAllForNpcTemplates(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Skill3[]>;
+                    return _observableThrow(e) as any as Observable<Skill5[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Skill3[]>;
+                return _observableThrow(response_) as any as Observable<Skill5[]>;
         }));
     }
 
-    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Skill3[]> {
+    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Skill5[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -792,7 +864,7 @@ export class SkillsClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Skill3.fromJS(item));
+                    result200!.push(Skill5.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -821,7 +893,7 @@ export class WeaponsClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getAllForNpcTemplates(): Observable<Weapon3[]> {
+    getAllForNpcTemplates(): Observable<Weapon5[]> {
         let url_ = this.baseUrl + "/api/weapons/getallfornpctemplates";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -840,14 +912,14 @@ export class WeaponsClient {
                 try {
                     return this.processGetAllForNpcTemplates(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Weapon3[]>;
+                    return _observableThrow(e) as any as Observable<Weapon5[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Weapon3[]>;
+                return _observableThrow(response_) as any as Observable<Weapon5[]>;
         }));
     }
 
-    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Weapon3[]> {
+    protected processGetAllForNpcTemplates(response: HttpResponseBase): Observable<Weapon5[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -861,7 +933,7 @@ export class WeaponsClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Weapon3.fromJS(item));
+                    result200!.push(Weapon5.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -2265,8 +2337,7 @@ export interface IHttpValidationProblemDetails extends IProblemDetails {
     [key: string]: any;
 }
 
-export class NpcTemplate2 implements INpcTemplate2 {
-    id!: number;
+export class CreateNpcTemplateCommand implements ICreateNpcTemplateCommand {
     name!: string;
     nameHu!: string;
     strengthMax!: number;
@@ -2292,14 +2363,14 @@ export class NpcTemplate2 implements INpcTemplate2 {
     isUndead!: boolean;
     race!: Race;
     difficulty!: Difficulty;
-    skillCategories!: SkillCategories;
+    skillCategories!: SkillCategories | undefined;
     merits!: Merit3[];
     flaws!: Flaw3[];
     skills!: Skill2[];
     armors!: Armor3[];
     weapons!: Weapon2[];
 
-    constructor(data?: INpcTemplate2) {
+    constructor(data?: ICreateNpcTemplateCommand) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2310,7 +2381,6 @@ export class NpcTemplate2 implements INpcTemplate2 {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
             this.name = _data["name"];
             this.nameHu = _data["nameHu"];
             this.strengthMax = _data["strengthMax"];
@@ -2365,16 +2435,15 @@ export class NpcTemplate2 implements INpcTemplate2 {
         }
     }
 
-    static fromJS(data: any): NpcTemplate2 {
+    static fromJS(data: any): CreateNpcTemplateCommand {
         data = typeof data === 'object' ? data : {};
-        let result = new NpcTemplate2();
+        let result = new CreateNpcTemplateCommand();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["name"] = this.name;
         data["nameHu"] = this.nameHu;
         data["strengthMax"] = this.strengthMax;
@@ -2430,8 +2499,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
     }
 }
 
-export interface INpcTemplate2 {
-    id: number;
+export interface ICreateNpcTemplateCommand {
     name: string;
     nameHu: string;
     strengthMax: number;
@@ -2457,7 +2525,7 @@ export interface INpcTemplate2 {
     isUndead: boolean;
     race: Race;
     difficulty: Difficulty;
-    skillCategories: SkillCategories;
+    skillCategories: SkillCategories | undefined;
     merits: Merit3[];
     flaws: Flaw3[];
     skills: Skill2[];
@@ -2761,6 +2829,1047 @@ export interface IAttackType2 {
     guaranteedDamage: number;
 }
 
+export class NpcTemplate2 implements INpcTemplate2 {
+    id!: number;
+    name!: string;
+    nameHu!: string;
+    strengthMax!: number;
+    strengthMin!: number;
+    vitalityMax!: number;
+    vitalityMin!: number;
+    bodyMax!: number;
+    bodyMin!: number;
+    agilityMax!: number;
+    agilityMin!: number;
+    dexterityMax!: number;
+    dexterityMin!: number;
+    intelligenceMax!: number;
+    intelligenceMin!: number;
+    willpowerMax!: number;
+    willpowerMin!: number;
+    emotionMax!: number;
+    emotionMin!: number;
+    damageReductionMax!: number;
+    damageReductionMin!: number;
+    karmaMax!: number;
+    karmaMin!: number;
+    isUndead!: boolean;
+    race!: Race;
+    difficulty!: Difficulty;
+    skillCategories!: SkillCategories | undefined;
+    merits!: Merit4[];
+    flaws!: Flaw4[];
+    skills!: Skill3[];
+    armors!: Armor4[];
+    weapons!: Weapon3[];
+
+    constructor(data?: INpcTemplate2) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.nameHu = _data["nameHu"];
+            this.strengthMax = _data["strengthMax"];
+            this.strengthMin = _data["strengthMin"];
+            this.vitalityMax = _data["vitalityMax"];
+            this.vitalityMin = _data["vitalityMin"];
+            this.bodyMax = _data["bodyMax"];
+            this.bodyMin = _data["bodyMin"];
+            this.agilityMax = _data["agilityMax"];
+            this.agilityMin = _data["agilityMin"];
+            this.dexterityMax = _data["dexterityMax"];
+            this.dexterityMin = _data["dexterityMin"];
+            this.intelligenceMax = _data["intelligenceMax"];
+            this.intelligenceMin = _data["intelligenceMin"];
+            this.willpowerMax = _data["willpowerMax"];
+            this.willpowerMin = _data["willpowerMin"];
+            this.emotionMax = _data["emotionMax"];
+            this.emotionMin = _data["emotionMin"];
+            this.damageReductionMax = _data["damageReductionMax"];
+            this.damageReductionMin = _data["damageReductionMin"];
+            this.karmaMax = _data["karmaMax"];
+            this.karmaMin = _data["karmaMin"];
+            this.isUndead = _data["isUndead"];
+            this.race = _data["race"];
+            this.difficulty = _data["difficulty"];
+            this.skillCategories = _data["skillCategories"] ? SkillCategories.fromJS(_data["skillCategories"]) : <any>undefined;
+            if (Array.isArray(_data["merits"])) {
+                this.merits = [] as any;
+                for (let item of _data["merits"])
+                    this.merits!.push(Merit4.fromJS(item));
+            }
+            if (Array.isArray(_data["flaws"])) {
+                this.flaws = [] as any;
+                for (let item of _data["flaws"])
+                    this.flaws!.push(Flaw4.fromJS(item));
+            }
+            if (Array.isArray(_data["skills"])) {
+                this.skills = [] as any;
+                for (let item of _data["skills"])
+                    this.skills!.push(Skill3.fromJS(item));
+            }
+            if (Array.isArray(_data["armors"])) {
+                this.armors = [] as any;
+                for (let item of _data["armors"])
+                    this.armors!.push(Armor4.fromJS(item));
+            }
+            if (Array.isArray(_data["weapons"])) {
+                this.weapons = [] as any;
+                for (let item of _data["weapons"])
+                    this.weapons!.push(Weapon3.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): NpcTemplate2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new NpcTemplate2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["nameHu"] = this.nameHu;
+        data["strengthMax"] = this.strengthMax;
+        data["strengthMin"] = this.strengthMin;
+        data["vitalityMax"] = this.vitalityMax;
+        data["vitalityMin"] = this.vitalityMin;
+        data["bodyMax"] = this.bodyMax;
+        data["bodyMin"] = this.bodyMin;
+        data["agilityMax"] = this.agilityMax;
+        data["agilityMin"] = this.agilityMin;
+        data["dexterityMax"] = this.dexterityMax;
+        data["dexterityMin"] = this.dexterityMin;
+        data["intelligenceMax"] = this.intelligenceMax;
+        data["intelligenceMin"] = this.intelligenceMin;
+        data["willpowerMax"] = this.willpowerMax;
+        data["willpowerMin"] = this.willpowerMin;
+        data["emotionMax"] = this.emotionMax;
+        data["emotionMin"] = this.emotionMin;
+        data["damageReductionMax"] = this.damageReductionMax;
+        data["damageReductionMin"] = this.damageReductionMin;
+        data["karmaMax"] = this.karmaMax;
+        data["karmaMin"] = this.karmaMin;
+        data["isUndead"] = this.isUndead;
+        data["race"] = this.race;
+        data["difficulty"] = this.difficulty;
+        data["skillCategories"] = this.skillCategories ? this.skillCategories.toJSON() : <any>undefined;
+        if (Array.isArray(this.merits)) {
+            data["merits"] = [];
+            for (let item of this.merits)
+                data["merits"].push(item.toJSON());
+        }
+        if (Array.isArray(this.flaws)) {
+            data["flaws"] = [];
+            for (let item of this.flaws)
+                data["flaws"].push(item.toJSON());
+        }
+        if (Array.isArray(this.skills)) {
+            data["skills"] = [];
+            for (let item of this.skills)
+                data["skills"].push(item.toJSON());
+        }
+        if (Array.isArray(this.armors)) {
+            data["armors"] = [];
+            for (let item of this.armors)
+                data["armors"].push(item.toJSON());
+        }
+        if (Array.isArray(this.weapons)) {
+            data["weapons"] = [];
+            for (let item of this.weapons)
+                data["weapons"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface INpcTemplate2 {
+    id: number;
+    name: string;
+    nameHu: string;
+    strengthMax: number;
+    strengthMin: number;
+    vitalityMax: number;
+    vitalityMin: number;
+    bodyMax: number;
+    bodyMin: number;
+    agilityMax: number;
+    agilityMin: number;
+    dexterityMax: number;
+    dexterityMin: number;
+    intelligenceMax: number;
+    intelligenceMin: number;
+    willpowerMax: number;
+    willpowerMin: number;
+    emotionMax: number;
+    emotionMin: number;
+    damageReductionMax: number;
+    damageReductionMin: number;
+    karmaMax: number;
+    karmaMin: number;
+    isUndead: boolean;
+    race: Race;
+    difficulty: Difficulty;
+    skillCategories: SkillCategories | undefined;
+    merits: Merit4[];
+    flaws: Flaw4[];
+    skills: Skill3[];
+    armors: Armor4[];
+    weapons: Weapon3[];
+}
+
+export class Merit4 implements IMerit4 {
+    id!: number;
+    isOptional!: boolean;
+
+    constructor(data?: IMerit4) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Merit4 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Merit4();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface IMerit4 {
+    id: number;
+    isOptional: boolean;
+}
+
+export class Flaw4 implements IFlaw4 {
+    id!: number;
+    isOptional!: boolean;
+
+    constructor(data?: IFlaw4) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Flaw4 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Flaw4();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface IFlaw4 {
+    id: number;
+    isOptional: boolean;
+}
+
+export class Skill3 implements ISkill3 {
+    id!: number;
+    minLevel!: number;
+    maxLevel!: number;
+    guaranteedSuccesses!: number;
+    isOptional!: boolean;
+
+    constructor(data?: ISkill3) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.minLevel = _data["minLevel"];
+            this.maxLevel = _data["maxLevel"];
+            this.guaranteedSuccesses = _data["guaranteedSuccesses"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Skill3 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Skill3();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["minLevel"] = this.minLevel;
+        data["maxLevel"] = this.maxLevel;
+        data["guaranteedSuccesses"] = this.guaranteedSuccesses;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface ISkill3 {
+    id: number;
+    minLevel: number;
+    maxLevel: number;
+    guaranteedSuccesses: number;
+    isOptional: boolean;
+}
+
+export class Armor4 implements IArmor4 {
+    id!: number;
+    material!: Material;
+    additionalArmorClass!: number;
+    additionalMovementInhibitoryFactor!: number;
+    isOptional!: boolean;
+
+    constructor(data?: IArmor4) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.material = _data["material"];
+            this.additionalArmorClass = _data["additionalArmorClass"];
+            this.additionalMovementInhibitoryFactor = _data["additionalMovementInhibitoryFactor"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Armor4 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Armor4();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["material"] = this.material;
+        data["additionalArmorClass"] = this.additionalArmorClass;
+        data["additionalMovementInhibitoryFactor"] = this.additionalMovementInhibitoryFactor;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface IArmor4 {
+    id: number;
+    material: Material;
+    additionalArmorClass: number;
+    additionalMovementInhibitoryFactor: number;
+    isOptional: boolean;
+}
+
+export class Weapon3 implements IWeapon3 {
+    id!: number;
+    material!: Material;
+    additionalAttackModifier!: number;
+    additionalDefenseModifier!: number;
+    additionalInitiativeModifier!: number;
+    isOptional!: boolean;
+    additionalAttackTypes!: AttackType2[];
+
+    constructor(data?: IWeapon3) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.material = _data["material"];
+            this.additionalAttackModifier = _data["additionalAttackModifier"];
+            this.additionalDefenseModifier = _data["additionalDefenseModifier"];
+            this.additionalInitiativeModifier = _data["additionalInitiativeModifier"];
+            this.isOptional = _data["isOptional"];
+            if (Array.isArray(_data["additionalAttackTypes"])) {
+                this.additionalAttackTypes = [] as any;
+                for (let item of _data["additionalAttackTypes"])
+                    this.additionalAttackTypes!.push(AttackType2.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): Weapon3 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Weapon3();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["material"] = this.material;
+        data["additionalAttackModifier"] = this.additionalAttackModifier;
+        data["additionalDefenseModifier"] = this.additionalDefenseModifier;
+        data["additionalInitiativeModifier"] = this.additionalInitiativeModifier;
+        data["isOptional"] = this.isOptional;
+        if (Array.isArray(this.additionalAttackTypes)) {
+            data["additionalAttackTypes"] = [];
+            for (let item of this.additionalAttackTypes)
+                data["additionalAttackTypes"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IWeapon3 {
+    id: number;
+    material: Material;
+    additionalAttackModifier: number;
+    additionalDefenseModifier: number;
+    additionalInitiativeModifier: number;
+    isOptional: boolean;
+    additionalAttackTypes: AttackType2[];
+}
+
+export class ValidationResult implements IValidationResult {
+    isValid!: boolean;
+    errors!: ValidationFailure[];
+
+    constructor(data?: IValidationResult) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.isValid = _data["isValid"];
+            if (Array.isArray(_data["errors"])) {
+                this.errors = [] as any;
+                for (let item of _data["errors"])
+                    this.errors!.push(ValidationFailure.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ValidationResult {
+        data = typeof data === 'object' ? data : {};
+        let result = new ValidationResult();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["isValid"] = this.isValid;
+        if (Array.isArray(this.errors)) {
+            data["errors"] = [];
+            for (let item of this.errors)
+                data["errors"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IValidationResult {
+    isValid: boolean;
+    errors: ValidationFailure[];
+}
+
+export class ValidationFailure implements IValidationFailure {
+    propertyName!: string;
+    errorCode!: string;
+    errorMessage!: string;
+
+    constructor(data?: IValidationFailure) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.propertyName = _data["propertyName"];
+            this.errorCode = _data["errorCode"];
+            this.errorMessage = _data["errorMessage"];
+        }
+    }
+
+    static fromJS(data: any): ValidationFailure {
+        data = typeof data === 'object' ? data : {};
+        let result = new ValidationFailure();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["propertyName"] = this.propertyName;
+        data["errorCode"] = this.errorCode;
+        data["errorMessage"] = this.errorMessage;
+        return data;
+    }
+}
+
+export interface IValidationFailure {
+    propertyName: string;
+    errorCode: string;
+    errorMessage: string;
+}
+
+export class ValidateNpcTemplateQuery implements IValidateNpcTemplateQuery {
+    npcTemplate!: NpcTemplate3;
+    validationMode!: ValidationMode;
+
+    constructor(data?: IValidateNpcTemplateQuery) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.npcTemplate = _data["npcTemplate"] ? NpcTemplate3.fromJS(_data["npcTemplate"]) : <any>undefined;
+            this.validationMode = _data["validationMode"];
+        }
+    }
+
+    static fromJS(data: any): ValidateNpcTemplateQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new ValidateNpcTemplateQuery();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["npcTemplate"] = this.npcTemplate ? this.npcTemplate.toJSON() : <any>undefined;
+        data["validationMode"] = this.validationMode;
+        return data;
+    }
+}
+
+export interface IValidateNpcTemplateQuery {
+    npcTemplate: NpcTemplate3;
+    validationMode: ValidationMode;
+}
+
+export class NpcTemplate3 implements INpcTemplate3 {
+    id!: number | undefined;
+    name!: string;
+    nameHu!: string;
+    strengthMax!: number;
+    strengthMin!: number;
+    vitalityMax!: number;
+    vitalityMin!: number;
+    bodyMax!: number;
+    bodyMin!: number;
+    agilityMax!: number;
+    agilityMin!: number;
+    dexterityMax!: number;
+    dexterityMin!: number;
+    intelligenceMax!: number;
+    intelligenceMin!: number;
+    willpowerMax!: number;
+    willpowerMin!: number;
+    emotionMax!: number;
+    emotionMin!: number;
+    damageReductionMax!: number;
+    damageReductionMin!: number;
+    karmaMax!: number;
+    karmaMin!: number;
+    isUndead!: boolean;
+    race!: Race;
+    difficulty!: Difficulty;
+    skillCategories!: SkillCategories | undefined;
+    merits!: Merit5[];
+    flaws!: Flaw5[];
+    skills!: Skill4[];
+    armors!: Armor5[];
+    weapons!: Weapon4[];
+
+    constructor(data?: INpcTemplate3) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.nameHu = _data["nameHu"];
+            this.strengthMax = _data["strengthMax"];
+            this.strengthMin = _data["strengthMin"];
+            this.vitalityMax = _data["vitalityMax"];
+            this.vitalityMin = _data["vitalityMin"];
+            this.bodyMax = _data["bodyMax"];
+            this.bodyMin = _data["bodyMin"];
+            this.agilityMax = _data["agilityMax"];
+            this.agilityMin = _data["agilityMin"];
+            this.dexterityMax = _data["dexterityMax"];
+            this.dexterityMin = _data["dexterityMin"];
+            this.intelligenceMax = _data["intelligenceMax"];
+            this.intelligenceMin = _data["intelligenceMin"];
+            this.willpowerMax = _data["willpowerMax"];
+            this.willpowerMin = _data["willpowerMin"];
+            this.emotionMax = _data["emotionMax"];
+            this.emotionMin = _data["emotionMin"];
+            this.damageReductionMax = _data["damageReductionMax"];
+            this.damageReductionMin = _data["damageReductionMin"];
+            this.karmaMax = _data["karmaMax"];
+            this.karmaMin = _data["karmaMin"];
+            this.isUndead = _data["isUndead"];
+            this.race = _data["race"];
+            this.difficulty = _data["difficulty"];
+            this.skillCategories = _data["skillCategories"] ? SkillCategories.fromJS(_data["skillCategories"]) : <any>undefined;
+            if (Array.isArray(_data["merits"])) {
+                this.merits = [] as any;
+                for (let item of _data["merits"])
+                    this.merits!.push(Merit5.fromJS(item));
+            }
+            if (Array.isArray(_data["flaws"])) {
+                this.flaws = [] as any;
+                for (let item of _data["flaws"])
+                    this.flaws!.push(Flaw5.fromJS(item));
+            }
+            if (Array.isArray(_data["skills"])) {
+                this.skills = [] as any;
+                for (let item of _data["skills"])
+                    this.skills!.push(Skill4.fromJS(item));
+            }
+            if (Array.isArray(_data["armors"])) {
+                this.armors = [] as any;
+                for (let item of _data["armors"])
+                    this.armors!.push(Armor5.fromJS(item));
+            }
+            if (Array.isArray(_data["weapons"])) {
+                this.weapons = [] as any;
+                for (let item of _data["weapons"])
+                    this.weapons!.push(Weapon4.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): NpcTemplate3 {
+        data = typeof data === 'object' ? data : {};
+        let result = new NpcTemplate3();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["nameHu"] = this.nameHu;
+        data["strengthMax"] = this.strengthMax;
+        data["strengthMin"] = this.strengthMin;
+        data["vitalityMax"] = this.vitalityMax;
+        data["vitalityMin"] = this.vitalityMin;
+        data["bodyMax"] = this.bodyMax;
+        data["bodyMin"] = this.bodyMin;
+        data["agilityMax"] = this.agilityMax;
+        data["agilityMin"] = this.agilityMin;
+        data["dexterityMax"] = this.dexterityMax;
+        data["dexterityMin"] = this.dexterityMin;
+        data["intelligenceMax"] = this.intelligenceMax;
+        data["intelligenceMin"] = this.intelligenceMin;
+        data["willpowerMax"] = this.willpowerMax;
+        data["willpowerMin"] = this.willpowerMin;
+        data["emotionMax"] = this.emotionMax;
+        data["emotionMin"] = this.emotionMin;
+        data["damageReductionMax"] = this.damageReductionMax;
+        data["damageReductionMin"] = this.damageReductionMin;
+        data["karmaMax"] = this.karmaMax;
+        data["karmaMin"] = this.karmaMin;
+        data["isUndead"] = this.isUndead;
+        data["race"] = this.race;
+        data["difficulty"] = this.difficulty;
+        data["skillCategories"] = this.skillCategories ? this.skillCategories.toJSON() : <any>undefined;
+        if (Array.isArray(this.merits)) {
+            data["merits"] = [];
+            for (let item of this.merits)
+                data["merits"].push(item.toJSON());
+        }
+        if (Array.isArray(this.flaws)) {
+            data["flaws"] = [];
+            for (let item of this.flaws)
+                data["flaws"].push(item.toJSON());
+        }
+        if (Array.isArray(this.skills)) {
+            data["skills"] = [];
+            for (let item of this.skills)
+                data["skills"].push(item.toJSON());
+        }
+        if (Array.isArray(this.armors)) {
+            data["armors"] = [];
+            for (let item of this.armors)
+                data["armors"].push(item.toJSON());
+        }
+        if (Array.isArray(this.weapons)) {
+            data["weapons"] = [];
+            for (let item of this.weapons)
+                data["weapons"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface INpcTemplate3 {
+    id: number | undefined;
+    name: string;
+    nameHu: string;
+    strengthMax: number;
+    strengthMin: number;
+    vitalityMax: number;
+    vitalityMin: number;
+    bodyMax: number;
+    bodyMin: number;
+    agilityMax: number;
+    agilityMin: number;
+    dexterityMax: number;
+    dexterityMin: number;
+    intelligenceMax: number;
+    intelligenceMin: number;
+    willpowerMax: number;
+    willpowerMin: number;
+    emotionMax: number;
+    emotionMin: number;
+    damageReductionMax: number;
+    damageReductionMin: number;
+    karmaMax: number;
+    karmaMin: number;
+    isUndead: boolean;
+    race: Race;
+    difficulty: Difficulty;
+    skillCategories: SkillCategories | undefined;
+    merits: Merit5[];
+    flaws: Flaw5[];
+    skills: Skill4[];
+    armors: Armor5[];
+    weapons: Weapon4[];
+}
+
+export class Merit5 implements IMerit5 {
+    id!: number;
+    isOptional!: boolean;
+
+    constructor(data?: IMerit5) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Merit5 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Merit5();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface IMerit5 {
+    id: number;
+    isOptional: boolean;
+}
+
+export class Flaw5 implements IFlaw5 {
+    id!: number;
+    isOptional!: boolean;
+
+    constructor(data?: IFlaw5) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Flaw5 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Flaw5();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface IFlaw5 {
+    id: number;
+    isOptional: boolean;
+}
+
+export class Skill4 implements ISkill4 {
+    id!: number;
+    minLevel!: number;
+    maxLevel!: number;
+    guaranteedSuccesses!: number;
+    isOptional!: boolean;
+
+    constructor(data?: ISkill4) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.minLevel = _data["minLevel"];
+            this.maxLevel = _data["maxLevel"];
+            this.guaranteedSuccesses = _data["guaranteedSuccesses"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Skill4 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Skill4();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["minLevel"] = this.minLevel;
+        data["maxLevel"] = this.maxLevel;
+        data["guaranteedSuccesses"] = this.guaranteedSuccesses;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface ISkill4 {
+    id: number;
+    minLevel: number;
+    maxLevel: number;
+    guaranteedSuccesses: number;
+    isOptional: boolean;
+}
+
+export class Armor5 implements IArmor5 {
+    id!: number;
+    material!: Material;
+    additionalArmorClass!: number;
+    additionalMovementInhibitoryFactor!: number;
+    isOptional!: boolean;
+
+    constructor(data?: IArmor5) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.material = _data["material"];
+            this.additionalArmorClass = _data["additionalArmorClass"];
+            this.additionalMovementInhibitoryFactor = _data["additionalMovementInhibitoryFactor"];
+            this.isOptional = _data["isOptional"];
+        }
+    }
+
+    static fromJS(data: any): Armor5 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Armor5();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["material"] = this.material;
+        data["additionalArmorClass"] = this.additionalArmorClass;
+        data["additionalMovementInhibitoryFactor"] = this.additionalMovementInhibitoryFactor;
+        data["isOptional"] = this.isOptional;
+        return data;
+    }
+}
+
+export interface IArmor5 {
+    id: number;
+    material: Material;
+    additionalArmorClass: number;
+    additionalMovementInhibitoryFactor: number;
+    isOptional: boolean;
+}
+
+export class Weapon4 implements IWeapon4 {
+    id!: number;
+    material!: Material;
+    additionalAttackModifier!: number;
+    additionalDefenseModifier!: number;
+    additionalInitiativeModifier!: number;
+    isOptional!: boolean;
+    additionalAttackTypes!: AttackType2[];
+
+    constructor(data?: IWeapon4) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.material = _data["material"];
+            this.additionalAttackModifier = _data["additionalAttackModifier"];
+            this.additionalDefenseModifier = _data["additionalDefenseModifier"];
+            this.additionalInitiativeModifier = _data["additionalInitiativeModifier"];
+            this.isOptional = _data["isOptional"];
+            if (Array.isArray(_data["additionalAttackTypes"])) {
+                this.additionalAttackTypes = [] as any;
+                for (let item of _data["additionalAttackTypes"])
+                    this.additionalAttackTypes!.push(AttackType2.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): Weapon4 {
+        data = typeof data === 'object' ? data : {};
+        let result = new Weapon4();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["material"] = this.material;
+        data["additionalAttackModifier"] = this.additionalAttackModifier;
+        data["additionalDefenseModifier"] = this.additionalDefenseModifier;
+        data["additionalInitiativeModifier"] = this.additionalInitiativeModifier;
+        data["isOptional"] = this.isOptional;
+        if (Array.isArray(this.additionalAttackTypes)) {
+            data["additionalAttackTypes"] = [];
+            for (let item of this.additionalAttackTypes)
+                data["additionalAttackTypes"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IWeapon4 {
+    id: number;
+    material: Material;
+    additionalAttackModifier: number;
+    additionalDefenseModifier: number;
+    additionalInitiativeModifier: number;
+    isOptional: boolean;
+    additionalAttackTypes: AttackType2[];
+}
+
+export enum ValidationMode {
+    Create = "Create",
+    Edit = "Edit",
+}
+
 export class ValueTupleOfIntegerAndInteger implements IValueTupleOfIntegerAndInteger {
     item1!: number;
     item2!: number;
@@ -2801,14 +3910,14 @@ export interface IValueTupleOfIntegerAndInteger {
     item2: number;
 }
 
-export class Skill3 implements ISkill3 {
+export class Skill5 implements ISkill5 {
     id!: number;
     name!: string;
     attribute1!: Attribute;
     attribute2!: Attribute;
     category!: SkillCategory;
 
-    constructor(data?: ISkill3) {
+    constructor(data?: ISkill5) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2827,9 +3936,9 @@ export class Skill3 implements ISkill3 {
         }
     }
 
-    static fromJS(data: any): Skill3 {
+    static fromJS(data: any): Skill5 {
         data = typeof data === 'object' ? data : {};
-        let result = new Skill3();
+        let result = new Skill5();
         result.init(data);
         return result;
     }
@@ -2845,7 +3954,7 @@ export class Skill3 implements ISkill3 {
     }
 }
 
-export interface ISkill3 {
+export interface ISkill5 {
     id: number;
     name: string;
     attribute1: Attribute;
@@ -2853,7 +3962,7 @@ export interface ISkill3 {
     category: SkillCategory;
 }
 
-export class Weapon3 implements IWeapon3 {
+export class Weapon5 implements IWeapon5 {
     id!: number;
     name!: string;
     baseAttackModifier!: number;
@@ -2861,7 +3970,7 @@ export class Weapon3 implements IWeapon3 {
     baseInitiativeModifier!: number;
     baseAttackType!: AttackType3;
 
-    constructor(data?: IWeapon3) {
+    constructor(data?: IWeapon5) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2881,9 +3990,9 @@ export class Weapon3 implements IWeapon3 {
         }
     }
 
-    static fromJS(data: any): Weapon3 {
+    static fromJS(data: any): Weapon5 {
         data = typeof data === 'object' ? data : {};
-        let result = new Weapon3();
+        let result = new Weapon5();
         result.init(data);
         return result;
     }
@@ -2900,7 +4009,7 @@ export class Weapon3 implements IWeapon3 {
     }
 }
 
-export interface IWeapon3 {
+export interface IWeapon5 {
     id: number;
     name: string;
     baseAttackModifier: number;

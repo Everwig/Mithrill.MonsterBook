@@ -16,7 +16,7 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Flaw { Id = 3, Name = "Toothless", NameHu = "Fogatlan" },
                 new Flaw { Id = 4, Name = "Soothsayer", NameHu = "Igazmondó" },
                 new Flaw { Id = 5, Name = "Impotent", NameHu = "Impotens" },
-                new Flaw { Id = 6, Name = "One-eyed\\One-Handed", NameHu = "Kéz, szem hiánya" },
+                new Flaw { Id = 6, Name = "One-eyed", NameHu = "Félszemű" },
                 new Flaw { Id = 7, Name = "Minor bodily deficiency", NameHu = "Kisebb testi hiány" },
                 new Flaw { Id = 8, Name = "Minor deformity", NameHu = "Kisebb testi torzulás" },
                 new Flaw { Id = 9, Name = "Special peculiarity", NameHu = "Külső ismertetőjegy" },
@@ -79,7 +79,8 @@ namespace EntityFramework.MonsterBook.Seeds
                 new Flaw { Id = 66, Name = "Subservient", NameHu = "Szolgalelkű" },
                 new Flaw { Id = 67, Name = "Delusions", NameHu = "Téveszme" },
                 new Flaw { Id = 68, Name = "Secret personality", NameHu = "Titkos személyiség" },
-                new Flaw { Id = 69, Name = "Elemental dissonance", NameHu = "Elemi diszonancia" }
+                new Flaw { Id = 69, Name = "Elemental dissonance", NameHu = "Elemi diszonancia" },
+                new Flaw { Id = 70, Name = "One handed", NameHu = "Félkarú" }
             });
         }
     }

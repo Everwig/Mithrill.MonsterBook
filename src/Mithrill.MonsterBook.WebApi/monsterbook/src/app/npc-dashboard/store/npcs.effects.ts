@@ -184,4 +184,13 @@ export class NpcsEffects {
       })
     )
   );
+
+  validateTemplate$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromNpcsActions.validateNpcTemplate),
+      switchMap(payload => this.npcTemplateDetailsService.validateTemplate(payload.npcTemplate, payload.detailsViewMode).pipe(
+        map(validationResult => fromNpcsActions.validateNpcTemplateSuccess({ validationResult }))
+      ))
+    )
+  );
 }
