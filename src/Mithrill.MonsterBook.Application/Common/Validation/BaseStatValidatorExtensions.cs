@@ -14,9 +14,11 @@ namespace Mithrill.MonsterBook.Application.Common.Validation
         public const int MinKarmaValue = 0;
         public const int MaxKarmaValue = 12;
         public const int MaxStringLength = 64;
+        public const string DefaultRuleSetName = "default";
 
         public static IRuleBuilderOptions<T, int> AttributeValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
-            rule.InclusiveBetween(MinAttributeValue, MaxAttributeValue);
+            rule.InclusiveBetween(MinAttributeValue, MaxAttributeValue)
+                .WithErrorCode("NonZeroableAttributeValidator");
 
         public static IRuleBuilderOptions<T, TK> EnumValidation<T, TK>(this IRuleBuilderInitial<T, TK> rule)
             where TK : Enum =>
@@ -27,32 +29,34 @@ namespace Mithrill.MonsterBook.Application.Common.Validation
                 .MaximumLength(MaxStringLength);
 
         public static IRuleBuilderOptions<T, int> ZeroableValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
-            rule.InclusiveBetween(MinKarmaValue, MaxKarmaValue);
+            rule.InclusiveBetween(MinKarmaValue, MaxKarmaValue)
+                .WithErrorCode("ZeroableAttributeValidator");
 
         public static IRuleBuilderOptions<T, int?> NpcTemplateIdValidation<T>(
             this IRuleBuilderInitial<T, int?> rule,
             ITemplateValidatorService templateValidatorService) =>
-            rule.NotNull()
+            rule.Cascade(CascadeMode.Stop)
+                .NotNull()
                 .MustAsync(async (id, cancellationToken) => id.HasValue &&
                                                             await templateValidatorService.IsValidTemplateId(id.Value,
-                                                                cancellationToken));
+                                                                cancellationToken))
+                .WithErrorCode("IdValidator")
+                .WithMessage((_, id) => $"Template with '{id}' does not exist");
 
         public static IRuleBuilderOptions<T, IEnumerable<Flaw>> FlawValidation<T>(
             this IRuleBuilderInitial<T, IEnumerable<Flaw>> rule,
             ITemplateValidatorService templateValidatorService) =>
-            rule.Must(flaws => flaws.Select(flaw => flaw.Id).Distinct().Count() == flaws.Count())
-                .WithMessage("You cannot have duplicate flaws.")
-                .ForEach(flaws => flaws.MustAsync((flaw, cancellationToken) =>
+            rule.ForEach(flaws => flaws.MustAsync((flaw, cancellationToken) =>
                         templateValidatorService.IsValidFlawId(flaw.Id, cancellationToken))
+                    .WithErrorCode("FlawValidator")
                     .WithMessage((_, flaw) => $"Flaw with id '{flaw.Id}' doesn't exist."));
 
         public static IRuleBuilderOptions<T, IEnumerable<Merit>> MeritValidation<T>(
             this IRuleBuilderInitial<T, IEnumerable<Merit>> rule,
             ITemplateValidatorService templateValidatorService) =>
-            rule.Must(merits => merits.Select(flaw => flaw.Id).Distinct().Count() == merits.Count())
-                .WithMessage("You cannot have duplicate flaws.")
-                .ForEach(merits => merits.MustAsync((flaw, cancellationToken) =>
+            rule.ForEach(merits => merits.MustAsync((flaw, cancellationToken) =>
                         templateValidatorService.IsValidMeritId(flaw.Id, cancellationToken))
-                    .WithMessage((_, flaw) => $"Merit with id '{flaw.Id}' doesn't exist."));
+                    .WithErrorCode("MeritValidator")
+                    .WithMessage((_, merit) => $"Merit with id '{merit.Id}' doesn't exist."));
     }
 }

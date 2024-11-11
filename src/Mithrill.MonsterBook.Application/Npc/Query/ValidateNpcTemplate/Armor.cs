@@ -2,11 +2,9 @@
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
-public class Armor
-{
-    public int Id { get; set; }
-    public Material Material { get; set; }
-    public int AdditionalArmorClass { get; set; }
-    public int AdditionalMovementInhibitoryFactor { get; set; }
-    public bool IsOptional { get; set; }
-}
+public record Armor (
+    int Id,
+    Material Material,
+    int AdditionalArmorClass,
+    int AdditionalMovementInhibitoryFactor,
+    bool IsOptional);

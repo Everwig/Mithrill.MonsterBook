@@ -13,20 +13,24 @@ public static class SkillValidatorExtensions
     public const int MinSuccess = 0;
     public const int MaxSuccess = 5;
 
-    public static IRuleBuilderOptions<T, IEnumerable<Skill>> SkillValidation<T>(
-        this IRuleBuilderInitial<T, IEnumerable<Skill>> rule,
-        ITemplateValidatorService templateValidatorService) =>
-        rule.Must(skills => skills.Select(skill => skill.Id).Distinct().Count() == skills.Count())
-            .WithMessage("You cannot have duplicate skills.");
+    public static IRuleBuilderOptions<Skill, Skill> LevelValidation(
+        this IRuleBuilderInitial<Skill, Skill> rule) =>
+        rule.Must(skill => skill.MinLevel <= skill.MaxLevel)
+            .WithErrorCode("SkillLevelValidator")
+            .WithMessage("'Min Level' must be lower or equal to 'Max Level'");
 
     public static IRuleBuilderOptions<T, int> LevelValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
-        rule.InclusiveBetween(MinLevel, MaxLevel);
+        rule.InclusiveBetween(MinLevel, MaxLevel)
+            .WithErrorCode("SkillLevelValidator");
 
     public static IRuleBuilderOptions<T, int> GuaranteedSuccessValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
-        rule.InclusiveBetween(MinSuccess, MaxSuccess);
+        rule.InclusiveBetween(MinSuccess, MaxSuccess)
+            .WithErrorCode("SkillSuccessValidator");
 
     public static IRuleBuilderOptions<T, int> SkillIdValidation<T>(
         this IRuleBuilderInitial<T, int> rule,
         ITemplateValidatorService templateValidatorService) =>
-        rule.MustAsync(templateValidatorService.IsValidSkillId);
+        rule.MustAsync(templateValidatorService.IsValidSkillId)
+            .WithErrorCode("SkillIdValidator")
+            .WithMessage((_, id) => $"Skill with id '{id}' doesn't exist.");
 }

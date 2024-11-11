@@ -22,7 +22,7 @@ namespace Mithrill.MonsterBook.Application.Common.Mappings
 
             foreach (var mapType in mapTypes)
             {
-                var instance = Activator.CreateInstance(mapType);
+                var instance = CreateInstance(mapType);
                 var methodInfos = mapType.GetMethods()
                     .Where(methodInfo => methodInfo.Name.Equals("Mapping"))
                     .ToArray();
@@ -41,6 +41,32 @@ namespace Mithrill.MonsterBook.Application.Common.Mappings
                     methodInfo.Invoke(instance, new object[] { mappingProfile });
                 }
             }
+        }
+
+        private static object? CreateInstance(Type mapType)
+        {
+            if (!IsRecordType(mapType))
+            {
+                return Activator.CreateInstance(mapType);
+            }
+
+            var constructorInfo = mapType.GetTypeInfo().DeclaredConstructors.First();
+            
+            return constructorInfo.Invoke(constructorInfo.GetParameters()
+                .Select(parameter => Activator.CreateInstance(parameter.ParameterType))
+                .ToArray());
+        }
+
+        /*
+         * Logic is taken from ASP.NET MVC.Core ModelBinder. Should be rewritten if there is an official way to support detecting Records.
+         * https://github.com/dotnet/aspnetcore/blob/main/src/Mvc/Mvc.Core/src/ModelBinding/Metadata/DefaultBindingMetadataProvider.cs
+         */
+
+        private static bool IsRecordType(Type type)
+        {
+            // Based on the state of the art as described in https://github.com/dotnet/roslyn/issues/45777
+            var cloneMethod = type.GetMethod("<Clone>$", BindingFlags.Public | BindingFlags.Instance);
+            return cloneMethod != null && (cloneMethod.ReturnType == type || cloneMethod.ReturnType == type.BaseType);
         }
     }
 }

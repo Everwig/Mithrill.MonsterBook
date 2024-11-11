@@ -1,10 +1,8 @@
 ﻿namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
-public class Skill
-{
-    public int Id { get; set; }
-    public int MinLevel { get; set; }
-    public int MaxLevel { get; set; }
-    public int GuaranteedSuccesses { get; set; }
-    public bool IsOptional { get; set; }
-}
+public record Skill (
+    int Id,
+    int MinLevel,
+    int MaxLevel,
+    int GuaranteedSuccesses,
+    bool IsOptional);

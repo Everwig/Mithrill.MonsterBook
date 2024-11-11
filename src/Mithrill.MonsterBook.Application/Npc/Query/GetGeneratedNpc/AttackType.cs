@@ -6,7 +6,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc
 {
     public class AttackType : IAttackType, IMapFrom<Common.AttackType>
     {
-        public DamageType DamageType { get; }
+        public DamageType DamageType { get; set; }
         public int NumberOfDices { get; set; }
         public int GuaranteedDamage { get; set; }
     }

@@ -47,16 +47,12 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate
 
                 RuleFor(npcTemplate => npcTemplate.Race).EnumValidation();
                 RuleFor(npcTemplate => npcTemplate.Difficulty).EnumValidation();
-
-                RuleFor(npcTemplate => npcTemplate.SkillCategories).UniqueSkillCategoriesValidation();
-                RuleFor(npcTemplate => npcTemplate.SkillCategories).NullSkillCategories()
-                    .SetValidator(new SkillCategoriesValidator())
-                    .When(template => template.SkillCategories is not null, ApplyConditionTo.CurrentValidator);
+                RuleFor(npcTemplate => npcTemplate.SkillCategories).SkillCategoriesValidation();
 
                 RuleFor(npcTemplate => npcTemplate.Merits).MeritValidation(templateValidatorService);
                 RuleFor(npcTemplate => npcTemplate.Flaws).FlawValidation(templateValidatorService);
 
-                RuleFor(npcTemplate => npcTemplate.Skills).SkillValidation(templateValidatorService)
+                RuleFor(npcTemplate => npcTemplate.Skills)
                     .ForEach(skills => skills.SetValidator(new SkillValidator(templateValidatorService)));
 
                 RuleFor(npcTemplate => npcTemplate.Armors)
@@ -74,17 +70,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate
                     RuleFor(skill => skill.GuaranteedSuccesses).GuaranteedSuccessValidation();
                     RuleFor(skill => skill.MaxLevel).LevelValidation();
                     RuleFor(skill => skill.MinLevel).LevelValidation();
-                }
-            }
-
-            public sealed class SkillCategoriesValidator : AbstractValidator<SkillCategories>
-            {
-                public SkillCategoriesValidator()
-                {
-                    RuleFor(skillCategory => skillCategory.Primary).EnumValidation();
-                    RuleFor(skillCategory => skillCategory.FirstSecondary).EnumValidation();
-                    RuleFor(skillCategory => skillCategory.SecondSecondary).EnumValidation();
-                    RuleFor(skillCategory => skillCategory.Tertiary).EnumValidation();
+                    RuleFor(skill => skill).LevelValidation();
                 }
             }
 
@@ -94,8 +80,8 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate
                 {
                     RuleFor(armor => armor.Id).IsValidArmorId(templateValidatorService);
                     RuleFor(armor => armor.Material).EnumValidation();
-                    RuleFor(armor => armor.AdditionalArmorClass).AdditionalValueValidation();
-                    RuleFor(armor => armor.AdditionalMovementInhibitoryFactor).AdditionalMgtValueValidation();
+                    RuleFor(armor => armor.AdditionalArmorClass).AdditionalArmorClassValidation();
+                    RuleFor(armor => armor.AdditionalMovementInhibitoryFactor).AdditionalMovementInhibitoryFactorValidation();
                 }
             }
 
@@ -105,9 +91,9 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate
                 {
                     RuleFor(weapon => weapon.Id).IsValidWeaponId(templateValidatorService);
                     RuleFor(weapon => weapon.Material).EnumValidation();
-                    RuleFor(weapon => weapon.AdditionalAttackModifier).AdditionalValueValidation();
-                    RuleFor(weapon => weapon.AdditionalDefenseModifier).AdditionalValueValidation();
-                    RuleFor(weapon => weapon.AdditionalInitiativeModifier).AdditionalValueValidation();
+                    RuleFor(weapon => weapon.AdditionalAttackModifier).AdditionalModifierValidation();
+                    RuleFor(weapon => weapon.AdditionalDefenseModifier).AdditionalModifierValidation();
+                    RuleFor(weapon => weapon.AdditionalInitiativeModifier).AdditionalModifierValidation();
                     RuleFor(weapon => weapon.AdditionalAttackTypes)
                         .ForEach(attackType => attackType.SetValidator(new AttackTypeValidator()));
                 }

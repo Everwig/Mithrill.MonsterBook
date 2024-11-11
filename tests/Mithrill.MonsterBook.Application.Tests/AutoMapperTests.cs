@@ -53,12 +53,11 @@ namespace Mithrill.MonsterBook.Application.Tests
             var mappedObject = _mapper.Map<AttackType>(attackType);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new AttackType
-            {
-                NumberOfDices = attackType.NumberOfDices,
-                DamageType = (DamageType)attackType.DamageType,
-                GuaranteedDamage = attackType.GuaranteedDamage,
-            });
+            mappedObject.Should().BeEquivalentTo(new AttackType(
+                (DamageType)attackType.DamageType,
+                attackType.NumberOfDices,
+                attackType.GuaranteedDamage
+            ));
         }
 
         [Fact]
@@ -159,6 +158,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Assert
             mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpc.AttackType
             {
+                DamageType = attackType.DamageType,
                 GuaranteedDamage = attackType.GuaranteedDamage,
                 NumberOfDices = attackType.NumberOfDices
             });
@@ -197,8 +197,9 @@ namespace Mithrill.MonsterBook.Application.Tests
                 NameHu = weapon.NameHu,
                 AttackType = new Npc.Query.GetGeneratedNpc.AttackType
                 {
+                    DamageType = weapon.AttackType.DamageType,
                     GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
-                    NumberOfDices = weapon.AttackType.NumberOfDices
+                    NumberOfDices = weapon.AttackType.NumberOfDices,
                 }
             });
         }
@@ -245,6 +246,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = generatedCreature.Weapons.First().NameHu,
                         AttackType = new Npc.Query.GetGeneratedNpc.AttackType
                         {
+                            DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
                             GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
                             NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                         } 
@@ -300,6 +302,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 NameHu = weapon.NameHu,
                 AttackType = new Npc.Query.GetGeneratedNpc.AttackType
                 {
+                    DamageType = weapon.AttackType.DamageType,
                     GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
                     NumberOfDices = weapon.AttackType.NumberOfDices
                 }
@@ -348,6 +351,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = generatedCreature.Weapons.First().NameHu,
                         AttackType = new Npc.Query.GetGeneratedNpc.AttackType
                         {
+                            DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
                             GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
                             NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                         } 
@@ -367,6 +371,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             //Assert
             mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.AttackType
             {
+                DamageType = attackType.DamageType,
                 GuaranteedDamage = attackType.GuaranteedDamage,
                 NumberOfDices = attackType.NumberOfDices
             });
@@ -405,6 +410,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 NameHu = weapon.NameHu,
                 AttackType = new Npc.Query.GetGeneratedNpc.AttackType
                 {
+                    DamageType = weapon.AttackType.DamageType,
                     GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
                     NumberOfDices = weapon.AttackType.NumberOfDices
                 }
@@ -487,6 +493,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                         NameHu = generatedCreature.Weapons.First().NameHu,
                         AttackType = new Npc.Query.GetGeneratedProminentNpc.AttackType
                         {
+                            DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
                             GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
                             NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                         } 

@@ -11,7 +11,6 @@ internal sealed class ValidateNpcTemplateQueryHandler : IRequestHandler<Validate
 {
     private readonly IMapper _mapper;
     private readonly IValidator<ValidateNpcTemplateQuery> _validator;
-    private const string DefaultRuleSetName = "default";
 
     public ValidateNpcTemplateQueryHandler(IMapper mapper, IValidator<ValidateNpcTemplateQuery> validator)
     {
@@ -23,7 +22,7 @@ internal sealed class ValidateNpcTemplateQueryHandler : IRequestHandler<Validate
     {
         var validationResult = await _validator.ValidateAsync(
             request,
-            options => options.IncludeRuleSets(DefaultRuleSetName, request.ValidationMode.ToString()),
+            options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, request.ValidationMode.ToString()),
             cancellationToken);
 
         return _mapper.Map<ValidationResult>(validationResult);
