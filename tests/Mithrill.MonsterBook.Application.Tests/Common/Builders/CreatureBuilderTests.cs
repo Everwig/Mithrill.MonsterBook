@@ -9,12 +9,13 @@ using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
+using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Domain;
 using Xunit;
 using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
 
-namespace Mithrill.MonsterBook.Application.Tests
+namespace Mithrill.MonsterBook.Application.Tests.Common.Builders
 {
     public class CreatureBuilderTests
     {
@@ -24,7 +25,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
         public CreatureBuilderTests()
         {
-            var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Common.Mappings.MappingProfile).Assembly));
+            var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly));
             var mapper = new Mapper(mapperConfiguration);
             _monsterBookDbContext = new TestDbContext(
                 new DbContextOptionsBuilder()
@@ -213,7 +214,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Karma.Should().Be(npcTemplate.KarmaMin-2);
+            generatedCreature.Karma.Should().Be(npcTemplate.KarmaMin - 2);
         }
 
         [Fact]
@@ -618,7 +619,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                     NameHu = npcTemplate.CharacterSkills.First().Skill.NameHu,
                     Level = 3,
                     GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
-                    Category = (Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
+                    Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
                 }
             });
         }
@@ -666,7 +667,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                     NameHu = npcTemplate.CharacterSkills.First().Skill.NameHu,
                     Level = 4,
                     GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
-                    Category = (Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
+                    Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
                 }
             });
         }
@@ -687,7 +688,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _creatureBuilder.GetNpc();
 
             //Assert
-            generatedCreature.Merits.Should().BeEquivalentTo(new []
+            generatedCreature.Merits.Should().BeEquivalentTo(new[]
             {
                 new Domain.Merit
                 {
@@ -734,7 +735,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
             //Assert
             generatedCreature.Merits.Count().Should().Be(2);
-            generatedCreature.Merits.Should().BeEquivalentTo(new []
+            generatedCreature.Merits.Should().BeEquivalentTo(new[]
             {
                 new Domain.Merit
                 {

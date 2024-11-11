@@ -1,3 +1,5 @@
-﻿namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
+﻿using Mithrill.MonsterBook.Application.Common;
 
-public record Merit (int Id, bool IsOptional);
+namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
+
+public record Merit (int Id, bool IsOptional) : AggregateRoot<int>(Id);

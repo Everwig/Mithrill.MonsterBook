@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public class Merit : IMapTo<CharacterMerit>
+public record Merit(int Id, bool IsOptional) : AggregateRoot<int> (Id), IMapTo<CharacterMerit>
 {
-    public int Id { get; set; }
-    public bool IsOptional { get; set; }
-
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Merit, CharacterMerit>()

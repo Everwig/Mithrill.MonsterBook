@@ -4,14 +4,13 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public class Armor : IMapTo<MonsterBook.Domain.CharacterArmor>
+public record Armor(
+    int Id,
+    Material Material,
+    int AdditionalArmorClass,
+    int AdditionalMovementInhibitoryFactor,
+    bool IsOptional) : IMapTo<MonsterBook.Domain.CharacterArmor>
 {
-    public int Id { get; set; }
-    public Material Material { get; set; }
-    public int AdditionalArmorClass { get; set; }
-    public int AdditionalMovementInhibitoryFactor { get; set; }
-    public bool IsOptional { get; set; }
-
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Armor, MonsterBook.Domain.CharacterArmor>()

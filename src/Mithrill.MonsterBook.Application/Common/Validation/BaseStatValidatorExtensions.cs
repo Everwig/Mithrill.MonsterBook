@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentValidation;
 using Mithrill.MonsterBook.Application.Common.Adapters;
-using Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
 namespace Mithrill.MonsterBook.Application.Common.Validation
 {
@@ -43,20 +41,29 @@ namespace Mithrill.MonsterBook.Application.Common.Validation
                 .WithErrorCode("IdValidator")
                 .WithMessage((_, id) => $"Template with '{id}' does not exist");
 
-        public static IRuleBuilderOptions<T, IEnumerable<Flaw>> FlawValidation<T>(
-            this IRuleBuilderInitial<T, IEnumerable<Flaw>> rule,
+        public static IRuleBuilderOptions<T, int> NpcTemplateIdValidation<T>(
+            this IRuleBuilderInitial<T, int> rule,
             ITemplateValidatorService templateValidatorService) =>
-            rule.ForEach(flaws => flaws.MustAsync((flaw, cancellationToken) =>
-                        templateValidatorService.IsValidFlawId(flaw.Id, cancellationToken))
-                    .WithErrorCode("FlawValidator")
-                    .WithMessage((_, flaw) => $"Flaw with id '{flaw.Id}' doesn't exist."));
+            rule.MustAsync(templateValidatorService.IsValidTemplateId)
+                .WithErrorCode("IdValidator")
+                .WithMessage((_, id) => $"Template with '{id}' does not exist");
 
-        public static IRuleBuilderOptions<T, IEnumerable<Merit>> MeritValidation<T>(
-            this IRuleBuilderInitial<T, IEnumerable<Merit>> rule,
-            ITemplateValidatorService templateValidatorService) =>
-            rule.ForEach(merits => merits.MustAsync((flaw, cancellationToken) =>
-                        templateValidatorService.IsValidMeritId(flaw.Id, cancellationToken))
-                    .WithErrorCode("MeritValidator")
-                    .WithMessage((_, merit) => $"Merit with id '{merit.Id}' doesn't exist."));
+        public static IRuleBuilderOptions<IEnumerable<T>, T> MeritValidation<T>(
+            this IRuleBuilderInitialCollection<IEnumerable<T>, T> rule,
+            ITemplateValidatorService templateValidatorService)
+            where T : AggregateRoot<int> =>
+            rule.MustAsync((merit, cancellationToken) =>
+                    templateValidatorService.IsValidMeritId(merit.Id, cancellationToken))
+                .WithErrorCode("MeritValidator")
+                .WithMessage((_, merit) => $"Merit with id '{merit.Id}' doesn't exist.");
+
+        public static IRuleBuilderOptions<IEnumerable<T>, T> FlawValidation<T>(
+            this IRuleBuilderInitialCollection<IEnumerable<T>, T> rule,
+            ITemplateValidatorService templateValidatorService)
+            where T : AggregateRoot<int> =>
+            rule.MustAsync((merit, cancellationToken) =>
+                    templateValidatorService.IsValidMeritId(merit.Id, cancellationToken))
+                .WithErrorCode("FlawValidator")
+                .WithMessage((_, flaw) => $"Flaw with id '{flaw.Id}' doesn't exist.");
     }
 }

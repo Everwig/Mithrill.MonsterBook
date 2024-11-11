@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 
-public class Flaw : IMapTo<CharacterFlaw>
+public record Flaw(int Id, bool IsOptional) : AggregateRoot<int>(Id), IMapTo<CharacterFlaw>
 {
-    public int Id { get; set; }
-    public bool IsOptional { get; set; }
-
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Flaw, CharacterFlaw>()

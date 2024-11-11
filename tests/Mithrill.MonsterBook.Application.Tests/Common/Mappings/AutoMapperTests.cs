@@ -5,9 +5,11 @@ using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
 using Xunit;
 
-namespace Mithrill.MonsterBook.Application.Tests
+namespace Mithrill.MonsterBook.Application.Tests.Common.Mappings
 {
     public class AutoMapperTests
     {
@@ -16,18 +18,18 @@ namespace Mithrill.MonsterBook.Application.Tests
 
         public AutoMapperTests()
         {
-            var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Common.Mappings.MappingProfile).Assembly));
+            var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly));
             _mapper = new Mapper(mapperConfiguration);
 
             _fixture = new Fixture();
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
                 .ForEach(b => _fixture.Behaviors.Remove(b));
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-            _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IMeritFlaw), typeof(Domain.Merit)));
-            _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IMeritFlaw), typeof(Domain.Flaw)));
-            _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IWeapon), typeof(Domain.Weapon)));
-            _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.IAttackType), typeof(AttackType)));
-            _fixture.Customizations.Add(new TypeRelay(typeof(Common.Adapters.ISkill), typeof(Domain.Skill)));
+            _fixture.Customizations.Add(new TypeRelay(typeof(IMeritFlaw), typeof(Domain.Merit)));
+            _fixture.Customizations.Add(new TypeRelay(typeof(IMeritFlaw), typeof(Domain.Flaw)));
+            _fixture.Customizations.Add(new TypeRelay(typeof(IWeapon), typeof(Domain.Weapon)));
+            _fixture.Customizations.Add(new TypeRelay(typeof(IAttackType), typeof(AttackType)));
+            _fixture.Customizations.Add(new TypeRelay(typeof(ISkill), typeof(Domain.Skill)));
             _fixture.RepeatCount = 1;
         }
 
@@ -78,7 +80,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Tertiary = (SkillCategory)creatureSkillCategories.Tertiary
             });
         }
-        
+
         [Fact]
         public void DomainFlaw_To_ApplicationDomainFlaw()
         {
@@ -95,7 +97,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 NameHu = flaw.NameHu
             });
         }
-        
+
         [Fact]
         public void DomainMerit_To_ApplicationDomainMerit()
         {
@@ -112,7 +114,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 NameHu = merit.NameHu
             });
         }
-        
+
         [Fact]
         public void DomainSkill_To_ApplicationDomainSkill()
         {
@@ -131,7 +133,7 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Category = (SkillCategory)skill.Category
             });
         }
-        
+
         [Fact]
         public void DomainWeapon_To_ApplicationDomainWeapon()
         {
@@ -148,15 +150,15 @@ namespace Mithrill.MonsterBook.Application.Tests
                 NameHu = weapon.NameHu
             });
         }
-        
+
         [Theory, AutoData]
         internal void ApplicationDomainAttackType_To_GeneratedNpcAttackType(AttackType attackType)
         {
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpc.AttackType>(attackType);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.AttackType>(attackType);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpc.AttackType
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.AttackType
             {
                 DamageType = attackType.DamageType,
                 GuaranteedDamage = attackType.GuaranteedDamage,
@@ -168,10 +170,10 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainSkill_To_GeneratedNpcSkill(Domain.Skill skill)
         {
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpc.Skill>(skill);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.Skill>(skill);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpc.Skill
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.Skill
             {
                 Name = skill.Name,
                 NameHu = skill.NameHu,
@@ -188,14 +190,14 @@ namespace Mithrill.MonsterBook.Application.Tests
             var weapon = _fixture.Create<Domain.Weapon>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpc.Weapon>(weapon);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.Weapon>(weapon);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpc.Weapon
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.Weapon
             {
                 Name = weapon.Name,
                 NameHu = weapon.NameHu,
-                AttackType = new Npc.Query.GetGeneratedNpc.AttackType
+                AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
                 {
                     DamageType = weapon.AttackType.DamageType,
                     GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
@@ -211,10 +213,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpc.GeneratedNpc>(generatedCreature);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.GeneratedNpc>(generatedCreature);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpc.GeneratedNpc
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.GeneratedNpc
             {
                 Agility = generatedCreature.Agility,
                 Body = generatedCreature.Body,
@@ -228,9 +230,9 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Strength = generatedCreature.Strength,
                 Vitality = generatedCreature.Vitality,
                 Willpower = generatedCreature.Willpower,
-                Skills = new []
+                Skills = new[]
                 {
-                    new Npc.Query.GetGeneratedNpc.Skill
+                    new Application.Npc.Query.GetGeneratedNpc.Skill
                     {
                         Name = generatedCreature.Skills.First().Name,
                         Level = generatedCreature.Skills.First().Level,
@@ -238,18 +240,18 @@ namespace Mithrill.MonsterBook.Application.Tests
                         GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                     }
                 },
-                Weapons = new []
+                Weapons = new[]
                 {
-                    new Npc.Query.GetGeneratedNpc.Weapon
+                    new Application.Npc.Query.GetGeneratedNpc.Weapon
                     {
                         Name = generatedCreature.Weapons.First().Name,
                         NameHu = generatedCreature.Weapons.First().NameHu,
-                        AttackType = new Npc.Query.GetGeneratedNpc.AttackType
+                        AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
                         {
                             DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
                             GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
                             NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
-                        } 
+                        }
                     }
                 }
             });
@@ -259,10 +261,10 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainAttackType_To_GeneratedNpcWithKarmaAttackType(AttackType attackType)
         {
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpcWithKarma.AttackType>(attackType);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType>(attackType);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpcWithKarma.AttackType
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType
             {
                 GuaranteedDamage = attackType.GuaranteedDamage,
                 NumberOfDices = attackType.NumberOfDices
@@ -273,10 +275,10 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainSkill_To_GetGeneratedNpcWithKarmaSkill(Domain.Skill skill)
         {
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpcWithKarma.Skill>(skill);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.Skill>(skill);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpcWithKarma.Skill
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.Skill
             {
                 Name = skill.Name,
                 NameHu = skill.NameHu,
@@ -293,14 +295,14 @@ namespace Mithrill.MonsterBook.Application.Tests
             var weapon = _fixture.Create<Domain.Weapon>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpcWithKarma.Weapon>(weapon);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon>(weapon);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpcWithKarma.Weapon
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon
             {
                 Name = weapon.Name,
                 NameHu = weapon.NameHu,
-                AttackType = new Npc.Query.GetGeneratedNpc.AttackType
+                AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
                 {
                     DamageType = weapon.AttackType.DamageType,
                     GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
@@ -316,10 +318,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma>(generatedCreature);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma>(generatedCreature);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma
             {
                 Agility = generatedCreature.Agility,
                 Body = generatedCreature.Body,
@@ -333,9 +335,9 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Strength = generatedCreature.Strength,
                 Vitality = generatedCreature.Vitality,
                 Willpower = generatedCreature.Willpower,
-                Skills = new []
+                Skills = new[]
                 {
-                    new Npc.Query.GetGeneratedNpc.Skill
+                    new Application.Npc.Query.GetGeneratedNpc.Skill
                     {
                         Name = generatedCreature.Skills.First().Name,
                         Level = generatedCreature.Skills.First().Level,
@@ -343,18 +345,18 @@ namespace Mithrill.MonsterBook.Application.Tests
                         GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                     }
                 },
-                Weapons = new []
+                Weapons = new[]
                 {
-                    new Npc.Query.GetGeneratedNpc.Weapon
+                    new Application.Npc.Query.GetGeneratedNpc.Weapon
                     {
                         Name = generatedCreature.Weapons.First().Name,
                         NameHu = generatedCreature.Weapons.First().NameHu,
-                        AttackType = new Npc.Query.GetGeneratedNpc.AttackType
+                        AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
                         {
                             DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
                             GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
                             NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
-                        } 
+                        }
                     }
                 },
                 PowerPoint = generatedCreature.PowerPoint,
@@ -366,10 +368,10 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainAttackType_To_GeneratedProminentNpcAttackType(AttackType attackType)
         {
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.AttackType>(attackType);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.AttackType>(attackType);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.AttackType
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.AttackType
             {
                 DamageType = attackType.DamageType,
                 GuaranteedDamage = attackType.GuaranteedDamage,
@@ -381,10 +383,10 @@ namespace Mithrill.MonsterBook.Application.Tests
         internal void ApplicationDomainSkill_To_GeneratedProminentNpcSkill(Domain.Skill skill)
         {
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.Skill>(skill);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Skill>(skill);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.Skill
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Skill
             {
                 Name = skill.Name,
                 NameHu = skill.NameHu,
@@ -401,14 +403,14 @@ namespace Mithrill.MonsterBook.Application.Tests
             var weapon = _fixture.Create<Domain.Weapon>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.Weapon>(weapon);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Weapon>(weapon);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.Weapon
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Weapon
             {
                 Name = weapon.Name,
                 NameHu = weapon.NameHu,
-                AttackType = new Npc.Query.GetGeneratedNpc.AttackType
+                AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
                 {
                     DamageType = weapon.AttackType.DamageType,
                     GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
@@ -424,16 +426,16 @@ namespace Mithrill.MonsterBook.Application.Tests
             var flaw = _fixture.Create<Domain.Flaw>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.Flaw>(flaw);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Flaw>(flaw);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.Flaw
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Flaw
             {
                 Name = flaw.Name,
                 NameHu = flaw.NameHu
             });
         }
-        
+
         [Fact]
         public void ApplicationDomainMerit_To_GeneratedProminentNpcMerit()
         {
@@ -441,10 +443,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             var merit = _fixture.Create<Domain.Merit>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.Merit>(merit);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Merit>(merit);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.Merit
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Merit
             {
                 Name = merit.Name,
                 NameHu = merit.NameHu
@@ -458,10 +460,10 @@ namespace Mithrill.MonsterBook.Application.Tests
             var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
             //Act
-            var mappedObject = _mapper.Map<Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc>(generatedCreature);
+            var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc>(generatedCreature);
 
             //Assert
-            mappedObject.Should().BeEquivalentTo(new Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc
+            mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc
             {
                 Agility = generatedCreature.Agility,
                 Body = generatedCreature.Body,
@@ -475,9 +477,9 @@ namespace Mithrill.MonsterBook.Application.Tests
                 Strength = generatedCreature.Strength,
                 Vitality = generatedCreature.Vitality,
                 Willpower = generatedCreature.Willpower,
-                Skills = new []
+                Skills = new[]
                 {
-                    new Npc.Query.GetGeneratedProminentNpc.Skill
+                    new Application.Npc.Query.GetGeneratedProminentNpc.Skill
                     {
                         Name = generatedCreature.Skills.First().Name,
                         Level = generatedCreature.Skills.First().Level,
@@ -485,31 +487,31 @@ namespace Mithrill.MonsterBook.Application.Tests
                         GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                     }
                 },
-                Weapons = new []
+                Weapons = new[]
                 {
-                    new Npc.Query.GetGeneratedProminentNpc.Weapon
+                    new Application.Npc.Query.GetGeneratedProminentNpc.Weapon
                     {
                         Name = generatedCreature.Weapons.First().Name,
                         NameHu = generatedCreature.Weapons.First().NameHu,
-                        AttackType = new Npc.Query.GetGeneratedProminentNpc.AttackType
+                        AttackType = new Application.Npc.Query.GetGeneratedProminentNpc.AttackType
                         {
                             DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
                             GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
                             NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
-                        } 
+                        }
                     }
                 },
-                Flaws = new []
+                Flaws = new[]
                 {
-                    new Npc.Query.GetGeneratedProminentNpc.Flaw
+                    new Application.Npc.Query.GetGeneratedProminentNpc.Flaw
                     {
                         Name = generatedCreature.Flaws.First().Name,
                         NameHu = generatedCreature.Flaws.First().NameHu
                     }
                 },
-                Merits = new []
+                Merits = new[]
                 {
-                    new Npc.Query.GetGeneratedProminentNpc.Merit
+                    new Application.Npc.Query.GetGeneratedProminentNpc.Merit
                     {
                         Name = generatedCreature.Merits.First().Name,
                         NameHu = generatedCreature.Merits.First().NameHu

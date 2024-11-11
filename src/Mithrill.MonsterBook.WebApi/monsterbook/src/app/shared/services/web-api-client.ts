@@ -2533,11 +2533,10 @@ export interface ICreateNpcTemplateCommand {
     weapons: Weapon2[];
 }
 
-export class Merit3 implements IMerit3 {
+export class AggregateRootOfInteger implements IAggregateRootOfInteger {
     id!: number;
-    isOptional!: boolean;
 
-    constructor(data?: IMerit3) {
+    constructor(data?: IAggregateRootOfInteger) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2549,67 +2548,90 @@ export class Merit3 implements IMerit3 {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): AggregateRootOfInteger {
+        data = typeof data === 'object' ? data : {};
+        let result = new AggregateRootOfInteger();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IAggregateRootOfInteger {
+    id: number;
+}
+
+export class Merit3 extends AggregateRootOfInteger implements IMerit3 {
+    isOptional!: boolean;
+
+    constructor(data?: IMerit3) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
             this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Merit3 {
+    static override fromJS(data: any): Merit3 {
         data = typeof data === 'object' ? data : {};
         let result = new Merit3();
         result.init(data);
         return result;
     }
 
-    toJSON(data?: any) {
+    override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["isOptional"] = this.isOptional;
+        super.toJSON(data);
         return data;
     }
 }
 
-export interface IMerit3 {
-    id: number;
+export interface IMerit3 extends IAggregateRootOfInteger {
     isOptional: boolean;
 }
 
-export class Flaw3 implements IFlaw3 {
-    id!: number;
+export class Flaw3 extends AggregateRootOfInteger implements IFlaw3 {
     isOptional!: boolean;
 
     constructor(data?: IFlaw3) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
+        super(data);
     }
 
-    init(_data?: any) {
+    override init(_data?: any) {
+        super.init(_data);
         if (_data) {
-            this.id = _data["id"];
             this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Flaw3 {
+    static override fromJS(data: any): Flaw3 {
         data = typeof data === 'object' ? data : {};
         let result = new Flaw3();
         result.init(data);
         return result;
     }
 
-    toJSON(data?: any) {
+    override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["isOptional"] = this.isOptional;
+        super.toJSON(data);
         return data;
     }
 }
 
-export interface IFlaw3 {
-    id: number;
+export interface IFlaw3 extends IAggregateRootOfInteger {
     isOptional: boolean;
 }
 
@@ -3029,83 +3051,69 @@ export interface INpcTemplate2 {
     weapons: Weapon3[];
 }
 
-export class Merit4 implements IMerit4 {
-    id!: number;
+export class Merit4 extends AggregateRootOfInteger implements IMerit4 {
     isOptional!: boolean;
 
     constructor(data?: IMerit4) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
+        super(data);
     }
 
-    init(_data?: any) {
+    override init(_data?: any) {
+        super.init(_data);
         if (_data) {
-            this.id = _data["id"];
             this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Merit4 {
+    static override fromJS(data: any): Merit4 {
         data = typeof data === 'object' ? data : {};
         let result = new Merit4();
         result.init(data);
         return result;
     }
 
-    toJSON(data?: any) {
+    override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["isOptional"] = this.isOptional;
+        super.toJSON(data);
         return data;
     }
 }
 
-export interface IMerit4 {
-    id: number;
+export interface IMerit4 extends IAggregateRootOfInteger {
     isOptional: boolean;
 }
 
-export class Flaw4 implements IFlaw4 {
-    id!: number;
+export class Flaw4 extends AggregateRootOfInteger implements IFlaw4 {
     isOptional!: boolean;
 
     constructor(data?: IFlaw4) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
+        super(data);
     }
 
-    init(_data?: any) {
+    override init(_data?: any) {
+        super.init(_data);
         if (_data) {
-            this.id = _data["id"];
             this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Flaw4 {
+    static override fromJS(data: any): Flaw4 {
         data = typeof data === 'object' ? data : {};
         let result = new Flaw4();
         result.init(data);
         return result;
     }
 
-    toJSON(data?: any) {
+    override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["isOptional"] = this.isOptional;
+        super.toJSON(data);
         return data;
     }
 }
 
-export interface IFlaw4 {
-    id: number;
+export interface IFlaw4 extends IAggregateRootOfInteger {
     isOptional: boolean;
 }
 
@@ -3613,83 +3621,69 @@ export interface INpcTemplate3 {
     weapons: Weapon4[];
 }
 
-export class Merit5 implements IMerit5 {
-    id!: number;
+export class Merit5 extends AggregateRootOfInteger implements IMerit5 {
     isOptional!: boolean;
 
     constructor(data?: IMerit5) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
+        super(data);
     }
 
-    init(_data?: any) {
+    override init(_data?: any) {
+        super.init(_data);
         if (_data) {
-            this.id = _data["id"];
             this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Merit5 {
+    static override fromJS(data: any): Merit5 {
         data = typeof data === 'object' ? data : {};
         let result = new Merit5();
         result.init(data);
         return result;
     }
 
-    toJSON(data?: any) {
+    override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["isOptional"] = this.isOptional;
+        super.toJSON(data);
         return data;
     }
 }
 
-export interface IMerit5 {
-    id: number;
+export interface IMerit5 extends IAggregateRootOfInteger {
     isOptional: boolean;
 }
 
-export class Flaw5 implements IFlaw5 {
-    id!: number;
+export class Flaw5 extends AggregateRootOfInteger implements IFlaw5 {
     isOptional!: boolean;
 
     constructor(data?: IFlaw5) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
+        super(data);
     }
 
-    init(_data?: any) {
+    override init(_data?: any) {
+        super.init(_data);
         if (_data) {
-            this.id = _data["id"];
             this.isOptional = _data["isOptional"];
         }
     }
 
-    static fromJS(data: any): Flaw5 {
+    static override fromJS(data: any): Flaw5 {
         data = typeof data === 'object' ? data : {};
         let result = new Flaw5();
         result.init(data);
         return result;
     }
 
-    toJSON(data?: any) {
+    override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
         data["isOptional"] = this.isOptional;
+        super.toJSON(data);
         return data;
     }
 }
 
-export interface IFlaw5 {
-    id: number;
+export interface IFlaw5 extends IAggregateRootOfInteger {
     isOptional: boolean;
 }
 

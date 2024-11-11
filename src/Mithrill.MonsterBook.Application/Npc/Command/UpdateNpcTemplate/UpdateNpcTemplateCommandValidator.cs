@@ -3,24 +3,23 @@ using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Validation;
 
-namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate
+namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate
 {
-    public sealed class ValidateNpcTemplateQueryValidator : AbstractValidator<ValidateNpcTemplateQuery>
+    public class UpdateNpcTemplateCommandValidator : AbstractValidator<UpdateNpcTemplateCommand>
     {
-        public ValidateNpcTemplateQueryValidator(ITemplateValidatorService templateValidatorService)
+        public UpdateNpcTemplateCommandValidator(ITemplateValidatorService templateValidatorService)
         {
+
             RuleFor(query => query.NpcTemplate)
                 .SetValidator(new NpcTemplateValidator(templateValidatorService));
         }
+
 
         public sealed class NpcTemplateValidator : AbstractValidator<NpcTemplate>
         {
             public NpcTemplateValidator(ITemplateValidatorService templateValidatorService)
             {
-                RuleSet(ValidationMode.Create.ToString(), () => RuleFor(npcTemplate => npcTemplate.Id).Null());
-                RuleSet(ValidationMode.Edit.ToString(), () => RuleFor(npcTemplate => npcTemplate.Id)
-                    .NpcTemplateIdValidation(templateValidatorService));
-
+                RuleFor(npcTemplate => npcTemplate.Id).NpcTemplateIdValidation(templateValidatorService);
                 RuleFor(npcTemplate => npcTemplate.StrengthMax).AttributeValidation();
                 RuleFor(npcTemplate => npcTemplate.StrengthMin).AttributeValidation();
                 RuleFor(npcTemplate => npcTemplate.VitalityMax).AttributeValidation();

@@ -74,11 +74,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
         [HttpPatch("UpdateTemplate/{id:int}")]
         public async Task UpdateTemplate(int id, UpdateNpcTemplate npcTemplate, CancellationToken cancellationToken)
         {
-            await Mediator.Send(new UpdateNpcTemplateCommand
-            {
-                Id = id,
-                NpcTemplate = npcTemplate
-            }, cancellationToken);
+            await Mediator.Send(new UpdateNpcTemplateCommand(id, npcTemplate), cancellationToken);
         }
 
         [HttpDelete("DeleteTemplate/{id:int}")]

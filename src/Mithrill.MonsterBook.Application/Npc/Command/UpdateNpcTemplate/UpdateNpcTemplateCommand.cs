@@ -1,10 +1,5 @@
 ﻿using MediatR;
 
-namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate
-{
-    public class UpdateNpcTemplateCommand : IRequest
-    {
-        public int Id { get; set; }
-        public NpcTemplate NpcTemplate { get; set; }
-    }
-}
+namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
+
+public record UpdateNpcTemplateCommand(int Id, NpcTemplate NpcTemplate) : IRequest;

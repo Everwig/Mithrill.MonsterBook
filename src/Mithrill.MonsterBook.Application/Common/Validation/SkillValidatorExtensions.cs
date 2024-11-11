@@ -13,9 +13,23 @@ public static class SkillValidatorExtensions
     public const int MinSuccess = 0;
     public const int MaxSuccess = 5;
 
-    public static IRuleBuilderOptions<Skill, Skill> LevelValidation(
-        this IRuleBuilderInitial<Skill, Skill> rule) =>
-        rule.Must(skill => skill.MinLevel <= skill.MaxLevel)
+    public static IRuleBuilderOptions<T, T> LevelValidation<T>(
+        this IRuleBuilderInitial<T, T> rule) =>
+        rule.Must(skill =>
+            {
+                var properties = skill.GetType().GetProperties();
+                var minLevel = (int)properties.Single(property => property.Name.Equals(nameof(Skill.MinLevel))).GetValue(skill)!;
+                var maxLevel = (int)properties.Single(property => property.Name.Equals(nameof(Skill.MaxLevel))).GetValue(skill)!;
+
+                return minLevel <= maxLevel;
+            })
+            .When(skill =>
+                {
+                    var propertyNames = skill.GetType().GetProperties().Select(property => property.Name).ToList();
+                    return propertyNames.Contains(nameof(Skill.MinLevel)) &&
+                           propertyNames.Contains(nameof(Skill.MaxLevel));
+                },
+                ApplyConditionTo.CurrentValidator)
             .WithErrorCode("SkillLevelValidator")
             .WithMessage("'Min Level' must be lower or equal to 'Max Level'");
 

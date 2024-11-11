@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public class Skill : IMapTo<CharacterSkill>
+public record Skill(
+    int Id,
+    int MinLevel,
+    int MaxLevel,
+    int GuaranteedSuccesses,
+    bool IsOptional) : IMapTo<CharacterSkill>
 {
-    public int Id { get; set; }
-    public int MinLevel { get; set; }
-    public int MaxLevel { get; set; }
-    public int GuaranteedSuccesses { get; set; }
-    public bool IsOptional { get; set; }
-
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Skill, CharacterSkill>()

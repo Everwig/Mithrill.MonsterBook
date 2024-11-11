@@ -7,20 +7,15 @@ using Material = Mithrill.MonsterBook.Application.Common.Material;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public class Weapon : IMapTo<MonsterBook.Domain.CharacterWeapon>
+public record Weapon(
+    int Id,
+    Material Material,
+    int AdditionalAttackModifier,
+    int AdditionalDefenseModifier,
+    int AdditionalInitiativeModifier,
+    bool IsOptional,
+    HashSet<AttackType> AdditionalAttackTypes) : IMapTo<MonsterBook.Domain.CharacterWeapon>
 {
-    public Weapon()
-    {
-        AdditionalAttackTypes = new List<AttackType>();
-    }
-
-    public int Id { get; set; }
-    public Material Material { get; set; }
-    public int AdditionalAttackModifier { get; set; }
-    public int AdditionalDefenseModifier { get; set; }
-    public int AdditionalInitiativeModifier { get; set; }
-    public bool IsOptional { get; set; }
-    public IEnumerable<AttackType> AdditionalAttackTypes { get; set; }
 
     public void Mapping(Profile profile)
     {
@@ -33,7 +28,7 @@ public class Weapon : IMapTo<MonsterBook.Domain.CharacterWeapon>
     }
 }
 
-public class CustomAttackTypeMapping : IValueResolver<Weapon, MonsterBook.Domain.CharacterWeapon, ICollection<MonsterBook.Domain.CharacterWeaponAttackType>>
+internal class CustomAttackTypeMapping : IValueResolver<Weapon, MonsterBook.Domain.CharacterWeapon, ICollection<MonsterBook.Domain.CharacterWeaponAttackType>>
 {
     public ICollection<MonsterBook.Domain.CharacterWeaponAttackType> Resolve(Weapon source, MonsterBook.Domain.CharacterWeapon destination, ICollection<MonsterBook.Domain.CharacterWeaponAttackType> destMember, ResolutionContext context)
     {

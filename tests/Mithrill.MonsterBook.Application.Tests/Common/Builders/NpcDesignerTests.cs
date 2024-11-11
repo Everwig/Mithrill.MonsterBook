@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
+using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Application.Domain;
 using Xunit;
 
-namespace Mithrill.MonsterBook.Application.Tests
+namespace Mithrill.MonsterBook.Application.Tests.Common.Builders
 {
     public class NpcDesignerTests
     {
@@ -20,7 +21,7 @@ namespace Mithrill.MonsterBook.Application.Tests
 
         public NpcDesignerTests()
         {
-            var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Common.Mappings.MappingProfile).Assembly));
+            var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly));
             var mapper = new Mapper(mapperConfiguration);
             _monsterBookDbContext = new TestDbContext(
                 new DbContextOptionsBuilder()
@@ -82,7 +83,7 @@ namespace Mithrill.MonsterBook.Application.Tests
             await _monsterBookDbContext.SaveChangesAsync(CancellationToken.None);
 
             //Act
-            await _npcDesigner.DesignNpcWithKarmaAsync(1, false,false, null, CancellationToken.None);
+            await _npcDesigner.DesignNpcWithKarmaAsync(1, false, false, null, CancellationToken.None);
             var c = _npcDesigner.GetNpc();
 
             //Assert

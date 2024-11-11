@@ -47,13 +47,13 @@ namespace Mithrill.MonsterBook.Application.Common.Mappings
         {
             if (!IsRecordType(mapType))
             {
-                return Activator.CreateInstance(mapType);
+                return mapType == typeof(string) ? string.Empty : Activator.CreateInstance(mapType);
             }
 
             var constructorInfo = mapType.GetTypeInfo().DeclaredConstructors.First();
             
             return constructorInfo.Invoke(constructorInfo.GetParameters()
-                .Select(parameter => Activator.CreateInstance(parameter.ParameterType))
+                .Select(parameter => CreateInstance(parameter.ParameterType))
                 .ToArray());
         }
 
