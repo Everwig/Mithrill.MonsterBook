@@ -12,6 +12,8 @@ import { Flaw } from '../models/flaw.model';
 import { Merit } from '../models/merit.model';
 import { Skill } from '../models/skill.model';
 import { AttackType } from '../models/attack-type.model';
+import { ValidationResult } from '../../shared/models/validation-result.model';
+import { ValidationError } from '../../shared/models/validation-error.model';
 
 export const npcsFeatureKey = 'npcs';
 
@@ -47,6 +49,7 @@ export interface NpcTemplateState {
   hitPointMax: number;
   powerPointMin: number;
   powerPointMax: number;
+  validationResult: ValidationResult | undefined;
 }
 
 const initialState: NpcsState = {
@@ -78,7 +81,8 @@ const initialState: NpcsState = {
     manaPointMax: 0,
     manaPointMin: 0,
     hitPointMax: 0,
-    hitPointMin: 0
+    hitPointMin: 0,
+    validationResult: undefined
   }
 }
 
@@ -255,7 +259,7 @@ export const reducer = createReducer(
     ...state,
     npcTemplate: {
       ...state.npcTemplate,
-      errors: action.validationResult
+      validationResult: action.validationResult
     }
   }))
 );

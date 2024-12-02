@@ -31,8 +31,9 @@ public record NpcTemplate(
     Race Race,
     Difficulty Difficulty,
     SkillCategories? SkillCategories,
+    ArcanumRanks? ArcanumRanks,
     HashSet<Merit> Merits,
     HashSet<Flaw> Flaws,
     HashSet<Skill> Skills,
     IEnumerable<Armor> Armors,
-    IEnumerable<Weapon> Weapons);
+    IEnumerable<Weapon> Weapons) : IRanks;

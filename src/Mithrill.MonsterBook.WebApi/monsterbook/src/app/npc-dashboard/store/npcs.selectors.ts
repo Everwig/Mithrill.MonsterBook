@@ -87,3 +87,8 @@ export const npcTemplateSelector = createSelector(
   npcsFeatureState,
   (state: fromNpcsReducer.NpcsState) => state.npcTemplate.template
 );
+
+export const validationResult = createSelector(
+  npcsFeatureState,
+  (state: fromNpcsReducer.NpcsState) => state.npcTemplate.validationResult
+);

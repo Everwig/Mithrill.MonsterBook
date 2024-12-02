@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
@@ -8,6 +10,7 @@ namespace Mithrill.MonsterBook.Application.Common.Validation;
 internal sealed class TemplateValidatorService : ITemplateValidatorService
 {
     private readonly IMonsterBookDbContext _monsterBookDbContext;
+    private const string WizardingUniversity = "Wizarding university";
 
     public TemplateValidatorService(IMonsterBookDbContext monsterBookDbContext)
     {
@@ -39,4 +42,9 @@ internal sealed class TemplateValidatorService : ITemplateValidatorService
     public async Task<bool> IsValidWeaponId(int id, CancellationToken cancellationToken) =>
         await _monsterBookDbContext.Weapons.SingleOrDefaultAsync(merit => merit.Id == id, cancellationToken)
             is not null;
+
+    public async Task<bool> HasWizardingUniversityMerit(IEnumerable<AggregateRoot<int>> merits, CancellationToken cancellationToken) =>
+        await _monsterBookDbContext.Merits
+            .Where(merit => merits.Any(merit => merit.Id == merit.Id))
+            .AnyAsync(merit => merit.Name == WizardingUniversity, cancellationToken);
 }

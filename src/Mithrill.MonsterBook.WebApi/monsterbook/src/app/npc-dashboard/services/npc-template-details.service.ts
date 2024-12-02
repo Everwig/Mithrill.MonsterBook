@@ -437,9 +437,9 @@ export class NpcTemplateDetailsService {
       }));
   }
 
-  validateTemplate(npcTemplate: NpcTemplate, detailsViewMode: DetailsViewMode): Observable<ValidationResult> {
+  validateTemplate(npcTemplate: NpcTemplate, isNew: boolean): Observable<ValidationResult> {
     return this.npcsClient.validate(new ValidateNpcTemplateQuery({
-      validationMode: detailsViewMode === DetailsViewMode.Create ? ValidationMode.Create : ValidationMode.Edit,
+      validationMode: isNew ? ValidationMode.Create : ValidationMode.Edit,
       npcTemplate: new ValidateNpcTemplate({
         id: npcTemplate.id,
         agilityMax: npcTemplate.agilityMax,

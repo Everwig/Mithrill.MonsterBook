@@ -1,7 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -34,6 +34,7 @@ import { AttackType } from '../models/attack-type.model';
 import { SkillCategories } from '../../core/model/skill-categories.model';
 import { CategoryNumber } from '../../core/model/category-number.model';
 import { Arcanum } from '../../core/model/arcanum.model';
+import { ValidationResult } from '../../shared/models/validation-result.model';
 
 @Component({
   selector: 'app-npc-template-details',
@@ -74,7 +75,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
   selectedArmor: Armor | undefined;
   selectedDamageType: AttackType | undefined;
   npcTemplateDetails: FormGroup;
-  npcTemplateDetailsMode: DetailsViewMode;
+  npcTemplateDetailsMode: DetailsViewMode = DetailsViewMode.Create;
   race = Race;
   difficulty = Difficulty;
   menuToggle: boolean = false;
@@ -92,15 +93,20 @@ export class NpcTemplateDetailsComponent implements OnInit {
   readonly powerPointMin$: Observable<number>;
   readonly powerPointMax$: Observable<number>;
   readonly npcTemplate$: Observable<NpcTemplate | undefined>;
+  readonly validationResult$: Observable<ValidationResult | undefined>;
   readonly categoryNumbers = CategoryNumber;
   private readonly timeOut = 150;
-  private readonly wizardUniversity = "Wizarding university";
+  private readonly wizardingUniversity = "Wizarding university";
   private readonly magicChalice = "Magic chalice";
   private readonly undead = "Undead";
   private readonly tough = "Tough";
   private readonly arcane = "arcane";
   private readonly maxSecondarySkillCategories = 2;
   private readonly maxTertiaryArcanums = 5;
+
+  get isNewTemplate(): boolean {
+    return this.npcTemplateDetailsMode === DetailsViewMode.Create;
+  }
 
   get skills(): FormArray {
     return this.npcTemplateDetails.controls['skills'] as FormArray;
@@ -123,7 +129,6 @@ export class NpcTemplateDetailsComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private store$: Store<State>) {
-    this.npcTemplateDetailsMode = DetailsViewMode.Create;
     this.flaws$ = this.store$.select(fromNpcsSelector.flawsSelector);
     this.merits$  = this.store$.select(fromNpcsSelector.meritsSelector);
     this.armors$ = this.store$.select(fromNpcsSelector.armorsSelector);
@@ -137,30 +142,31 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.manaPointMin$ = this.store$.select(fromNpcsSelector.manaPointMin);
     this.powerPointMax$ = this.store$.select(fromNpcsSelector.powerPointMax);
     this.powerPointMin$ = this.store$.select(fromNpcsSelector.powerPointMin);
+    this.validationResult$ = this.store$.select(fromNpcsSelector.validationResult);
 
     this.npcTemplateDetails = this.formBuilder.group({
       id: new FormControl(null),
-      name: new FormControl(''),
-      strengthMax: new FormControl(1),
-      strengthMin: new FormControl(1),
-      vitalityMax: new FormControl(1),
-      vitalityMin: new FormControl(1),
-      bodyMax: new FormControl(1),
-      bodyMin: new FormControl(1),
-      agilityMax: new FormControl(1),
-      agilityMin: new FormControl(1),
-      dexterityMax: new FormControl(1),
-      dexterityMin: new FormControl(1),
-      intelligenceMax: new FormControl(1),
-      intelligenceMin: new FormControl(1),
-      willpowerMax: new FormControl(1),
-      willpowerMin: new FormControl(1),
-      emotionMax: new FormControl(1),
-      emotionMin: new FormControl(1),
-      karmaMax: new FormControl(0),
-      karmaMin: new FormControl(0),
-      race: new FormControl(Race.CivilizedHuman),
-      difficulty: new FormControl(Difficulty.Newbie),
+      name: new FormControl('', { validators: Validators.required }),
+      strengthMax: new FormControl(undefined),
+      strengthMin: new FormControl(undefined),
+      vitalityMax: new FormControl(undefined),
+      vitalityMin: new FormControl(undefined),
+      bodyMax: new FormControl(undefined),
+      bodyMin: new FormControl(undefined),
+      agilityMax: new FormControl(undefined),
+      agilityMin: new FormControl(undefined),
+      dexterityMax: new FormControl(undefined),
+      dexterityMin: new FormControl(undefined),
+      intelligenceMax: new FormControl(undefined),
+      intelligenceMin: new FormControl(undefined),
+      willpowerMax: new FormControl(undefined),
+      willpowerMin: new FormControl(undefined),
+      emotionMax: new FormControl(undefined),
+      emotionMin: new FormControl(undefined),
+      karmaMax: new FormControl(undefined),
+      karmaMin: new FormControl(undefined),
+      race: new FormControl(undefined, { validators: Validators.required }),
+      difficulty: new FormControl(undefined, { validators: Validators.required }),
       skills: new FormArray([]),
       merits: new FormArray([]),
       flaws: new FormArray([]),
@@ -172,7 +178,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
     });
 
     this.subscriptions.add(this.npcTemplateDetails.valueChanges.subscribe((npcTemplate: NpcTemplate) => this.store$.dispatch(fromNpcsActions.validateNpcTemplate({
-      detailsViewMode: this.npcTemplateDetailsMode,
+      isNew: this.isNewTemplate,
       npcTemplate: npcTemplate
     }))));
   }
@@ -184,21 +190,8 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.store$.dispatch(fromNpcsActions.loadWeapons());
     this.store$.dispatch(fromNpcsActions.loadSkills());
     this.store$.dispatch(fromNpcsActions.loadAttackTypes());
-
-    const routeSubscription = this.route.paramMap.subscribe(paramMap => {
-      const id = Number(paramMap.get('id'));
-      if (!Number.isNaN(id)) {
-        this.npcTemplateDetailsMode = DetailsViewMode.Edit;
-        this.store$.dispatch(fromNpcsActions.loadNpcTemplate({ id }));
-        this.updateFormInEditMode();
-      } else {
-        this.npcTemplateDetailsMode = DetailsViewMode.Create;
-        this.store$.dispatch(fromNpcsActions.clearTemplate());
-        this.clearForm();
-      }
-    });
-
-    this.subscriptions.add(routeSubscription);
+    this.setDetailsViewMode();
+    this.subscribeToErrors();
   }
 
   toggleMenu(): void {
@@ -291,10 +284,10 @@ export class NpcTemplateDetailsComponent implements OnInit {
         currentArcanumRanks.secondary = matSelectChange.value;
         break;
       case CategoryNumber.Tertiary:
-        if (this.tertiaryArcanum.length > 1 && !this.doesNpcHaveMagicUniversityMerit(this.npcTemplateDetails.value.merits)) {
+        if (this.tertiaryArcanum.length > 1 && !this.doesNpcHaveWizardingUniversityMerit(this.npcTemplateDetails.value.merits)) {
           this.tertiaryArcanum = [matSelectChange.value];
           currentArcanumRanks.tertiary = [matSelectChange.value]
-        } else if (this.doesNpcHaveMagicUniversityMerit(this.npcTemplateDetails.value.merits)) {
+        } else if (this.doesNpcHaveWizardingUniversityMerit(this.npcTemplateDetails.value.merits)) {
           currentArcanumRanks.tertiary = matSelectChange.value;
         } else {
           currentArcanumRanks.tertiary = [matSelectChange.value]
@@ -363,8 +356,8 @@ export class NpcTemplateDetailsComponent implements OnInit {
     setTimeout(() => this.selectedMerit = undefined, this.timeOut);
 
     if (this.npcTemplateDetails.value.arcanumRanks &&
-        this.doesNpcHaveMagicUniversityMerit([selectedMerit]) &&
-        !this.doesNpcHaveMagicUniversityMerit(templateMerits)) {
+        this.doesNpcHaveWizardingUniversityMerit([selectedMerit]) &&
+        !this.doesNpcHaveWizardingUniversityMerit(templateMerits)) {
       this.tertiaryArcanum = [...this.tertiaryArcanum, this.quaternaryArcanum!, this.quinaryArcanum!]
         .filter(arcanum => arcanum !== undefined);
 
@@ -392,7 +385,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
     const merit = this.merits.value[index] as Merit;
     this.merits.removeAt(index);
 
-    if (this.doesNpcHaveMagicUniversityMerit([merit])) {
+    if (this.doesNpcHaveWizardingUniversityMerit([merit])) {
       this.tertiaryArcanum = [this.tertiaryArcanum[0]];
     }
   }
@@ -500,8 +493,8 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.armors.removeAt(index);
   }
 
-  doesNpcHaveMagicUniversityMerit(merits: Merit[]): boolean {
-    return merits.findIndex(merit => merit.name === this.wizardUniversity) > -1;
+  doesNpcHaveWizardingUniversityMerit(merits: Merit[]): boolean {
+    return merits.findIndex(merit => merit.name === this.wizardingUniversity) > -1;
   }
 
   doesNpcHaveArcanums(): boolean {
@@ -566,15 +559,11 @@ export class NpcTemplateDetailsComponent implements OnInit {
 
   saveTemplate(): void {
     const npcTemplate: NpcTemplate = this.npcTemplateDetails.value;
-    this.store$.dispatch(fromNpcsActions.saveNpcTemplate({ npcTemplate: npcTemplate, detailsViewMode: this.npcTemplateDetailsMode }));
+    this.store$.dispatch(fromNpcsActions.saveNpcTemplate({ npcTemplate: npcTemplate, isNew: this.isNewTemplate }));
   }
 
   deleteTemplate(): void {
     this.store$.dispatch(fromNpcsActions.deleteNpc({ npcId: this.npcTemplateDetails.value.id }));
-  }
-
-  isFormInEditMode(): boolean {
-    return this.npcTemplateDetailsMode === DetailsViewMode.Edit;
   }
 
   private updateFormInEditMode(): void {
@@ -690,30 +679,47 @@ export class NpcTemplateDetailsComponent implements OnInit {
     })).forEach(weaponGroup => this.weapons.push(weaponGroup, { emitEvent }));
   }
 
+  private setDetailsViewMode() {
+    const routeSubscription = this.route.paramMap.subscribe(paramMap => {
+      const id = Number(paramMap.get('id'));
+      if (!Number.isNaN(id)) {
+        this.npcTemplateDetailsMode = DetailsViewMode.Edit;
+        this.store$.dispatch(fromNpcsActions.loadNpcTemplate({ id }));
+        this.updateFormInEditMode();
+      } else {
+        this.npcTemplateDetailsMode = DetailsViewMode.Create;
+        this.store$.dispatch(fromNpcsActions.clearTemplate());
+        this.clearForm();
+      }
+    });
+
+    this.subscriptions.add(routeSubscription);
+  }
+
   private clearForm(): void {
     this.npcTemplateDetails.patchValue({
       id: undefined,
       name: '',
-      strengthMax: 1,
-      strengthMin: 1,
-      vitalityMax: 1,
-      vitalityMin: 1,
-      bodyMax: 1,
-      bodyMin: 1,
-      agilityMax: 1,
-      agilityMin: 1,
-      dexterityMax: 1,
-      dexterityMin: 1,
-      intelligenceMax: 1,
-      intelligenceMin: 1,
-      willpowerMax: 1,
-      willpowerMin: 1,
-      emotionMax: 1,
-      emotionMin: 1,
-      karmaMax: 0,
-      karmaMin: 0,
-      race: Race.CivilizedHuman,
-      difficulty: Difficulty.Newbie,
+      strengthMax: undefined,
+      strengthMin: undefined,
+      vitalityMax: undefined,
+      vitalityMin: undefined,
+      bodyMax: undefined,
+      bodyMin: undefined,
+      agilityMax: undefined,
+      agilityMin: undefined,
+      dexterityMax: undefined,
+      dexterityMin: undefined,
+      intelligenceMax: undefined,
+      intelligenceMin: undefined,
+      willpowerMax: undefined,
+      willpowerMin: undefined,
+      emotionMax: undefined,
+      emotionMin: undefined,
+      karmaMax: undefined,
+      karmaMin: undefined,
+      race: undefined,
+      difficulty: undefined,
       isUndead: false,
       skillCategories: undefined,
       arcanumRanks: undefined
@@ -737,5 +743,33 @@ export class NpcTemplateDetailsComponent implements OnInit {
 
     this.triggerHitPointRecalculation();
     this.triggerManaPointRecalculation();
+    this.triggerPowerPointRecalculation();
+  }
+
+  private subscribeToErrors(): void {
+    this.subscriptions.add(this.validationResult$.subscribe(validationResult => {
+      if (validationResult) {
+        this.mapErrors(this.npcTemplateDetails, validationResult, 'NpcTemplate.');
+      }
+    }));
+  }
+
+  private mapErrors(formGroup: FormGroup, validationResult: ValidationResult, propertyNamePrefix: string): void {
+    const controlNames = Object.keys(formGroup.controls);
+    controlNames.forEach(controlName => {
+      formGroup.controls[controlName].setErrors(null, { emitEvent: false });
+      const propertyName = controlName.charAt(0).toUpperCase() + controlName.slice(1);
+
+      if (formGroup.controls[controlName] instanceof FormArray) {
+        formGroup.controls[controlName].controls.forEach((control, index) =>
+          this.mapErrors(control as FormGroup, validationResult, `${propertyNamePrefix}${propertyName}[${index}].`)
+        );
+      } else {
+        const validationErrors = validationResult.getPropertyErrors(`${propertyNamePrefix}${propertyName}`);
+        if (validationErrors && formGroup.controls[controlName].touched) {
+          formGroup.controls[controlName].setErrors(validationErrors, { emitEvent: false });
+        }
+      }
+    });
   }
 }

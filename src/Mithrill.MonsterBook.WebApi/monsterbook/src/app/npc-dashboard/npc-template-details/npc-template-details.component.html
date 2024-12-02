@@ -15,10 +15,10 @@
       offsetY: -96
     }]">
     <div class="mini-menu-content">
-      <button class="mini" mat-mini-fab color="primary" (click)="saveTemplate()">
+      <button class="mini" mat-mini-fab color="primary" (click)="saveTemplate()" [disabled]="npcTemplateDetails.invalid || npcTemplateDetails.pristine">
         <mat-icon>save</mat-icon>
       </button>
-      <button class="mini" mat-mini-fab color="primary" (click)="deleteTemplate()" [disabled]="!isFormInEditMode()">
+      <button class="mini" mat-mini-fab color="primary" (click)="deleteTemplate()" [disabled]="isNewTemplate">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -33,10 +33,10 @@
       offsetY: -122
     }]">
     <div class="menu-content">
-      <button mat-fab color="primary" (click)="saveTemplate()">
+      <button mat-fab color="primary" (click)="saveTemplate()" [disabled]="npcTemplateDetails.invalid || npcTemplateDetails.pristine">
         <mat-icon>save</mat-icon>
       </button>
-      <button mat-fab color="primary" (click)="deleteTemplate()" [disabled]="!isFormInEditMode()">
+      <button mat-fab color="primary" (click)="deleteTemplate()" [disabled]="isNewTemplate">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -51,20 +51,37 @@
         <mat-form-field>
           <mat-label>Név</mat-label>
           <input matInput formControlName="name">
+          <mat-error *ngIf="npcTemplateDetails.get('name')!.errors">
+            <div *ngFor="let errorMessage of npcTemplateDetails.get('name')!.errors!['messages']">
+              {{ errorMessage }}
+            </div>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Faj</mat-label>
           <mat-select formControlName="race">
+            <mat-option [value]="undefined">--Válasz fajt--</mat-option>
             <mat-option *ngFor="let r of race | keyvalue" [value]="r.key">{{r.value}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="npcTemplateDetails.get('race')!.errors">
+            <div *ngFor="let errorMessage of npcTemplateDetails.get('race')!.errors!['messages']">
+              {{ errorMessage }}
+            </div>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Nehézség</mat-label>
           <mat-select formControlName="difficulty">
+            <mat-option [value]="undefined">--Válasz nehézséget--</mat-option>
             <mat-option *ngFor="let d of difficulty | keyvalue" [value]="d.key">{{d.value}}</mat-option>
           </mat-select>
+          <mat-error *ngIf="npcTemplateDetails.get('difficulty')!.errors">
+            <div *ngFor="let errorMessage of npcTemplateDetails.get('difficulty')!.errors!['messages']">
+              {{ errorMessage }}
+            </div>
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -119,13 +136,18 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+
+        <div class="mat-mdc-form-field-error margin-bottom side-margin" *ngIf="npcTemplateDetails.get('skillCategories')!.errors">
+          <div *ngFor="let errorMessage of npcTemplateDetails.get('skillCategories')!.errors!['messages']">
+            {{ errorMessage }}
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="npc-template-section full-wide" *ngIf="doesNpcHaveArcanums()">
       <label class="npc-template-section-header">Arkánum rangok</label>
-      <ng-template
-        *ngIf="doesNpcHaveMagicUniversityMerit(npcTemplateDetails.value.merits); then withUniversity; else withoutUniversity;"></ng-template>
+      <ng-template *ngIf="doesNpcHaveWizardingUniversityMerit(npcTemplateDetails.value.merits); then withUniversity; else withoutUniversity;"></ng-template>
 
       <ng-template #withUniversity>
         <div class="npc-template-section-content full-wide">
@@ -227,85 +249,191 @@
       <div class="npc-template-section-content full-wide">
         <div class="npc-attribute-slider">
           <label>Erő</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="strengthMin" (valueChange)="onStrengthChange()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="strengthMax"
-              (valueChange)="onStrengthChange()">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="strengthMin" (valueChange)="onStrengthChange()">
+            <input matSliderEndThumb formControlName="strengthMax" (valueChange)="onStrengthChange()">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('strengthMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('strengthMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('strengthMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('strengthMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Test</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="bodyMin"
-              (valueChange)="triggerHitPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="bodyMax"
-              (valueChange)="triggerHitPointRecalculation()">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="bodyMin" (valueChange)="triggerHitPointRecalculation()">
+            <input matSliderEndThumb formControlName="bodyMax" (valueChange)="triggerHitPointRecalculation()">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('bodyMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('bodyMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('bodyMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('bodyMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Egészség</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="vitalityMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="vitalityMax">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="vitalityMin">
+            <input matSliderEndThumb formControlName="vitalityMax">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('vitalityMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('vitalityMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('vitalityMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('vitalityMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Gyorsaság</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="agilityMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="agilityMax">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="agilityMin">
+            <input matSliderEndThumb formControlName="agilityMax">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('agilityMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('agilityMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('agilityMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('agilityMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Ügyesség</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="dexterityMin">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="dexterityMax">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="dexterityMin">
+            <input matSliderEndThumb formControlName="dexterityMax">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('dexterityMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('dexterityMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('dexterityMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('dexterityMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Intelligencia</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="intelligenceMin"
-              (valueChange)="triggerManaPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="intelligenceMax"
-              (valueChange)="triggerManaPointRecalculation()">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="intelligenceMin" (valueChange)="triggerManaPointRecalculation()">
+            <input matSliderEndThumb formControlName="intelligenceMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('intelligenceMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('intelligenceMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('intelligenceMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('intelligenceMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Akaraterő</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="willpowerMin"
-              (valueChange)="triggerManaPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="willpowerMax"
-              (valueChange)="triggerManaPointRecalculation()">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="willpowerMin" (valueChange)="triggerManaPointRecalculation()">
+            <input matSliderEndThumb formControlName="willpowerMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('willpowerMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('willpowerMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('willpowerMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('willpowerMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Érzelem</label>
-          <mat-slider min="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
-            <input value="1" matSliderStartThumb formControlName="emotionMin"
-              (valueChange)="triggerManaPointRecalculation()">
-            <input [value]="getMaxValueBaseOnRace()" matSliderEndThumb formControlName="emotionMax"
-              (valueChange)="triggerManaPointRecalculation()">
+          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+            <input matSliderStartThumb formControlName="emotionMin" (valueChange)="triggerManaPointRecalculation()">
+            <input matSliderEndThumb formControlName="emotionMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('emotionMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('emotionMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('emotionMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('emotionMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="npc-attribute-slider">
           <label>Karma</label>
           <mat-slider min="0" max="12" showTickMarks discrete>
-            <input value="0" matSliderStartThumb formControlName="karmaMin"
-              (valueChange)="triggerPowerPointRecalculation()">
-            <input value="12" matSliderEndThumb formControlName="karmaMax"
-              (valueChange)="triggerPowerPointRecalculation()">
+            <input value="0" matSliderStartThumb formControlName="karmaMin" (valueChange)="triggerPowerPointRecalculation()">
+            <input value="12" matSliderEndThumb formControlName="karmaMax"(valueChange)="triggerPowerPointRecalculation()">
           </mat-slider>
+
+          <div class="mat-mdc-form-field-error margin-bottom">
+            <div *ngIf="npcTemplateDetails.get('karmaMin')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('karmaMin')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="npcTemplateDetails.get('karmaMax')!.errors">
+              <div *ngFor="let errorMessage of npcTemplateDetails.get('karmaMax')!.errors!['messages']">
+                {{ errorMessage }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -334,11 +462,30 @@
                 </mat-slider>
               </div>
 
+              <div class="mat-mdc-form-field-error margin-bottom">
+                <div *ngIf="skill.get('minLevel')!.errors">
+                  <div *ngFor="let errorMessage of skill.get('minLevel')!.errors!['messages']">
+                    {{ errorMessage }}
+                  </div>
+                </div>
+                <div *ngIf="skill.get('maxLevel')!.errors">
+                  <div *ngFor="let errorMessage of skill.get('maxLevel')!.errors!['messages']">
+                    {{ errorMessage }}
+                  </div>
+                </div>
+              </div>
+
               <div class="npc-skill-slider">
                 <label class="guaranteed-success-label">Garantált sikerek</label>
                 <mat-slider min="0" max="5" showTickMarks discrete>
                   <input formControlName="guaranteedSuccesses" matSliderThumb>
                 </mat-slider>
+              </div>
+
+              <div class="mat-mdc-form-field-error margin-bottom" *ngIf="skill.get('guaranteedSuccesses')!.errors">
+                <div *ngFor="let errorMessage of skill.get('guaranteedSuccesses')!.errors!['messages']">
+                  {{ errorMessage }}
+                </div>
               </div>
 
               <div>

@@ -150,7 +150,7 @@ export const calculatePowerPointMinMaxValuesSuccess = createAction(
 
 export const saveNpcTemplate = createAction(
   '[NPC Template] Save NPC Template',
-  props<{ npcTemplate: NpcTemplate, detailsViewMode: DetailsViewMode }>()
+  props<{ npcTemplate: NpcTemplate, isNew: boolean }>()
 );
 export const saveNpcTemplateSuccess = createAction(
   '[NPC Template] Save NPC Template success'
@@ -162,7 +162,7 @@ export const saveNpcTemplateFailed = createAction(
 
 export const validateNpcTemplate = createAction(
   '[NPC Template] Validate NPC Template',
-  props<{ npcTemplate: NpcTemplate, detailsViewMode: DetailsViewMode }>()
+  props<{ npcTemplate: NpcTemplate, isNew: boolean }>()
 );
 export const validateNpcTemplateSuccess = createAction(
   '[NPC Template] Validate NPC Template success',

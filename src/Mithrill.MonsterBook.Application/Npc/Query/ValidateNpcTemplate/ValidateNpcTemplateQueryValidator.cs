@@ -48,6 +48,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate
                 RuleFor(npcTemplate => npcTemplate.Race).EnumValidation();
                 RuleFor(npcTemplate => npcTemplate.Difficulty).EnumValidation();
                 RuleFor(npcTemplate => npcTemplate.SkillCategories).SkillCategoriesValidation();
+                RuleFor(npcTemplate => npcTemplate.ArcanumRanks).ArcanumRanksValidation(templateValidatorService);
 
                 RuleFor(npcTemplate => npcTemplate.Merits).ForEach(merit => merit.MeritValidation(templateValidatorService));
                 RuleFor(npcTemplate => npcTemplate.Flaws).ForEach(flaw => flaw.FlawValidation(templateValidatorService));

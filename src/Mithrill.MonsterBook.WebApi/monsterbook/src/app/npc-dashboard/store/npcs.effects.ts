@@ -168,7 +168,7 @@ export class NpcsEffects {
     this.actions$.pipe(
       ofType(fromNpcsActions.saveNpcTemplate),
       switchMap(payload => {
-        if (payload.detailsViewMode === DetailsViewMode.Create) {
+        if (payload.isNew) {
           return this.npcTemplateDetailsService.createTemplate(payload.npcTemplate).pipe(
             tap(id => this.router.navigate([`/npcs/${id}`])),
             map(_ => fromNpcsActions.saveNpcTemplateSuccess()),
@@ -188,7 +188,7 @@ export class NpcsEffects {
   validateTemplate$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromNpcsActions.validateNpcTemplate),
-      switchMap(payload => this.npcTemplateDetailsService.validateTemplate(payload.npcTemplate, payload.detailsViewMode).pipe(
+      switchMap(payload => this.npcTemplateDetailsService.validateTemplate(payload.npcTemplate, payload.isNew).pipe(
         map(validationResult => fromNpcsActions.validateNpcTemplateSuccess({ validationResult }))
       ))
     )

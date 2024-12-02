@@ -70,7 +70,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 Id: 1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -98,7 +98,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 Id: null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -118,7 +118,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 Id: 1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Edit);
 
             // Act
@@ -138,7 +138,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 Id: 4, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Edit);
 
             // Act
@@ -166,7 +166,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 Id: null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Edit);
 
             // Act
@@ -203,7 +203,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, Name: name, "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -232,7 +232,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, Name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -270,7 +270,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
                 null, "Test", "",
                 StrengthMax: strengthMax,
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -304,7 +304,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
                 null, "Test", "", 1,
                 StrengthMin: strengthMin,
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -337,7 +337,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1,
                 VitalityMax: vitalityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -370,7 +370,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1,
                 VitalityMin: vitalityMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -403,7 +403,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1,
                 BodyMax: bodyMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -436,7 +436,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1,
                 BodyMin: bodyMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -469,7 +469,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1,
                 AgilityMax: agilityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -502,7 +502,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1,
                 AgilityMin: agilityMin, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -535,7 +535,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1,
                 DexterityMax: dexterityMax, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -568,7 +568,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 DexterityMin: dexterityMin, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -601,7 +601,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 IntelligenceMax: intelligenceMax, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -634,7 +634,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 IntelligenceMin: intelligenceMin, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -667,7 +667,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 WillpowerMax: willpowerMax, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -700,7 +700,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 WillpowerMin: willpowerMin, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -733,7 +733,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 EmotionMax: emotionMax, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -766,7 +766,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 EmotionMin: emotionMin, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -803,7 +803,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 DamageReductionMax: damageReductionMax, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -836,7 +836,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
                 DamageReductionMin: damageReductionMin, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -869,7 +869,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
                 KarmaMax: karmaMax, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -901,7 +901,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -933,7 +933,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-                new SkillCategories(), [], [], [], [], []);
+                new SkillCategories(), null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -964,7 +964,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
                 new SkillCategories
                 {
                     Tertiary = SkillCategory.Secular
-                }, [], [], [], [], []);
+                }, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -996,7 +996,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
                 {
                     SecondSecondary = SkillCategory.Scholar,
                     Tertiary = SkillCategory.Secular
-                }, [], [], [], [], []);
+                }, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -1030,7 +1030,128 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
                     Primary = SkillCategory.Combat,
                     SecondSecondary = SkillCategory.Scholar,
                     Tertiary = SkillCategory.Secular
-                }, [], [], [], [], []);
+                }, null, [], [], [], [], []);
+            var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+            // Act
+            var validationResult = await _validator.ValidateAsync(
+                query,
+                options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
+                CancellationToken.None);
+
+            // Assert
+            validationResult.IsValid.Should().BeTrue();
+            validationResult.Errors.Should().BeEmpty();
+        }
+
+        #endregion
+
+        #region ArcanumRanks Validation
+
+        [Fact]
+        public async Task GivenTemplate_When_ArcnumRanksIsNotNullButAllValuesAreTheSame_Then_ReturnValidationError()
+        {
+            // Arrange
+            var template = new NpcTemplate(
+                null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+                new SkillCategories(), null, [], [], [], [], []);
+            var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+            // Act
+            var validationResult = await _validator.ValidateAsync(
+                query,
+                options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
+                CancellationToken.None);
+
+            // Assert
+            validationResult.IsValid.Should().BeFalse();
+            validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+            {
+                new()
+                {
+                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode = "SkillCategoryValidator",
+                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
+                }
+            });
+        }
+
+        [Fact]
+        public async Task GivenTemplate_When_ArcanumRanksIsNotNullButFourValuesAreTheSame_Then_ReturnValidationError()
+        {
+            // Arrange
+            var template = new NpcTemplate(
+                null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+                new SkillCategories
+                {
+                    Tertiary = SkillCategory.Secular
+                }, null, [], [], [], [], []);
+            var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+            // Act
+            var validationResult = await _validator.ValidateAsync(
+                query,
+                options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
+                CancellationToken.None);
+
+            // Assert
+            validationResult.IsValid.Should().BeFalse();
+            validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+            {
+                new()
+                {
+                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode = "SkillCategoryValidator",
+                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
+                }
+            });
+        }
+
+        [Fact]
+        public async Task GivenTemplate_When_ArkanumRanksIsNotNullButTwoValuesAreTheSame_Then_ReturnValidationError()
+        {
+            // Arrange
+            var template = new NpcTemplate(
+                null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+                new SkillCategories
+                {
+                    SecondSecondary = SkillCategory.Scholar,
+                    Tertiary = SkillCategory.Secular
+                }, null, [], [], [], [], []);
+            var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+            // Act
+            var validationResult = await _validator.ValidateAsync(
+                query,
+                options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
+                CancellationToken.None);
+
+            // Assert
+            validationResult.IsValid.Should().BeFalse();
+            validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+            {
+                new()
+                {
+                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode = "SkillCategoryValidator",
+                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
+                }
+            });
+        }
+
+        [Fact]
+        public async Task GivenTemplate_When_ArcanumRanksIsNotNullAndAllValuesAreDifferent_Then_ReturnNoValidationError()
+        {
+            // Arrange
+            var template = new NpcTemplate(
+                null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+                new SkillCategories
+                {
+                    FirstSecondary = SkillCategory.Underworld,
+                    Primary = SkillCategory.Combat,
+                    SecondSecondary = SkillCategory.Scholar,
+                    Tertiary = SkillCategory.Secular
+                }, null, [], [], [], [], []);
             var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
             // Act
@@ -1054,7 +1175,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null,
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
                 Merits:
                 [
                     new Merit(1, true),
@@ -1088,7 +1209,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null,
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
                 Merits:
                 [
                     new Merit(1, true),
@@ -1118,7 +1239,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
                 Flaws:
                 [
                     new Flaw(1, true),
@@ -1152,7 +1273,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
                 Flaws:
                 [
                     new Flaw(1, true),
@@ -1182,7 +1303,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, 1, 1, 0, true),
@@ -1221,7 +1342,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, MinLevel: minLevel, 1, 0, true)
@@ -1278,7 +1399,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, 1, MaxLevel: maxLevel, 0, true)
@@ -1335,7 +1456,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, 1, 1, GuaranteedSuccesses: guaranteedSuccess, true)
@@ -1370,7 +1491,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, 0, 0, true),
@@ -1404,7 +1525,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, 0, 0, true),
@@ -1434,7 +1555,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, AdditionalArmorClass: additionalArmorClass, 0, true)
@@ -1473,7 +1594,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, 0, AdditionalMovementInhibitoryFactor: additionalMovementInhibitoryFactor, true)
@@ -1512,7 +1633,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, []),
@@ -1546,7 +1667,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, []),
@@ -1576,7 +1697,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, AdditionalAttackModifier: additionalAttack, 0, 0, true, []),
@@ -1615,7 +1736,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, AdditionalDefenseModifier: additionalDefense, 0, true, []),
@@ -1654,7 +1775,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, AdditionalInitiativeModifier: additionalInitiative, true, [])
@@ -1693,7 +1814,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, [
@@ -1734,7 +1855,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, [
@@ -1776,7 +1897,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             // Arrange
             var template = new NpcTemplate(
                 null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, [
