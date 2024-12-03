@@ -38,7 +38,6 @@ import { ValidationResult } from '../../shared/models/validation-result.model';
 
 @Component({
   selector: 'app-npc-template-details',
-  standalone: true,
   imports: [
     CommonModule,
     OverlayModule,

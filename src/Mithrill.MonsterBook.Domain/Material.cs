@@ -1,24 +1,23 @@
-﻿namespace Mithrill.MonsterBook.Domain
+﻿namespace Mithrill.MonsterBook.Domain;
+
+public enum Material
 {
-    public enum Material
-    {
-        Bone,
-        Cloth,
-        Leather,
-        DragonHide,
-        Wood,
-        Brick,
-        Copper,
-        Gold,
-        Stone,
-        Marble,
-        Iron,
-        Steel,
-        Mithrill,
-        Granite,
-        Ruby,
-        Diamond,
-        Adamar,
-        Adamir
-    }
+    Bone,
+    Cloth,
+    Leather,
+    DragonHide,
+    Wood,
+    Brick,
+    Copper,
+    Gold,
+    Stone,
+    Marble,
+    Iron,
+    Steel,
+    Mithrill,
+    Granite,
+    Ruby,
+    Diamond,
+    Adamar,
+    Adamir
 }

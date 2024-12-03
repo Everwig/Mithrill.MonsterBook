@@ -6,33 +6,32 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace Mithrill.MonsterBook.WebApi.Common
-{
-    public class NotFoundResultFilterConvention : IControllerModelConvention
-    {
-        public void Apply(ControllerModel controller)
-        {
-            if (IsApiController(controller))
-                controller.Filters.Add(new NotFoundResultFilterAttribute());
-        }
+namespace Mithrill.MonsterBook.WebApi.Common;
 
-        private static bool IsApiController(ControllerModel controller)
-        {
-            return controller.Attributes.OfType<IApiBehaviorMetadata>().Any()
-                   || controller.ControllerType.Assembly.GetCustomAttributes().OfType<IApiBehaviorMetadata>().Any();
-        }
+public class NotFoundResultFilterConvention : IControllerModelConvention
+{
+    public void Apply(ControllerModel controller)
+    {
+        if (IsApiController(controller))
+            controller.Filters.Add(new NotFoundResultFilterAttribute());
     }
 
-    public class NotFoundResultFilterAttribute : Attribute, IAlwaysRunResultFilter
+    private static bool IsApiController(ControllerModel controller)
     {
-        public void OnResultExecuted(ResultExecutedContext context)
-        {
-        }
+        return controller.Attributes.OfType<IApiBehaviorMetadata>().Any()
+               || controller.ControllerType.Assembly.GetCustomAttributes().OfType<IApiBehaviorMetadata>().Any();
+    }
+}
 
-        public void OnResultExecuting(ResultExecutingContext context)
-        {
-            if (context.Result is ObjectResult objectResult && objectResult.Value == null)
-                context.Result = new NotFoundResult();
-        }
+public class NotFoundResultFilterAttribute : Attribute, IAlwaysRunResultFilter
+{
+    public void OnResultExecuted(ResultExecutedContext context)
+    {
+    }
+
+    public void OnResultExecuting(ResultExecutingContext context)
+    {
+        if (context.Result is ObjectResult objectResult && objectResult.Value == null)
+            context.Result = new NotFoundResult();
     }
 }

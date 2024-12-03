@@ -2,20 +2,23 @@
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 
-namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
-{
-    public class AttackType : IMapFrom<MonsterBook.Domain.AttackType>
-    {
-        public int Id { get; set; }
-        public DamageType DamageType { get; set; }
-        public int NumberOfDices { get; set; }
-        public int GuaranteedDamage { get; set; }
-        public bool IsBaseAttackType { get; set; }
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 
-        public void Mapping(Profile profile)
-        {
-            profile.CreateMap<MonsterBook.Domain.AttackType, AttackType>()
-                .ForMember(attackType => attackType.IsBaseAttackType, opt => opt.Ignore());
-        }
+public sealed record AttackType(
+    int Id,
+    DamageType DamageType,
+    int NumberOfDices,
+    int GuaranteedDamage,
+    bool IsBaseAttackType
+) : IMapFrom<MonsterBook.Domain.AttackType>
+{
+    public void Mapping(Profile profile)
+    {
+        profile.CreateMap<MonsterBook.Domain.AttackType, AttackType>()
+            .ForCtorParam(ctorParamName: nameof(Id), opt => opt.MapFrom(attackType => attackType.Id))
+            .ForCtorParam(ctorParamName: nameof(DamageType), opt => opt.MapFrom(attackType => attackType.DamageType))
+            .ForCtorParam(ctorParamName: nameof(NumberOfDices), opt => opt.MapFrom(attackType => attackType.NumberOfDices))
+            .ForCtorParam(ctorParamName: nameof(GuaranteedDamage), opt => opt.MapFrom(attackType => attackType.GuaranteedDamage))
+            .ForCtorParam(ctorParamName: nameof(IsBaseAttackType), opt => opt.MapFrom(attackType => false));
     }
 }

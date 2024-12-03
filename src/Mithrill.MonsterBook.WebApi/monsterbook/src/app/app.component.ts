@@ -12,7 +12,6 @@ import { NpcDashboardService } from './npc-dashboard/services/npc-dashboard.serv
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [
     CommonModule,
     MatButtonModule,

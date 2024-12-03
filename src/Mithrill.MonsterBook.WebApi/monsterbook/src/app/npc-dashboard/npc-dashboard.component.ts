@@ -25,7 +25,6 @@ import { EnumToStringPipe } from '../shared/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-npc-dashboard',
-  standalone: true,
   imports: [
     CommonModule,
     EnumToStringPipe,

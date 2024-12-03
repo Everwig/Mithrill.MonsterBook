@@ -4,37 +4,37 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 
-public class Npc : IMapFrom<MonsterBook.Domain.NpcTemplate>
+public sealed record Npc(
+    int Id,
+    string Name,
+    int StrengthMax,
+    int StrengthMin,
+    int VitalityMax,
+    int VitalityMin,
+    int BodyMax,
+    int BodyMin,
+    int AgilityMax,
+    int AgilityMin,
+    int DexterityMax,
+    int DexterityMin,
+    int IntelligenceMax,
+    int IntelligenceMin,
+    int WillpowerMax,
+    int WillpowerMin,
+    int EmotionMax,
+    int EmotionMin,
+    int KarmaMax,
+    int KarmaMin,
+    Difficulty Difficulty,
+    Race Race,
+    bool IsUndead) : IMapFrom<MonsterBook.Domain.NpcTemplate> 
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public int StrengthMax { get; set; }
-    public int StrengthMin { get; set; }
-    public int VitalityMax { get; set; }
-    public int VitalityMin { get; set; }
-    public int BodyMax { get; set; }
-    public int BodyMin { get; set; }
-    public int AgilityMax { get; set; }
-    public int AgilityMin { get; set; }
-    public int DexterityMax { get; set; }
-    public int DexterityMin { get; set; }
-    public int IntelligenceMax { get; set; }
-    public int IntelligenceMin { get; set; }
-    public int WillpowerMax { get; set; }
-    public int WillpowerMin { get; set; }
-    public int EmotionMax { get; set; }
-    public int EmotionMin { get; set; }
-    public int KarmaMax { get; set; }
-    public int KarmaMin { get; set; }
-    public int HitPointMax { get; set; }
-    public int HitPointMin { get; set; }
-    public int ManaPointMax { get; set; }
-    public int ManaPointMin { get; set; }
-    public int PowerPointMax { get; set; }
-    public int PowerPointMin { get; set; }
-    public Difficulty Difficulty { get; set; }
-    public Race Race { get; set; }
-    public bool IsUndead { get; set; }
+    public int HitPointMax { get; internal set; }
+    public int HitPointMin { get; internal set; }
+    public int ManaPointMax { get; internal set; }
+    public int ManaPointMin { get; internal set; }
+    public int PowerPointMax { get; internal set; }
+    public int PowerPointMin { get; internal set; }
 
     public void Mapping(Profile profile)
     {

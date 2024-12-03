@@ -4,9 +4,8 @@ using Mithrill.MonsterBook.Application.Common.SortInformation;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 
-public class GetNpcTemplatesQueryResult
-{
-    public IEnumerable<Npc> Creatures { get; set; }
-    public SortInformation<SortProperty> SortInformation { get; set; }
-    public PageInformation PageInformation { get; set; }
-}
+public sealed record GetNpcTemplatesQueryResult(
+    IEnumerable<Npc> Creatures,
+    SortInformation<SortProperty> SortInformation,
+    PageInformation PageInformation
+);

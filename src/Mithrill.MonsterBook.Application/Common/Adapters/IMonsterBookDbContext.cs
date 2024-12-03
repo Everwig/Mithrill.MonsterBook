@@ -2,18 +2,17 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mithrill.MonsterBook.Application.Common.Adapters
-{
-    public interface IMonsterBookDbContext
-    {
-        DbSet<MonsterBook.Domain.NpcTemplate> NpcTemplates { get; set; }
-        DbSet<MonsterBook.Domain.Merit> Merits { get; set; }
-        DbSet<MonsterBook.Domain.Flaw> Flaws {get; set; }
-        DbSet<MonsterBook.Domain.Skill> Skills { get; set; }
-        DbSet<MonsterBook.Domain.Weapon> Weapons { get; set; }
-        DbSet<MonsterBook.Domain.Armor> Armors { get; set; }
-        DbSet<MonsterBook.Domain.AttackType> AttackTypes { get; set; }
+namespace Mithrill.MonsterBook.Application.Common.Adapters;
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-    }
+public interface IMonsterBookDbContext
+{
+    DbSet<MonsterBook.Domain.NpcTemplate> NpcTemplates { get; set; }
+    DbSet<MonsterBook.Domain.Merit> Merits { get; set; }
+    DbSet<MonsterBook.Domain.Flaw> Flaws {get; set; }
+    DbSet<MonsterBook.Domain.Skill> Skills { get; set; }
+    DbSet<MonsterBook.Domain.Weapon> Weapons { get; set; }
+    DbSet<MonsterBook.Domain.Armor> Armors { get; set; }
+    DbSet<MonsterBook.Domain.AttackType> AttackTypes { get; set; }
+
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

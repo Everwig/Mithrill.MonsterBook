@@ -4,7 +4,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Common;
 
-public record AttackType(DamageType DamageType, int NumberOfDices, int GuaranteedDamage) :
+public sealed record AttackType(DamageType DamageType, int NumberOfDices, int GuaranteedDamage) :
     IAttackType,
     IMapTo<MonsterBook.Domain.AttackType>,
     IMapFrom<MonsterBook.Domain.AttackType>
@@ -25,7 +25,7 @@ public record AttackType(DamageType DamageType, int NumberOfDices, int Guarantee
             .ForCtorParam(ctorParamName: nameof(GuaranteedDamage), opt => opt.MapFrom(attackType => attackType.GuaranteedDamage));
     }
 
-    public virtual bool Equals(AttackType? other) => other is not null && other.DamageType == DamageType;
+    public bool Equals(AttackType? other) => other is not null && other.DamageType == DamageType;
 
     public override int GetHashCode() => DamageType.GetHashCode();
 }

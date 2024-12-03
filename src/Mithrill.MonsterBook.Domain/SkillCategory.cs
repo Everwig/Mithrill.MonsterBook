@@ -1,10 +1,9 @@
-﻿namespace Mithrill.MonsterBook.Domain
+﻿namespace Mithrill.MonsterBook.Domain;
+
+public enum SkillCategory
 {
-    public enum SkillCategory
-    {
-        Combat,
-        Secular,
-        Underworld,
-        Scholar
-    }
+    Combat,
+    Secular,
+    Underworld,
+    Scholar
 }

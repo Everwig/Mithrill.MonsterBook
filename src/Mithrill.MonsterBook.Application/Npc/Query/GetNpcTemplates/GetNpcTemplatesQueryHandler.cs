@@ -38,21 +38,11 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
         var mappedCreatures = _mapper.Map<List<Npc>>(creatures);
         CalculateAttributes(mappedCreatures, creatures);
 
-        return new GetNpcTemplatesQueryResult
-        {
-            Creatures = mappedCreatures,
-            SortInformation = new SortInformation<SortProperty>
-            {
-                SortDirection = request.SortDirection,
-                SortProperty = request.SortProperty
-            },
-            PageInformation = new PageInformation
-            {
-                PageIndex = request.PageIndex,
-                PageSize = request.PageSize,
-                TotalCount = totalCount
-            }
-        };
+        return new GetNpcTemplatesQueryResult(
+            mappedCreatures,
+            new SortInformation<SortProperty>(request.SortProperty, request.SortDirection),
+            new PageInformation(request.PageSize, request.PageIndex, totalCount)
+        );
     }
 
     private static IQueryable<MonsterBook.Domain.NpcTemplate> OrderBaseQuery(

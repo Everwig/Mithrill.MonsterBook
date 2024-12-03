@@ -1,9 +1,4 @@
-﻿namespace Mithrill.MonsterBook.Application.Common.SortInformation
-{
-    public sealed class SortInformation<TSortProperty>
-        where TSortProperty : struct
-    {
-        public TSortProperty? SortProperty { get; set; }
-        public SortDirection? SortDirection { get; set; }
-    }
-}
+﻿namespace Mithrill.MonsterBook.Application.Common.SortInformation;
+
+public sealed record SortInformation<TSortProperty>(TSortProperty? SortProperty, SortDirection? SortDirection)
+    where TSortProperty : struct;
