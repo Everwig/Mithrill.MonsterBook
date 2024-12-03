@@ -35,12 +35,14 @@ public record CreateNpcTemplateCommand(
     Race Race,
     Difficulty Difficulty,
     SkillCategories? SkillCategories,
+    ArcanumRanks? ArcanumRanks,
     HashSet<Merit> Merits,
     HashSet<Flaw> Flaws,
     HashSet<Skill> Skills,
     List<Armor> Armors,
     List<Weapon> Weapons) :
     IRequest<int>,
+    IRanks,
     IMapTo<MonsterBook.Domain.NpcTemplate>
 {
     public void Mapping(Profile profile)

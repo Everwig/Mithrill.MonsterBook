@@ -33,11 +33,14 @@ public record NpcTemplate(
     Race Race,
     Difficulty Difficulty,
     SkillCategories? SkillCategories,
+    ArcanumRanks? ArcanumRanks,
     HashSet<Merit> Merits,
     HashSet<Flaw> Flaws,
     HashSet<Skill> Skills,
     List<Armor> Armors,
-    List<Weapon> Weapons) : IMapTo<MonsterBook.Domain.NpcTemplate>
+    List<Weapon> Weapons) :
+    IRanks,
+    IMapTo<MonsterBook.Domain.NpcTemplate>
 {
     public void Mapping(Profile profile)
     {

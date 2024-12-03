@@ -335,6 +335,7 @@ export class NpcTemplateDetailsService {
           maxLevel: skill.maxLevel,
           minLevel: skill.minLevel
         })),
+        arcanumRanks: undefined,
         strengthMax: npcTemplate.strengthMax,
         strengthMin: npcTemplate.strengthMin,
         vitalityMax: npcTemplate.vitalityMax,
@@ -406,6 +407,7 @@ export class NpcTemplateDetailsService {
               tertiary: npcTemplate.skillCategories?.tertiary!
             })
           : undefined,
+        arcanumRanks: undefined,
         skills: npcTemplate.skills.map(skill => new UpdateSkill({
           id: skill.id,
           guaranteedSuccesses: skill.guaranteedSuccesses,
@@ -484,6 +486,7 @@ export class NpcTemplateDetailsService {
               tertiary: npcTemplate.skillCategories.tertiary!
             })
           : undefined,
+        arcanumRanks: undefined,
         skills: npcTemplate.skills.map(skill => new ValidateSkill({
           guaranteedSuccesses: skill.guaranteedSuccesses,
           id: skill.id,

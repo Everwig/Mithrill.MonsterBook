@@ -2364,6 +2364,7 @@ export class CreateNpcTemplateCommand implements ICreateNpcTemplateCommand {
     race!: Race;
     difficulty!: Difficulty;
     skillCategories!: SkillCategories | undefined;
+    arcanumRanks!: ArcanumRanks | undefined;
     merits!: Merit3[];
     flaws!: Flaw3[];
     skills!: Skill2[];
@@ -2407,6 +2408,7 @@ export class CreateNpcTemplateCommand implements ICreateNpcTemplateCommand {
             this.race = _data["race"];
             this.difficulty = _data["difficulty"];
             this.skillCategories = _data["skillCategories"] ? SkillCategories.fromJS(_data["skillCategories"]) : <any>undefined;
+            this.arcanumRanks = _data["arcanumRanks"] ? ArcanumRanks.fromJS(_data["arcanumRanks"]) : <any>undefined;
             if (Array.isArray(_data["merits"])) {
                 this.merits = [] as any;
                 for (let item of _data["merits"])
@@ -2470,6 +2472,7 @@ export class CreateNpcTemplateCommand implements ICreateNpcTemplateCommand {
         data["race"] = this.race;
         data["difficulty"] = this.difficulty;
         data["skillCategories"] = this.skillCategories ? this.skillCategories.toJSON() : <any>undefined;
+        data["arcanumRanks"] = this.arcanumRanks ? this.arcanumRanks.toJSON() : <any>undefined;
         if (Array.isArray(this.merits)) {
             data["merits"] = [];
             for (let item of this.merits)
@@ -2526,6 +2529,7 @@ export interface ICreateNpcTemplateCommand {
     race: Race;
     difficulty: Difficulty;
     skillCategories: SkillCategories | undefined;
+    arcanumRanks: ArcanumRanks | undefined;
     merits: Merit3[];
     flaws: Flaw3[];
     skills: Skill2[];
@@ -2879,6 +2883,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
     race!: Race;
     difficulty!: Difficulty;
     skillCategories!: SkillCategories | undefined;
+    arcanumRanks!: ArcanumRanks | undefined;
     merits!: Merit4[];
     flaws!: Flaw4[];
     skills!: Skill3[];
@@ -2923,6 +2928,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
             this.race = _data["race"];
             this.difficulty = _data["difficulty"];
             this.skillCategories = _data["skillCategories"] ? SkillCategories.fromJS(_data["skillCategories"]) : <any>undefined;
+            this.arcanumRanks = _data["arcanumRanks"] ? ArcanumRanks.fromJS(_data["arcanumRanks"]) : <any>undefined;
             if (Array.isArray(_data["merits"])) {
                 this.merits = [] as any;
                 for (let item of _data["merits"])
@@ -2987,6 +2993,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
         data["race"] = this.race;
         data["difficulty"] = this.difficulty;
         data["skillCategories"] = this.skillCategories ? this.skillCategories.toJSON() : <any>undefined;
+        data["arcanumRanks"] = this.arcanumRanks ? this.arcanumRanks.toJSON() : <any>undefined;
         if (Array.isArray(this.merits)) {
             data["merits"] = [];
             for (let item of this.merits)
@@ -3044,6 +3051,7 @@ export interface INpcTemplate2 {
     race: Race;
     difficulty: Difficulty;
     skillCategories: SkillCategories | undefined;
+    arcanumRanks: ArcanumRanks | undefined;
     merits: Merit4[];
     flaws: Flaw4[];
     skills: Skill3[];
@@ -3449,6 +3457,7 @@ export class NpcTemplate3 implements INpcTemplate3 {
     race!: Race;
     difficulty!: Difficulty;
     skillCategories!: SkillCategories | undefined;
+    arcanumRanks!: ArcanumRanks | undefined;
     merits!: Merit5[];
     flaws!: Flaw5[];
     skills!: Skill4[];
@@ -3493,6 +3502,7 @@ export class NpcTemplate3 implements INpcTemplate3 {
             this.race = _data["race"];
             this.difficulty = _data["difficulty"];
             this.skillCategories = _data["skillCategories"] ? SkillCategories.fromJS(_data["skillCategories"]) : <any>undefined;
+            this.arcanumRanks = _data["arcanumRanks"] ? ArcanumRanks.fromJS(_data["arcanumRanks"]) : <any>undefined;
             if (Array.isArray(_data["merits"])) {
                 this.merits = [] as any;
                 for (let item of _data["merits"])
@@ -3557,6 +3567,7 @@ export class NpcTemplate3 implements INpcTemplate3 {
         data["race"] = this.race;
         data["difficulty"] = this.difficulty;
         data["skillCategories"] = this.skillCategories ? this.skillCategories.toJSON() : <any>undefined;
+        data["arcanumRanks"] = this.arcanumRanks ? this.arcanumRanks.toJSON() : <any>undefined;
         if (Array.isArray(this.merits)) {
             data["merits"] = [];
             for (let item of this.merits)
@@ -3614,6 +3625,7 @@ export interface INpcTemplate3 {
     race: Race;
     difficulty: Difficulty;
     skillCategories: SkillCategories | undefined;
+    arcanumRanks: ArcanumRanks | undefined;
     merits: Merit5[];
     flaws: Flaw5[];
     skills: Skill4[];

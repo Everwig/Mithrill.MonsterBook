@@ -75,7 +75,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 Name: name, "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -103,7 +103,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 Name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -140,7 +140,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
                 "Test", "",
                 StrengthMax: strengthMax,
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -173,7 +173,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
                 "Test", "", 1,
                 StrengthMin: strengthMin,
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -205,7 +205,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1,
                 VitalityMax: vitalityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -237,7 +237,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1,
                 VitalityMin: vitalityMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -269,7 +269,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1,
                 BodyMax: bodyMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -301,7 +301,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1,
                 BodyMin: bodyMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -333,7 +333,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1,
                 AgilityMax: agilityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -365,7 +365,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1,
                 AgilityMin: agilityMin, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -397,7 +397,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1,
                 DexterityMax: dexterityMax, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -429,7 +429,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 DexterityMin: dexterityMin, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -461,7 +461,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 IntelligenceMax: intelligenceMax, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -493,7 +493,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 IntelligenceMin: intelligenceMin, 1, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -525,7 +525,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 WillpowerMax: willpowerMax, 1, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -557,7 +557,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 WillpowerMin: willpowerMin, 1, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -589,7 +589,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 EmotionMax: emotionMax, 1, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -621,7 +621,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 EmotionMin: emotionMin, 0, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -657,7 +657,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 DamageReductionMax: damageReductionMax, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -689,7 +689,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
                 DamageReductionMin: damageReductionMin, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -721,7 +721,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
                 KarmaMax: karmaMax, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -752,7 +752,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [], []);
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
             // Act
@@ -783,7 +783,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-                new SkillCategories(), [], [], [], [], []);
+                new SkillCategories(), null, [], [], [], [], []);
 
 
             // Act
@@ -813,7 +813,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
                 new SkillCategories
                 {
                     Tertiary = SkillCategory.Secular
-                }, [], [], [], [], []);
+                }, null, [], [], [], [], []);
 
 
             // Act
@@ -844,7 +844,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
                 {
                     SecondSecondary = SkillCategory.Scholar,
                     Tertiary = SkillCategory.Secular
-                }, [], [], [], [], []);
+                }, null, [], [], [], [], []);
 
 
             // Act
@@ -877,7 +877,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
                     Primary = SkillCategory.Combat,
                     SecondSecondary = SkillCategory.Scholar,
                     Tertiary = SkillCategory.Secular
-                }, [], [], [], [], []);
+                }, null, [], [], [], [], []);
 
 
             // Act
@@ -900,7 +900,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null,
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
                 Merits:
                 [
                     new Merit(1, true),
@@ -933,7 +933,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null,
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
                 Merits:
                 [
                     new Merit(1, true),
@@ -962,7 +962,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
                 Flaws:
                 [
                     new Flaw(1, true),
@@ -995,7 +995,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
                 Flaws:
                 [
                     new Flaw(1, true),
@@ -1024,7 +1024,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, 1, 1, 0, true),
@@ -1061,7 +1061,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, MinLevel: minLevel, 1, 0, true)
@@ -1117,7 +1117,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, 1, MaxLevel: maxLevel, 0, true)
@@ -1173,7 +1173,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
                 Skills:
                 [
                     new Skill(1, 1, 1, GuaranteedSuccesses: guaranteedSuccess, true)
@@ -1207,7 +1207,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, 0, 0, true),
@@ -1240,7 +1240,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, 0, 0, true),
@@ -1269,7 +1269,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, AdditionalArmorClass: additionalArmorClass, 0, true)
@@ -1307,7 +1307,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
                 Armors:
                 [
                     new Armor(1, Material.Adamar, 0, AdditionalMovementInhibitoryFactor: additionalMovementInhibitoryFactor, true)
@@ -1345,7 +1345,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, []),
@@ -1378,7 +1378,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, []),
@@ -1407,7 +1407,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, AdditionalAttackModifier: additionalAttack, 0, 0, true, []),
@@ -1445,7 +1445,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, AdditionalDefenseModifier: additionalDefense, 0, true, []),
@@ -1483,7 +1483,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, AdditionalInitiativeModifier: additionalInitiative, true, [])
@@ -1521,7 +1521,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, [
@@ -1561,7 +1561,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, [
@@ -1602,7 +1602,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Command
             // Arrange
             var command = new CreateNpcTemplateCommand(
                 "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                false, Race.CivilizedHuman, Difficulty.Newbie, null, [], [], [], [],
+                false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
                 Weapons:
                 [
                     new Weapon(1, Material.Adamar, 0, 0, 0, true, [
