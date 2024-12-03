@@ -28,18 +28,19 @@ public class Npc : IMapFrom<MonsterBook.Domain.NpcTemplate>
     public int KarmaMin { get; set; }
     public int HitPointMax { get; set; }
     public int HitPointMin { get; set; }
-    public int ManaMax { get; set; }
-    public int ManaMin { get; set; }
+    public int ManaPointMax { get; set; }
+    public int ManaPointMin { get; set; }
     public int PowerPointMax { get; set; }
     public int PowerPointMin { get; set; }
     public Difficulty Difficulty { get; set; }
     public Race Race { get; set; }
+    public bool IsUndead { get; set; }
 
     public void Mapping(Profile profile)
     {
         profile.CreateMap<MonsterBook.Domain.NpcTemplate, Npc>()
-            .ForMember(npcTemplate => npcTemplate.ManaMin, opt => opt.Ignore())
-            .ForMember(npcTemplate => npcTemplate.ManaMax, opt => opt.Ignore())
+            .ForMember(npcTemplate => npcTemplate.ManaPointMin, opt => opt.Ignore())
+            .ForMember(npcTemplate => npcTemplate.ManaPointMax, opt => opt.Ignore())
             .ForMember(npcTemplate => npcTemplate.HitPointMin, opt => opt.Ignore())
             .ForMember(npcTemplate => npcTemplate.HitPointMax, opt => opt.Ignore())
             .ForMember(npcTemplate => npcTemplate.PowerPointMin, opt => opt.Ignore())

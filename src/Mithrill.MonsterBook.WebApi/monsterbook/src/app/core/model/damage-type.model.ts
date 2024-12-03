@@ -8,3 +8,9 @@ export enum DamageType {
   Light = "Light",
   Dark = "Dark"
 }
+
+export const baseDamageTypes: DamageType[] = [
+  DamageType.Slashing,
+  DamageType.Bludgeoning,
+  DamageType.Stabbing
+] as const;

@@ -12,6 +12,7 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters
         DbSet<MonsterBook.Domain.Skill> Skills { get; set; }
         DbSet<MonsterBook.Domain.Weapon> Weapons { get; set; }
         DbSet<MonsterBook.Domain.Armor> Armors { get; set; }
+        DbSet<MonsterBook.Domain.AttackType> AttackTypes { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

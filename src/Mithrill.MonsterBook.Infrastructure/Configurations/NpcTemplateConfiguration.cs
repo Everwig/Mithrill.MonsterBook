@@ -9,6 +9,8 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<NpcTemplate> builder)
         {
             builder.ToTable("NpcTemplate");
+            builder.Property(nameof(Skill.Name)).HasMaxLength(64);
+            builder.Property(nameof(Skill.NameHu)).HasMaxLength(64);
             builder.Property(creature => creature.Race)
                 .HasConversion<string>()
                 .HasMaxLength(32);

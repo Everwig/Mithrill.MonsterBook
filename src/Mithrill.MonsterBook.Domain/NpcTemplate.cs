@@ -30,10 +30,11 @@ namespace Mithrill.MonsterBook.Domain
         public Race Race { get; set; }
         public Difficulty Difficulty { get; set; }
         public CharacterSkillCategories CharacterSkillCategories { get; set; }
-        public ICollection<CharacterMerit> CreatureMerits { get; set; }
-        public ICollection<CharacterFlaw> CreatureFlaws { get; set; }
-        public ICollection<CharacterWeapon> CreatureWeapons { get; set; }
-        public ICollection<CharacterArmor> CreatureArmors { get; set; }
-        public ICollection<CharacterSkill> CreatureSkills { get; set; }
+        public ICollection<CharacterMerit> CharacterMerits { get; set; }
+        public ICollection<CharacterFlaw> CharacterFlaws { get; set; }
+        public ICollection<CharacterWeapon> CharacterWeapons { get; set; }
+        public ICollection<CharacterArmor> CharacterArmors { get; set; }
+        public ICollection<CharacterSkill> CharacterSkills { get; set; }
+        public bool IsUndead { get; set; }
     }
 }

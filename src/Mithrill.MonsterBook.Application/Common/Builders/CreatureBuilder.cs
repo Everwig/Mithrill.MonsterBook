@@ -39,13 +39,13 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
         {
             _queriedCreature = await _monsterBookDbContext.NpcTemplates
                 .Include(c => c.CharacterSkillCategories)
-                .Include(c => c.CreatureFlaws)
+                .Include(c => c.CharacterFlaws)
                 .ThenInclude(cf => cf.Flaw)
-                .Include(c => c.CreatureMerits)
+                .Include(c => c.CharacterMerits)
                 .ThenInclude(cm => cm.Merit)
-                .Include(c => c.CreatureSkills)
+                .Include(c => c.CharacterSkills)
                 .ThenInclude(cs => cs.Skill)
-                .Include(c => c.CreatureWeapons)
+                .Include(c => c.CharacterWeapons)
                 .ThenInclude(cw => cw.Weapon)
                 .Where(m => m.Id == id)
                 .SingleOrDefaultAsync(cancellationToken);
@@ -79,7 +79,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            _creature.CreatureSkillCategories = _mapper.Map<CreatureSkillCategories>(_queriedCreature.CharacterSkillCategories);
+            _creature.SkillCategories = _mapper.Map<SkillCategories>(_queriedCreature.CharacterSkillCategories);
         }
 
         public void AddRacialModifiers(bool isUndead)
@@ -87,7 +87,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            if (!isUndead || _queriedCreature.Race == MonsterBook.Domain.Race.Undead)
+            if (!isUndead || _queriedCreature.IsUndead)
                 return;
 
             _creature.Strength += 2;
@@ -100,7 +100,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                 return;
 
             int meritsToAdd;
-            var meritList = _queriedCreature.CreatureMerits.ToList();
+            var meritList = _queriedCreature.CharacterMerits.ToList();
             var merits = new List<Merit>();
 
             switch (difficulty)
@@ -121,12 +121,12 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                     meritsToAdd = _random.Next(7, 9);
                     break;
                 default:
-                    meritsToAdd = _queriedCreature.CreatureMerits.Count;
+                    meritsToAdd = _queriedCreature.CharacterMerits.Count;
                     break;
             }
 
-            if (meritsToAdd > _queriedCreature.CreatureMerits.Count)
-                meritsToAdd = _queriedCreature.CreatureMerits.Count;
+            if (meritsToAdd > _queriedCreature.CharacterMerits.Count)
+                meritsToAdd = _queriedCreature.CharacterMerits.Count;
 
             for (var i = 0; i < meritsToAdd; i++)
             {
@@ -145,7 +145,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                 return;
 
             int flawsToAdd;
-            var flawList = _queriedCreature.CreatureFlaws.ToList();
+            var flawList = _queriedCreature.CharacterFlaws.ToList();
             var flaws = new List<Flaw>();
 
             switch (difficulty)
@@ -167,12 +167,12 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
                     flawsToAdd = 0;
                     break;
                 default:
-                    flawsToAdd = _queriedCreature.CreatureFlaws.Count;
+                    flawsToAdd = _queriedCreature.CharacterFlaws.Count;
                     break;
             }
 
-            if (flawsToAdd > _queriedCreature.CreatureFlaws.Count)
-                flawsToAdd = _queriedCreature.CreatureFlaws.Count;
+            if (flawsToAdd > _queriedCreature.CharacterFlaws.Count)
+                flawsToAdd = _queriedCreature.CharacterFlaws.Count;
 
             for (var i = 0; i < flawsToAdd; i++)
             {
@@ -213,7 +213,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
 
             var skills = new List<Skill>();
 
-            foreach (var characterSkill in _queriedCreature.CreatureSkills)
+            foreach (var characterSkill in _queriedCreature.CharacterSkills)
             {
                 var mappedSkill = _mapper.Map<Skill>(characterSkill.Skill);
                 mappedSkill.Level = _random.Next(characterSkill.SkillLevelMin, characterSkill.SkillLevelMax + 1) + difficultyIncrease;
@@ -230,7 +230,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             if(_queriedCreature == null)
                 return;
 
-            var weapons = _queriedCreature.CreatureWeapons.Select(queriedCreatureCreatureWeapon => _mapper.Map<Weapon>(queriedCreatureCreatureWeapon.Weapon)).ToList();
+            var weapons = _queriedCreature.CharacterWeapons.Select(queriedCreatureCreatureWeapon => _mapper.Map<Weapon>(queriedCreatureCreatureWeapon.Weapon)).ToList();
             _creature.Weapons = weapons;
         }
 

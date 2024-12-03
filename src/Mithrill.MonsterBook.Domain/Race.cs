@@ -13,7 +13,6 @@ public enum Race
     HalfElf,
     HalfDarkElf,
     Dwarf,
-    Undead,
     Animal,
     Bug,
     Dragon,

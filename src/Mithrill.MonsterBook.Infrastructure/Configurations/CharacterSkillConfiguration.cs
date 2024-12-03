@@ -11,7 +11,7 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
             builder.HasKey(characterSkill => new { characterSkill.NpcTemplateId, characterSkill.SkillId });
 
             builder.HasOne(characterSkill => characterSkill.NpcTemplate)
-                .WithMany(npcTemplate => npcTemplate.CreatureSkills)
+                .WithMany(npcTemplate => npcTemplate.CharacterSkills)
                 .HasForeignKey(characterSkill => characterSkill.NpcTemplateId);
 
             builder.HasOne(characterSkill => characterSkill.Skill)

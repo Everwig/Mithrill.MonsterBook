@@ -18,3 +18,9 @@ export enum Material {
   Adamar = "Adamar",
   Adamir = "Adamir"
 }
+
+export const armorOnlyMaterials: Material[] = [
+  Material.Cloth,
+  Material.Leather,
+  Material.DragonHide
+] as const;

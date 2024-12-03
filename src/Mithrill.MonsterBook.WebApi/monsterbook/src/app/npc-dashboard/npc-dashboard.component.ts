@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router'
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Npc } from './models/npc.model';
+import { NpcTemplate } from './models/npc-template.model';
 import { State } from '../store';
 import { PageInformation } from '../core/model/page-information.model';
 import { SortInformation } from '../core/model/sort-information.model';
@@ -43,8 +43,8 @@ import { EnumToStringPipe } from '../shared/pipes/enum-to-string.pipe';
 })
 export class NpcDashboardComponent implements OnInit {
   readonly isLoading$: Observable<boolean>;
-  readonly npcs$: Observable<Npc[]>;
-  readonly dataSource$: ObservableDataSource<Npc>;
+  readonly npcs$: Observable<NpcTemplate[]>;
+  readonly dataSource$: ObservableDataSource<NpcTemplate>;
   readonly pageInformation$: Observable<PageInformation>;
   readonly sortInformation$: Observable<SortInformation>;
 
@@ -60,7 +60,7 @@ export class NpcDashboardComponent implements OnInit {
     'emotion',
     'karma',
     'hitPoint',
-    'mana',
+    'manaPoint',
     'powerPoint',
     'race',
     'difficulity',

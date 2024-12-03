@@ -6,7 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
+
 import { NpcDashboardService } from './npc-dashboard/services/npc-dashboard.service';
 
 @Component({
@@ -19,7 +20,8 @@ import { NpcDashboardService } from './npc-dashboard/services/npc-dashboard.serv
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    RouterOutlet
+    RouterOutlet,
+    RouterModule
   ],
   providers: [
     NpcDashboardService

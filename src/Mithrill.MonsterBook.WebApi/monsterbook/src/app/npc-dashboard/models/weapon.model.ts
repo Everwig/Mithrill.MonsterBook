@@ -10,4 +10,7 @@ export interface Weapon {
   baseDefenseModifier: number;
   baseInitiativeModifier: number;
   isOptional: boolean;
+  additionalAttackModifier: number;
+  additionalDefenseModifier: number;
+  additionalInitiativeModifier: number;
 }

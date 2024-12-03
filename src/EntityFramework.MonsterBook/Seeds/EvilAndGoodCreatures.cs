@@ -50,7 +50,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Duahin magic zombie",
                     NameHu = "Duahini mágikus zombi",
                     Id = identity,
@@ -133,7 +134,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Ghost",
                     NameHu = "Szellem",
                     Id = identity,
@@ -251,7 +253,9 @@ namespace EntityFramework.MonsterBook.Seeds
                     Name = "Angel",
                     NameHu = "Angyal",
                     Difficulty = Difficulty.Variable,
-                    Id = identity
+                    Id = identity,
+                    KarmaMin = 1,
+                    KarmaMax = 12
                 }
             });
 
@@ -310,7 +314,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Zombie",
                     NameHu = "Zombi",
                     Id = identity,
@@ -406,7 +411,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Vampire",
                     NameHu = "Vámpír",
                     Id = identity,
@@ -1169,7 +1175,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Mummy",
                     NameHu = "Múmia",
                     Id = identity,
@@ -1317,7 +1324,7 @@ namespace EntityFramework.MonsterBook.Seeds
 {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness, IsUndead = true,
                     Name = "Poison spirit",
                     NameHu = "Méreg szellem",
                     Id = identity,
@@ -1360,7 +1367,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Lich",
                     NameHu = "Lich",
                     Id = identity,
@@ -1513,7 +1521,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Death Knight",
                     NameHu = "Halálúr",
                     Id = identity,
@@ -1640,7 +1649,8 @@ namespace EntityFramework.MonsterBook.Seeds
             {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Ghoul",
                     NameHu = "Ghoul",
                     Id = identity,
@@ -1813,7 +1823,9 @@ namespace EntityFramework.MonsterBook.Seeds
                     Difficulty = Difficulty.Variable,
                     Name = "Demon",
                     NameHu = "Démon",
-                    Id = identity
+                    Id = identity,
+                    KarmaMin = 1,
+                    KarmaMax = 12
                 }
             });
 
@@ -1872,7 +1884,8 @@ namespace EntityFramework.MonsterBook.Seeds
 {
                 new NpcTemplate
                 {
-                    Race = Race.Undead,
+                    Race = Race.CreatureOfDarkness,
+                    IsUndead = true,
                     Name = "Skeleton",
                     NameHu = "Csontváz",
                     Id = identity,

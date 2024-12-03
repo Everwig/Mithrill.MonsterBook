@@ -14,7 +14,7 @@ namespace Mithrill.MonsterBook.Infrastructure.Configurations
                 .HasMaxLength(16);
 
             builder.HasOne(characterWeapon => characterWeapon.NpcTemplate)
-                .WithMany(npcTemplate => npcTemplate.CreatureWeapons)
+                .WithMany(npcTemplate => npcTemplate.CharacterWeapons)
                 .HasForeignKey(characterWeapon => characterWeapon.NpcTemplateId);
 
             builder.HasOne(characterWeapon => characterWeapon.Weapon)

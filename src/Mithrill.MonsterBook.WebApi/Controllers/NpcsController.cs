@@ -1,12 +1,21 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
+using Mithrill.MonsterBook.Application.Common.Validation;
+using Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
+using Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
+using Mithrill.MonsterBook.Application.Npc.Query.GetHitPointMinMaxValues;
+using Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
+using Mithrill.MonsterBook.Application.Npc.Query.GetPowerPointMinMaxValues;
+using Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 using Mithrill.MonsterBook.WebApi.Common;
 using GetNpcTemplateQuery = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.GetNpcTemplateQuery;
-using Npc = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Npc;
+using NpcTemplate = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.NpcTemplate;
+using UpdateNpcTemplate = Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate.NpcTemplate;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers
 {
@@ -51,22 +60,22 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
         }
 
         [HttpGet("GetTemplate/{id:int}")]
-        public async Task<Npc> Get(int id, CancellationToken cancellationToken)
+        public async Task<NpcTemplate> Get(int id, CancellationToken cancellationToken)
         {
             return await Mediator.Send(new GetNpcTemplateQuery { Id = id }, cancellationToken);
         }
 
-        /*[HttpPost("CreateTemplate")]
-        public async Task<int> CreateTemplate(Npc npc, CancellationToken cancellationToken)
+        [HttpPost("CreateTemplate")]
+        public async Task<int> CreateTemplate(CreateNpcTemplateCommand createNpcTemplateCommand, CancellationToken cancellationToken)
         {
-            return 0;
+            return await Mediator.Send(createNpcTemplateCommand, cancellationToken);
         }
 
         [HttpPatch("UpdateTemplate/{id:int}")]
-        public async Task UpdateTemplate(int id, Npc npc, CancellationToken cancellationToken)
+        public async Task UpdateTemplate(int id, UpdateNpcTemplate npcTemplate, CancellationToken cancellationToken)
         {
-
-        }*/
+            await Mediator.Send(new UpdateNpcTemplateCommand(id, npcTemplate), cancellationToken);
+        }
 
         [HttpDelete("DeleteTemplate/{id:int}")]
         public async Task DeleteTemplate(int id, CancellationToken cancellationToken)
@@ -78,6 +87,62 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
                     IsSoftDelete = false
                 },
                 cancellationToken);
+        }
+
+        [HttpPost("Validate")]
+        public async Task<ValidationResult> Validate(
+            ValidateNpcTemplateQuery validateNpcTemplateQuery,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(validateNpcTemplateQuery, cancellationToken);
+        }
+
+        [HttpGet("GetHitPointMinMaxValues")]
+        public async Task<(int HitPointMin, int HitPointMax)> GetHitPointMinMaxValues(
+            int strengthMin,
+            int strengthMax,
+            int bodyMin,
+            int bodyMax,
+            bool isUndead,
+            [FromQuery] IEnumerable<int> meritIds,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(
+                new GetHitPointMinMaxValuesQuery(strengthMin, strengthMax, bodyMin, bodyMax, isUndead, [..meritIds]),
+                cancellationToken);
+        }
+
+        [HttpGet("GetManaPointMinMaxValues")]
+        public async Task<(int ManaPointMin, int ManaPointMax)> GetManaPointMinMaxValues(
+            int intelligenceMin,
+            int intelligenceMax,
+            int willpowerMin,
+            int willpowerMax,
+            int emotionMin,
+            int emotionMax,
+            [FromQuery]IEnumerable<int> meritIds,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(
+                new GetManaPointMinMaxValuesQuery(
+                    intelligenceMin,
+                    intelligenceMax,
+                    willpowerMin,
+                    willpowerMax,
+                    emotionMin,
+                    emotionMax,
+                    [..meritIds]),
+                cancellationToken);
+        }
+
+
+        [HttpGet("GetPowerPointMinMaxValues")]
+        public async Task<(int PowerPointMin, int PowerPointMax)> GetPowerPointMinMaxValues(
+            int karmaMin,
+            int karmaMax,
+            CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(new GetPowerPointMinMaxValuesQuery(karmaMin,karmaMax), cancellationToken);
         }
     }
 }

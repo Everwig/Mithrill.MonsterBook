@@ -356,6 +356,9 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<int>("IntelligenceMin")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsUndead")
+                        .HasColumnType("bit");
+
                     b.Property<int>("KarmaMax")
                         .HasColumnType("int");
 
@@ -484,7 +487,7 @@ namespace EntityFramework.MonsterBook.Migrations
                         .IsRequired();
 
                     b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
-                        .WithMany("CreatureArmors")
+                        .WithMany("CharacterArmors")
                         .HasForeignKey("NpcTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -503,7 +506,7 @@ namespace EntityFramework.MonsterBook.Migrations
                         .IsRequired();
 
                     b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
-                        .WithMany("CreatureFlaws")
+                        .WithMany("CharacterFlaws")
                         .HasForeignKey("NpcTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -522,7 +525,7 @@ namespace EntityFramework.MonsterBook.Migrations
                         .IsRequired();
 
                     b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
-                        .WithMany("CreatureMerits")
+                        .WithMany("CharacterMerits")
                         .HasForeignKey("NpcTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -535,7 +538,7 @@ namespace EntityFramework.MonsterBook.Migrations
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterSkill", b =>
                 {
                     b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
-                        .WithMany("CreatureSkills")
+                        .WithMany("CharacterSkills")
                         .HasForeignKey("NpcTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -565,7 +568,7 @@ namespace EntityFramework.MonsterBook.Migrations
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.CharacterWeapon", b =>
                 {
                     b.HasOne("Mithrill.MonsterBook.Domain.NpcTemplate", "NpcTemplate")
-                        .WithMany("CreatureWeapons")
+                        .WithMany("CharacterWeapons")
                         .HasForeignKey("NpcTemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -640,17 +643,17 @@ namespace EntityFramework.MonsterBook.Migrations
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.NpcTemplate", b =>
                 {
+                    b.Navigation("CharacterArmors");
+
+                    b.Navigation("CharacterFlaws");
+
+                    b.Navigation("CharacterMerits");
+
                     b.Navigation("CharacterSkillCategories");
 
-                    b.Navigation("CreatureArmors");
+                    b.Navigation("CharacterSkills");
 
-                    b.Navigation("CreatureFlaws");
-
-                    b.Navigation("CreatureMerits");
-
-                    b.Navigation("CreatureSkills");
-
-                    b.Navigation("CreatureWeapons");
+                    b.Navigation("CharacterWeapons");
                 });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Skill", b =>
