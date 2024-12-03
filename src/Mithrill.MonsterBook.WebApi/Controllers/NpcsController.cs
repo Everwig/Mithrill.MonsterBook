@@ -47,7 +47,7 @@ public class NpcsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         return await Mediator.Send(
-            new GetNpcTemplatesQuery(pageIndex, pageSize, sortDirection, sortProperty),
+            new GetNpcTemplatesQuery(pageSize, pageIndex, sortDirection, sortProperty),
             cancellationToken);
     }
 
