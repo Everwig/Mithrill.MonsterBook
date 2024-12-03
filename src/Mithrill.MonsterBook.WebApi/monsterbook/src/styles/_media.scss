@@ -1,8 +1,10 @@
+@use 'sass:map';
+
 // ------------------------------
 // Get breakpoint function
 // ------------------------------
 @function breakpoint($bp) {
-  @return map-get($breakpoints, $bp);
+  @return map.get($breakpoints, $bp);
 }
 
 $breakpoints: (

@@ -36,6 +36,11 @@
               "src/styles/styles.scss",
               "src/styles/_media.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,

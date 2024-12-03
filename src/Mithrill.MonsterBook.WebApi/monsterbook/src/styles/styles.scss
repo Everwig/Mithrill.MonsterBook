@@ -1,4 +1,5 @@
-@import 'media';
+@use 'sass:map';
+@use 'media' as *;
 
 html,
 body {
@@ -54,20 +55,20 @@ input::-webkit-inner-spin-button {
   box-sizing: border-box;
 
   @include min(breakpoint(xl)) {
-    max-width: map-get($container-max-width, xl);
+    max-width: map.get($container-max-width, xl);
   }
 
   @include min(breakpoint(2xl)) {
-    max-width: map-get($container-max-width, 2xl);
+    max-width: map.get($container-max-width, 2xl);
     padding-right: 30px;
     padding-left: 30px;
   }
 
   @include min(breakpoint(3xl)) {
-    max-width: map-get($container-max-width, 3xl);
+    max-width: map.get($container-max-width, 3xl);
   }
 
   @include min(breakpoint(4xl)) {
-    max-width: map-get($container-max-width, 4xl);
+    max-width: map.get($container-max-width, 4xl);
   }
 }
