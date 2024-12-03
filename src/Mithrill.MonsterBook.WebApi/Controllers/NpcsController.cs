@@ -38,8 +38,6 @@ public class NpcsController : ApiControllerBase
         return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
     }*/
 
-
-
     [HttpGet("GetTemplates")]
     public async Task<GetNpcTemplatesQueryResult> GetAll(
         SortDirection sortDirection,
@@ -49,20 +47,14 @@ public class NpcsController : ApiControllerBase
         CancellationToken cancellationToken)
     {
         return await Mediator.Send(
-            new GetNpcTemplatesQuery
-            {
-                SortProperty = sortProperty,
-                SortDirection = sortDirection,
-                PageIndex = pageIndex,
-                PageSize = pageSize
-            },
+            new GetNpcTemplatesQuery(pageIndex, pageSize, sortDirection, sortProperty),
             cancellationToken);
     }
 
     [HttpGet("GetTemplate/{id:int}")]
     public async Task<NpcTemplate> Get(int id, CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetNpcTemplateQuery { Id = id }, cancellationToken);
+        return await Mediator.Send(new GetNpcTemplateQuery(id), cancellationToken);
     }
 
     [HttpPost("CreateTemplate")]
@@ -81,11 +73,7 @@ public class NpcsController : ApiControllerBase
     public async Task DeleteTemplate(int id, CancellationToken cancellationToken)
     {
         await Mediator.Send(
-            new DeleteNpcTemplateCommand
-            {
-                TemplateId = id,
-                IsSoftDelete = false
-            },
+            new DeleteNpcTemplateCommand(id, false),
             cancellationToken);
     }
 

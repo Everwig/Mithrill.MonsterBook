@@ -1273,15 +1273,15 @@ export class Npc implements INpc {
     emotionMin!: number;
     karmaMax!: number;
     karmaMin!: number;
+    difficulty!: Difficulty;
+    race!: Race;
+    isUndead!: boolean;
     hitPointMax!: number;
     hitPointMin!: number;
     manaPointMax!: number;
     manaPointMin!: number;
     powerPointMax!: number;
     powerPointMin!: number;
-    difficulty!: Difficulty;
-    race!: Race;
-    isUndead!: boolean;
 
     constructor(data?: INpc) {
         if (data) {
@@ -1314,15 +1314,15 @@ export class Npc implements INpc {
             this.emotionMin = _data["emotionMin"];
             this.karmaMax = _data["karmaMax"];
             this.karmaMin = _data["karmaMin"];
+            this.difficulty = _data["difficulty"];
+            this.race = _data["race"];
+            this.isUndead = _data["isUndead"];
             this.hitPointMax = _data["hitPointMax"];
             this.hitPointMin = _data["hitPointMin"];
             this.manaPointMax = _data["manaPointMax"];
             this.manaPointMin = _data["manaPointMin"];
             this.powerPointMax = _data["powerPointMax"];
             this.powerPointMin = _data["powerPointMin"];
-            this.difficulty = _data["difficulty"];
-            this.race = _data["race"];
-            this.isUndead = _data["isUndead"];
         }
     }
 
@@ -1355,15 +1355,15 @@ export class Npc implements INpc {
         data["emotionMin"] = this.emotionMin;
         data["karmaMax"] = this.karmaMax;
         data["karmaMin"] = this.karmaMin;
+        data["difficulty"] = this.difficulty;
+        data["race"] = this.race;
+        data["isUndead"] = this.isUndead;
         data["hitPointMax"] = this.hitPointMax;
         data["hitPointMin"] = this.hitPointMin;
         data["manaPointMax"] = this.manaPointMax;
         data["manaPointMin"] = this.manaPointMin;
         data["powerPointMax"] = this.powerPointMax;
         data["powerPointMin"] = this.powerPointMin;
-        data["difficulty"] = this.difficulty;
-        data["race"] = this.race;
-        data["isUndead"] = this.isUndead;
         return data;
     }
 }
@@ -1389,15 +1389,15 @@ export interface INpc {
     emotionMin: number;
     karmaMax: number;
     karmaMin: number;
+    difficulty: Difficulty;
+    race: Race;
+    isUndead: boolean;
     hitPointMax: number;
     hitPointMin: number;
     manaPointMax: number;
     manaPointMin: number;
     powerPointMax: number;
     powerPointMin: number;
-    difficulty: Difficulty;
-    race: Race;
-    isUndead: boolean;
 }
 
 export enum Difficulty {
@@ -1556,12 +1556,6 @@ export class NpcTemplate implements INpcTemplate {
     emotionMin!: number;
     karmaMax!: number;
     karmaMin!: number;
-    hitPointMax!: number;
-    hitPointMin!: number;
-    manaPointMax!: number;
-    manaPointMin!: number;
-    powerPointMax!: number;
-    powerPointMin!: number;
     difficulty!: Difficulty;
     race!: Race;
     isUndead!: boolean;
@@ -1572,6 +1566,12 @@ export class NpcTemplate implements INpcTemplate {
     armors!: Armor2[];
     skillCategories!: SkillCategories | undefined;
     arcanumRanks!: ArcanumRanks | undefined;
+    hitPointMax!: number;
+    hitPointMin!: number;
+    manaPointMax!: number;
+    manaPointMin!: number;
+    powerPointMax!: number;
+    powerPointMin!: number;
 
     constructor(data?: INpcTemplate) {
         if (data) {
@@ -1604,12 +1604,6 @@ export class NpcTemplate implements INpcTemplate {
             this.emotionMin = _data["emotionMin"];
             this.karmaMax = _data["karmaMax"];
             this.karmaMin = _data["karmaMin"];
-            this.hitPointMax = _data["hitPointMax"];
-            this.hitPointMin = _data["hitPointMin"];
-            this.manaPointMax = _data["manaPointMax"];
-            this.manaPointMin = _data["manaPointMin"];
-            this.powerPointMax = _data["powerPointMax"];
-            this.powerPointMin = _data["powerPointMin"];
             this.difficulty = _data["difficulty"];
             this.race = _data["race"];
             this.isUndead = _data["isUndead"];
@@ -1640,6 +1634,12 @@ export class NpcTemplate implements INpcTemplate {
             }
             this.skillCategories = _data["skillCategories"] ? SkillCategories.fromJS(_data["skillCategories"]) : <any>undefined;
             this.arcanumRanks = _data["arcanumRanks"] ? ArcanumRanks.fromJS(_data["arcanumRanks"]) : <any>undefined;
+            this.hitPointMax = _data["hitPointMax"];
+            this.hitPointMin = _data["hitPointMin"];
+            this.manaPointMax = _data["manaPointMax"];
+            this.manaPointMin = _data["manaPointMin"];
+            this.powerPointMax = _data["powerPointMax"];
+            this.powerPointMin = _data["powerPointMin"];
         }
     }
 
@@ -1672,12 +1672,6 @@ export class NpcTemplate implements INpcTemplate {
         data["emotionMin"] = this.emotionMin;
         data["karmaMax"] = this.karmaMax;
         data["karmaMin"] = this.karmaMin;
-        data["hitPointMax"] = this.hitPointMax;
-        data["hitPointMin"] = this.hitPointMin;
-        data["manaPointMax"] = this.manaPointMax;
-        data["manaPointMin"] = this.manaPointMin;
-        data["powerPointMax"] = this.powerPointMax;
-        data["powerPointMin"] = this.powerPointMin;
         data["difficulty"] = this.difficulty;
         data["race"] = this.race;
         data["isUndead"] = this.isUndead;
@@ -1708,6 +1702,12 @@ export class NpcTemplate implements INpcTemplate {
         }
         data["skillCategories"] = this.skillCategories ? this.skillCategories.toJSON() : <any>undefined;
         data["arcanumRanks"] = this.arcanumRanks ? this.arcanumRanks.toJSON() : <any>undefined;
+        data["hitPointMax"] = this.hitPointMax;
+        data["hitPointMin"] = this.hitPointMin;
+        data["manaPointMax"] = this.manaPointMax;
+        data["manaPointMin"] = this.manaPointMin;
+        data["powerPointMax"] = this.powerPointMax;
+        data["powerPointMin"] = this.powerPointMin;
         return data;
     }
 }
@@ -1733,12 +1733,6 @@ export interface INpcTemplate {
     emotionMin: number;
     karmaMax: number;
     karmaMin: number;
-    hitPointMax: number;
-    hitPointMin: number;
-    manaPointMax: number;
-    manaPointMin: number;
-    powerPointMax: number;
-    powerPointMin: number;
     difficulty: Difficulty;
     race: Race;
     isUndead: boolean;
@@ -1749,6 +1743,12 @@ export interface INpcTemplate {
     armors: Armor2[];
     skillCategories: SkillCategories | undefined;
     arcanumRanks: ArcanumRanks | undefined;
+    hitPointMax: number;
+    hitPointMin: number;
+    manaPointMax: number;
+    manaPointMin: number;
+    powerPointMax: number;
+    powerPointMin: number;
 }
 
 export class Merit2 implements IMerit2 {

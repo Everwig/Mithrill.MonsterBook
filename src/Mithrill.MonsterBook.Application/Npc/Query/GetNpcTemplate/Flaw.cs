@@ -4,17 +4,17 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 
-public class Flaw : IMapFrom<CharacterFlaw>
+public sealed record Flaw(
+    int Id,
+    string Name,
+    bool IsOptional
+) : IMapFrom<CharacterFlaw>
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public bool IsOptional { get; set; }
-
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CharacterFlaw, Flaw>()
-            .ForMember(npc => npc.Id, opt => opt.MapFrom(creature => creature.FlawId))
-            .ForMember(npc => npc.Name, opt => opt.MapFrom(creature => creature.Flaw.Name))
-            .ForMember(npc => npc.IsOptional, opt => opt.MapFrom(creature => creature.IsOptional));
+            .ForCtorParam(ctorParamName: nameof(Id), opt => opt.MapFrom(creature => creature.FlawId))
+            .ForCtorParam(ctorParamName: nameof(Name), opt => opt.MapFrom(creature => creature.Flaw.Name))
+            .ForCtorParam(ctorParamName: nameof(IsOptional), opt => opt.MapFrom(creature => creature.IsOptional));
     }
 }

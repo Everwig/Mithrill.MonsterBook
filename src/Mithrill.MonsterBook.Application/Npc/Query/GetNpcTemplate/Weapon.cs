@@ -7,45 +7,45 @@ using DamageType = Mithrill.MonsterBook.Application.Common.DamageType;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 
-public class Weapon : IMapFrom<CharacterWeapon>
+public sealed record Weapon(
+    int Id,
+    string Name,
+    int BaseAttackModifier,
+    int BaseDefenseModifier,
+    int BaseInitiativeModifier,
+    int AdditionalAttackModifier,
+    int AdditionalDefenseModifier,
+    int AdditionalInitiativeModifier,
+    Common.Material Material,
+    bool IsOptional,
+    List<AttackType> AttackType
+) : IMapFrom<CharacterWeapon>
 {
-    public Weapon()
-    {
-        Name = string.Empty;
-        AttackType = new List<AttackType>();
-    }
-
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public int BaseAttackModifier { get; set; }
-    public int BaseDefenseModifier { get; set; }
-    public int BaseInitiativeModifier { get; set; }
-    public int AdditionalAttackModifier { get; set; }
-    public int AdditionalDefenseModifier { get; set; }
-    public int AdditionalInitiativeModifier { get; set; }
-    public Common.Material Material { get; set; }
-    public bool IsOptional { get; set; }
-    public List<AttackType> AttackType { get; set; }
-
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CharacterWeapon, Weapon>()
-            .ForMember(weapon => weapon.Id, opt => opt.MapFrom(creatureWeapon => creatureWeapon.NpcTemplateId))
-            .ForMember(weapon => weapon.Name, opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.Name))
-            .ForMember(weapon => weapon.BaseAttackModifier,
+            .ForCtorParam(ctorParamName: nameof(Id), opt => opt.MapFrom(creatureWeapon => creatureWeapon.NpcTemplateId))
+            .ForCtorParam(ctorParamName: nameof(Name), opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.Name))
+            .ForCtorParam(ctorParamName: nameof(BaseAttackModifier),
                 opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.BaseAttackModifier))
-            .ForMember(weapon => weapon.BaseDefenseModifier,
+            .ForCtorParam(ctorParamName: nameof(BaseDefenseModifier),
                 opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.BaseDefenseModifier))
-            .ForMember(weapon => weapon.BaseInitiativeModifier,
+            .ForCtorParam(ctorParamName: nameof(BaseInitiativeModifier),
                 opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.BaseInitiativeModifier))
-            .ForMember(weapon => weapon.AttackType, opt => opt.MapFrom(creatureWeapon => creatureWeapon.AdditionalAttackTypes.Select(attackType => attackType.AttackType)))
-            .AfterMap((creatureWeapon, weapon) => weapon.AttackType.Add(new AttackType
-            {
-                IsBaseAttackType = true,
-                DamageType = (DamageType)creatureWeapon.Weapon.BaseAttackType.DamageType,
-                Id = creatureWeapon.Weapon.BaseAttackType.Id,
-                GuaranteedDamage = creatureWeapon.Weapon.BaseAttackType.GuaranteedDamage,
-                NumberOfDices = creatureWeapon.Weapon.BaseAttackType.NumberOfDices
-            }));
+            .ForCtorParam(ctorParamName: nameof(AdditionalAttackModifier),
+                opt => opt.MapFrom(creatureWeapon => creatureWeapon.AdditionalAttackModifier))
+            .ForCtorParam(ctorParamName: nameof(AdditionalDefenseModifier),
+                opt => opt.MapFrom(creatureWeapon => creatureWeapon.AdditionalDefenseModifier))
+            .ForCtorParam(ctorParamName: nameof(AdditionalInitiativeModifier),
+                opt => opt.MapFrom(creatureWeapon => creatureWeapon.AdditionalInitiativeModifier))
+            .ForCtorParam(ctorParamName: nameof(Material), opt => opt.MapFrom(creatureArmor => creatureArmor.Material))
+            .ForCtorParam(ctorParamName: nameof(IsOptional), opt => opt.MapFrom(creatureArmor => creatureArmor.IsOptional))
+            .ForCtorParam(ctorParamName: nameof(AttackType), opt => opt.MapFrom(creatureWeapon => creatureWeapon.AdditionalAttackTypes.Select(attackType => attackType.AttackType)))
+            .AfterMap((creatureWeapon, weapon) => weapon.AttackType.Add(new AttackType(
+                creatureWeapon.Weapon.BaseAttackType.Id,
+                (DamageType)creatureWeapon.Weapon.BaseAttackType.DamageType,
+                creatureWeapon.Weapon.BaseAttackType.NumberOfDices,
+                creatureWeapon.Weapon.BaseAttackType.GuaranteedDamage,
+                true)));
     }
 }
