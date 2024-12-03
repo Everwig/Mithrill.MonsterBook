@@ -9,83 +9,82 @@ using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Application.Common.Exceptions;
 
-namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
+
+internal sealed class GetNpcTemplateQueryHandler : IRequestHandler<GetNpcTemplateQuery, NpcTemplate>
 {
-    internal sealed class GetNpcTemplateQueryHandler : IRequestHandler<GetNpcTemplateQuery, NpcTemplate>
+    private readonly IMapper _mapper;
+    private readonly IMonsterBookDbContext _monsterBookDbContext;
+
+    public GetNpcTemplateQueryHandler(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
     {
-        private readonly IMapper _mapper;
-        private readonly IMonsterBookDbContext _monsterBookDbContext;
+        _mapper = mapper;
+        _monsterBookDbContext = monsterBookDbContext;
+    }
 
-        public GetNpcTemplateQueryHandler(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
+    public async Task<NpcTemplate> Handle(GetNpcTemplateQuery request, CancellationToken cancellationToken)
+    {
+        var npcTemplate = await _monsterBookDbContext.NpcTemplates
+            .Include(creature => creature.CharacterArmors)
+            .ThenInclude(creatureArmor => creatureArmor.Armor)
+            .Include(creature => creature.CharacterWeapons)
+            .ThenInclude(creatureWeapon => creatureWeapon.Weapon)
+            .ThenInclude(weapon => weapon.BaseAttackType)
+            .Include(creature => creature.CharacterWeapons)
+            .ThenInclude(creature => creature.AdditionalAttackTypes)
+            .ThenInclude(attackTypes => attackTypes.AttackType)
+            .Include(creature => creature.CharacterMerits)
+            .ThenInclude(creatureMerit => creatureMerit.Merit)
+            .Include(creature => creature.CharacterFlaws)
+            .ThenInclude(creatureFlaw => creatureFlaw.Flaw)
+            .Include(creature => creature.CharacterSkills)
+            .ThenInclude(creatureSkill => creatureSkill.Skill)
+            .Include(creature => creature.CharacterSkillCategories)
+            .Where(template => template.Id == request.Id)
+            .SingleOrDefaultAsync(cancellationToken);
+
+        if (npcTemplate == null)
         {
-            _mapper = mapper;
-            _monsterBookDbContext = monsterBookDbContext;
+            throw new NotFoundException("Template not found", request.Id);
         }
 
-        public async Task<NpcTemplate> Handle(GetNpcTemplateQuery request, CancellationToken cancellationToken)
-        {
-            var npcTemplate = await _monsterBookDbContext.NpcTemplates
-                .Include(creature => creature.CharacterArmors)
-                .ThenInclude(creatureArmor => creatureArmor.Armor)
-                .Include(creature => creature.CharacterWeapons)
-                .ThenInclude(creatureWeapon => creatureWeapon.Weapon)
-                .ThenInclude(weapon => weapon.BaseAttackType)
-                .Include(creature => creature.CharacterWeapons)
-                .ThenInclude(creature => creature.AdditionalAttackTypes)
-                .ThenInclude(attackTypes => attackTypes.AttackType)
-                .Include(creature => creature.CharacterMerits)
-                .ThenInclude(creatureMerit => creatureMerit.Merit)
-                .Include(creature => creature.CharacterFlaws)
-                .ThenInclude(creatureFlaw => creatureFlaw.Flaw)
-                .Include(creature => creature.CharacterSkills)
-                .ThenInclude(creatureSkill => creatureSkill.Skill)
-                .Include(creature => creature.CharacterSkillCategories)
-                .Where(template => template.Id == request.Id)
-                .SingleOrDefaultAsync(cancellationToken);
+        var merits = npcTemplate.CharacterMerits.Select(characterMerit => characterMerit.Merit);
+        var mappedTemplate = _mapper.Map<NpcTemplate>(npcTemplate);
+        GetCalculatedValues(mappedTemplate, npcTemplate, merits);
 
-            if (npcTemplate == null)
-            {
-                throw new NotFoundException("Template not found", request.Id);
-            }
+        return mappedTemplate;
+    }
 
-            var merits = npcTemplate.CharacterMerits.Select(characterMerit => characterMerit.Merit);
-            var mappedTemplate = _mapper.Map<NpcTemplate>(npcTemplate);
-            GetCalculatedValues(mappedTemplate, npcTemplate, merits);
+    private static void GetCalculatedValues(
+        NpcTemplate mappedTemplate,
+        MonsterBook.Domain.NpcTemplate npcTemplate,
+        IEnumerable<MonsterBook.Domain.Merit> merits)
+    {
+        mappedTemplate.HitPointMin = Calculators.CalculateHitPoints(
+            npcTemplate.StrengthMin,
+            npcTemplate.BodyMin,
+            npcTemplate.IsUndead,
+            merits);
 
-            return mappedTemplate;
-        }
+        mappedTemplate.HitPointMax = Calculators.CalculateHitPoints(
+            npcTemplate.StrengthMax,
+            npcTemplate.BodyMax,
+            npcTemplate.IsUndead,
+            merits);
 
-        private static void GetCalculatedValues(
-            NpcTemplate mappedTemplate,
-            MonsterBook.Domain.NpcTemplate npcTemplate,
-            IEnumerable<MonsterBook.Domain.Merit> merits)
-        {
-            mappedTemplate.HitPointMin = Calculators.CalculateHitPoints(
-                npcTemplate.StrengthMin,
-                npcTemplate.BodyMin,
-                npcTemplate.IsUndead,
-                merits);
+        mappedTemplate.ManaPointMin = Calculators.CalculateManaPoints(
+            npcTemplate.IntelligenceMin,
+            npcTemplate.WillpowerMin,
+            npcTemplate.EmotionMin,
+            merits);
 
-            mappedTemplate.HitPointMax = Calculators.CalculateHitPoints(
-                npcTemplate.StrengthMax,
-                npcTemplate.BodyMax,
-                npcTemplate.IsUndead,
-                merits);
+        mappedTemplate.ManaPointMax = Calculators.CalculateManaPoints(
+            npcTemplate.IntelligenceMax,
+            npcTemplate.WillpowerMax,
+            npcTemplate.EmotionMax,
+            merits);
 
-            mappedTemplate.ManaPointMin = Calculators.CalculateManaPoints(
-                npcTemplate.IntelligenceMin,
-                npcTemplate.WillpowerMin,
-                npcTemplate.EmotionMin,
-                merits);
-
-            mappedTemplate.ManaPointMax = Calculators.CalculateManaPoints(
-                npcTemplate.IntelligenceMax,
-                npcTemplate.WillpowerMax,
-                npcTemplate.EmotionMax,
-                merits);
-
-            mappedTemplate.PowerPointMin = Calculators.CalculatePowerPoints(npcTemplate.KarmaMin);
-            mappedTemplate.PowerPointMax = Calculators.CalculatePowerPoints(npcTemplate.KarmaMax);
-        }
+        mappedTemplate.PowerPointMin = Calculators.CalculatePowerPoints(npcTemplate.KarmaMin);
+        mappedTemplate.PowerPointMax = Calculators.CalculatePowerPoints(npcTemplate.KarmaMax);
     }
 }

@@ -4,87 +4,86 @@ using NJsonSchema;
 using NSwag.Generation.Processors;
 using NSwag.Generation.Processors.Contexts;
 
-namespace Mithrill.MonsterBook.WebApi.Common
+namespace Mithrill.MonsterBook.WebApi.Common;
+
+public class ResponseTypeJsonSchemaProcessor : IDocumentProcessor
 {
-    public class ResponseTypeJsonSchemaProcessor : IDocumentProcessor
+    private static readonly IEnumerable<ResponseTypeSetting> ResponseTypeSettings = new[]
     {
-        private static readonly IEnumerable<ResponseTypeSetting> ResponseTypeSettings = new[]
+        new ResponseTypeSetting
         {
-            new ResponseTypeSetting
+            SchemaName = nameof(ProblemDetails),
+            PropertyExclusionSettings = new[]
             {
-                SchemaName = nameof(ProblemDetails),
-                PropertyExclusionSettings = new[]
+                new ResponseTypeSetting.PropertyExclusionSetting
                 {
-                    new ResponseTypeSetting.PropertyExclusionSetting
-                    {
-                        PropertyName = "extensions",
-                        ExcludeFromParent = true
-                    }
-                }
-            },
-            new ResponseTypeSetting
-            {
-                SchemaName = nameof(ProblemDetailsWithTraceId),
-                PropertyExclusionSettings = new[]
-                {
-                    new ResponseTypeSetting.PropertyExclusionSetting
-                    {
-                        PropertyName = "extensions",
-                        ExcludeFromParent = true
-                    }
+                    PropertyName = "extensions",
+                    ExcludeFromParent = true
                 }
             }
-        };
-
-        public void Process(DocumentProcessorContext context)
+        },
+        new ResponseTypeSetting
         {
-            foreach (var setting in ResponseTypeSettings)
+            SchemaName = nameof(ProblemDetailsWithTraceId),
+            PropertyExclusionSettings = new[]
             {
-                if (TryToGetJsonSchemaFromDocumentProcessContextBySchemaName(context, setting.SchemaName, out var jsonSchema))
+                new ResponseTypeSetting.PropertyExclusionSetting
                 {
-                    ApplyPropertyExclusionSettingsOnJsonSchema(jsonSchema, setting.PropertyExclusionSettings);
+                    PropertyName = "extensions",
+                    ExcludeFromParent = true
                 }
             }
         }
+    };
 
-        private static void ApplyPropertyExclusionSettingsOnJsonSchema(
-            JsonSchema jsonSchema,
-            IEnumerable<ResponseTypeSetting.PropertyExclusionSetting> propertyExclusionSettings)
+    public void Process(DocumentProcessorContext context)
+    {
+        foreach (var setting in ResponseTypeSettings)
         {
-            foreach (var setting in propertyExclusionSettings)
+            if (TryToGetJsonSchemaFromDocumentProcessContextBySchemaName(context, setting.SchemaName, out var jsonSchema))
             {
-                jsonSchema.Properties.Remove(setting.PropertyName);
+                ApplyPropertyExclusionSettingsOnJsonSchema(jsonSchema, setting.PropertyExclusionSettings);
+            }
+        }
+    }
 
-                if (setting.ExcludeFromParent)
+    private static void ApplyPropertyExclusionSettingsOnJsonSchema(
+        JsonSchema jsonSchema,
+        IEnumerable<ResponseTypeSetting.PropertyExclusionSetting> propertyExclusionSettings)
+    {
+        foreach (var setting in propertyExclusionSettings)
+        {
+            jsonSchema.Properties.Remove(setting.PropertyName);
+
+            if (setting.ExcludeFromParent)
+            {
+                foreach (var parentSchema in jsonSchema.AllInheritedSchemas)
                 {
-                    foreach (var parentSchema in jsonSchema.AllInheritedSchemas)
-                    {
-                        parentSchema.Properties.Remove(setting.PropertyName);
-                    }
+                    parentSchema.Properties.Remove(setting.PropertyName);
                 }
             }
         }
+    }
 
-        private static bool TryToGetJsonSchemaFromDocumentProcessContextBySchemaName(
-            DocumentProcessorContext context,
-            string schemaName,
-            out JsonSchema schema)
+    private static bool TryToGetJsonSchemaFromDocumentProcessContextBySchemaName(
+        DocumentProcessorContext context,
+        string schemaName,
+        out JsonSchema schema)
+    {
+        return context.Document.Components.Schemas.TryGetValue(schemaName, out schema);
+    }
+
+    private class ResponseTypeSetting
+    {
+        public string SchemaName { get; set; }
+
+        public IReadOnlyCollection<PropertyExclusionSetting> PropertyExclusionSettings { get; set; }
+
+        internal class PropertyExclusionSetting
         {
-            return context.Document.Components.Schemas.TryGetValue(schemaName, out schema);
-        }
+            public string PropertyName { get; set; }
 
-        private class ResponseTypeSetting
-        {
-            public string SchemaName { get; set; }
-
-            public IReadOnlyCollection<PropertyExclusionSetting> PropertyExclusionSettings { get; set; }
-
-            internal class PropertyExclusionSetting
-            {
-                public string PropertyName { get; set; }
-
-                public bool ExcludeFromParent { get; set; }
-            }
+            public bool ExcludeFromParent { get; set; }
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace Mithrill.MonsterBook.Application.Common.Validation
+﻿namespace Mithrill.MonsterBook.Application.Common.Validation;
+
+public enum ValidationMode
 {
-    public enum ValidationMode
-    {
-        Create,
-        Edit
-    }
+    Create,
+    Edit
 }

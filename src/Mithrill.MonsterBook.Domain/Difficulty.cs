@@ -1,13 +1,12 @@
-﻿namespace Mithrill.MonsterBook.Domain
+﻿namespace Mithrill.MonsterBook.Domain;
+
+public enum Difficulty
 {
-    public enum Difficulty
-    {
-        Newbie,
-        Experienced,
-        Expert,
-        Veteran,
-        Demigodly,
-        Godly,
-        Variable
-    }
+    Newbie,
+    Experienced,
+    Expert,
+    Veteran,
+    Demigodly,
+    Godly,
+    Variable
 }

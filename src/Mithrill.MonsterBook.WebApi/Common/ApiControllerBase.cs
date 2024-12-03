@@ -3,16 +3,15 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mithrill.MonsterBook.WebApi.Common
-{
-    [ApiController]
-    [Produces(MediaTypeNames.Application.Json, "application/problem+json")]
-    [ApiConventionType(typeof(CustomApiConventions))]
-    [Route("api/[controller]")]
-    public abstract class ApiControllerBase : ControllerBase
-    {
-        private ISender _mediator;
+namespace Mithrill.MonsterBook.WebApi.Common;
 
-        protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>();
-    }
+[ApiController]
+[Produces(MediaTypeNames.Application.Json, "application/problem+json")]
+[ApiConventionType(typeof(CustomApiConventions))]
+[Route("api/[controller]")]
+public abstract class ApiControllerBase : ControllerBase
+{
+    private ISender _mediator;
+
+    protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>();
 }

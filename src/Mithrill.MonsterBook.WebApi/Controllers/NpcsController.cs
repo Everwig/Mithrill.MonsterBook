@@ -17,132 +17,131 @@ using GetNpcTemplateQuery = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTem
 using NpcTemplate = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.NpcTemplate;
 using UpdateNpcTemplate = Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate.NpcTemplate;
 
-namespace Mithrill.MonsterBook.WebApi.Controllers
+namespace Mithrill.MonsterBook.WebApi.Controllers;
+
+public class NpcsController : ApiControllerBase
 {
-    public class NpcsController : ApiControllerBase
+    /*
+    [HttpGet("Generate")]
+    public async Task<GeneratedNpc> GetGeneratedNpc(int id, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
     {
-        /*
-        [HttpGet("Generate")]
-        public async Task<GeneratedNpc> GetGeneratedNpc(int id, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetGeneratedNpcQuery { Id = id, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
-        }[HttpGet("GenerateWithKarma")]
-        public async Task<GeneratedNpcWithKarma> GetGeneratedNpcWithKarma(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetGeneratedNpcWithKarmaQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
-        }
+        return await Mediator.Send(new GetGeneratedNpcQuery { Id = id, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
+    }[HttpGet("GenerateWithKarma")]
+    public async Task<GeneratedNpcWithKarma> GetGeneratedNpcWithKarma(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetGeneratedNpcWithKarmaQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
+    }
 
-        [HttpGet("GenerateProminent")]
-        public async Task<GeneratedProminentNpc> GetGeneratedProminent(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
-        }*/
+    [HttpGet("GenerateProminent")]
+    public async Task<GeneratedProminentNpc> GetGeneratedProminent(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
+    }*/
 
 
 
-        [HttpGet("GetTemplates")]
-        public async Task<GetNpcTemplatesQueryResult> GetAll(
-            SortDirection sortDirection,
-            SortProperty sortProperty,
-            int pageIndex,
-            int pageSize,
-            CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(
-                new GetNpcTemplatesQuery
-                {
-                    SortProperty = sortProperty,
-                    SortDirection = sortDirection,
-                    PageIndex = pageIndex,
-                    PageSize = pageSize
-                },
-                cancellationToken);
-        }
+    [HttpGet("GetTemplates")]
+    public async Task<GetNpcTemplatesQueryResult> GetAll(
+        SortDirection sortDirection,
+        SortProperty sortProperty,
+        int pageIndex,
+        int pageSize,
+        CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(
+            new GetNpcTemplatesQuery
+            {
+                SortProperty = sortProperty,
+                SortDirection = sortDirection,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            },
+            cancellationToken);
+    }
 
-        [HttpGet("GetTemplate/{id:int}")]
-        public async Task<NpcTemplate> Get(int id, CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetNpcTemplateQuery { Id = id }, cancellationToken);
-        }
+    [HttpGet("GetTemplate/{id:int}")]
+    public async Task<NpcTemplate> Get(int id, CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetNpcTemplateQuery { Id = id }, cancellationToken);
+    }
 
-        [HttpPost("CreateTemplate")]
-        public async Task<int> CreateTemplate(CreateNpcTemplateCommand createNpcTemplateCommand, CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(createNpcTemplateCommand, cancellationToken);
-        }
+    [HttpPost("CreateTemplate")]
+    public async Task<int> CreateTemplate(CreateNpcTemplateCommand createNpcTemplateCommand, CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(createNpcTemplateCommand, cancellationToken);
+    }
 
-        [HttpPatch("UpdateTemplate/{id:int}")]
-        public async Task UpdateTemplate(int id, UpdateNpcTemplate npcTemplate, CancellationToken cancellationToken)
-        {
-            await Mediator.Send(new UpdateNpcTemplateCommand(id, npcTemplate), cancellationToken);
-        }
+    [HttpPatch("UpdateTemplate/{id:int}")]
+    public async Task UpdateTemplate(int id, UpdateNpcTemplate npcTemplate, CancellationToken cancellationToken)
+    {
+        await Mediator.Send(new UpdateNpcTemplateCommand(id, npcTemplate), cancellationToken);
+    }
 
-        [HttpDelete("DeleteTemplate/{id:int}")]
-        public async Task DeleteTemplate(int id, CancellationToken cancellationToken)
-        {
-            await Mediator.Send(
-                new DeleteNpcTemplateCommand
-                {
-                    TemplateId = id,
-                    IsSoftDelete = false
-                },
-                cancellationToken);
-        }
+    [HttpDelete("DeleteTemplate/{id:int}")]
+    public async Task DeleteTemplate(int id, CancellationToken cancellationToken)
+    {
+        await Mediator.Send(
+            new DeleteNpcTemplateCommand
+            {
+                TemplateId = id,
+                IsSoftDelete = false
+            },
+            cancellationToken);
+    }
 
-        [HttpPost("Validate")]
-        public async Task<ValidationResult> Validate(
-            ValidateNpcTemplateQuery validateNpcTemplateQuery,
-            CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(validateNpcTemplateQuery, cancellationToken);
-        }
+    [HttpPost("Validate")]
+    public async Task<ValidationResult> Validate(
+        ValidateNpcTemplateQuery validateNpcTemplateQuery,
+        CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(validateNpcTemplateQuery, cancellationToken);
+    }
 
-        [HttpGet("GetHitPointMinMaxValues")]
-        public async Task<(int HitPointMin, int HitPointMax)> GetHitPointMinMaxValues(
-            int strengthMin,
-            int strengthMax,
-            int bodyMin,
-            int bodyMax,
-            bool isUndead,
-            [FromQuery] IEnumerable<int> meritIds,
-            CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(
-                new GetHitPointMinMaxValuesQuery(strengthMin, strengthMax, bodyMin, bodyMax, isUndead, [..meritIds]),
-                cancellationToken);
-        }
+    [HttpGet("GetHitPointMinMaxValues")]
+    public async Task<(int HitPointMin, int HitPointMax)> GetHitPointMinMaxValues(
+        int strengthMin,
+        int strengthMax,
+        int bodyMin,
+        int bodyMax,
+        bool isUndead,
+        [FromQuery] IEnumerable<int> meritIds,
+        CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(
+            new GetHitPointMinMaxValuesQuery(strengthMin, strengthMax, bodyMin, bodyMax, isUndead, [..meritIds]),
+            cancellationToken);
+    }
 
-        [HttpGet("GetManaPointMinMaxValues")]
-        public async Task<(int ManaPointMin, int ManaPointMax)> GetManaPointMinMaxValues(
-            int intelligenceMin,
-            int intelligenceMax,
-            int willpowerMin,
-            int willpowerMax,
-            int emotionMin,
-            int emotionMax,
-            [FromQuery]IEnumerable<int> meritIds,
-            CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(
-                new GetManaPointMinMaxValuesQuery(
-                    intelligenceMin,
-                    intelligenceMax,
-                    willpowerMin,
-                    willpowerMax,
-                    emotionMin,
-                    emotionMax,
-                    [..meritIds]),
-                cancellationToken);
-        }
+    [HttpGet("GetManaPointMinMaxValues")]
+    public async Task<(int ManaPointMin, int ManaPointMax)> GetManaPointMinMaxValues(
+        int intelligenceMin,
+        int intelligenceMax,
+        int willpowerMin,
+        int willpowerMax,
+        int emotionMin,
+        int emotionMax,
+        [FromQuery]IEnumerable<int> meritIds,
+        CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(
+            new GetManaPointMinMaxValuesQuery(
+                intelligenceMin,
+                intelligenceMax,
+                willpowerMin,
+                willpowerMax,
+                emotionMin,
+                emotionMax,
+                [..meritIds]),
+            cancellationToken);
+    }
 
 
-        [HttpGet("GetPowerPointMinMaxValues")]
-        public async Task<(int PowerPointMin, int PowerPointMax)> GetPowerPointMinMaxValues(
-            int karmaMin,
-            int karmaMax,
-            CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetPowerPointMinMaxValuesQuery(karmaMin,karmaMax), cancellationToken);
-        }
+    [HttpGet("GetPowerPointMinMaxValues")]
+    public async Task<(int PowerPointMin, int PowerPointMax)> GetPowerPointMinMaxValues(
+        int karmaMin,
+        int karmaMax,
+        CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetPowerPointMinMaxValuesQuery(karmaMin,karmaMax), cancellationToken);
     }
 }

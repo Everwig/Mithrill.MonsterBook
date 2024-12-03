@@ -1,10 +1,9 @@
 ﻿using MediatR;
 
-namespace Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate
+namespace Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
+
+public class DeleteNpcTemplateCommand : IRequest
 {
-    public class DeleteNpcTemplateCommand : IRequest
-    {
-        public int TemplateId { get; set; }
-        public bool IsSoftDelete { get; set; }
-    }
+    public int TemplateId { get; set; }
+    public bool IsSoftDelete { get; set; }
 }

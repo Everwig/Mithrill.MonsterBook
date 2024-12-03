@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using System.Reflection;
 
-namespace Mithrill.MonsterBook.Application.Common.Mappings
+namespace Mithrill.MonsterBook.Application.Common.Mappings;
+
+public class MappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            Assembly.GetExecutingAssembly().ApplyMapFromAndToFromAssembly(this);
-        }
+        Assembly.GetExecutingAssembly().ApplyMapFromAndToFromAssembly(this);
     }
 }

@@ -1,9 +1,8 @@
 ﻿using MediatR;
 
-namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate
+namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
+
+public class GetNpcTemplateQuery : IRequest<NpcTemplate>
 {
-    public class GetNpcTemplateQuery : IRequest<NpcTemplate>
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

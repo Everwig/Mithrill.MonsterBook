@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using System.Threading;
 using Mithrill.MonsterBook.Application.Armors.GetAllForNpcTemplates;
 
-namespace Mithrill.MonsterBook.WebApi.Controllers
+namespace Mithrill.MonsterBook.WebApi.Controllers;
+
+public class ArmorsController : ApiControllerBase
 {
-    public class ArmorsController : ApiControllerBase
+    [HttpGet("GetAllForNpcTemplates")]
+    public async Task<IEnumerable<Armor>> GetAllForNpcTemplates(CancellationToken cancellationToken)
     {
-        [HttpGet("GetAllForNpcTemplates")]
-        public async Task<IEnumerable<Armor>> GetAllForNpcTemplates(CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetAllArmorsForNpcTemplatesQuery(), cancellationToken);
-        }
+        return await Mediator.Send(new GetAllArmorsForNpcTemplatesQuery(), cancellationToken);
     }
 }

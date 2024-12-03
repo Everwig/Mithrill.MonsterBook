@@ -1,8 +1,7 @@
-﻿namespace Mithrill.MonsterBook.Application.Common.Adapters
+﻿namespace Mithrill.MonsterBook.Application.Common.Adapters;
+
+public interface IMeritFlaw
 {
-    public interface IMeritFlaw
-    {
-        string Name { get; }
-        string NameHu { get; }
-    }
+    string Name { get; }
+    string NameHu { get; }
 }

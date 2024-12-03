@@ -1,9 +1,8 @@
-﻿namespace Mithrill.MonsterBook.Application.Common.Adapters
+﻿namespace Mithrill.MonsterBook.Application.Common.Adapters;
+
+public interface IWeapon
 {
-    public interface IWeapon
-    {
-        string Name { get; }
-        string NameHu { get;}
-        IAttackType AttackType { get; }
-    }
+    string Name { get; }
+    string NameHu { get;}
+    IAttackType AttackType { get; }
 }

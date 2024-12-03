@@ -7,20 +7,19 @@ using Mithrill.MonsterBook.Application.Weapons.Query.GetAllForNpcTemplates;
 using Mithrill.MonsterBook.WebApi.Common;
 using AttackType = Mithrill.MonsterBook.Application.Weapons.Query.GetAllAttackTypes.AttackType;
 
-namespace Mithrill.MonsterBook.WebApi.Controllers
-{
-    public class WeaponsController : ApiControllerBase
-    {
-        [HttpGet("GetAllForNpcTemplates")]
-        public async Task<IEnumerable<Weapon>> GetAllForNpcTemplates(CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetAllWeaponsForNpcTemplatesQuery(), cancellationToken);
-        }
+namespace Mithrill.MonsterBook.WebApi.Controllers;
 
-        [HttpGet("GetAllAttackTypes")]
-        public async Task<IEnumerable<AttackType>> GetAllAttackTypes(CancellationToken cancellationToken)
-        {
-            return await Mediator.Send(new GetAllAttackTypesQuery(), cancellationToken);
-        }
+public class WeaponsController : ApiControllerBase
+{
+    [HttpGet("GetAllForNpcTemplates")]
+    public async Task<IEnumerable<Weapon>> GetAllForNpcTemplates(CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetAllWeaponsForNpcTemplatesQuery(), cancellationToken);
+    }
+
+    [HttpGet("GetAllAttackTypes")]
+    public async Task<IEnumerable<AttackType>> GetAllAttackTypes(CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetAllAttackTypesQuery(), cancellationToken);
     }
 }
