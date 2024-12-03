@@ -73,12 +73,12 @@ public class AutoMapperTests
 
         //Assert
         mappedObject.Should().BeEquivalentTo(new SkillCategories
-        {
-            Primary = (SkillCategory)creatureSkillCategories.Primary,
-            FirstSecondary = (SkillCategory)creatureSkillCategories.FirstSecondary,
-            SecondSecondary = (SkillCategory)creatureSkillCategories.SecondSecondary,
-            Tertiary = (SkillCategory)creatureSkillCategories.Tertiary
-        });
+        (
+            (SkillCategory)creatureSkillCategories.Primary,
+            (SkillCategory)creatureSkillCategories.FirstSecondary,
+            (SkillCategory)creatureSkillCategories.SecondSecondary,
+            (SkillCategory)creatureSkillCategories.Tertiary
+        ));
     }
 
     [Fact]

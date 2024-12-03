@@ -40,17 +40,8 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
 
         return new GetNpcTemplatesQueryResult(
             mappedCreatures,
-            new SortInformation<SortProperty>
-            {
-                SortDirection = request.SortDirection,
-                SortProperty = request.SortProperty
-            },
-            new PageInformation
-            {
-                PageIndex = request.PageIndex,
-                PageSize = request.PageSize,
-                TotalCount = totalCount
-            }
+            new SortInformation<SortProperty>(request.SortProperty, request.SortDirection),
+            new PageInformation(request.PageSize, request.PageIndex, totalCount)
         );
     }
 

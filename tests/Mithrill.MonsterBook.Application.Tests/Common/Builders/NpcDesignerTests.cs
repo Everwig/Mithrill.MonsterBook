@@ -129,12 +129,12 @@ public class NpcDesignerTests
         c.Flaws.Should().NotBeNullOrEmpty();
         c.Flaws.Should().NotBeNullOrEmpty();
         c.SkillCategories.Should().BeEquivalentTo(new SkillCategories
-        {
-            Primary = (SkillCategory)npcTemplate.CharacterSkillCategories.Primary,
-            FirstSecondary = (SkillCategory)npcTemplate.CharacterSkillCategories.FirstSecondary,
-            SecondSecondary = (SkillCategory)npcTemplate.CharacterSkillCategories.SecondSecondary,
-            Tertiary = (SkillCategory)npcTemplate.CharacterSkillCategories.Tertiary
-        });
+        (
+            (SkillCategory)npcTemplate.CharacterSkillCategories.Primary,
+            (SkillCategory)npcTemplate.CharacterSkillCategories.FirstSecondary,
+            (SkillCategory)npcTemplate.CharacterSkillCategories.SecondSecondary,
+            (SkillCategory)npcTemplate.CharacterSkillCategories.Tertiary
+        ));
         c.Difficulty.Should().Be((Difficulty)difficulty);
     }
 }

@@ -3,15 +3,14 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Common;
 
-public class SkillCategories :
+public sealed record SkillCategories(
+    SkillCategory Primary,
+    SkillCategory FirstSecondary,
+    SkillCategory SecondSecondary,
+    SkillCategory Tertiary) :
     IMapFrom<MonsterBook.Domain.CharacterSkillCategories>,
     IMapTo<MonsterBook.Domain.CharacterSkillCategories>
 {
-    public SkillCategory Primary { get; set; }
-    public SkillCategory FirstSecondary { get; set; }
-    public SkillCategory SecondSecondary { get; set; }
-    public SkillCategory Tertiary { get; set; }
-
     void IMapTo<MonsterBook.Domain.CharacterSkillCategories>.Mapping(Profile profile)
     {
         profile.CreateMap<SkillCategories, MonsterBook.Domain.CharacterSkillCategories>()

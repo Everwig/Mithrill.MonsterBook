@@ -811,7 +811,8 @@ public class UpdateNpcTemplateCommandTests
         // Arrange
         var template = new NpcTemplate(
             1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories(), null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat),
+            null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
         // Act
@@ -837,10 +838,8 @@ public class UpdateNpcTemplateCommandTests
         // Arrange
         var template = new NpcTemplate(
             1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Secular),
+            null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
         // Act
@@ -866,11 +865,8 @@ public class UpdateNpcTemplateCommandTests
         // Arrange
         var template = new NpcTemplate(
             1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
+            null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
         // Act
@@ -896,13 +892,8 @@ public class UpdateNpcTemplateCommandTests
         // Arrange
         var template = new NpcTemplate(
             1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                FirstSecondary = SkillCategory.Underworld,
-                Primary = SkillCategory.Combat,
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Underworld, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
+            null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
         // Act

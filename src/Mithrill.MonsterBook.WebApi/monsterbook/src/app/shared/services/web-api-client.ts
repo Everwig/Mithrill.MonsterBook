@@ -1492,9 +1492,9 @@ export enum SortDirection {
 }
 
 export class PageInformation implements IPageInformation {
-    totalCount!: number;
     pageSize!: number;
     pageIndex!: number;
+    totalCount!: number;
 
     constructor(data?: IPageInformation) {
         if (data) {
@@ -1507,9 +1507,9 @@ export class PageInformation implements IPageInformation {
 
     init(_data?: any) {
         if (_data) {
-            this.totalCount = _data["totalCount"];
             this.pageSize = _data["pageSize"];
             this.pageIndex = _data["pageIndex"];
+            this.totalCount = _data["totalCount"];
         }
     }
 
@@ -1522,17 +1522,17 @@ export class PageInformation implements IPageInformation {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
         data["pageSize"] = this.pageSize;
         data["pageIndex"] = this.pageIndex;
+        data["totalCount"] = this.totalCount;
         return data;
     }
 }
 
 export interface IPageInformation {
-    totalCount: number;
     pageSize: number;
     pageIndex: number;
+    totalCount: number;
 }
 
 export class NpcTemplate implements INpcTemplate {

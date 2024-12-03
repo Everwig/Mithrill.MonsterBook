@@ -908,7 +908,8 @@ public class ValidateNpcTemplateQueryTests
         // Arrange
         var template = new NpcTemplate(
             null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories(), null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat),
+            null, [], [], [], [], []);
         var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
         // Act
@@ -935,10 +936,8 @@ public class ValidateNpcTemplateQueryTests
         // Arrange
         var template = new NpcTemplate(
             null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Secular),
+            null, [], [], [], [], []);
         var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
         // Act
@@ -965,11 +964,8 @@ public class ValidateNpcTemplateQueryTests
         // Arrange
         var template = new NpcTemplate(
             null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
+            null, [], [], [], [], []);
         var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
         // Act
@@ -996,131 +992,8 @@ public class ValidateNpcTemplateQueryTests
         // Arrange
         var template = new NpcTemplate(
             null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                FirstSecondary = SkillCategory.Underworld,
-                Primary = SkillCategory.Combat,
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
-        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
-
-        // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
-            CancellationToken.None);
-
-        // Assert
-        validationResult.IsValid.Should().BeTrue();
-        validationResult.Errors.Should().BeEmpty();
-    }
-
-    #endregion
-
-    #region ArcanumRanks Validation
-
-    [Fact]
-    public async Task GivenTemplate_When_ArcnumRanksIsNotNullButAllValuesAreTheSame_Then_ReturnValidationError()
-    {
-        // Arrange
-        var template = new NpcTemplate(
-            null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories(), null, [], [], [], [], []);
-        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
-
-        // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
-            CancellationToken.None);
-
-        // Assert
-        validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
-        {
-            new(
-                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                ErrorCode: "SkillCategoryValidator",
-                ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
-            )
-        });
-    }
-
-    [Fact]
-    public async Task GivenTemplate_When_ArcanumRanksIsNotNullButFourValuesAreTheSame_Then_ReturnValidationError()
-    {
-        // Arrange
-        var template = new NpcTemplate(
-            null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
-        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
-
-        // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
-            CancellationToken.None);
-
-        // Assert
-        validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
-        {
-            new(
-                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                ErrorCode: "SkillCategoryValidator",
-                ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
-            )
-        });
-    }
-
-    [Fact]
-    public async Task GivenTemplate_When_ArkanumRanksIsNotNullButTwoValuesAreTheSame_Then_ReturnValidationError()
-    {
-        // Arrange
-        var template = new NpcTemplate(
-            null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
-        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
-
-        // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
-            CancellationToken.None);
-
-        // Assert
-        validationResult.IsValid.Should().BeFalse();
-        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
-        {
-            new(
-                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                ErrorCode: "SkillCategoryValidator",
-                ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
-            )
-        });
-    }
-
-    [Fact]
-    public async Task GivenTemplate_When_ArcanumRanksIsNotNullAndAllValuesAreDifferent_Then_ReturnNoValidationError()
-    {
-        // Arrange
-        var template = new NpcTemplate(
-            null, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                FirstSecondary = SkillCategory.Underworld,
-                Primary = SkillCategory.Combat,
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Underworld, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
+            null, [], [], [], [], []);
         var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
         // Act

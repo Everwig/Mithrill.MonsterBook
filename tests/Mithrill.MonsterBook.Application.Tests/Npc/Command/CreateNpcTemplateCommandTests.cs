@@ -761,7 +761,8 @@ public class CreateNpcTemplateCommandTests
         // Arrange
         var command = new CreateNpcTemplateCommand(
             "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories(), null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat),
+            null, [], [], [], [], []);
 
 
         // Act
@@ -787,10 +788,8 @@ public class CreateNpcTemplateCommandTests
         // Arrange
         var command = new CreateNpcTemplateCommand(
             "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Secular),
+            null, [], [], [], [], []);
 
 
         // Act
@@ -816,11 +815,8 @@ public class CreateNpcTemplateCommandTests
         // Arrange
         var command = new CreateNpcTemplateCommand(
             "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
+            new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
+            null, [], [], [], [], []);
 
 
         // Act
@@ -846,14 +842,8 @@ public class CreateNpcTemplateCommandTests
         // Arrange
         var command = new CreateNpcTemplateCommand(
             "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
-            new SkillCategories
-            {
-                FirstSecondary = SkillCategory.Underworld,
-                Primary = SkillCategory.Combat,
-                SecondSecondary = SkillCategory.Scholar,
-                Tertiary = SkillCategory.Secular
-            }, null, [], [], [], [], []);
-
+            new SkillCategories(SkillCategory.Underworld, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
+            null, [], [], [], [], []);
 
         // Act
         var validationResult = await _validator.ValidateAsync(
