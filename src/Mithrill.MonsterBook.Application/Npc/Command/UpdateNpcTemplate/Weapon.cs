@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 
-public record Weapon(
+public sealed record Weapon(
     int Id,
     Material Material,
     int AdditionalAttackModifier,

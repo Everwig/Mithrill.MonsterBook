@@ -8,7 +8,7 @@ using Race = Mithrill.MonsterBook.Application.Common.Race;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public record CreateNpcTemplateCommand(
+public sealed record CreateNpcTemplateCommand(
     string Name,
     string NameHu,
     int StrengthMax,

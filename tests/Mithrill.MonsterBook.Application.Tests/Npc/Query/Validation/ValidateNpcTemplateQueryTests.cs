@@ -83,12 +83,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
-                    ErrorCode = "NullValidator",
-                    ErrorMessage = "'Id' must be empty."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
+                    ErrorCode: "NullValidator",
+                    ErrorMessage: "'Id' must be empty."
+                )
             });
         }
 
@@ -151,12 +150,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
-                    ErrorCode = "IdValidator",
-                    ErrorMessage = $"Template with '{template.Id}' does not exist"
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
+                    ErrorCode: "IdValidator",
+                    ErrorMessage: $"Template with '{template.Id}' does not exist"
+                )
             });
         }
 
@@ -179,12 +177,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
-                    ErrorCode = "NotNullValidator",
-                    ErrorMessage = "'Id' must not be empty."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
+                    ErrorCode: "NotNullValidator",
+                    ErrorMessage: "'Id' must not be empty."
+                )
             });
         }
 
@@ -216,12 +213,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Name)}",
-                    ErrorCode = "NotEmptyValidator",
-                    ErrorMessage = "'Name' must not be empty."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Name)}",
+                    ErrorCode: "NotEmptyValidator",
+                    ErrorMessage: "'Name' must not be empty."
+                )
             });
         }
 
@@ -245,12 +241,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Name)}",
-                    ErrorCode = "MaximumLengthValidator",
-                    ErrorMessage = $"The length of 'Name' must be 64 characters or fewer. You entered {template.Name.Length} characters."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Name)}",
+                    ErrorCode: "MaximumLengthValidator",
+                    ErrorMessage: $"The length of 'Name' must be 64 characters or fewer. You entered {template.Name.Length} characters."
+                )
             });
         }
 
@@ -283,12 +278,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMax), " $1").Trim(), template.StrengthMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMax), " $1").Trim(), template.StrengthMax)
+                )
             });
         }
 
@@ -317,12 +311,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
+                )
             });
         }
 
@@ -350,12 +343,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMax), " $1").Trim(), template.VitalityMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMax), " $1").Trim(), template.VitalityMax)
+                )
             });
         }
 
@@ -383,12 +375,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMin), " $1").Trim(), template.VitalityMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMin), " $1").Trim(), template.VitalityMin)
+                )
             });
         }
 
@@ -416,12 +407,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMax), " $1").Trim(), template.BodyMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMax), " $1").Trim(), template.BodyMax)
+                )
             });
         }
 
@@ -449,12 +439,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMin), " $1").Trim(), template.BodyMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMin), " $1").Trim(), template.BodyMin)
+                )
             });
         }
 
@@ -482,12 +471,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMax), " $1").Trim(), template.AgilityMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMax), " $1").Trim(), template.AgilityMax)
+                )
             });
         }
 
@@ -515,12 +503,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMin), " $1").Trim(), template.AgilityMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMin), " $1").Trim(), template.AgilityMin)
+                )
             });
         }
 
@@ -548,12 +535,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMax), " $1").Trim(), template.DexterityMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMax), " $1").Trim(), template.DexterityMax)
+                )
             });
         }
 
@@ -581,12 +567,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMin), " $1").Trim(), template.DexterityMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMin), " $1").Trim(), template.DexterityMin)
+                )
             });
         }
 
@@ -614,12 +599,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMax), " $1").Trim(), template.IntelligenceMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMax), " $1").Trim(), template.IntelligenceMax)
+                )
             });
         }
 
@@ -647,12 +631,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMin), " $1").Trim(), template.IntelligenceMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMin), " $1").Trim(), template.IntelligenceMin)
+                )
             });
         }
 
@@ -680,12 +663,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMax), " $1").Trim(), template.WillpowerMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMax), " $1").Trim(), template.WillpowerMax)
+                )
             });
         }
 
@@ -713,12 +695,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMin), " $1").Trim(), template.WillpowerMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMin), " $1").Trim(), template.WillpowerMin)
+                )
             });
         }
 
@@ -746,12 +727,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMax)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMax), " $1").Trim(), template.EmotionMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMax)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMax), " $1").Trim(), template.EmotionMax)
+                )
             });
         }
 
@@ -779,12 +759,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMin)}",
-                    ErrorCode = "NonZeroableAttributeValidator",
-                    ErrorMessage = string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMin), " $1").Trim(), template.EmotionMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMin)}",
+                    ErrorCode: "NonZeroableAttributeValidator",
+                    ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMin), " $1").Trim(), template.EmotionMin)
+                )
             });
         }
 
@@ -816,12 +795,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DamageReductionMax)}",
-                    ErrorCode = "ZeroableAttributeValidator",
-                    ErrorMessage = string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMax), " $1").Trim(), template.DamageReductionMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DamageReductionMax)}",
+                    ErrorCode: "ZeroableAttributeValidator",
+                    ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMax), " $1").Trim(), template.DamageReductionMax)
+                )
             });
         }
 
@@ -849,12 +827,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DamageReductionMin)}",
-                    ErrorCode = "ZeroableAttributeValidator",
-                    ErrorMessage = string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMin), " $1").Trim(), template.DamageReductionMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DamageReductionMin)}",
+                    ErrorCode: "ZeroableAttributeValidator",
+                    ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMin), " $1").Trim(), template.DamageReductionMin)
+                )
             });
         }
 
@@ -882,12 +859,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.KarmaMax)}",
-                    ErrorCode = "ZeroableAttributeValidator",
-                    ErrorMessage = string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMax), " $1").Trim(), template.KarmaMax)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.KarmaMax)}",
+                    ErrorCode: "ZeroableAttributeValidator",
+                    ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMax), " $1").Trim(), template.KarmaMax)
+                )
             });
         }
 
@@ -914,12 +890,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.KarmaMin)}",
-                    ErrorCode = "ZeroableAttributeValidator",
-                    ErrorMessage = string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMin), " $1").Trim(), template.KarmaMin)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.KarmaMin)}",
+                    ErrorCode: "ZeroableAttributeValidator",
+                    ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMin), " $1").Trim(), template.KarmaMin)
+                )
             });
         }
 
@@ -946,12 +921,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                    ErrorCode = "SkillCategoryValidator",
-                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode: "SkillCategoryValidator",
+                    ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
+                )
             });
         }
 
@@ -977,12 +951,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                    ErrorCode = "SkillCategoryValidator",
-                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode: "SkillCategoryValidator",
+                    ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
+                )
             });
         }
 
@@ -1009,12 +982,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                    ErrorCode = "SkillCategoryValidator",
-                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode: "SkillCategoryValidator",
+                    ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
+                )
             });
         }
 
@@ -1067,12 +1039,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                    ErrorCode = "SkillCategoryValidator",
-                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode: "SkillCategoryValidator",
+                    ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
+                )
             });
         }
 
@@ -1098,12 +1069,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                    ErrorCode = "SkillCategoryValidator",
-                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode: "SkillCategoryValidator",
+                    ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
+                )
             });
         }
 
@@ -1130,12 +1100,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
-                    ErrorCode = "SkillCategoryValidator",
-                    ErrorMessage = "All skill category ranks must be unique or 'SkillCategories' must be null."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SkillCategories)}",
+                    ErrorCode: "SkillCategoryValidator",
+                    ErrorMessage: "All skill category ranks must be unique or 'SkillCategories' must be null."
+                )
             });
         }
 
@@ -1194,12 +1163,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Merits)}[2]",
-                    ErrorCode = "MeritValidator",
-                    ErrorMessage = $"Merit with id '{template.Merits.Last().Id}' doesn't exist."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Merits)}[2]",
+                    ErrorCode: "MeritValidator",
+                    ErrorMessage: $"Merit with id '{template.Merits.Last().Id}' doesn't exist."
+                )
             });
         }
 
@@ -1258,12 +1226,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Flaws)}[2]",
-                    ErrorCode = "FlawValidator",
-                    ErrorMessage = $"Flaw with id '{template.Flaws.Last().Id}' doesn't exist."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Flaws)}[2]",
+                    ErrorCode: "FlawValidator",
+                    ErrorMessage: $"Flaw with id '{template.Flaws.Last().Id}' doesn't exist."
+                )
             });
         }
 
@@ -1323,12 +1290,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[2].{nameof(Skill.Id)}",
-                    ErrorCode = "SkillIdValidator",
-                    ErrorMessage = $"Skill with id '{template.Skills.Last().Id}' doesn't exist."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[2].{nameof(Skill.Id)}",
+                    ErrorCode: "SkillIdValidator",
+                    ErrorMessage: $"Skill with id '{template.Skills.Last().Id}' doesn't exist."
+                )
             });
         }
 
@@ -1361,30 +1327,27 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             {
                 validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
                 {
-                    new()
-                    {
-                        PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
-                        ErrorCode = "SkillLevelValidator",
-                        ErrorMessage = string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
-                    },
-                    new()
-                    {
-                        PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0]",
-                        ErrorCode = "SkillLevelValidator",
-                        ErrorMessage = "'Min Level' must be lower or equal to 'Max Level'"
-                    }
+                    new(
+                        PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
+                        ErrorCode: "SkillLevelValidator",
+                        ErrorMessage: string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
+                    ),
+                    new(
+                        PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0]",
+                        ErrorCode: "SkillLevelValidator",
+                        ErrorMessage: "'Min Level' must be lower or equal to 'Max Level'"
+                    )
                 });
             }
             else
             {
                 validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
                 {
-                    new()
-                    {
-                        PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
-                        ErrorCode = "SkillLevelValidator",
-                        ErrorMessage = string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
-                    }
+                    new(
+                        PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
+                        ErrorCode: "SkillLevelValidator",
+                        ErrorMessage: string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
+                    )
                 });
             }
         }
@@ -1418,30 +1381,27 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             {
                 validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
                 {
-                    new()
-                    {
-                        PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MaxLevel)}",
-                        ErrorCode = "SkillLevelValidator",
-                        ErrorMessage = string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MaxLevel), " $1").Trim(), maxLevel)
-                    },
-                    new()
-                    {
-                        PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0]",
-                        ErrorCode = "SkillLevelValidator",
-                        ErrorMessage = "'Min Level' must be lower or equal to 'Max Level'"
-                    }
+                    new(
+                        PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MaxLevel)}",
+                        ErrorCode: "SkillLevelValidator",
+                        ErrorMessage: string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MaxLevel), " $1").Trim(), maxLevel)
+                    ),
+                    new(
+                        PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0]",
+                        ErrorCode: "SkillLevelValidator",
+                        ErrorMessage: "'Min Level' must be lower or equal to 'Max Level'"
+                    )
                 });
             }
             else
             {
                 validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
                 {
-                    new()
-                    {
-                        PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MaxLevel)}",
-                        ErrorCode = "SkillLevelValidator",
-                        ErrorMessage = string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MaxLevel), " $1").Trim(), maxLevel)
-                    }
+                    new(
+                        PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MaxLevel)}",
+                        ErrorCode: "SkillLevelValidator",
+                        ErrorMessage: string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MaxLevel), " $1").Trim(), maxLevel)
+                    )
                 });
             }
         }
@@ -1473,12 +1433,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.GuaranteedSuccesses)}",
-                    ErrorCode = "SkillSuccessValidator",
-                    ErrorMessage = string.Format(GuaranteedSuccessErrorMessage, Regex.Replace(nameof(Skill.GuaranteedSuccesses), " $1").Trim(), guaranteedSuccess)
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.GuaranteedSuccesses)}",
+                    ErrorCode: "SkillSuccessValidator",
+                    ErrorMessage: string.Format(GuaranteedSuccessErrorMessage, Regex.Replace(nameof(Skill.GuaranteedSuccesses), " $1").Trim(), guaranteedSuccess)
+                )
             });
         }
         #endregion
@@ -1510,12 +1469,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Armors)}[2].{nameof(Armor.Id)}",
-                    ErrorCode = "ArmorValidator",
-                    ErrorMessage = $"Armor with id '{template.Armors.Last().Id}' doesn't exist."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Armors)}[2].{nameof(Armor.Id)}",
+                    ErrorCode: "ArmorValidator",
+                    ErrorMessage: $"Armor with id '{template.Armors.Last().Id}' doesn't exist."
+                )
             });
         }
 
@@ -1572,15 +1530,14 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Armors)}[0].{nameof(Armor.AdditionalArmorClass)}",
-                    ErrorCode = "ArmorClassValidator",
-                    ErrorMessage = string.Format(
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Armors)}[0].{nameof(Armor.AdditionalArmorClass)}",
+                    ErrorCode: "ArmorClassValidator",
+                    ErrorMessage: string.Format(
                         GuaranteedSuccessErrorMessage,
                         Regex.Replace(nameof(Armor.AdditionalArmorClass), " $1").Trim(),
                         additionalArmorClass)
-                }
+                )
             });
         }
 
@@ -1611,15 +1568,14 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Armors)}[0].{nameof(Armor.AdditionalMovementInhibitoryFactor)}",
-                    ErrorCode = "MovementInhibitoryFactorValidator",
-                    ErrorMessage = string.Format(
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Armors)}[0].{nameof(Armor.AdditionalMovementInhibitoryFactor)}",
+                    ErrorCode: "MovementInhibitoryFactorValidator",
+                    ErrorMessage: string.Format(
                         MovementInhibitoryFactorErrorMessage,
                         Regex.Replace(nameof(Armor.AdditionalMovementInhibitoryFactor), " $1").Trim(),
                         additionalMovementInhibitoryFactor)
-                }
+                )
             });
         }
 
@@ -1652,12 +1608,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[2].{nameof(Weapon.Id)}",
-                    ErrorCode = "WeaponValidator",
-                    ErrorMessage = $"Weapon with id '{template.Weapons.Last().Id}' doesn't exist."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[2].{nameof(Weapon.Id)}",
+                    ErrorCode: "WeaponValidator",
+                    ErrorMessage: $"Weapon with id '{template.Weapons.Last().Id}' doesn't exist."
+                )
             });
         }
 
@@ -1714,15 +1669,14 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackModifier)}",
-                    ErrorCode = "WeaponModifierValidator",
-                    ErrorMessage = string.Format(
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackModifier)}",
+                    ErrorCode: "WeaponModifierValidator",
+                    ErrorMessage: string.Format(
                         GuaranteedSuccessErrorMessage,
                         Regex.Replace(nameof(Weapon.AdditionalAttackModifier), " $1").Trim(),
                         additionalAttack)
-                }
+                )
             });
         }
 
@@ -1753,15 +1707,14 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalDefenseModifier)}",
-                    ErrorCode = "WeaponModifierValidator",
-                    ErrorMessage = string.Format(
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalDefenseModifier)}",
+                    ErrorCode: "WeaponModifierValidator",
+                    ErrorMessage: string.Format(
                         GuaranteedSuccessErrorMessage,
                         Regex.Replace(nameof(Weapon.AdditionalDefenseModifier), " $1").Trim(),
                         additionalDefense)
-                }
+                )
             });
         }
 
@@ -1792,15 +1745,14 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalInitiativeModifier)}",
-                    ErrorCode = "WeaponModifierValidator",
-                    ErrorMessage = string.Format(
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalInitiativeModifier)}",
+                    ErrorCode: "WeaponModifierValidator",
+                    ErrorMessage: string.Format(
                         GuaranteedSuccessErrorMessage,
                         Regex.Replace(nameof(Weapon.AdditionalInitiativeModifier), " $1").Trim(),
                         additionalInitiative)
-                }
+                )
             });
         }
 
@@ -1835,15 +1787,14 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackTypes)}[2].{nameof(AttackType.NumberOfDices)}",
-                    ErrorCode = "AttackTypeDamageValidator",
-                    ErrorMessage = string.Format(
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackTypes)}[2].{nameof(AttackType.NumberOfDices)}",
+                    ErrorCode: "AttackTypeDamageValidator",
+                    ErrorMessage: string.Format(
                         AttackTypeDamageErrorMessage,
                         Regex.Replace(nameof(AttackType.NumberOfDices), " $1").Trim(),
                         numberOfDices)
-                }
+                )
             });
         }
 
@@ -1876,12 +1827,11 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackTypes)}[2].{nameof(AttackType.GuaranteedDamage)}",
-                    ErrorCode = "AttackTypeGuaranteedDamageValidator",
-                    ErrorMessage = "Guaranteed Damage must be 0 if Damage Type is elemental type."
-                }
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackTypes)}[2].{nameof(AttackType.GuaranteedDamage)}",
+                    ErrorCode: "AttackTypeGuaranteedDamageValidator",
+                    ErrorMessage: "Guaranteed Damage must be 0 if Damage Type is elemental type."
+                )
             });
         }
 
@@ -1916,15 +1866,14 @@ namespace Mithrill.MonsterBook.Application.Tests.Npc.Query.Validation
             validationResult.IsValid.Should().BeFalse();
             validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
             {
-                new()
-                {
-                    PropertyName = $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackTypes)}[0].{nameof(AttackType.GuaranteedDamage)}",
-                    ErrorCode = "AttackTypeGuaranteedDamageValidator",
-                    ErrorMessage = string.Format(
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Weapons)}[0].{nameof(Weapon.AdditionalAttackTypes)}[0].{nameof(AttackType.GuaranteedDamage)}",
+                    ErrorCode: "AttackTypeGuaranteedDamageValidator",
+                    ErrorMessage: string.Format(
                         AttackTypeGuaranteedDamageErrorMessage,
                         Regex.Replace(nameof(AttackType.GuaranteedDamage), " $1").Trim(),
                         guaranteedDamage)
-                }
+                )
             });
         }
 

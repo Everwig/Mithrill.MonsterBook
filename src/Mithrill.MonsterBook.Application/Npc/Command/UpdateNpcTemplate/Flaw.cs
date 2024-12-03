@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 
-public record Flaw(int Id, bool IsOptional) : AggregateRoot<int>(Id), IMapTo<CharacterFlaw>
+public sealed record Flaw(int Id, bool IsOptional) : AggregateRoot<int>(Id), IMapTo<CharacterFlaw>
 {
     public void Mapping(Profile profile)
     {

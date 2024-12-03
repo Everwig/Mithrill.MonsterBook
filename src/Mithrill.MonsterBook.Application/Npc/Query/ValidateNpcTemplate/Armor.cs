@@ -2,7 +2,7 @@
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
-public record Armor(
+public sealed record Armor(
     int Id,
     Material Material,
     int AdditionalArmorClass,

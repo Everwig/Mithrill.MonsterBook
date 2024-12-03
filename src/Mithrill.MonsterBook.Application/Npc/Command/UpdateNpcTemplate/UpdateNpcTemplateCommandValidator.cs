@@ -9,7 +9,6 @@ namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate
     {
         public UpdateNpcTemplateCommandValidator(ITemplateValidatorService templateValidatorService)
         {
-
             RuleFor(query => query.NpcTemplate)
                 .SetValidator(new NpcTemplateValidator(templateValidatorService));
         }

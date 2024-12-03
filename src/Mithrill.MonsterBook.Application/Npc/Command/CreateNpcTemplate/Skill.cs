@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public record Skill(
+public sealed record Skill(
     int Id,
     int MinLevel,
     int MaxLevel,

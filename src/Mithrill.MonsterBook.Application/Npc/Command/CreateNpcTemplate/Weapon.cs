@@ -7,7 +7,7 @@ using Material = Mithrill.MonsterBook.Application.Common.Material;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public record Weapon(
+public sealed record Weapon(
     int Id,
     Material Material,
     int AdditionalAttackModifier,

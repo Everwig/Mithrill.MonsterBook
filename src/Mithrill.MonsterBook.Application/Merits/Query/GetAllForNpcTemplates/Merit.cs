@@ -2,8 +2,4 @@
 
 namespace Mithrill.MonsterBook.Application.Merits.Query.GetAllForNpcTemplates;
 
-public class Merit : IMapFrom<MonsterBook.Domain.Merit>
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-}
+public sealed record Merit(int Id, string Name) : IMapFrom<MonsterBook.Domain.Merit>;

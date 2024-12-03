@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 
-public record NpcTemplate(
+public sealed record NpcTemplate(
     int Id,
     string Name,
     string NameHu,

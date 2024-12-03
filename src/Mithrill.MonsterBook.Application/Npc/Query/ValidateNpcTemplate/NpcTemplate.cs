@@ -3,7 +3,7 @@ using Mithrill.MonsterBook.Application.Common;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
-public record NpcTemplate(
+public sealed record NpcTemplate(
     int? Id,
     string Name,
     string NameHu,

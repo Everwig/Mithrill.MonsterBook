@@ -49,7 +49,7 @@ internal sealed class UpdateNpcTemplateCommandHandler : IRequestHandler<UpdateNp
     {
         foreach (var weapon in characterWeapons)
         {
-            var currentWeapon = weapons.SingleOrDefault(w => w.Id == weapon.WeaponId);
+            var currentWeapon = weapons.Single(w => w.Id == weapon.WeaponId);
 
             if (weapon.AdditionalAttackTypes is null)
             {

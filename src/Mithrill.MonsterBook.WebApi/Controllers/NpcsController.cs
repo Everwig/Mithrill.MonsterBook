@@ -107,15 +107,9 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
             [FromQuery] IEnumerable<int> meritIds,
             CancellationToken cancellationToken)
         {
-            return await Mediator.Send(new GetHitPointMinMaxValuesQuery
-            {
-                BodyMax = bodyMax,
-                BodyMin = bodyMin,
-                IsUndead = isUndead,
-                MeritIds = meritIds,
-                StrengthMin = strengthMin,
-                StrengthMax = strengthMax
-            }, cancellationToken);
+            return await Mediator.Send(
+                new GetHitPointMinMaxValuesQuery(strengthMin, strengthMax, bodyMin, bodyMax, isUndead, [..meritIds]),
+                cancellationToken);
         }
 
         [HttpGet("GetManaPointMinMaxValues")]
@@ -129,16 +123,16 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
             [FromQuery]IEnumerable<int> meritIds,
             CancellationToken cancellationToken)
         {
-            return await Mediator.Send(new GetManaPointMinMaxValuesQuery
-            {
-                MeritIds = meritIds,
-                EmotionMax = emotionMax,
-                EmotionMin = emotionMin,
-                IntelligenceMax = intelligenceMax,
-                IntelligenceMin = intelligenceMin,
-                WillpowerMax = willpowerMax,
-                WillpowerMin = willpowerMin
-            }, cancellationToken);
+            return await Mediator.Send(
+                new GetManaPointMinMaxValuesQuery(
+                    intelligenceMin,
+                    intelligenceMax,
+                    willpowerMin,
+                    willpowerMax,
+                    emotionMin,
+                    emotionMax,
+                    [..meritIds]),
+                cancellationToken);
         }
 
 
@@ -148,11 +142,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers
             int karmaMax,
             CancellationToken cancellationToken)
         {
-            return await Mediator.Send(new GetPowerPointMinMaxValuesQuery
-            {
-                KarmaMin = karmaMin,
-                KarmaMax = karmaMax,
-            }, cancellationToken);
+            return await Mediator.Send(new GetPowerPointMinMaxValuesQuery(karmaMin,karmaMax), cancellationToken);
         }
     }
 }

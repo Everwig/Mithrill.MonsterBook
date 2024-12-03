@@ -2,13 +2,11 @@
 
 namespace Mithrill.MonsterBook.Application.Weapons.Query.GetAllForNpcTemplates;
 
-public class Weapon : IMapFrom<MonsterBook.Domain.Weapon>
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public int BaseAttackModifier { get; set; }
-    public int BaseDefenseModifier { get; set; }
-    public int BaseInitiativeModifier { get; set; }
-
-    public AttackType BaseAttackType { get; set; }
-}
+public sealed record Weapon (
+    int Id,
+    string Name,
+    int BaseAttackModifier,
+    int BaseDefenseModifier,
+    int BaseInitiativeModifier,
+    AttackType BaseAttackType
+) : IMapFrom<MonsterBook.Domain.Weapon>;

@@ -4,7 +4,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public record Armor(
+public sealed record Armor(
     int Id,
     Material Material,
     int AdditionalArmorClass,

@@ -2,4 +2,4 @@
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
-public record Flaw(int Id, bool IsOptional) : AggregateRoot<int>(Id);
+public sealed record Flaw(int Id, bool IsOptional) : AggregateRoot<int>(Id);

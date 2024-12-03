@@ -2,10 +2,4 @@
 
 namespace Mithrill.MonsterBook.Application.Armors.GetAllForNpcTemplates;
 
-public class Armor : IMapFrom<MonsterBook.Domain.Armor>
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public int BaseArmorClass { get; set; }
-    public int BaseMovementInhibitoryFactor { get; set; }
-}
+public sealed record Armor(int Id, string Name, int BaseArmorClass, int BaseMovementInhibitoryFactor) : IMapFrom<MonsterBook.Domain.Armor>;

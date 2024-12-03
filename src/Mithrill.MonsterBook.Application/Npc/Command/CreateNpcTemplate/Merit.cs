@@ -5,7 +5,7 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
-public record Merit(int Id, bool IsOptional) : AggregateRoot<int> (Id), IMapTo<CharacterMerit>
+public sealed record Merit(int Id, bool IsOptional) : AggregateRoot<int> (Id), IMapTo<CharacterMerit>
 {
     public void Mapping(Profile profile)
     {

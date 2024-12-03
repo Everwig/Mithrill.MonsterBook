@@ -3,7 +3,7 @@ using Mithrill.MonsterBook.Application.Common;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
-public record Weapon(
+public sealed record Weapon(
      int Id,
      Material Material,
      int AdditionalAttackModifier,

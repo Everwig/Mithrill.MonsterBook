@@ -4,7 +4,7 @@ using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 
-public record Skill(
+public sealed record Skill(
     int Id,
     int MinLevel,
     int MaxLevel,
