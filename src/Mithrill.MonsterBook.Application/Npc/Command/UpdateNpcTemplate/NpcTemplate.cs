@@ -8,7 +8,6 @@ namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 public sealed record NpcTemplate(
     int Id,
     string Name,
-    string NameHu,
     int StrengthMax,
     int StrengthMin,
     int VitalityMax,

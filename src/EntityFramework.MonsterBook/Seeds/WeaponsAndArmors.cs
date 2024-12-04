@@ -115,7 +115,10 @@ public static class WeaponsAndArmors
             new Weapon { Id = 57, Name = "Small shield", NameHu = "Kis pajzs", BaseAttackTypeId = 1 },
             new Weapon { Id = 58, Name = "Shield", NameHu = "Közepes pajzs", BaseAttackTypeId = 1 },
             new Weapon { Id = 59, Name = "Tower shield", NameHu = "Nagy pajzs", BaseAttackTypeId = 1 },
-            new Weapon { Id = 60, Name = "Net", NameHu = "Háló", BaseAttackTypeId = 38 }
+            new Weapon { Id = 60, Name = "Net", NameHu = "Háló", BaseAttackTypeId = 38 },
+            new Weapon { Id = 61, Name = "Water breath", NameHu = "Vízcsóva", BaseAttackTypeId = 38 },
+            new Weapon { Id = 62, Name = "Gale", NameHu = "Orkán", BaseAttackTypeId = 38 },
+            new Weapon { Id = 63, Name = "Sandstorm", NameHu = "Homokvihar", BaseAttackTypeId = 38 }
         });
     }
 

@@ -16,7 +16,7 @@ namespace Mithrill.MonsterBook.Application.Tests.Common.Builders;
 
 public class NpcDesignerTests
 {
-    private readonly NpcDesigner<IGeneratedCreature> _npcDesigner;
+    private readonly NpcDesigner<GeneratedCreature> _npcDesigner;
     private readonly IMonsterBookDbContext _monsterBookDbContext;
 
     public NpcDesignerTests()
@@ -27,8 +27,8 @@ public class NpcDesignerTests
             new DbContextOptionsBuilder()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options);
-        INpcBuilder<IGeneratedCreature> creatureBuilder = new CreatureBuilder(mapper, _monsterBookDbContext);
-        _npcDesigner = new NpcDesigner<IGeneratedCreature>(creatureBuilder);
+        INpcBuilder<GeneratedCreature> creatureBuilder = new CreatureBuilder(mapper, _monsterBookDbContext);
+        _npcDesigner = new NpcDesigner<GeneratedCreature>(creatureBuilder);
     }
 
     [Fact]

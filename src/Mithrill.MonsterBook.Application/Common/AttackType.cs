@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Common;
 
 public sealed record AttackType(DamageType DamageType, int NumberOfDices, int GuaranteedDamage) :
-    IAttackType,
     IMapTo<MonsterBook.Domain.AttackType>,
     IMapFrom<MonsterBook.Domain.AttackType>
 {

@@ -10,17 +10,20 @@ using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Application.Domain;
 using Mithrill.MonsterBook.Domain;
 using Xunit;
 using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
+using Flaw = Mithrill.MonsterBook.Domain.Flaw;
+using Skill = Mithrill.MonsterBook.Domain.Skill;
 
 namespace Mithrill.MonsterBook.Application.Tests.Common.Builders;
 
 public class CreatureBuilderTests
 {
     private readonly IMonsterBookDbContext _monsterBookDbContext;
-    private readonly INpcBuilder<IGeneratedCreature> _creatureBuilder;
+    private readonly INpcBuilder<GeneratedCreature> _creatureBuilder;
     private static readonly CancellationToken CancellationToken = CancellationToken.None;
 
     public CreatureBuilderTests()
@@ -616,7 +619,6 @@ public class CreatureBuilderTests
             new Domain.Skill
             {
                 Name = npcTemplate.CharacterSkills.First().Skill.Name,
-                NameHu = npcTemplate.CharacterSkills.First().Skill.NameHu,
                 Level = 3,
                 GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
                 Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
@@ -664,7 +666,6 @@ public class CreatureBuilderTests
             new Domain.Skill
             {
                 Name = npcTemplate.CharacterSkills.First().Skill.Name,
-                NameHu = npcTemplate.CharacterSkills.First().Skill.NameHu,
                 Level = 4,
                 GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
                 Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
@@ -692,13 +693,11 @@ public class CreatureBuilderTests
         {
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.First().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.First().Merit.NameHu
+                Name = npcTemplate.CharacterMerits.First().Merit.Name
             },
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.Last().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.Last().Merit.NameHu
+                Name = npcTemplate.CharacterMerits.Last().Merit.Name
             }
         });
     }
@@ -739,13 +738,11 @@ public class CreatureBuilderTests
         {
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.First().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.First().Merit.NameHu
+                Name = npcTemplate.CharacterMerits.First().Merit.Name
             },
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.Last().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.Last().Merit.NameHu
+                Name = npcTemplate.CharacterMerits.Last().Merit.Name
             }
         });
     }

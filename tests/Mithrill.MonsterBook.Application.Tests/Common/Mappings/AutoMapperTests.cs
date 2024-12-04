@@ -7,6 +7,7 @@ using FluentAssertions;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Application.Domain;
 using Xunit;
 
 namespace Mithrill.MonsterBook.Application.Tests.Common.Mappings;
@@ -25,11 +26,11 @@ public class AutoMapperTests
         _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
             .ForEach(b => _fixture.Behaviors.Remove(b));
         _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-        _fixture.Customizations.Add(new TypeRelay(typeof(IMeritFlaw), typeof(Domain.Merit)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(IMeritFlaw), typeof(Domain.Flaw)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(IWeapon), typeof(Domain.Weapon)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(IAttackType), typeof(AttackType)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(ISkill), typeof(Domain.Skill)));
+        /*_fixture.Customizations.Add(new TypeRelay(typeof(Merit), typeof(Domain.Merit)));
+        _fixture.Customizations.Add(new TypeRelay(typeof(Flaw), typeof(Domain.Flaw)));
+        _fixture.Customizations.Add(new TypeRelay(typeof(Weapon), typeof(Domain.Weapon)));
+        _fixture.Customizations.Add(new TypeRelay(typeof(AttackType), typeof(AttackType)));
+        _fixture.Customizations.Add(new TypeRelay(typeof(Skill), typeof(Domain.Skill)));*/
         _fixture.RepeatCount = 1;
     }
 
@@ -93,8 +94,7 @@ public class AutoMapperTests
         //Assert
         mappedObject.Should().BeEquivalentTo(new Domain.Flaw
         {
-            Name = flaw.Name,
-            NameHu = flaw.NameHu
+            Name = flaw.Name
         });
     }
 
@@ -110,8 +110,7 @@ public class AutoMapperTests
         //Assert
         mappedObject.Should().BeEquivalentTo(new Domain.Merit
         {
-            Name = merit.Name,
-            NameHu = merit.NameHu
+            Name = merit.Name
         });
     }
 
@@ -128,7 +127,6 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Domain.Skill
         {
             Name = skill.Name,
-            NameHu = skill.NameHu,
             Level = 0,
             Category = (SkillCategory)skill.Category
         });
@@ -146,8 +144,7 @@ public class AutoMapperTests
         //Assert
         mappedObject.Should().BeEquivalentTo(new Domain.Weapon
         {
-            Name = weapon.Name,
-            NameHu = weapon.NameHu
+            Name = weapon.Name
         });
     }
 
@@ -176,7 +173,6 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.Skill
         {
             Name = skill.Name,
-            NameHu = skill.NameHu,
             Level = skill.Level,
             Category = skill.Category,
             GuaranteedSuccesses = skill.GuaranteedSuccesses
@@ -196,7 +192,6 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.Weapon
         {
             Name = weapon.Name,
-            NameHu = weapon.NameHu,
             AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
             {
                 DamageType = weapon.AttackType.DamageType,
@@ -245,7 +240,6 @@ public class AutoMapperTests
                 new Application.Npc.Query.GetGeneratedNpc.Weapon
                 {
                     Name = generatedCreature.Weapons.First().Name,
-                    NameHu = generatedCreature.Weapons.First().NameHu,
                     AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
                     {
                         DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
@@ -281,7 +275,6 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.Skill
         {
             Name = skill.Name,
-            NameHu = skill.NameHu,
             Level = skill.Level,
             Category = skill.Category,
             GuaranteedSuccesses = skill.GuaranteedSuccesses
@@ -292,7 +285,7 @@ public class AutoMapperTests
     internal void ApplicationDomainWeapon_To_GetGeneratedNpcWithKarmaWeapon()
     {
         //Arrange
-        var weapon = _fixture.Create<Domain.Weapon>();
+        var weapon = _fixture.Create<Weapon>();
 
         //Act
         var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon>(weapon);
@@ -301,8 +294,7 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon
         {
             Name = weapon.Name,
-            NameHu = weapon.NameHu,
-            AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
+            AttackType = new Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType
             {
                 DamageType = weapon.AttackType.DamageType,
                 GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
@@ -337,7 +329,7 @@ public class AutoMapperTests
             Willpower = generatedCreature.Willpower,
             Skills = new[]
             {
-                new Application.Npc.Query.GetGeneratedNpc.Skill
+                new Application.Npc.Query.GetGeneratedNpcWithKarma.Skill
                 {
                     Name = generatedCreature.Skills.First().Name,
                     Level = generatedCreature.Skills.First().Level,
@@ -347,13 +339,12 @@ public class AutoMapperTests
             },
             Weapons = new[]
             {
-                new Application.Npc.Query.GetGeneratedNpc.Weapon
+                new Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon
                 {
                     Name = generatedCreature.Weapons.First().Name,
-                    NameHu = generatedCreature.Weapons.First().NameHu,
-                    AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
+                    AttackType = new Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType
                     {
-                        DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
+                        DamageType = generatedCreature.Weapons.First().AttackType.DamageType,
                         GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
                         NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                     }
@@ -389,7 +380,6 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Skill
         {
             Name = skill.Name,
-            NameHu = skill.NameHu,
             Level = skill.Level,
             Category = skill.Category,
             GuaranteedSuccesses = skill.GuaranteedSuccesses
@@ -409,8 +399,7 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Weapon
         {
             Name = weapon.Name,
-            NameHu = weapon.NameHu,
-            AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
+            AttackType = new Application.Npc.Query.GetGeneratedProminentNpc.AttackType
             {
                 DamageType = weapon.AttackType.DamageType,
                 GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
@@ -431,8 +420,7 @@ public class AutoMapperTests
         //Assert
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Flaw
         {
-            Name = flaw.Name,
-            NameHu = flaw.NameHu
+            Name = flaw.Name
         });
     }
 
@@ -448,8 +436,7 @@ public class AutoMapperTests
         //Assert
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Merit
         {
-            Name = merit.Name,
-            NameHu = merit.NameHu
+            Name = merit.Name
         });
     }
 
@@ -492,7 +479,6 @@ public class AutoMapperTests
                 new Application.Npc.Query.GetGeneratedProminentNpc.Weapon
                 {
                     Name = generatedCreature.Weapons.First().Name,
-                    NameHu = generatedCreature.Weapons.First().NameHu,
                     AttackType = new Application.Npc.Query.GetGeneratedProminentNpc.AttackType
                     {
                         DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
@@ -505,16 +491,14 @@ public class AutoMapperTests
             {
                 new Application.Npc.Query.GetGeneratedProminentNpc.Flaw
                 {
-                    Name = generatedCreature.Flaws.First().Name,
-                    NameHu = generatedCreature.Flaws.First().NameHu
+                    Name = generatedCreature.Flaws.First().Name
                 }
             },
             Merits = new[]
             {
                 new Application.Npc.Query.GetGeneratedProminentNpc.Merit
                 {
-                    Name = generatedCreature.Merits.First().Name,
-                    NameHu = generatedCreature.Merits.First().NameHu
+                    Name = generatedCreature.Merits.First().Name
                 }
             },
             PowerPoint = generatedCreature.PowerPoint,

@@ -10,7 +10,6 @@ namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
 public sealed record CreateNpcTemplateCommand(
     string Name,
-    string NameHu,
     int StrengthMax,
     int StrengthMin,
     int VitalityMax,

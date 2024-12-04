@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Domain;
 
-internal class Weapon : IWeapon, IMapFrom<MonsterBook.Domain.Weapon>
+internal class Weapon : IMapFrom<MonsterBook.Domain.Weapon>
 {
     public string Name { get; set; }
-    public string NameHu { get; set; }
-    public IAttackType AttackType { get; set; }
+    public AttackType AttackType { get; set; }
 
     public void Mapping(Profile profile)
     {

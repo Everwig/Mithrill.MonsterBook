@@ -74,7 +74,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            Name: name, "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            Name: name, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
@@ -101,7 +101,7 @@ public class CreateNpcTemplateCommandTests
         // Arrange
         var command = new CreateNpcTemplateCommand(
             Name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
@@ -135,7 +135,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "",
+            "Test",
             StrengthMax: strengthMax,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
@@ -167,7 +167,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1,
+            "Test", 1,
             StrengthMin: strengthMin,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
@@ -199,7 +199,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1,
+            "Test", 1, 1,
             VitalityMax: vitalityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -230,7 +230,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1,
+            "Test", 1, 1, 1,
             VitalityMin: vitalityMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -261,7 +261,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1,
             BodyMax: bodyMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -292,7 +292,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1,
             BodyMin: bodyMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -323,7 +323,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1,
             AgilityMax: agilityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -354,7 +354,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1,
             AgilityMin: agilityMin, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -385,7 +385,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1,
             DexterityMax: dexterityMax, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -416,7 +416,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1,
             DexterityMin: dexterityMin, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -447,7 +447,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             IntelligenceMax: intelligenceMax, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -478,7 +478,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             IntelligenceMin: intelligenceMin, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -509,7 +509,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             WillpowerMax: willpowerMax, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -540,7 +540,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             WillpowerMin: willpowerMin, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -571,7 +571,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             EmotionMax: emotionMax, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -602,7 +602,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             EmotionMin: emotionMin, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -637,7 +637,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             DamageReductionMax: damageReductionMax, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -668,7 +668,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
             DamageReductionMin: damageReductionMin, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -699,7 +699,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
             KarmaMax: karmaMax, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
@@ -730,7 +730,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
 
 
@@ -760,7 +760,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat),
             null, [], [], [], [], []);
 
@@ -787,7 +787,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Secular),
             null, [], [], [], [], []);
 
@@ -814,7 +814,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
             null, [], [], [], [], []);
 
@@ -841,7 +841,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Underworld, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
             null, [], [], [], [], []);
 
@@ -864,7 +864,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
             Merits:
             [
@@ -896,7 +896,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
             Merits:
             [
@@ -925,7 +925,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
             Flaws:
             [
@@ -957,7 +957,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
             Flaws:
             [
@@ -986,7 +986,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1022,7 +1022,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1075,7 +1075,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1128,7 +1128,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1161,7 +1161,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1193,7 +1193,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1222,7 +1222,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1259,7 +1259,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1296,7 +1296,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1328,7 +1328,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1357,7 +1357,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1394,7 +1394,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1431,7 +1431,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1468,7 +1468,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1507,7 +1507,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1547,7 +1547,7 @@ public class CreateNpcTemplateCommandTests
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
-            "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [

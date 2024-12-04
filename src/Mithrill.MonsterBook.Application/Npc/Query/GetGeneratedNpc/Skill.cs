@@ -1,13 +1,11 @@
 ﻿using Mithrill.MonsterBook.Application.Common;
-using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 
-public class Skill : ISkill, IMapFrom<Domain.Skill>
+public class Skill : IMapFrom<Domain.Skill>
 {
     public string Name { get; set; }
-    public string NameHu { get; set; }
     public int Level { get; set; }
     public int GuaranteedSuccesses { get; set; }
     public SkillCategory Category { get; set; }

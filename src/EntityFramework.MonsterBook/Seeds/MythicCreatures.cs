@@ -15,7 +15,7 @@ public class MythicCreatures
         _identity = identitySeed - 1;
     }
 
-    public async Task AddOrUpdateCreatures(DbContext dbContext)
+    public async Task<int> AddOrUpdateCreatures(DbContext dbContext)
     {
         await AddChimeraAsync(dbContext, GetIdentity());
         await AddDiagonaAsync(dbContext, GetIdentity());
@@ -26,6 +26,8 @@ public class MythicCreatures
         await AddHydraAsync(dbContext, GetIdentity());
         await AddLamassuAsync(dbContext, GetIdentity());
         await AddSirenAsync(dbContext, GetIdentity());
+
+        return _identity;
     }
 
     private static async Task AddChimeraAsync(DbContext dbContext, int identity)

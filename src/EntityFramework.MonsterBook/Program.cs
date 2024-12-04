@@ -19,7 +19,8 @@ internal class Program
         seedIdContinuation = await new EvilAndGoodCreatures(seedIdContinuation).AddOrUpdateCreatures(dbContext);
         seedIdContinuation = await new SimpleEnemiesAndHirelings(seedIdContinuation).AddOrUpdateCharacters(dbContext);
         seedIdContinuation = await new DragonsAndBugs(seedIdContinuation).AddOrUpdateCreatures(dbContext);
-        await new MythicCreatures(seedIdContinuation).AddOrUpdateCreatures(dbContext);
+        seedIdContinuation = await new MythicCreatures(seedIdContinuation).AddOrUpdateCreatures(dbContext);
+        await new Elementals(seedIdContinuation).AddOrUpdateCreatures(dbContext);
         await dbContext.SaveChangesAsync();
     }
 }

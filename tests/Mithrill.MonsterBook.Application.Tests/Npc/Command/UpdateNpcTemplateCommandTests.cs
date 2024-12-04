@@ -70,7 +70,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
@@ -89,7 +89,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            4, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            4, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(4, template);
 
@@ -124,7 +124,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, Name: name, "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, Name: name, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
@@ -151,7 +151,7 @@ public class UpdateNpcTemplateCommandTests
         // Arrange
         var template = new NpcTemplate(
             1, Name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
@@ -185,7 +185,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "",
+            1, "Test",
             StrengthMax: strengthMax,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
@@ -217,7 +217,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1,
+            1, "Test", 1,
             StrengthMin: strengthMin,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
@@ -249,7 +249,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1,
+            1, "Test", 1, 1,
             VitalityMax: vitalityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -280,7 +280,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1,
+            1, "Test", 1, 1, 1,
             VitalityMin: vitalityMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -311,7 +311,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1,
             BodyMax: bodyMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -342,7 +342,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1,
             BodyMin: bodyMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -373,7 +373,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1,
             AgilityMax: agilityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -404,7 +404,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1,
             AgilityMin: agilityMin, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -435,7 +435,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1,
             DexterityMax: dexterityMax, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -466,7 +466,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1,
             DexterityMin: dexterityMin, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -497,7 +497,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             IntelligenceMax: intelligenceMax, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -528,7 +528,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             IntelligenceMin: intelligenceMin, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -559,7 +559,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             WillpowerMax: willpowerMax, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -590,7 +590,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             WillpowerMin: willpowerMin, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -621,7 +621,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             EmotionMax: emotionMax, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -652,7 +652,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             EmotionMin: emotionMin, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -687,7 +687,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             DamageReductionMax: damageReductionMax, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -718,7 +718,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
             DamageReductionMin: damageReductionMin, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -749,7 +749,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
             KarmaMax: karmaMax, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -780,7 +780,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
 
@@ -810,7 +810,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat),
             null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -837,7 +837,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Secular),
             null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -864,7 +864,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
             null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -891,7 +891,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Underworld, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
             null, [], [], [], [], []);
         var query = new UpdateNpcTemplateCommand(1, template);
@@ -915,7 +915,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
             Merits:
             [
@@ -947,7 +947,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
             Merits:
             [
@@ -976,7 +976,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
             Flaws:
             [
@@ -1008,7 +1008,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
             Flaws:
             [
@@ -1037,7 +1037,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1073,7 +1073,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1126,7 +1126,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1179,7 +1179,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1212,7 +1212,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1244,7 +1244,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1273,7 +1273,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1310,7 +1310,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1347,7 +1347,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1379,7 +1379,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1408,7 +1408,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1445,7 +1445,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1482,7 +1482,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1519,7 +1519,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1558,7 +1558,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1598,7 +1598,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [

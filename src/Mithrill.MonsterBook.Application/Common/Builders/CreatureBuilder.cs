@@ -13,7 +13,7 @@ using Weapon = Mithrill.MonsterBook.Application.Domain.Weapon;
 
 namespace Mithrill.MonsterBook.Application.Common.Builders;
 
-internal sealed class CreatureBuilder : INpcBuilder<IGeneratedCreature>
+internal sealed class CreatureBuilder : INpcBuilder<GeneratedCreature>
 {
     private readonly IMapper _mapper;
     private readonly IMonsterBookDbContext _monsterBookDbContext;
@@ -285,7 +285,7 @@ internal sealed class CreatureBuilder : INpcBuilder<IGeneratedCreature>
         _creature.PowerPoint = Calculators.CalculatePowerPoints(_creature.Karma);
     }
 
-    public IGeneratedCreature GetNpc()
+    public GeneratedCreature GetNpc()
     {
         if(_queriedCreature == null)
             return GeneratedCreature.NullCreature();

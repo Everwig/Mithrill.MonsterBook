@@ -6,7 +6,6 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 public sealed record NpcTemplate(
     int? Id,
     string Name,
-    string NameHu,
     int StrengthMax,
     int StrengthMin,
     int VitalityMax,

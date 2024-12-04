@@ -19,5 +19,6 @@ public enum Material
     Ruby,
     Diamond,
     Adamar,
-    Adamir
+    Adamir,
+    None
 }
