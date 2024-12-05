@@ -8,9 +8,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal class StormElementalBuilder : SummonBuilder
 {
     public StormElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Thunder)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Thunder) { }
 
     public override void SetDefaultValues(int level)
     {

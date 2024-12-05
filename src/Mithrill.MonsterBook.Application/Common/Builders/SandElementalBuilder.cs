@@ -7,9 +7,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal sealed class SandElementalBuilder : SummonBuilder
 {
     public SandElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Sand)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Sand) { }
 
     public override void SetDefaultValues(int level)
     {

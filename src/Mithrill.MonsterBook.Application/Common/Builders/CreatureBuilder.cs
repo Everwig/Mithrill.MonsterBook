@@ -230,8 +230,28 @@ internal sealed class CreatureBuilder : INpcBuilder<GeneratedCreature>
         if(_queriedCreature == null)
             return;
 
-        var weapons = _queriedCreature.CharacterWeapons.Select(queriedCreatureCreatureWeapon => _mapper.Map<Weapon>(queriedCreatureCreatureWeapon.Weapon)).ToList();
-        _creature.Weapons = weapons;
+        _creature.Weapons = _queriedCreature.CharacterWeapons.Select(characterWeapon => new Weapon
+        {
+            Id = characterWeapon.WeaponId,
+            AdditionalAttackModifier = characterWeapon.AdditionalAttackModifier,
+            AdditionalDefenseModifier = characterWeapon.AdditionalDefenseModifier,
+            AdditionalInitiativeModifier = characterWeapon.AdditionalInitiativeModifier,
+            BaseAttackModifier = characterWeapon.Weapon.BaseAttackModifier,
+            BaseDefenseModifier = characterWeapon.Weapon.BaseDefenseModifier,
+            BaseInitiativeModifier = characterWeapon.Weapon.BaseInitiativeModifier,
+            Name = characterWeapon.Weapon.Name,
+            Material = (Material)characterWeapon.Material,
+            AttackTypes = new List<AttackType>
+            {
+                new(
+                    (DamageType)characterWeapon.Weapon.BaseAttackType.DamageType,
+                    characterWeapon.Weapon.BaseAttackType.NumberOfDices,
+                    characterWeapon.Weapon.BaseAttackType.GuaranteedDamage)
+            }.Union(characterWeapon.AdditionalAttackTypes.Select(additionalAttackType => new AttackType(
+                (DamageType)additionalAttackType.AttackType.DamageType,
+                additionalAttackType.AttackType.NumberOfDices,
+                additionalAttackType.AttackType.GuaranteedDamage)))
+        });
     }
 
     public void GenerateKarma(bool isEvil, Difficulty? difficulty)

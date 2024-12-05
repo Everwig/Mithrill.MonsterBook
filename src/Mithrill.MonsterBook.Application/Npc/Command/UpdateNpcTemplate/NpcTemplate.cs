@@ -45,6 +45,7 @@ public sealed record NpcTemplate(
     public void Mapping(Profile profile)
     {
         profile.CreateMap<NpcTemplate, MonsterBook.Domain.NpcTemplate>()
+            .ForMember(template => template.NameHu, opt => opt.Ignore())
             .ForMember(template => template.CharacterMerits, opt => opt.MapFrom(template => template.Merits))
             .ForMember(template => template.CharacterFlaws, opt => opt.MapFrom(template => template.Flaws))
             .ForMember(template => template.CharacterSkills, opt => opt.MapFrom(template => template.Skills))

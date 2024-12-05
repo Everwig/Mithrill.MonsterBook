@@ -6,8 +6,10 @@ namespace Mithrill.MonsterBook.Application.Domain;
 
 internal class Skill : IMapFrom<MonsterBook.Domain.Skill>
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public int Level { get; set; }
+    public int NumberOfDices { get; set; }
     public int GuaranteedSuccesses { get; set; }
     public SkillCategory Category { get; set; }
 
@@ -15,6 +17,7 @@ internal class Skill : IMapFrom<MonsterBook.Domain.Skill>
     {
         profile.CreateMap<MonsterBook.Domain.Skill, Skill>()
             .ForMember(dest => dest.Level, opt => opt.Ignore())
+            .ForMember(dest => dest.NumberOfDices, opt => opt.Ignore())
             .ForMember(dest => dest.GuaranteedSuccesses, opt => opt.Ignore());
     }
 }

@@ -8,9 +8,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal sealed class RockElementalBuilder : SummonBuilder
 {
     public RockElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Rock)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Rock) { }
 
     public override void SetDefaultValues(int level)
     {

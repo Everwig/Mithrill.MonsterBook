@@ -50,5 +50,5 @@ internal sealed class TemplateValidatorService : ITemplateValidatorService
 
     public async Task<bool> IsValidSummonTemplateId(int id, CancellationToken cancellationToken) =>
         (await _monsterBookDbContext.NpcTemplates.SingleAsync(template => template.Id == id, cancellationToken))
-        .IsSummonTemplate;
+        .IsSummon;
 }

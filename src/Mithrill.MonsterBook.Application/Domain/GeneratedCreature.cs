@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 
 namespace Mithrill.MonsterBook.Application.Domain;
 
-internal class GeneratedCreature
+internal class GeneratedCreature : IMapTo<GeneratedNpc>
 {
     public GeneratedCreature()
     {
@@ -25,7 +28,7 @@ internal class GeneratedCreature
     public int DamageReduction { get; set; }
     public int Karma { get; set; }
     public Difficulty Difficulty { get; set; }
-    public SkillCategories SkillCategories { get; set; }
+    public SkillCategories? SkillCategories { get; set; }
     public IEnumerable<Flaw> Flaws { get; set; }
     public IEnumerable<Merit> Merits { get; set; }
     public IEnumerable<Weapon> Weapons { get; set; }

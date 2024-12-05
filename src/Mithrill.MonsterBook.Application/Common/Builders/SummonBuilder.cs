@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Domain;
+using Mithrill.MonsterBook.Domain;
 
 namespace Mithrill.MonsterBook.Application.Common.Builders;
 
@@ -11,8 +12,10 @@ internal abstract class SummonBuilder : ISummonBuilder<GeneratedCreature>
 {
     private readonly IMonsterBookDbContext _monsterBookDbContext;
     private readonly SummonType _summoningStrategy;
-    protected MonsterBook.Domain.NpcTemplate? QueriedCreature;
+    protected NpcTemplate? QueriedCreature;
     protected GeneratedCreature Creature = new();
+    protected readonly string MediumArms = "Medium arms";
+    protected readonly string HeavyArms = "Heavy arms";
 
     protected SummonBuilder(IMonsterBookDbContext monsterBookDbContext, SummonType summoningStrategy)
     {
@@ -24,7 +27,7 @@ internal abstract class SummonBuilder : ISummonBuilder<GeneratedCreature>
     public void Reset()
     {
         Creature = new GeneratedCreature();
-        QueriedCreature = new MonsterBook.Domain.NpcTemplate();
+        QueriedCreature = new NpcTemplate();
     }
 
     public async Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken)
@@ -64,7 +67,9 @@ internal abstract class SummonBuilder : ISummonBuilder<GeneratedCreature>
             Creature.Emotion,
             Creature.Merits);
 
-        Creature.PowerPoint = 0;
+        Creature.PowerPoint = _summoningStrategy is SummonType.Holy or SummonType.Unholy
+            ? Calculators.CalculatePowerPoints(Creature.Karma)
+            : 0;
     }
 
     public GeneratedCreature GetSummon()

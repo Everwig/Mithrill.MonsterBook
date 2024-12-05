@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,8 +19,11 @@ public static class DependencyInjection
         serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
         serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        serviceCollection.AddTransient<ITemplateValidatorService, TemplateValidatorService>();
         serviceCollection.AddTransient<INpcBuilder<GeneratedCreature>, CreatureBuilder>();
-        serviceCollection.AddTransient(provider => new NpcDesigner<GeneratedCreature>(provider.GetRequiredService<INpcBuilder<GeneratedCreature>>()));
+        serviceCollection.AddTransient(provider =>
+            new NpcDesigner<GeneratedCreature>(provider.GetRequiredService<INpcBuilder<GeneratedCreature>>()));
+
         serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, FireElementalBuilder>();
         serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, WaterElementalBuilder>();
         serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, IceElementalBuilder>();
@@ -28,6 +32,9 @@ public static class DependencyInjection
         serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, EarthElementalBuilder>();
         serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, RockElementalBuilder>();
         serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, SandElementalBuilder>();
-        serviceCollection.AddTransient<ITemplateValidatorService, TemplateValidatorService>();
+        serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, DevilBuilder>();
+        serviceCollection.AddTransient<ISummonBuilder<GeneratedCreature>, AngelBuilder>();
+        serviceCollection.AddTransient(provider =>
+            new SummonDesigner<GeneratedCreature>(provider.GetRequiredService<IEnumerable<ISummonBuilder<GeneratedCreature>>>()));
     }
 }

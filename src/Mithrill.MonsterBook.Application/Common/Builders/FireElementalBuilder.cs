@@ -7,9 +7,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal class FireElementalBuilder : SummonBuilder
 {
     public FireElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Fire)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Fire) { }
 
     public override void SetDefaultValues(int level)
     {

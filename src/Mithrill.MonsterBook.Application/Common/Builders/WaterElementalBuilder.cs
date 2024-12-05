@@ -8,9 +8,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal class WaterElementalBuilder : SummonBuilder
 {
     public WaterElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Water)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Water) { }
 
     public override void SetDefaultValues(int level)
     {

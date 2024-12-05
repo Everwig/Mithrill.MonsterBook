@@ -32,7 +32,7 @@ internal static class Calculators
 
     public static int CalculateManaPoints(int intelligence, int willpower, int emotion, IEnumerable<MonsterBook.Domain.Merit> merits)
     {
-        return merits.Any(m => string.Equals(m.NameHu, AttributeTraits.ManaPointIncreaseTrait))
+        return merits.Any(m => string.Equals(m.Name, AttributeTraits.ManaPointIncreaseTrait))
             ? CalculateManaPoints(intelligence, willpower, emotion, true)
             : CalculateManaPoints(intelligence, willpower, emotion, false);
     }

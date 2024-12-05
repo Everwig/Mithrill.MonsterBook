@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Application.Domain;
 

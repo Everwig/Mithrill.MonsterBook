@@ -1,14 +1,13 @@
 ﻿using System.Linq;
 using AutoFixture;
-using AutoFixture.Kernel;
 using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
 using Mithrill.MonsterBook.Application.Common;
-using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
-using Mithrill.MonsterBook.Application.Domain;
+using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 using Xunit;
+using AttackType = Mithrill.MonsterBook.Application.Common.AttackType;
 
 namespace Mithrill.MonsterBook.Application.Tests.Common.Mappings;
 
@@ -110,6 +109,7 @@ public class AutoMapperTests
         //Assert
         mappedObject.Should().BeEquivalentTo(new Domain.Merit
         {
+            Id = merit.Id,
             Name = merit.Name
         });
     }
@@ -126,25 +126,10 @@ public class AutoMapperTests
         //Assert
         mappedObject.Should().BeEquivalentTo(new Domain.Skill
         {
+            Id = skill.Id,
             Name = skill.Name,
             Level = 0,
             Category = (SkillCategory)skill.Category
-        });
-    }
-
-    [Fact]
-    public void DomainWeapon_To_ApplicationDomainWeapon()
-    {
-        //Arrange
-        var weapon = _fixture.Create<MonsterBook.Domain.Weapon>();
-
-        //Act
-        var mappedObject = _mapper.Map<Domain.Weapon>(weapon);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Domain.Weapon
-        {
-            Name = weapon.Name
         });
     }
 
@@ -208,7 +193,7 @@ public class AutoMapperTests
         var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
         //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.GeneratedNpc>(generatedCreature);
+        var mappedObject = _mapper.Map<GeneratedNpc>(generatedCreature);
 
         //Assert
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.GeneratedNpc
@@ -261,7 +246,8 @@ public class AutoMapperTests
         mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType
         {
             GuaranteedDamage = attackType.GuaranteedDamage,
-            NumberOfDices = attackType.NumberOfDices
+            NumberOfDices = attackType.NumberOfDices,
+            DamageType = attackType.DamageType
         });
     }
 
@@ -285,7 +271,7 @@ public class AutoMapperTests
     internal void ApplicationDomainWeapon_To_GetGeneratedNpcWithKarmaWeapon()
     {
         //Arrange
-        var weapon = _fixture.Create<Weapon>();
+        var weapon = _fixture.Create<Domain.Weapon>();
 
         //Act
         var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon>(weapon);

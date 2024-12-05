@@ -7,9 +7,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal sealed class EarthElementalBuilder : SummonBuilder
 {
     public EarthElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Earth)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Earth) { }
 
     public override void SetDefaultValues(int level)
     {

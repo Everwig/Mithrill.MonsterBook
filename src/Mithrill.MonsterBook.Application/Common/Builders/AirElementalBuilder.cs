@@ -8,9 +8,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal class AirElementalBuilder : SummonBuilder
 {
     public AirElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Air)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Air) { }
 
     public override void SetDefaultValues(int level)
     {

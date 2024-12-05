@@ -8,9 +8,7 @@ namespace Mithrill.MonsterBook.Application.Common.Builders;
 internal class IceElementalBuilder : SummonBuilder
 {
     public IceElementalBuilder(IMonsterBookDbContext monsterBookDbContext)
-        : base(monsterBookDbContext, SummonType.Ice)
-    {
-    }
+        : base(monsterBookDbContext, SummonType.Ice) { }
 
     public override void SetDefaultValues(int level)
     {
