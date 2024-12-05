@@ -26,7 +26,7 @@
     "@ngrx/effects": "^18.1.1",
     "@ngrx/store": "^18.1.1",
     "@ngrx/store-devtools": "^18.1.1",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.7.0",
     "zone.js": "^0.15.0"
