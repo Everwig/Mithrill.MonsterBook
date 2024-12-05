@@ -53,6 +53,7 @@ public class Elementals
                 EmotionMin = 1,
                 WillpowerMax = 13,
                 WillpowerMin = 1,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()
@@ -103,6 +104,7 @@ public class Elementals
                 EmotionMin = 1,
                 WillpowerMax = 13,
                 WillpowerMin = 1,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()
@@ -157,6 +159,7 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 DamageReductionMax = 7,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()
@@ -208,6 +211,7 @@ public class Elementals
                 EmotionMin = 1,
                 WillpowerMax = 13,
                 WillpowerMin = 1,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()
@@ -259,6 +263,7 @@ public class Elementals
                 EmotionMin = 1,
                 WillpowerMax = 13,
                 WillpowerMin = 1,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()
@@ -312,6 +317,7 @@ public class Elementals
                 EmotionMin = 1,
                 WillpowerMax = 13,
                 WillpowerMin = 1,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()
@@ -360,6 +366,7 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 DamageReductionMax = 13,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()
@@ -407,6 +414,7 @@ public class Elementals
                 EmotionMin = 1,
                 WillpowerMax = 13,
                 WillpowerMin = 1,
+                IsSummon = true,
                 CharacterSkills = new List<CharacterSkill>
                 {
                     new()

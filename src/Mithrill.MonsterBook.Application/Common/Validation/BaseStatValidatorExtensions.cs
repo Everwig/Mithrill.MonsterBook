@@ -39,14 +39,14 @@ public static class BaseStatValidatorExtensions
                                                         await templateValidatorService.IsValidTemplateId(id.Value,
                                                             cancellationToken))
             .WithErrorCode("IdValidator")
-            .WithMessage((_, id) => $"Template with '{id}' does not exist");
+            .WithMessage((_, id) => $"Template with '{id}' does not exist.");
 
     public static IRuleBuilderOptions<T, int> NpcTemplateIdValidation<T>(
         this IRuleBuilderInitial<T, int> rule,
         ITemplateValidatorService templateValidatorService) =>
         rule.MustAsync(templateValidatorService.IsValidTemplateId)
             .WithErrorCode("IdValidator")
-            .WithMessage((_, id) => $"Template with '{id}' does not exist");
+            .WithMessage((_, id) => $"Template with '{id}' does not exist.");
 
     public static IRuleBuilderOptions<IEnumerable<T>, T> MeritValidation<T>(
         this IRuleBuilderInitialCollection<IEnumerable<T>, T> rule,
@@ -65,4 +65,11 @@ public static class BaseStatValidatorExtensions
                 templateValidatorService.IsValidMeritId(merit.Id, cancellationToken))
             .WithErrorCode("FlawValidator")
             .WithMessage((_, flaw) => $"Flaw with id '{flaw.Id}' doesn't exist.");
+
+    public static IRuleBuilderOptions<T, int> SummonTemplateIdValidation<T>(
+        this IRuleBuilderInitial<T, int> rule,
+        ITemplateValidatorService templateValidatorService) =>
+        rule.MustAsync(templateValidatorService.IsValidSummonTemplateId)
+            .WithErrorCode("IdValidator")
+            .WithMessage((_, id) => $"Template with '{id}' is not a summon type.");
 }

@@ -3,6 +3,7 @@ using EntityFramework.MonsterBook;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFramework.MonsterBook.Migrations
 {
     [DbContext(typeof(EfMonsterBookDbContext))]
-    partial class EfMonsterBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241204172605_UpdateNpcTemplateNameLength")]
+    partial class UpdateNpcTemplateNameLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -355,9 +358,6 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.Property<int>("IntelligenceMin")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsSummon")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsUndead")
                         .HasColumnType("bit");

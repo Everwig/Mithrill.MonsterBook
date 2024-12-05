@@ -39,7 +39,8 @@ public sealed record CreateNpcTemplateCommand(
     HashSet<Flaw> Flaws,
     HashSet<Skill> Skills,
     List<Armor> Armors,
-    List<Weapon> Weapons) :
+    List<Weapon> Weapons,
+    bool IsSummon = false) :
     IRequest<int>,
     IRanks,
     IMapTo<MonsterBook.Domain.NpcTemplate>

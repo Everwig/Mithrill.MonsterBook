@@ -105,7 +105,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
                 ErrorCode: "IdValidator",
-                ErrorMessage: $"Template with '{template.Id}' does not exist"
+                ErrorMessage: $"Template with '{template.Id}' does not exist."
             )
         });
     }

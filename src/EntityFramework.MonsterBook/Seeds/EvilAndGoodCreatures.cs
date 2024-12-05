@@ -255,7 +255,8 @@ public class EvilAndGoodCreatures
                 Difficulty = Difficulty.Variable,
                 Id = identity,
                 KarmaMin = 1,
-                KarmaMax = 12
+                KarmaMax = 12,
+                IsSummon = true
             }
         });
 
@@ -264,37 +265,68 @@ public class EvilAndGoodCreatures
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 4
+                SkillId = 1,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 13
+                SkillId = 3,
+                IsOptional = true,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 18
+                SkillId = 4,
+                IsOptional = true,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 67
+                SkillId = 13,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 16
+                SkillId = 18,
+                IsOptional = true,
+                SkillLevelMin = -1,
+                SkillLevelMax = 11
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 51
+                SkillId = 67,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 49
+                SkillId = 16,
+                SkillLevelMin = -1,
+                SkillLevelMax = 11
+            },
+            new()
+            {
+                NpcTemplateId = identity,
+                SkillId = 51,
+                SkillLevelMin = -2,
+                SkillLevelMax = 10
+            },
+            new()
+            {
+                NpcTemplateId = identity,
+                SkillId = 49,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             }
         });
 
@@ -1825,7 +1857,8 @@ public class EvilAndGoodCreatures
                 NameHu = "Démon",
                 Id = identity,
                 KarmaMin = 1,
-                KarmaMax = 12
+                KarmaMax = 12,
+                IsSummon = true
             }
         });
 
@@ -1834,37 +1867,60 @@ public class EvilAndGoodCreatures
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 3
+                SkillId = 1,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 11
+                SkillId = 3,
+                IsOptional = true,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 18
+                SkillId = 4,
+                IsOptional = true,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 13
+                SkillId = 11,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 68
+                SkillId = 18,
+                SkillLevelMin = -1,
+                SkillLevelMax = 11
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 46
+                SkillId = 68,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             },
             new()
             {
                 NpcTemplateId = identity,
-                SkillId = 49
+                SkillId = 46,
+                SkillLevelMin = -2,
+                SkillLevelMax = 10
+            },
+            new()
+            {
+                NpcTemplateId = identity,
+                SkillId = 49,
+                SkillLevelMin = 0,
+                SkillLevelMax = 12
             }
         });
 

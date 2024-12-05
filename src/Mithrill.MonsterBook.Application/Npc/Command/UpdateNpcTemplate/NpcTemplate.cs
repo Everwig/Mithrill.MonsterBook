@@ -37,7 +37,8 @@ public sealed record NpcTemplate(
     HashSet<Flaw> Flaws,
     HashSet<Skill> Skills,
     List<Armor> Armors,
-    List<Weapon> Weapons) :
+    List<Weapon> Weapons,
+    bool IsSummon = false) :
     IRanks,
     IMapTo<MonsterBook.Domain.NpcTemplate>
 {
