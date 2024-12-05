@@ -32,8 +32,7 @@ public class MythicCreatures
 
     private static async Task AddChimeraAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -58,7 +57,7 @@ public class MythicCreatures
                 EmotionMin = 3,
                 Difficulty = Difficulty.Veteran
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -140,8 +139,7 @@ public class MythicCreatures
 
     private static async Task AddDiagonaAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -166,7 +164,7 @@ public class MythicCreatures
                 EmotionMin = 1,
                 Difficulty = Difficulty.Newbie
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -211,8 +209,7 @@ public class MythicCreatures
 
     private static async Task AddUnicornAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -237,7 +234,7 @@ public class MythicCreatures
                 EmotionMin = 3,
                 Difficulty = Difficulty.Veteran
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -318,8 +315,7 @@ public class MythicCreatures
 
     private static async Task AddGiganticSnailAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -346,7 +342,7 @@ public class MythicCreatures
                 DamageReductionMax = 6,
                 Difficulty = Difficulty.Veteran
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -385,8 +381,7 @@ public class MythicCreatures
 
     private static async Task AddGnollAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -411,7 +406,7 @@ public class MythicCreatures
                 EmotionMin = 1,
                 Difficulty = Difficulty.Newbie
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -533,8 +528,7 @@ public class MythicCreatures
 
     private static async Task AddGriffAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -559,7 +553,7 @@ public class MythicCreatures
                 EmotionMin = 2,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -633,8 +627,7 @@ public class MythicCreatures
 
     private static async Task AddHydraAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -659,7 +652,7 @@ public class MythicCreatures
                 EmotionMin = 6,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -724,8 +717,7 @@ public class MythicCreatures
 
     private static async Task AddLamassuAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -750,7 +742,7 @@ public class MythicCreatures
                 EmotionMin = 7,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -933,8 +925,7 @@ public class MythicCreatures
 
     private static async Task AddSirenAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -959,7 +950,7 @@ public class MythicCreatures
                 EmotionMin = 6,
                 Difficulty = Difficulty.Newbie
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {

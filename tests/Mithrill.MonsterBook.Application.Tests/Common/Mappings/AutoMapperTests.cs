@@ -210,8 +210,8 @@ public class AutoMapperTests
             Strength = generatedCreature.Strength,
             Vitality = generatedCreature.Vitality,
             Willpower = generatedCreature.Willpower,
-            Skills = new[]
-            {
+            Skills =
+            [
                 new Application.Npc.Query.GetGeneratedNpc.Skill
                 {
                     Name = generatedCreature.Skills.First().Name,
@@ -219,9 +219,9 @@ public class AutoMapperTests
                     Category = generatedCreature.Skills.First().Category,
                     GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                 }
-            },
-            Weapons = new[]
-            {
+            ],
+            Weapons =
+            [
                 new Application.Npc.Query.GetGeneratedNpc.Weapon
                 {
                     Name = generatedCreature.Weapons.First().Name,
@@ -232,7 +232,7 @@ public class AutoMapperTests
                         NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                     }
                 }
-            }
+            ]
         });
     }
 
@@ -313,8 +313,8 @@ public class AutoMapperTests
             Strength = generatedCreature.Strength,
             Vitality = generatedCreature.Vitality,
             Willpower = generatedCreature.Willpower,
-            Skills = new[]
-            {
+            Skills =
+            [
                 new Application.Npc.Query.GetGeneratedNpcWithKarma.Skill
                 {
                     Name = generatedCreature.Skills.First().Name,
@@ -322,9 +322,9 @@ public class AutoMapperTests
                     Category = generatedCreature.Skills.First().Category,
                     GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                 }
-            },
-            Weapons = new[]
-            {
+            ],
+            Weapons =
+            [
                 new Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon
                 {
                     Name = generatedCreature.Weapons.First().Name,
@@ -335,7 +335,7 @@ public class AutoMapperTests
                         NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                     }
                 }
-            },
+            ],
             PowerPoint = generatedCreature.PowerPoint,
             Karma = generatedCreature.Karma
         });
@@ -450,8 +450,8 @@ public class AutoMapperTests
             Strength = generatedCreature.Strength,
             Vitality = generatedCreature.Vitality,
             Willpower = generatedCreature.Willpower,
-            Skills = new[]
-            {
+            Skills =
+            [
                 new Application.Npc.Query.GetGeneratedProminentNpc.Skill
                 {
                     Name = generatedCreature.Skills.First().Name,
@@ -459,9 +459,9 @@ public class AutoMapperTests
                     Category = generatedCreature.Skills.First().Category,
                     GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
                 }
-            },
-            Weapons = new[]
-            {
+            ],
+            Weapons =
+            [
                 new Application.Npc.Query.GetGeneratedProminentNpc.Weapon
                 {
                     Name = generatedCreature.Weapons.First().Name,
@@ -472,21 +472,21 @@ public class AutoMapperTests
                         NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
                     }
                 }
-            },
-            Flaws = new[]
-            {
+            ],
+            Flaws =
+            [
                 new Application.Npc.Query.GetGeneratedProminentNpc.Flaw
                 {
                     Name = generatedCreature.Flaws.First().Name
                 }
-            },
-            Merits = new[]
-            {
+            ],
+            Merits =
+            [
                 new Application.Npc.Query.GetGeneratedProminentNpc.Merit
                 {
                     Name = generatedCreature.Merits.First().Name
                 }
-            },
+            ],
             PowerPoint = generatedCreature.PowerPoint,
             Karma = generatedCreature.Karma
         });

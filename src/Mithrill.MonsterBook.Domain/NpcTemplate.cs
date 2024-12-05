@@ -37,4 +37,5 @@ public class NpcTemplate
     public ICollection<CharacterSkill> CharacterSkills { get; set; }
     public bool IsUndead { get; set; }
     public bool IsSummon { get; set; }
+    public SummonType? SummonType { get; set; }
 }

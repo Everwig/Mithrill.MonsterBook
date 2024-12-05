@@ -46,8 +46,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddDuahinMagicZombie(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -71,7 +70,7 @@ public class EvilAndGoodCreatures
                 DamageReductionMin = 1,
                 Difficulty = Difficulty.Newbie
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -130,8 +129,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddGhost(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -148,13 +146,12 @@ public class EvilAndGoodCreatures
                 EmotionMax = 4,
                 EmotionMin = 1
             }
-        });
+        ]);
     }
 
     private static async Task AddSeraph(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfLight,
@@ -181,7 +178,7 @@ public class EvilAndGoodCreatures
                 DamageReductionMax = 2,
                 DamageReductionMin = 0
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -245,8 +242,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddAngel(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfLight,
@@ -256,9 +252,10 @@ public class EvilAndGoodCreatures
                 Id = identity,
                 KarmaMin = 1,
                 KarmaMax = 12,
-                IsSummon = true
+                IsSummon = true,
+                SummonType = SummonType.Holy
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -342,8 +339,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddZombie(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -361,7 +357,7 @@ public class EvilAndGoodCreatures
                 DexterityMin = 3,
                 Difficulty = Difficulty.Newbie
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -439,8 +435,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddVampire(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -466,7 +461,7 @@ public class EvilAndGoodCreatures
                 KarmaMin = 0,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -567,8 +562,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddHoppingChewer(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -593,7 +587,7 @@ public class EvilAndGoodCreatures
                 DamageReductionMax = 1,
                 DamageReductionMin = 1
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -651,8 +645,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddIncubus(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -677,7 +670,7 @@ public class EvilAndGoodCreatures
                 EmotionMin = 4,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -779,8 +772,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddSuccubus(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -805,7 +797,7 @@ public class EvilAndGoodCreatures
                 EmotionMin = 4,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -907,8 +899,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddRimsai(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -935,7 +926,7 @@ public class EvilAndGoodCreatures
                 DamageReductionMax = 2,
                 DamageReductionMin = 0
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -999,8 +990,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddGuardian(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Mythical,
@@ -1021,7 +1011,7 @@ public class EvilAndGoodCreatures
                 DamageReductionMax = 10,
                 DamageReductionMin = 10
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1119,8 +1109,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddHellhound(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1145,7 +1134,7 @@ public class EvilAndGoodCreatures
                 EmotionMin = 4,
                 Difficulty = Difficulty.Veteran
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1203,8 +1192,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddMummy(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1230,7 +1218,7 @@ public class EvilAndGoodCreatures
                 KarmaMin = 0,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1352,8 +1340,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddPoisonSpirit(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness, IsUndead = true,
@@ -1372,7 +1359,7 @@ public class EvilAndGoodCreatures
                 EmotionMin = 3,
                 Difficulty = Difficulty.Newbie
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
         {
@@ -1395,8 +1382,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddLich(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1422,7 +1408,7 @@ public class EvilAndGoodCreatures
                 KarmaMin = 3,
                 Difficulty = Difficulty.Experienced
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1549,8 +1535,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddDeathKnight(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1574,7 +1559,7 @@ public class EvilAndGoodCreatures
                 EmotionMin = 6,
                 Difficulty = Difficulty.Experienced
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1677,8 +1662,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddGhoul(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1702,7 +1686,7 @@ public class EvilAndGoodCreatures
                 EmotionMin = 1,
                 Difficulty = Difficulty.Expert
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1768,8 +1752,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddThousandFangs(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1794,7 +1777,7 @@ public class EvilAndGoodCreatures
                 DamageReductionMax = 6,
                 DamageReductionMin = 6
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1847,8 +1830,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddDemon(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1858,9 +1840,10 @@ public class EvilAndGoodCreatures
                 Id = identity,
                 KarmaMin = 1,
                 KarmaMax = 12,
-                IsSummon = true
+                IsSummon = true,
+                SummonType = SummonType.Unholy
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1936,8 +1919,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddSkeleton(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -1955,7 +1937,7 @@ public class EvilAndGoodCreatures
                 DexterityMin = 3,
                 Difficulty = Difficulty.Newbie
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -2028,8 +2010,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddCerberus(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -2053,7 +2034,7 @@ public class EvilAndGoodCreatures
                 EmotionMax = 6,
                 EmotionMin = 6
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -2097,8 +2078,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddBaloth(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -2121,7 +2101,7 @@ public class EvilAndGoodCreatures
                 DamageReductionMax = 5,
                 DamageReductionMin = 5
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -2174,8 +2154,7 @@ public class EvilAndGoodCreatures
 
     private static async Task AddShadow(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.CreatureOfDarkness,
@@ -2201,7 +2180,7 @@ public class EvilAndGoodCreatures
                 KarmaMax = 5,
                 KarmaMin = 3
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {

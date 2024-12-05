@@ -9,8 +9,7 @@ public static class WeaponsAndArmors
 {
     public static Task AddOrUpdateAttackTypes(DbContext dbContext)
     {
-        return dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        return dbContext.BulkInsertOrUpdateAsync([
             new AttackType { Id = 1, DamageType = DamageType.Bludgeoning, NumberOfDices = 1, GuaranteedDamage = 0 },
             new AttackType { Id = 2, DamageType = DamageType.Bludgeoning, NumberOfDices = 1, GuaranteedDamage = 2 },
             new AttackType { Id = 3, DamageType = DamageType.Bludgeoning, NumberOfDices = 2, GuaranteedDamage = 2 },
@@ -49,13 +48,12 @@ public static class WeaponsAndArmors
             new AttackType { Id = 36, DamageType = DamageType.Stabbing, NumberOfDices = 1, GuaranteedDamage = 3 },
             new AttackType { Id = 37, DamageType = DamageType.Poison, NumberOfDices = 1, GuaranteedDamage = 0 },
             new AttackType { Id = 38, DamageType = DamageType.None, NumberOfDices = 0, GuaranteedDamage = 0 }
-        });
+        ]);
     }
 
     public static Task AddOrUpdateWeapons(DbContext dbContext)
     {
-        return dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        return dbContext.BulkInsertOrUpdateAsync([
             new Weapon { Id = 1, Name = "Javelin", NameHu = "Dárda", BaseAttackTypeId = 7 },
             new Weapon { Id = 2, Name = "Spear", NameHu = "Lándzsa", BaseAttackTypeId = 8 },
             new Weapon { Id = 3, Name = "Throwing knife", NameHu = "Dobótőr", BaseAttackTypeId = 7 },
@@ -119,13 +117,12 @@ public static class WeaponsAndArmors
             new Weapon { Id = 61, Name = "Water breath", NameHu = "Vízcsóva", BaseAttackTypeId = 38 },
             new Weapon { Id = 62, Name = "Gale", NameHu = "Orkán", BaseAttackTypeId = 38 },
             new Weapon { Id = 63, Name = "Sandstorm", NameHu = "Homokvihar", BaseAttackTypeId = 38 }
-        });
+        ]);
     }
 
     public static Task AddOrUpdateArmors(DbContext dbContext)
     {
-        return dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        return dbContext.BulkInsertOrUpdateAsync([
             new Armor { Id = 1, Name = "Leather Armor", NameHu = "Bőrpáncél", BaseArmorClass = 1 },
             new Armor { Id = 2, Name = "Ring Armor", NameHu = "Gyűrűs vért", BaseArmorClass = 2, BaseMovementInhibitoryFactor = 1},
             new Armor { Id = 3, Name = "Chain shirt", NameHu = "Láncing", BaseArmorClass = 2, BaseMovementInhibitoryFactor = 1 },
@@ -144,6 +141,6 @@ public static class WeaponsAndArmors
             new Armor { Id = 16, Name = "Pauldron", NameHu = "Válvédő", BaseArmorClass = 1, BaseMovementInhibitoryFactor = 1 },
             new Armor { Id = 17, Name = "Greaves", NameHu = "Lábszárvédő", BaseArmorClass = 1, BaseMovementInhibitoryFactor = 0 },
             new Armor { Id = 18, Name = "Battle skirt", NameHu = "Csataszoknya", BaseArmorClass = 1, BaseMovementInhibitoryFactor = 0 }
-        });
+        ]);
     }
 }

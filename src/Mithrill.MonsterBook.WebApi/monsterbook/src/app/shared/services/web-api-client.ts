@@ -233,17 +233,17 @@ export class NpcsClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getSummon(templateId: number, type: SummonType, level: number): Observable<GeneratedSummon> {
+    getSummon(type: SummonType, level: number, templateId: string): Observable<GeneratedSummon> {
         let url_ = this.baseUrl + "/api/npcs/summon/{templateId}/{type}/{level}";
-        if (templateId === undefined || templateId === null)
-            throw new Error("The parameter 'templateId' must be defined.");
-        url_ = url_.replace("{templateId}", encodeURIComponent("" + templateId));
         if (type === undefined || type === null)
             throw new Error("The parameter 'type' must be defined.");
         url_ = url_.replace("{type}", encodeURIComponent("" + type));
         if (level === undefined || level === null)
             throw new Error("The parameter 'level' must be defined.");
         url_ = url_.replace("{level}", encodeURIComponent("" + level));
+        if (templateId === undefined || templateId === null)
+            throw new Error("The parameter 'templateId' must be defined.");
+        url_ = url_.replace("{templateId}", encodeURIComponent("" + templateId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

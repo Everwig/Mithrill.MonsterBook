@@ -6,7 +6,7 @@ namespace Mithrill.MonsterBook.Application.Common.Adapters;
 public interface ISummonBuilder<out T>
 {
     void Reset();
-    Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken);
+    Task GetMonsterFromDatabaseAsync(CancellationToken cancellationToken);
     void SetDefaultValues(int level);
     void CalculateLifeSigns();
     bool CanHandleGeneration(SummonType summonType);

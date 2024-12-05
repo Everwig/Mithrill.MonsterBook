@@ -9,8 +9,7 @@ public static class Flaws
 {
     public static Task AddOrUpdateFlaws(DbContext dbContext)
     {
-        return dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        return dbContext.BulkInsertOrUpdateAsync([
             new Flaw { Id = 1, Name = "Ugly", NameHu = "Csúnya" },
             new Flaw { Id = 2, Name = "Deserter", NameHu = "Dezertőr" },
             new Flaw { Id = 3, Name = "Toothless", NameHu = "Fogatlan" },
@@ -81,6 +80,6 @@ public static class Flaws
             new Flaw { Id = 68, Name = "Secret personality", NameHu = "Titkos személyiség" },
             new Flaw { Id = 69, Name = "Elemental dissonance", NameHu = "Elemi diszonancia" },
             new Flaw { Id = 70, Name = "One handed", NameHu = "Félkarú" }
-        });
+        ]);
     }
 }

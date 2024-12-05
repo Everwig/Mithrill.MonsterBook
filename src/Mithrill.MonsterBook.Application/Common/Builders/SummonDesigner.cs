@@ -16,10 +16,10 @@ namespace Mithrill.MonsterBook.Application.Common.Builders
             _summonBuilders = summonBuilders;
         }
 
-        public async Task DesignSummonAsync(int npcTemplateId, SummonType summonType, int level, CancellationToken cancellationToken)
+        public async Task DesignSummonAsync(SummonType summonType, int level, CancellationToken cancellationToken)
         {
             var summonBuilder = _summonBuilders.Single(summonBuilder => summonBuilder.CanHandleGeneration(summonType));
-            await summonBuilder.GetMonsterFromDatabaseAsync(npcTemplateId, cancellationToken);
+            await summonBuilder.GetMonsterFromDatabaseAsync(cancellationToken);
             summonBuilder.SetDefaultValues(level);
             summonBuilder.CalculateLifeSigns();
             _summonBuilder = summonBuilder;

@@ -9,8 +9,7 @@ public static class Merits
 {
     public static Task AddOrUpdateMerits(DbContext dbContext)
     {
-        return dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        return dbContext.BulkInsertOrUpdateAsync([
             new Merit { Id = 1, Name = "Steel bones", NameHu = "Acélos csontok" },
             new Merit { Id = 2, Name = "Forest walker", NameHu = "Erdőjáró" },
             new Merit { Id = 3, Name = "Undead", NameHu = "Élőholt" },
@@ -110,6 +109,6 @@ public static class Merits
             new Merit { Id = 97, Name = "Magic immunity", NameHu = "Mágia immunitás" },
             new Merit { Id = 98, Name = "Mythic toughness", NameHu = "Mítikus szívósság" },
             new Merit { Id = 99, Name = "Reflect magic", NameHu = "Mágia visszatükrözés" }
-        });
+        ]);
     }
 }

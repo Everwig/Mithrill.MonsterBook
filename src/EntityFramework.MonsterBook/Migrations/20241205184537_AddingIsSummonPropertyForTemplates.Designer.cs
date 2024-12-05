@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFramework.MonsterBook.Migrations
 {
     [DbContext(typeof(EfMonsterBookDbContext))]
-    [Migration("20241205155229_AddingIsSummonPropertyForTemplates")]
+    [Migration("20241205184537_AddingIsSummonPropertyForTemplates")]
     partial class AddingIsSummonPropertyForTemplates
     {
         /// <inheritdoc />
@@ -390,6 +390,10 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<int>("StrengthMin")
                         .HasColumnType("int");
 
+                    b.Property<string>("SummonType")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
                     b.Property<int>("VitalityMax")
                         .HasColumnType("int");
 
@@ -404,7 +408,14 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NpcTemplate", (string)null);
+                    b.HasIndex("SummonType")
+                        .IsUnique()
+                        .HasFilter("[IsSummon] = 1");
+
+                    b.ToTable("NpcTemplate", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_IsSummon_SummonType", "([IsSummon] = 0 AND [SummonType] IS NULL) OR ([IsSummon] = 1 AND [SummonType] IS NOT NULL)");
+                        });
                 });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Skill", b =>

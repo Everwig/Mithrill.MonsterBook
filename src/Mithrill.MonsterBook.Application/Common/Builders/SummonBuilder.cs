@@ -30,7 +30,7 @@ internal abstract class SummonBuilder : ISummonBuilder<GeneratedCreature>
         QueriedCreature = new NpcTemplate();
     }
 
-    public async Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken)
+    public async Task GetMonsterFromDatabaseAsync(CancellationToken cancellationToken)
     {
         QueriedCreature = await _monsterBookDbContext.NpcTemplates
             .Include(c => c.CharacterFlaws)
@@ -44,7 +44,9 @@ internal abstract class SummonBuilder : ISummonBuilder<GeneratedCreature>
             .ThenInclude(w => w.BaseAttackType)
             .Include(c => c.CharacterWeapons)
             .ThenInclude(cw => cw.AdditionalAttackTypes)
-            .Where(m => m.Id == id)
+            .Where(m => m.IsSummon &&
+                        m.SummonType.HasValue &&
+                        m.SummonType.Value == (MonsterBook.Domain.SummonType)_summoningStrategy)
             .SingleOrDefaultAsync(cancellationToken);
     }
 

@@ -8,7 +8,7 @@ using Mithrill.MonsterBook.Application.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon;
 
-public sealed record GetGeneratedSummonQuery(int TemplateId, SummonType Type, int Level) : IRequest<GeneratedSummon>;
+public sealed record GetGeneratedSummonQuery(SummonType Type, int Level) : IRequest<GeneratedSummon>;
 
 internal sealed class GetGeneratedSummonQueryHandler : IRequestHandler<GetGeneratedSummonQuery, GeneratedSummon>
 {
@@ -23,7 +23,7 @@ internal sealed class GetGeneratedSummonQueryHandler : IRequestHandler<GetGenera
 
     public async Task<GeneratedSummon> Handle(GetGeneratedSummonQuery request, CancellationToken cancellationToken)
     {
-        await _summonDesigner.DesignSummonAsync(request.TemplateId, request.Type, request.Level, cancellationToken);
+        await _summonDesigner.DesignSummonAsync(request.Type, request.Level, cancellationToken);
         var summon = _summonDesigner.GetSummon();
 
         return _mapper.Map<GeneratedSummon>(summon);

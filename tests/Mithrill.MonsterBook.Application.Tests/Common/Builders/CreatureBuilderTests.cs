@@ -620,8 +620,7 @@ public class CreatureBuilderTests
         var generatedCreature = _creatureBuilder.GetNpc();
 
         //Assert
-        generatedCreature.Skills.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Skills.Should().BeEquivalentTo([
             new Domain.Skill
             {
                 Id = npcTemplate.CharacterSkills.First().Skill.Id,
@@ -630,7 +629,7 @@ public class CreatureBuilderTests
                 GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
                 Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
             }
-        });
+        ]);
     }
 
     [Fact]
@@ -668,8 +667,7 @@ public class CreatureBuilderTests
         var generatedCreature = _creatureBuilder.GetNpc();
 
         //Assert
-        generatedCreature.Skills.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Skills.Should().BeEquivalentTo([
             new Domain.Skill
             {
                 Id = npcTemplate.CharacterSkills.First().Skill.Id,
@@ -678,7 +676,7 @@ public class CreatureBuilderTests
                 GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
                 Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
             }
-        });
+        ]);
     }
     #endregion
 
@@ -697,8 +695,7 @@ public class CreatureBuilderTests
         var generatedCreature = _creatureBuilder.GetNpc();
 
         //Assert
-        generatedCreature.Merits.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Merits.Should().BeEquivalentTo([
             new Domain.Merit
             {
                 Id = npcTemplate.CharacterMerits.First().Merit.Id,
@@ -709,7 +706,7 @@ public class CreatureBuilderTests
                 Id = npcTemplate.CharacterMerits.Last().Merit.Id,
                 Name = npcTemplate.CharacterMerits.Last().Merit.Name
             }
-        });
+        ]);
     }
 
     [Fact]
@@ -744,8 +741,7 @@ public class CreatureBuilderTests
 
         //Assert
         generatedCreature.Merits.Count().Should().Be(2);
-        generatedCreature.Merits.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Merits.Should().BeEquivalentTo([
             new Domain.Merit
             {
                 Id = npcTemplate.CharacterMerits.First().Merit.Id,
@@ -756,7 +752,7 @@ public class CreatureBuilderTests
                 Id = npcTemplate.CharacterMerits.Last().Merit.Id,
                 Name = npcTemplate.CharacterMerits.Last().Merit.Name
             }
-        });
+        ]);
     }
     #endregion
 
@@ -764,8 +760,8 @@ public class CreatureBuilderTests
 
     private static List<CharacterFlaw> GetFlaws(int npcTemplateId)
     {
-        return new List<CharacterFlaw>
-        {
+        return
+        [
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -777,6 +773,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -788,6 +785,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -799,6 +797,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -810,6 +809,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -821,6 +821,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -832,6 +833,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -843,7 +845,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             }
-        };
+        ];
     }
 
     [Fact]

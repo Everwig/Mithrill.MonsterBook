@@ -8,33 +8,33 @@ namespace Mithrill.MonsterBook.WebApi.Common;
 
 public class ResponseTypeJsonSchemaProcessor : IDocumentProcessor
 {
-    private static readonly IEnumerable<ResponseTypeSetting> ResponseTypeSettings = new[]
-    {
+    private static readonly IEnumerable<ResponseTypeSetting> ResponseTypeSettings =
+    [
         new ResponseTypeSetting
         {
             SchemaName = nameof(ProblemDetails),
-            PropertyExclusionSettings = new[]
-            {
+            PropertyExclusionSettings =
+            [
                 new ResponseTypeSetting.PropertyExclusionSetting
                 {
                     PropertyName = "extensions",
                     ExcludeFromParent = true
                 }
-            }
+            ]
         },
         new ResponseTypeSetting
         {
             SchemaName = nameof(ProblemDetailsWithTraceId),
-            PropertyExclusionSettings = new[]
-            {
+            PropertyExclusionSettings =
+            [
                 new ResponseTypeSetting.PropertyExclusionSetting
                 {
                     PropertyName = "extensions",
                     ExcludeFromParent = true
                 }
-            }
+            ]
         }
-    };
+    ];
 
     public void Process(DocumentProcessorContext context)
     {

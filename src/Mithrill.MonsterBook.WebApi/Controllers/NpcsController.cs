@@ -42,12 +42,11 @@ public class NpcsController : ApiControllerBase
 
     [HttpGet("Summon/{templateId:int}/{type}/{level:int}")]
     public async Task<GeneratedSummon> GetSummon(
-        int templateId,
         SummonType type,
         int level,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetGeneratedSummonQuery(templateId, type, level), cancellationToken);
+        return await Mediator.Send(new GetGeneratedSummonQuery(type, level), cancellationToken);
     }
 
     [HttpGet("GetTemplates")]
