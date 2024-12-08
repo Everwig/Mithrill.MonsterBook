@@ -40,7 +40,7 @@ public class NpcsController : ApiControllerBase
         return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
     }*/
 
-    [HttpGet("Summon/{templateId:int}/{type}/{level:int}")]
+    [HttpGet("Summons/{type}/{level:int}")]
     public async Task<GeneratedSummon> GetSummon(
         SummonType type,
         int level,

@@ -7,7 +7,7 @@ namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon;
 
 public sealed record Weapon(
     int Id,
-    int Name,
+    string Name,
     int BaseAttackModifier,
     int BaseDefenseModifier,
     int BaseInitiativeModifier,

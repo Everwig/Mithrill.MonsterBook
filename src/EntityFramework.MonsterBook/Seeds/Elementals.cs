@@ -15,7 +15,7 @@ public class Elementals
         _identity = identitySeed - 1;
     }
 
-    public async Task<int> AddOrUpdateCreatures(DbContext dbContext)
+    public async Task<int> AddOrUpdateCreatures(EfMonsterBookDbContext dbContext)
     {
         await AddFireElemental(dbContext, GetIdentity());
         await AddWaterElemental(dbContext, GetIdentity());
@@ -29,7 +29,7 @@ public class Elementals
         return _identity;
     }
 
-    private static async Task AddFireElemental(DbContext dbContext, int identity)
+    private static async Task AddFireElemental(EfMonsterBookDbContext dbContext, int identity)
     {
         await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
@@ -53,38 +53,34 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 IsSummon = true,
-                SummonType = SummonType.Fire
-            }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
+                SummonType = SummonType.Fire,
+                CharacterSkills = new List<CharacterSkill>
                 {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 1,
-                    NpcTemplateId = identity
-                }
-            });
-
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 1,
+                        NpcTemplateId = identity
+                    }
                 },
-                new()
+                CharacterWeapons = new List<CharacterWeapon>
                 {
-                    Material = Material.None,
-                    WeaponId = 61,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        Material = Material.None,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    },
+                    new()
+                    {
+                        Material = Material.None,
+                        WeaponId = 61,
+                        NpcTemplateId = identity
+                    }
                 }
-            });
+            }
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddWaterElemental(DbContext dbContext, int identity)
@@ -111,39 +107,35 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 IsSummon = true,
-                SummonType = SummonType.Water
-            }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
+                SummonType = SummonType.Water,
+                CharacterSkills = new List<CharacterSkill>
                 {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 2,
-                    NpcTemplateId = identity
-                }
-            });
-
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 2,
+                        NpcTemplateId = identity
+                    }
                 },
-                new()
+                CharacterWeapons = new List<CharacterWeapon>
                 {
-                    Material = Material.None,
-                    WeaponId = 61,
-                    IsOptional = true,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        Material = Material.Bone,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    },
+                    new()
+                    {
+                        Material = Material.None,
+                        WeaponId = 61,
+                        IsOptional = true,
+                        NpcTemplateId = identity
+                    }
                 }
-            });
+            }
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddIceElemental(DbContext dbContext, int identity)
@@ -173,39 +165,35 @@ public class Elementals
                 WillpowerMin = 1,
                 DamageReductionMax = 7,
                 IsSummon = true,
-                SummonType = SummonType.Ice
-            }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
+                SummonType = SummonType.Ice,
+                CharacterSkills = new List<CharacterSkill>
                 {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 2,
-                    NpcTemplateId = identity
-                }
-            });
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 2,
+                        NpcTemplateId = identity
+                    }
                 },
-                new()
+                CharacterWeapons = new List<CharacterWeapon>
                 {
-                    Material = Material.None,
-                    WeaponId = 50,
-                    IsOptional = true,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        Material = Material.Bone,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    },
+                    new()
+                    {
+                        Material = Material.None,
+                        WeaponId = 50,
+                        IsOptional = true,
+                        NpcTemplateId = identity
+                    }
                 }
-            });
+            }
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddAirElemental(DbContext dbContext, int identity)
@@ -232,39 +220,35 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 IsSummon = true,
-                SummonType = SummonType.Air
-            }
-        ]);
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
+                SummonType = SummonType.Air,
+                CharacterSkills = new List<CharacterSkill>
                 {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 15,
-                    NpcTemplateId = identity
-                }
-            });
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 15,
+                        NpcTemplateId = identity
+                    }
                 },
-                new()
+                CharacterWeapons = new List<CharacterWeapon>
                 {
-                    Material = Material.None,
-                    WeaponId = 62,
-                    IsOptional = true,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        Material = Material.Bone,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    },
+                    new()
+                    {
+                        Material = Material.None,
+                        WeaponId = 62,
+                        IsOptional = true,
+                        NpcTemplateId = identity
+                    }
                 }
-            });
+            }
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddStormElemental(DbContext dbContext, int identity)
@@ -291,39 +275,35 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 IsSummon = true,
-                SummonType = SummonType.Thunder
-            }
-        ]);
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
+                SummonType = SummonType.Thunder,
+                CharacterSkills = new List<CharacterSkill>
                 {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 15,
-                    NpcTemplateId = identity
-                }
-            });
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 15,
+                        NpcTemplateId = identity
+                    }
                 },
-                new()
+                CharacterWeapons = new List<CharacterWeapon>
                 {
-                    Material = Material.None,
-                    WeaponId = 55,
-                    IsOptional = true,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        Material = Material.Bone,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    },
+                    new()
+                    {
+                        Material = Material.None,
+                        WeaponId = 55,
+                        IsOptional = true,
+                        NpcTemplateId = identity
+                    }
                 }
-            });
+            }
+        ], new BulkConfig { IncludeGraph = true });
     }
     
     private static async Task AddEarthElemental(DbContext dbContext, int identity)
@@ -352,32 +332,28 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 IsSummon = true,
-                SummonType = SummonType.Earth
+                SummonType = SummonType.Earth,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 4,
+                        NpcTemplateId = identity
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        Material = Material.Bone,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    }
+                }
             }
-        ]);
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
-                {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 4,
-                    NpcTemplateId = identity
-                }
-            });
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
-                }
-            });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddRockElemental(DbContext dbContext, int identity)
@@ -407,32 +383,28 @@ public class Elementals
                 WillpowerMin = 1,
                 DamageReductionMax = 13,
                 IsSummon = true,
-                SummonType = SummonType.Rock
+                SummonType = SummonType.Rock,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 4,
+                        NpcTemplateId = identity
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        Material = Material.Bone,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    }
+                }
             }
-        ]);
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
-                {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 4,
-                    NpcTemplateId = identity
-                }
-            });
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
-                }
-            });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddSandElemental(DbContext dbContext, int identity)
@@ -461,43 +433,39 @@ public class Elementals
                 WillpowerMax = 13,
                 WillpowerMin = 1,
                 IsSummon = true,
-                SummonType = SummonType.Sand
-            }
-        ]);
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterSkill>
-            {
-                new()
+                SummonType = SummonType.Sand,
+                CharacterSkills = new List<CharacterSkill>
                 {
-                    SkillLevelMin = 1,
-                    SkillLevelMax = 13,
-                    SkillId = 2,
-                    NpcTemplateId = identity
-                }
-            });
-        
-        await dbContext.BulkInsertOrUpdateAsync(
-            new List<CharacterWeapon>
-            {
-                new()
-                {
-                    Material = Material.Bone,
-                    WeaponId = 43,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        SkillLevelMin = 1,
+                        SkillLevelMax = 13,
+                        SkillId = 2,
+                        NpcTemplateId = identity
+                    }
                 },
-                new()
+                CharacterWeapons = new List<CharacterWeapon>
                 {
-                    Material = Material.None,
-                    WeaponId = 63,
-                    IsOptional = true,
-                    NpcTemplateId = identity
+                    new()
+                    {
+                        Material = Material.Bone,
+                        WeaponId = 43,
+                        NpcTemplateId = identity
+                    },
+                    new()
+                    {
+                        Material = Material.None,
+                        WeaponId = 63,
+                        IsOptional = true,
+                        NpcTemplateId = identity
+                    }
                 }
-            });
+            }
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static int GetIdentity()
     {
-        return _identity++;
+        return ++_identity;
     }
 }

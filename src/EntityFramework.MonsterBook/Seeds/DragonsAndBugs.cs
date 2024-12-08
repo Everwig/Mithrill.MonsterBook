@@ -13,7 +13,6 @@ public class DragonsAndBugs
     public DragonsAndBugs(int identitySeed)
     {
         _identity = identitySeed - 1;
-
     }
 
     public async Task<int> AddOrUpdateCreatures(DbContext dbContext)

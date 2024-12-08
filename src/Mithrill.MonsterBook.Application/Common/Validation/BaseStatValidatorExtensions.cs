@@ -9,13 +9,18 @@ public static class BaseStatValidatorExtensions
 {
     public const int MinAttributeValue = 1;
     public const int MaxAttributeValue = 100;
-    public const int MinKarmaValue = 0;
+    public const int Zero = 0;
     public const int MaxKarmaValue = 12;
     public const int MaxStringLength = 64;
     public const string DefaultRuleSetName = "default";
 
-    public static IRuleBuilderOptions<T, int> AttributeValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
+    public static IRuleBuilderOptions<T, int> AttributeValidation<T>(this IRuleBuilderInitial<T, int> rule)
+        where T : ISummonTemplate, IUndeadTemplate =>
         rule.InclusiveBetween(MinAttributeValue, MaxAttributeValue)
+            .When(template => !template.IsSummon && !template.IsUndead, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("NonZeroableAttributeValidator")
+            .InclusiveBetween(Zero, MaxAttributeValue)
+            .When(template => template.IsSummon || template.IsUndead, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("NonZeroableAttributeValidator");
 
     public static IRuleBuilderOptions<T, TK> EnumValidation<T, TK>(this IRuleBuilderInitial<T, TK> rule)
@@ -27,7 +32,7 @@ public static class BaseStatValidatorExtensions
             .MaximumLength(MaxStringLength);
 
     public static IRuleBuilderOptions<T, int> ZeroableValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
-        rule.InclusiveBetween(MinKarmaValue, MaxKarmaValue)
+        rule.InclusiveBetween(Zero, MaxKarmaValue)
             .WithErrorCode("ZeroableAttributeValidator");
 
     public static IRuleBuilderOptions<T, int?> NpcTemplateIdValidation<T>(
@@ -66,10 +71,25 @@ public static class BaseStatValidatorExtensions
             .WithErrorCode("FlawValidator")
             .WithMessage((_, flaw) => $"Flaw with id '{flaw.Id}' doesn't exist.");
 
-    public static IRuleBuilderOptions<T, int> SummonTemplateIdValidation<T>(
-        this IRuleBuilderInitial<T, int> rule,
-        ITemplateValidatorService templateValidatorService) =>
-        rule.MustAsync(templateValidatorService.IsValidSummonTemplateId)
-            .WithErrorCode("IdValidator")
-            .WithMessage((_, id) => $"Template with '{id}' is not a summon type.");
+    public static IRuleBuilderOptions<T, bool> IsSummonValidation<T>(this IRuleBuilderInitial<T, bool> rule)
+        where T : ISummonTemplate =>
+        rule.Equal(false)
+            .When(template => !template.SummonType.HasValue, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("SummonValidator")
+            .WithMessage(_ => "'Is summon' must be false if 'Summon Type' is empty.")
+            .Equal(true)
+            .When(template => template.SummonType.HasValue, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("SummonValidator")
+            .WithMessage(_ => "'Is summon' must be true if 'Summon Type' has value.");
+
+    public static IRuleBuilderOptions<T, SummonType?> SummonTypeValidation<T>(this IRuleBuilderInitial<T, SummonType?> rule)
+        where T : ISummonTemplate =>
+        rule.Empty()
+            .When(template => !template.IsSummon, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("SummonValidator")
+            .WithMessage(_ => "'Summon Type' must be empty if 'Is summon' is false.")
+            .NotEmpty()
+            .When(template => template.IsSummon, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("SummonValidator")
+            .WithMessage(_ => "'Summon Type' must not be empty if 'Is summon' is true.");
 }

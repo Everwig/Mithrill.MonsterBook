@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
@@ -38,8 +39,11 @@ public sealed record NpcTemplate(
     HashSet<Skill> Skills,
     List<Armor> Armors,
     List<Weapon> Weapons,
-    bool IsSummon = false) :
-    IRanks,
+    bool IsSummon = false,
+    SummonType? SummonType = null) :
+    IRankTemplate,
+    ISummonTemplate,
+    IUndeadTemplate,
     IMapTo<MonsterBook.Domain.NpcTemplate>
 {
     public void Mapping(Profile profile)

@@ -21,6 +21,7 @@ public class ValidateNpcTemplateQueryTests
     private const string NonZeroableErrorMessage = "'{0}' must be between 1 and 100. You entered {1}.";
     private const string ZeroableErrorMessage = "'{0}' must be between 0 and 12. You entered {1}.";
     private const string SkillLevelErrorMessage = "'{0}' must be between 1 and 15. You entered {1}.";
+    private const string SummonSkillLevelErrorMessage = "'{0}' must be between -2 and 15. You entered {1}.";
     private const string GuaranteedSuccessErrorMessage = "'{0}' must be between 0 and 5. You entered {1}.";
     private const string MovementInhibitoryFactorErrorMessage = "'{0}' must be between -5 and 5. You entered {1}.";
     private const string AttackTypeDamageErrorMessage = "'{0}' must be between 1 and 8. You entered {1}.";
@@ -251,7 +252,59 @@ public class ValidateNpcTemplateQueryTests
 
     #endregion
 
-    #region Non-Zeroable Attribute Validation
+    #region Attribute Validation
+
+    [Theory]
+    [InlineData(true, false, null)]
+    [InlineData(false, true, SummonType.Thunder)]
+    public async Task GivenSummonOrUndeadTemplate_When_StrengthMinIsZero_Then_ReturnNoValidationErros(bool isUndead, bool isSummon, SummonType? summonType)
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            null, "Test",
+            1, StrengthMin: 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+            isUndead, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [], isSummon, summonType);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(
+            query,
+            options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
+            CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
+    }
+
+    [Theory]
+    [InlineData(int.MinValue, true, false, null)]
+    [InlineData(int.MaxValue, true, false, null)]
+    [InlineData(-1, true, false, null)]
+    [InlineData(101, true, false, null)]
+    [InlineData(int.MinValue, false, true, SummonType.Thunder)]
+    [InlineData(int.MaxValue, false, true, SummonType.Thunder)]
+    [InlineData(-1, false, true, SummonType.Thunder)]
+    [InlineData(101, false, true, SummonType.Thunder)]
+    public async Task GivenTemplate_When_StrengthMinAttributeIsZeroable_Then_ReturnNoValidationErros(int strengthMin, bool isUndead, bool isSummon, SummonType? summonType)
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            null, "Test",
+            1, StrengthMin: strengthMin,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+            isUndead, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [], isSummon, summonType);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(
+            query,
+            options => options.IncludeRuleSets(BaseStatValidatorExtensions.DefaultRuleSetName, query.ValidationMode.ToString()),
+            CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
+    }
 
     [Theory]
     [InlineData(int.MaxValue)]
@@ -767,10 +820,6 @@ public class ValidateNpcTemplateQueryTests
         });
     }
 
-    #endregion
-
-    #region Zeroable Attribute validation
-
     [Theory]
     [InlineData(int.MaxValue)]
     [InlineData(int.MinValue)]
@@ -1176,7 +1225,7 @@ public class ValidateNpcTemplateQueryTests
     [InlineData(int.MinValue)]
     [InlineData(0)]
     [InlineData(16)]
-    public async Task GivenTemplate_When_ASkillAddedAndMinLevelIsInvalid_Then_ReturnValidationError(int minLevel)
+    public async Task GivenTemplate_When_ASkillAddedForNonSummonTemplateAndMinLevelIsInvalid_Then_ReturnValidationError(int minLevel)
     {
         // Arrange
         var template = new NpcTemplate(
@@ -1220,6 +1269,60 @@ public class ValidateNpcTemplateQueryTests
                     PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
                     ErrorCode: "SkillLevelValidator",
                     ErrorMessage: string.Format(SkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
+                )
+            });
+        }
+    }
+
+    [Theory]
+    [InlineData(int.MaxValue)]
+    [InlineData(int.MinValue)]
+    [InlineData(-3)]
+    [InlineData(16)]
+    public async Task GivenTemplate_When_ASkillAddedForSummonTemplateAndMinLevelIsInvalid_Then_ReturnValidationError(int minLevel)
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            null, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
+            Skills:
+            [
+                new Skill(1, MinLevel: minLevel, 1, 0, true)
+            ], [], [], true, SummonType.Fire);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(
+            query,
+            CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        if (minLevel > 0)
+        {
+            validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+            {
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
+                    ErrorCode: "SkillLevelValidator",
+                    ErrorMessage: string.Format(SummonSkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
+                ),
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0]",
+                    ErrorCode: "SkillLevelValidator",
+                    ErrorMessage: "'Min Level' must be lower or equal to 'Max Level'"
+                )
+            });
+        }
+        else
+        {
+            validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+            {
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
+                    ErrorCode: "SkillLevelValidator",
+                    ErrorMessage: string.Format(SummonSkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
                 )
             });
         }
@@ -1748,6 +1851,96 @@ public class ValidateNpcTemplateQueryTests
                     guaranteedDamage)
             )
         });
+    }
+
+    #endregion
+
+    #region SummonValidation
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonTrueAndNoSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            null, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            true);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(
+            query,
+            CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Summon Type' is empty."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must not be empty if 'Is summon' is true."
+            )
+        });
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonFalseAndSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            null, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            false, SummonType.Holy);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(
+            query,
+            CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be true if 'Summon Type' has value."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is summon' is false."
+            )
+        });
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonTrueAndSummonTypeSpecified_Then_NoValidationErrorReturned()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            null, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            true, SummonType.Holy);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
+
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(
+            query,
+            CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
     }
 
     #endregion

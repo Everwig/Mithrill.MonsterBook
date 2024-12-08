@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using Mithrill.MonsterBook.Application.Npc;
+using Mithrill.MonsterBook.Application.Common.Adapters;
 
 namespace Mithrill.MonsterBook.Application.Common.Validation;
 
 public static class SkillCategoriesValidatorExtensions
 {
     public static IRuleBuilderOptions<T, SkillCategories?> SkillCategoriesValidation<T>(
-        this IRuleBuilderInitial<T, SkillCategories?> rule) where T : IRanks =>
+        this IRuleBuilderInitial<T, SkillCategories?> rule) where T : IRankTemplate =>
         rule.Must(skillCategory => skillCategory.Primary != skillCategory.FirstSecondary &&
                                    skillCategory.Primary != skillCategory.SecondSecondary &&
                                    skillCategory.Primary != skillCategory.Tertiary &&

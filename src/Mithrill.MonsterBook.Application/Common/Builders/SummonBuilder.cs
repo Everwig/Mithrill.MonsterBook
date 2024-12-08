@@ -46,7 +46,7 @@ internal abstract class SummonBuilder : ISummonBuilder<GeneratedCreature>
             .ThenInclude(cw => cw.AdditionalAttackTypes)
             .Where(m => m.IsSummon &&
                         m.SummonType.HasValue &&
-                        m.SummonType.Value == (MonsterBook.Domain.SummonType)_summoningStrategy)
+                        EF.Functions.Like(m.SummonType.Value.ToString(), _summoningStrategy.ToString()))
             .SingleOrDefaultAsync(cancellationToken);
     }
 

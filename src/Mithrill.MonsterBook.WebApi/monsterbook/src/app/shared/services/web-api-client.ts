@@ -233,17 +233,14 @@ export class NpcsClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getSummon(type: SummonType, level: number, templateId: string): Observable<GeneratedSummon> {
-        let url_ = this.baseUrl + "/api/npcs/summon/{templateId}/{type}/{level}";
+    getSummon(type: SummonType, level: number): Observable<GeneratedSummon> {
+        let url_ = this.baseUrl + "/api/npcs/summons/{type}/{level}";
         if (type === undefined || type === null)
             throw new Error("The parameter 'type' must be defined.");
         url_ = url_.replace("{type}", encodeURIComponent("" + type));
         if (level === undefined || level === null)
             throw new Error("The parameter 'level' must be defined.");
         url_ = url_.replace("{level}", encodeURIComponent("" + level));
-        if (templateId === undefined || templateId === null)
-            throw new Error("The parameter 'templateId' must be defined.");
-        url_ = url_.replace("{templateId}", encodeURIComponent("" + templateId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1383,7 +1380,7 @@ export interface IGeneratedSummon {
 
 export class Weapon implements IWeapon {
     id!: number;
-    name!: number;
+    name!: string;
     baseAttackModifier!: number;
     baseDefenseModifier!: number;
     baseInitiativeModifier!: number;
@@ -1450,7 +1447,7 @@ export class Weapon implements IWeapon {
 
 export interface IWeapon {
     id: number;
-    name: number;
+    name: string;
     baseAttackModifier: number;
     baseDefenseModifier: number;
     baseInitiativeModifier: number;
@@ -2784,6 +2781,7 @@ export class CreateNpcTemplateCommand implements ICreateNpcTemplateCommand {
     armors!: Armor3[];
     weapons!: Weapon3[];
     isSummon!: boolean;
+    summonType!: SummonType | undefined;
 
     constructor(data?: ICreateNpcTemplateCommand) {
         if (data) {
@@ -2848,6 +2846,7 @@ export class CreateNpcTemplateCommand implements ICreateNpcTemplateCommand {
                     this.weapons!.push(Weapon3.fromJS(item));
             }
             this.isSummon = _data["isSummon"];
+            this.summonType = _data["summonType"];
         }
     }
 
@@ -2912,6 +2911,7 @@ export class CreateNpcTemplateCommand implements ICreateNpcTemplateCommand {
                 data["weapons"].push(item.toJSON());
         }
         data["isSummon"] = this.isSummon;
+        data["summonType"] = this.summonType;
         return data;
     }
 }
@@ -2949,6 +2949,7 @@ export interface ICreateNpcTemplateCommand {
     armors: Armor3[];
     weapons: Weapon3[];
     isSummon: boolean;
+    summonType: SummonType | undefined;
 }
 
 export class AggregateRootOfInteger implements IAggregateRootOfInteger {
@@ -3259,6 +3260,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
     armors!: Armor4[];
     weapons!: Weapon4[];
     isSummon!: boolean;
+    summonType!: SummonType | undefined;
 
     constructor(data?: INpcTemplate2) {
         if (data) {
@@ -3324,6 +3326,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
                     this.weapons!.push(Weapon4.fromJS(item));
             }
             this.isSummon = _data["isSummon"];
+            this.summonType = _data["summonType"];
         }
     }
 
@@ -3389,6 +3392,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
                 data["weapons"].push(item.toJSON());
         }
         data["isSummon"] = this.isSummon;
+        data["summonType"] = this.summonType;
         return data;
     }
 }
@@ -3427,6 +3431,7 @@ export interface INpcTemplate2 {
     armors: Armor4[];
     weapons: Weapon4[];
     isSummon: boolean;
+    summonType: SummonType | undefined;
 }
 
 export class Merit5 extends AggregateRootOfInteger implements IMerit5 {
@@ -3832,6 +3837,8 @@ export class NpcTemplate3 implements INpcTemplate3 {
     skills!: Skill5[];
     armors!: Armor5[];
     weapons!: Weapon5[];
+    isSummon!: boolean;
+    summonType!: SummonType | undefined;
 
     constructor(data?: INpcTemplate3) {
         if (data) {
@@ -3896,6 +3903,8 @@ export class NpcTemplate3 implements INpcTemplate3 {
                 for (let item of _data["weapons"])
                     this.weapons!.push(Weapon5.fromJS(item));
             }
+            this.isSummon = _data["isSummon"];
+            this.summonType = _data["summonType"];
         }
     }
 
@@ -3960,6 +3969,8 @@ export class NpcTemplate3 implements INpcTemplate3 {
             for (let item of this.weapons)
                 data["weapons"].push(item.toJSON());
         }
+        data["isSummon"] = this.isSummon;
+        data["summonType"] = this.summonType;
         return data;
     }
 }
@@ -3997,6 +4008,8 @@ export interface INpcTemplate3 {
     skills: Skill5[];
     armors: Armor5[];
     weapons: Weapon5[];
+    isSummon: boolean;
+    summonType: SummonType | undefined;
 }
 
 export class Merit6 extends AggregateRootOfInteger implements IMerit6 {

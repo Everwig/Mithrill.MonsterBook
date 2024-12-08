@@ -2,6 +2,7 @@
 using AutoMapper;
 using MediatR;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
 using Race = Mithrill.MonsterBook.Application.Common.Race;
@@ -40,9 +41,12 @@ public sealed record CreateNpcTemplateCommand(
     HashSet<Skill> Skills,
     List<Armor> Armors,
     List<Weapon> Weapons,
-    bool IsSummon = false) :
+    bool IsSummon = false,
+    SummonType? SummonType = null) :
     IRequest<int>,
-    IRanks,
+    IRankTemplate,
+    ISummonTemplate,
+    IUndeadTemplate,
     IMapTo<MonsterBook.Domain.NpcTemplate>
 {
     public void Mapping(Profile profile)
