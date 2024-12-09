@@ -55,86 +55,83 @@ public class MythicCreatures
                 WillpowerMin = 3,
                 EmotionMax = 5,
                 EmotionMin = 3,
-                Difficulty = Difficulty.Veteran
+                Difficulty = Difficulty.Veteran,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 15,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 6,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 70,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 8,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 34,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 3
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 40
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 43
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 51
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 54
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 55
+                    }
+                },
+                CharacterFlaws = new List<CharacterFlaw>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        FlawId = 69
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 15,
-                SkillLevelMax = 4,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 6,
-                SkillLevelMax = 4,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 70,
-                SkillLevelMax = 5,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 8,
-                SkillLevelMax = 5,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 34,
-                SkillLevelMax = 5,
-                SkillLevelMin = 3
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 40
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 43
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 51
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 54
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 55
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterFlaw>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                FlawId = 69
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddDiagonaAsync(DbContext dbContext, int identity)
@@ -162,49 +159,48 @@ public class MythicCreatures
                 WillpowerMin = 1,
                 EmotionMax = 1,
                 EmotionMin = 1,
-                Difficulty = Difficulty.Newbie
+                Difficulty = Difficulty.Newbie,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 14,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 34,
+                        SkillLevelMax = 3,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 5,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 8,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 36,
+                        SkillLevelMax = 3,
+                        SkillLevelMin = 1,
+                        GuaranteedSuccesses = 1
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 14,
-                SkillLevelMax = 4,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 34,
-                SkillLevelMax = 3,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 5,
-                SkillLevelMax = 4,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 8,
-                SkillLevelMax = 4,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 36,
-                SkillLevelMax = 3,
-                SkillLevelMin = 1,
-                GuaranteedSuccesses = 1
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddUnicornAsync(DbContext dbContext, int identity)
@@ -232,85 +228,81 @@ public class MythicCreatures
                 WillpowerMin = 6,
                 EmotionMax = 5,
                 EmotionMin = 3,
-                Difficulty = Difficulty.Veteran
+                Difficulty = Difficulty.Veteran,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 21,
+                        SkillLevelMax = 6,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 8,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 49,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 3,
+                        SkillLevelMax = 6,
+                        SkillLevelMin = 3
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 4,
+                        SkillLevelMax = 6,
+                        SkillLevelMin = 3
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 75
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 24
+                    }
+                },
+                CharacterFlaws = new List<CharacterFlaw>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        FlawId = 31
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 44,
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 56
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 21,
-                SkillLevelMax = 6,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 8,
-                SkillLevelMax = 5,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 49,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 3,
-                SkillLevelMax = 6,
-                SkillLevelMin = 3
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 4,
-                SkillLevelMax = 6,
-                SkillLevelMin = 3
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 75
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 24
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterFlaw>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                FlawId = 31
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 44,
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 56
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddGiganticSnailAsync(DbContext dbContext, int identity)
@@ -340,43 +332,40 @@ public class MythicCreatures
                 EmotionMin = 1,
                 DamageReductionMin = 1,
                 DamageReductionMax = 6,
-                Difficulty = Difficulty.Veteran
+                Difficulty = Difficulty.Veteran,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 4,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 97
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 98
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 42,
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 4,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 97
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 98
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 42,
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddGnollAsync(DbContext dbContext, int identity)
@@ -404,126 +393,123 @@ public class MythicCreatures
                 WillpowerMin = 2,
                 EmotionMax = 2,
                 EmotionMin = 1,
-                Difficulty = Difficulty.Newbie
+                Difficulty = Difficulty.Newbie,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 1,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 3,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 14,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 13,
+                        SkillLevelMax = 2,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 21,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 8,
+                        SkillLevelMax = 6,
+                        SkillLevelMin = 3,
+                        GuaranteedSuccesses = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 40,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 3
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 32,
+                        SkillLevelMax = 6,
+                        SkillLevelMin = 3,
+                        GuaranteedSuccesses = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 34,
+                        SkillLevelMax = 3,
+                        SkillLevelMin = 1
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 40
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 2,
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 21,
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 24
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 25,
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 27,
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 32
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 34,
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 1,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 3,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 14,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 13,
-                SkillLevelMax = 2,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 21,
-                SkillLevelMax = 5,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 8,
-                SkillLevelMax = 6,
-                SkillLevelMin = 3,
-                GuaranteedSuccesses = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 40,
-                SkillLevelMax = 5,
-                SkillLevelMin = 3
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 32,
-                SkillLevelMax = 6,
-                SkillLevelMin = 3,
-                GuaranteedSuccesses = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 34,
-                SkillLevelMax = 3,
-                SkillLevelMin = 1
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 40
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 2,
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 21,
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 24
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 25,
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 27,
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 32
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 34,
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddGriffAsync(DbContext dbContext, int identity)
@@ -551,78 +537,75 @@ public class MythicCreatures
                 WillpowerMin = 1,
                 EmotionMax = 4,
                 EmotionMin = 2,
-                Difficulty = Difficulty.Expert
+                Difficulty = Difficulty.Expert,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 3,
+                        SkillLevelMax = 7,
+                        SkillLevelMin = 3
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 70,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 8,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 40,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 34,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 5,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 26
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 44,
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 41,
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 3,
-                SkillLevelMax = 7,
-                SkillLevelMin = 3
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 70,
-                SkillLevelMax = 5,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 8,
-                SkillLevelMax = 5,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 40,
-                SkillLevelMax = 4,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 34,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 5,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 26
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 44,
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 41,
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddHydraAsync(DbContext dbContext, int identity)
@@ -650,69 +633,66 @@ public class MythicCreatures
                 WillpowerMin = 6,
                 EmotionMax = 6,
                 EmotionMin = 6,
-                Difficulty = Difficulty.Expert
+                Difficulty = Difficulty.Expert,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 4,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 6,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 8,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 49,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 5
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 50
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 21
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 41,
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 49,
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 4,
-                SkillLevelMax = 5,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 6,
-                SkillLevelMax = 5,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 8,
-                SkillLevelMax = 5,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 49,
-                SkillLevelMax = 5,
-                SkillLevelMin = 5
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 50
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 21
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 41,
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 49,
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddLamassuAsync(DbContext dbContext, int identity)
@@ -740,187 +720,183 @@ public class MythicCreatures
                 WillpowerMin = 9,
                 EmotionMax = 7,
                 EmotionMin = 7,
-                Difficulty = Difficulty.Expert
+                Difficulty = Difficulty.Expert,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 70,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 3,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 45,
+                        SkillLevelMax = 9,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 48,
+                        SkillLevelMax = 11,
+                        SkillLevelMin = 9
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 49,
+                        SkillLevelMax = 11,
+                        SkillLevelMin = 9
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 50,
+                        SkillLevelMax = 11,
+                        SkillLevelMin = 7
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 52,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 53,
+                        SkillLevelMax = 11,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 54,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 55,
+                        SkillLevelMax = 11,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 57,
+                        SkillLevelMax = 11,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 58,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 59,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 1
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 60,
+                        SkillLevelMax = 13,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 61,
+                        SkillLevelMax = 9,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 62,
+                        SkillLevelMax = 13,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 63,
+                        SkillLevelMax = 13,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 64,
+                        SkillLevelMax = 13,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 65,
+                        SkillLevelMax = 13,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 66,
+                        SkillLevelMax = 13,
+                        SkillLevelMin = 5
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 56,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 3
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 50
+                    }
+                },
+                CharacterFlaws = new List<CharacterFlaw>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        FlawId = 31
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 43,
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 70,
-                SkillLevelMax = 5,
-                SkillLevelMin = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 3,
-                SkillLevelMax = 5,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 45,
-                SkillLevelMax = 9,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 48,
-                SkillLevelMax = 11,
-                SkillLevelMin = 9
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 49,
-                SkillLevelMax = 11,
-                SkillLevelMin = 9
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 50,
-                SkillLevelMax = 11,
-                SkillLevelMin = 7
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 52,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 53,
-                SkillLevelMax = 11,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 54,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 55,
-                SkillLevelMax = 11,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 57,
-                SkillLevelMax = 11,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 58,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 59,
-                SkillLevelMax = 5,
-                SkillLevelMin = 1
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 60,
-                SkillLevelMax = 13,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 61,
-                SkillLevelMax = 9,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 62,
-                SkillLevelMax = 13,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 63,
-                SkillLevelMax = 13,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 64,
-                SkillLevelMax = 13,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 65,
-                SkillLevelMax = 13,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 66,
-                SkillLevelMax = 13,
-                SkillLevelMin = 5
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 56,
-                SkillLevelMax = 5,
-                SkillLevelMin = 3
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 50
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterFlaw>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                FlawId = 31
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 43,
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static async Task AddSirenAsync(DbContext dbContext, int identity)
@@ -948,77 +924,73 @@ public class MythicCreatures
                 WillpowerMin = 3,
                 EmotionMax = 7,
                 EmotionMin = 6,
-                Difficulty = Difficulty.Newbie
+                Difficulty = Difficulty.Newbie,
+                CharacterSkills = new List<CharacterSkill>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 1,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 4
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 24,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 5,
+                        GuaranteedSuccesses = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 19,
+                        SkillLevelMax = 5,
+                        SkillLevelMin = 5,
+                        GuaranteedSuccesses = 2
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 61,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 4
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        SkillId = 49,
+                        SkillLevelMax = 4,
+                        SkillLevelMin = 3
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 16
+                    }
+                },
+                CharacterFlaws = new List<CharacterFlaw>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        FlawId = 31
+                    }
+                },
+                CharacterWeapons = new List<CharacterWeapon>
+                {
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        WeaponId = 40,
+                    }
+                }
             }
-        ]);
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 1,
-                SkillLevelMax = 4,
-                SkillLevelMin = 4
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 24,
-                SkillLevelMax = 5,
-                SkillLevelMin = 5,
-                GuaranteedSuccesses = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 19,
-                SkillLevelMax = 5,
-                SkillLevelMin = 5,
-                GuaranteedSuccesses = 2
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 61,
-                SkillLevelMax = 4,
-                SkillLevelMin = 4
-            },
-            new()
-            {
-                NpcTemplateId = identity,
-                SkillId = 49,
-                SkillLevelMax = 4,
-                SkillLevelMin = 3
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterMerit>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                MeritId = 16
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterFlaw>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                FlawId = 31
-            }
-        });
-
-        await dbContext.BulkInsertOrUpdateAsync(new List<CharacterWeapon>
-        {
-            new()
-            {
-                NpcTemplateId = identity,
-                WeaponId = 40,
-            }
-        });
+        ], new BulkConfig { IncludeGraph = true });
     }
 
     private static int GetIdentity()
