@@ -7,20 +7,25 @@ using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Application.Domain;
 using Mithrill.MonsterBook.Domain;
 using Xunit;
 using Attribute = Mithrill.MonsterBook.Domain.Attribute;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
+using Flaw = Mithrill.MonsterBook.Domain.Flaw;
+using Skill = Mithrill.MonsterBook.Domain.Skill;
+using SkillCategory = Mithrill.MonsterBook.Domain.SkillCategory;
 
 namespace Mithrill.MonsterBook.Application.Tests.Common.Builders;
 
 public class CreatureBuilderTests
 {
     private readonly IMonsterBookDbContext _monsterBookDbContext;
-    private readonly INpcBuilder<IGeneratedCreature> _creatureBuilder;
+    private readonly INpcBuilder<GeneratedCreature> _creatureBuilder;
     private static readonly CancellationToken CancellationToken = CancellationToken.None;
 
     public CreatureBuilderTests()
@@ -360,6 +365,7 @@ public class CreatureBuilderTests
         npcTemplate.WillpowerMin = 4;
         npcTemplate.EmotionMax = 4;
         npcTemplate.EmotionMin = 4;
+        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.ManaPointIncreaseTrait;
         await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
         await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -385,6 +391,7 @@ public class CreatureBuilderTests
         npcTemplate.WillpowerMin = 4;
         npcTemplate.EmotionMax = 4;
         npcTemplate.EmotionMin = 4;
+        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.ManaPointIncreaseTrait;
         await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
         await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -428,6 +435,7 @@ public class CreatureBuilderTests
         var npcTemplate = new Seeds().NpcTemplate;
         npcTemplate.BodyMax = 4;
         npcTemplate.BodyMin = 4;
+        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.HitPointIncreaseTrait;
         await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
         await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -449,6 +457,7 @@ public class CreatureBuilderTests
         var npcTemplate = new Seeds().NpcTemplate;
         npcTemplate.BodyMax = 8;
         npcTemplate.BodyMin = 8;
+        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.HitPointIncreaseTrait;
         await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
         await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -611,17 +620,16 @@ public class CreatureBuilderTests
         var generatedCreature = _creatureBuilder.GetNpc();
 
         //Assert
-        generatedCreature.Skills.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Skills.Should().BeEquivalentTo([
             new Domain.Skill
             {
+                Id = npcTemplate.CharacterSkills.First().Skill.Id,
                 Name = npcTemplate.CharacterSkills.First().Skill.Name,
-                NameHu = npcTemplate.CharacterSkills.First().Skill.NameHu,
                 Level = 3,
                 GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
                 Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
             }
-        });
+        ]);
     }
 
     [Fact]
@@ -659,17 +667,16 @@ public class CreatureBuilderTests
         var generatedCreature = _creatureBuilder.GetNpc();
 
         //Assert
-        generatedCreature.Skills.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Skills.Should().BeEquivalentTo([
             new Domain.Skill
             {
+                Id = npcTemplate.CharacterSkills.First().Skill.Id,
                 Name = npcTemplate.CharacterSkills.First().Skill.Name,
-                NameHu = npcTemplate.CharacterSkills.First().Skill.NameHu,
                 Level = 4,
                 GuaranteedSuccesses = npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
                 Category = (Application.Common.SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category
             }
-        });
+        ]);
     }
     #endregion
 
@@ -688,19 +695,18 @@ public class CreatureBuilderTests
         var generatedCreature = _creatureBuilder.GetNpc();
 
         //Assert
-        generatedCreature.Merits.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Merits.Should().BeEquivalentTo([
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.First().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.First().Merit.NameHu
+                Id = npcTemplate.CharacterMerits.First().Merit.Id,
+                Name = npcTemplate.CharacterMerits.First().Merit.Name
             },
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.Last().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.Last().Merit.NameHu
+                Id = npcTemplate.CharacterMerits.Last().Merit.Id,
+                Name = npcTemplate.CharacterMerits.Last().Merit.Name
             }
-        });
+        ]);
     }
 
     [Fact]
@@ -735,19 +741,18 @@ public class CreatureBuilderTests
 
         //Assert
         generatedCreature.Merits.Count().Should().Be(2);
-        generatedCreature.Merits.Should().BeEquivalentTo(new[]
-        {
+        generatedCreature.Merits.Should().BeEquivalentTo([
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.First().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.First().Merit.NameHu
+                Id = npcTemplate.CharacterMerits.First().Merit.Id,
+                Name = npcTemplate.CharacterMerits.First().Merit.Name
             },
             new Domain.Merit
             {
-                Name = npcTemplate.CharacterMerits.Last().Merit.Name,
-                NameHu = npcTemplate.CharacterMerits.Last().Merit.NameHu
+                Id = npcTemplate.CharacterMerits.Last().Merit.Id,
+                Name = npcTemplate.CharacterMerits.Last().Merit.Name
             }
-        });
+        ]);
     }
     #endregion
 
@@ -755,8 +760,8 @@ public class CreatureBuilderTests
 
     private static List<CharacterFlaw> GetFlaws(int npcTemplateId)
     {
-        return new List<CharacterFlaw>
-        {
+        return
+        [
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -768,6 +773,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -779,6 +785,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -790,6 +797,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -801,6 +809,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -812,6 +821,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -823,6 +833,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             },
+
             new()
             {
                 NpcTemplateId = npcTemplateId,
@@ -834,7 +845,7 @@ public class CreatureBuilderTests
                     NameHu = "Flaw"
                 }
             }
-        };
+        ];
     }
 
     [Fact]

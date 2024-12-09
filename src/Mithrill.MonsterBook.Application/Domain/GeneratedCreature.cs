@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using Mithrill.MonsterBook.Application.Common;
-using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 
 namespace Mithrill.MonsterBook.Application.Domain;
 
-internal class GeneratedCreature : IGeneratedCreature
+internal class GeneratedCreature : IMapTo<GeneratedNpc>
 {
     public GeneratedCreature()
     {
@@ -15,7 +17,6 @@ internal class GeneratedCreature : IGeneratedCreature
     }
 
     public string Name { get; set; }
-    public string NameHu { get; set; }
     public int Strength { get; set; }
     public int Vitality { get; set; }
     public int Body { get; set; }
@@ -27,11 +28,11 @@ internal class GeneratedCreature : IGeneratedCreature
     public int DamageReduction { get; set; }
     public int Karma { get; set; }
     public Difficulty Difficulty { get; set; }
-    public SkillCategories SkillCategories { get; set; }
-    public IEnumerable<IMeritFlaw> Flaws { get; set; }
-    public IEnumerable<IMeritFlaw> Merits { get; set; }
-    public IEnumerable<IWeapon> Weapons { get; set; }
-    public IEnumerable<ISkill> Skills { get; set; }
+    public SkillCategories? SkillCategories { get; set; }
+    public IEnumerable<Flaw> Flaws { get; set; }
+    public IEnumerable<Merit> Merits { get; set; }
+    public IEnumerable<Weapon> Weapons { get; set; }
+    public IEnumerable<Skill> Skills { get; set; }
     public int PowerPoint { get; set; }
     public int ManaPoint { get; set; }
     public int HitPoint { get; set; }

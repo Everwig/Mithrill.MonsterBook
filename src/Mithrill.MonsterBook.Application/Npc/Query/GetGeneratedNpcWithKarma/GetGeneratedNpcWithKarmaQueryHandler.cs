@@ -2,17 +2,17 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
+using Mithrill.MonsterBook.Application.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpcWithKarma;
 
 internal class GetGeneratedNpcWithKarmaQueryHandler : IRequestHandler<GetGeneratedNpcWithKarmaQuery, GeneratedNpcWithKarma>
 {
-    private readonly NpcDesigner<IGeneratedCreature> _npcDesigner;
+    private readonly NpcDesigner<GeneratedCreature> _npcDesigner;
     private readonly IMapper _mapper;
 
-    public GetGeneratedNpcWithKarmaQueryHandler(NpcDesigner<IGeneratedCreature> npcDesigner, IMapper mapper)
+    public GetGeneratedNpcWithKarmaQueryHandler(NpcDesigner<GeneratedCreature> npcDesigner, IMapper mapper)
     {
         _npcDesigner = npcDesigner;
         _mapper = mapper;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
@@ -8,7 +9,6 @@ namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 public sealed record NpcTemplate(
     int Id,
     string Name,
-    string NameHu,
     int StrengthMax,
     int StrengthMin,
     int VitalityMax,
@@ -38,13 +38,19 @@ public sealed record NpcTemplate(
     HashSet<Flaw> Flaws,
     HashSet<Skill> Skills,
     List<Armor> Armors,
-    List<Weapon> Weapons) :
-    IRanks,
+    List<Weapon> Weapons,
+    bool IsSummon = false,
+    SummonType? SummonType = null) :
+    IRankTemplate,
+    ISummonTemplate,
+    IUndeadTemplate,
     IMapTo<MonsterBook.Domain.NpcTemplate>
 {
     public void Mapping(Profile profile)
     {
         profile.CreateMap<NpcTemplate, MonsterBook.Domain.NpcTemplate>()
+            .ForMember(template => template.NameHu, opt => opt.Ignore())
+            .ForMember(template => template.SummonType, opt => opt.Ignore())
             .ForMember(template => template.CharacterMerits, opt => opt.MapFrom(template => template.Merits))
             .ForMember(template => template.CharacterFlaws, opt => opt.MapFrom(template => template.Flaws))
             .ForMember(template => template.CharacterSkills, opt => opt.MapFrom(template => template.Skills))

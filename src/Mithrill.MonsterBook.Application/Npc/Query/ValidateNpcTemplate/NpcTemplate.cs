@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 
 public sealed record NpcTemplate(
     int? Id,
     string Name,
-    string NameHu,
     int StrengthMax,
     int StrengthMin,
     int VitalityMax,
@@ -36,4 +36,6 @@ public sealed record NpcTemplate(
     HashSet<Flaw> Flaws,
     HashSet<Skill> Skills,
     IEnumerable<Armor> Armors,
-    IEnumerable<Weapon> Weapons) : IRanks;
+    IEnumerable<Weapon> Weapons,
+    bool IsSummon = false,
+    SummonType? SummonType = null) : IRankTemplate, ISummonTemplate, IUndeadTemplate;

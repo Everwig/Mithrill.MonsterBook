@@ -2,6 +2,6 @@
 
 public class AttributeTraits
 {
-    public const string HitPointIncreaseTrait = "Szívósság";
-    public const string ManaPointIncreaseTrait = "Mágikus kehely";
+    public const string HitPointIncreaseTrait = "Tough";
+    public const string ManaPointIncreaseTrait = "Magic chalice";
 }

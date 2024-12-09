@@ -80,8 +80,7 @@ internal class SimpleEnemiesAndHirelings
         
     public static async Task AddImperialRegularSoldier(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -110,10 +109,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Newbie,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -198,10 +196,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 1,
                 SkillLevelMax = 3
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -217,23 +214,21 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 58
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
                 ArmorId = 3,
                 Material = Material.Iron
             }
-        });
+        ]);
     }
 
     public static async Task AddImperialVeteranSoldier(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -262,10 +257,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -371,10 +365,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 2
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -395,23 +388,21 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 58
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
                 ArmorId = 6,
                 Material = Material.Iron
             }
-        });
+        ]);
     }
 
     public static async Task AddImperialBodyguard(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -440,10 +431,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -563,10 +553,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 4
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -587,32 +576,29 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 59
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
                 ArmorId = 7,
                 Material = Material.Iron
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterMerit
             {
                 NpcTemplateId = identity,
                 MeritId = 84
             }
-        });
+        ]);
     }
         
     public static async Task AddNobleKnightOfTheEmpire(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -641,10 +627,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -785,10 +770,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 1,
                 SkillLevelMax = 4
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -824,10 +808,9 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 58
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
@@ -840,10 +823,9 @@ internal class SimpleEnemiesAndHirelings
                 ArmorId = 13,
                 Material = Material.Iron
             }
-        });
+        ]);
             
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterMerit
             {
                 NpcTemplateId = identity,
@@ -859,13 +841,12 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 MeritId = 54
             }
-        });
+        ]);
     }
         
     public static async Task AddNoviceAssassin(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -894,10 +875,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Newbie,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -989,13 +969,12 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 2
             }
-        });
+        ]);
     }
         
     public static async Task AddAssassin(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1024,10 +1003,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -1126,13 +1104,12 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 2
             }
-        });
+        ]);
     }
         
     public static async Task AddProfessionalAssassin(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1161,10 +1138,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -1263,13 +1239,12 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 3,
                 SkillLevelMax = 3
             }
-        });
+        ]);
     }
 
     public static async Task AddElvenWarrior(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1298,10 +1273,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.Elf
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -1386,10 +1360,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 4
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -1405,10 +1378,9 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 29
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
@@ -1439,13 +1411,12 @@ internal class SimpleEnemiesAndHirelings
                 ArmorId = 17,
                 Material = Material.Steel
             }
-        });
+        ]);
     }
 
     public static async Task AddElvenBorderHunter(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1474,10 +1445,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Newbie,
                 Race = Race.Elf
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -1556,10 +1526,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 4
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -1575,13 +1544,12 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 29
             }
-        });
+        ]);
     }
         
     public static async Task AddElvenMasterArcher(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1610,10 +1578,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.Elf
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -1712,10 +1679,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 3,
                 SkillLevelMax = 4
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -1726,20 +1692,18 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 20
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
                 ArmorId = 7,
                 Material = Material.Steel
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterMerit
             {
                 NpcTemplateId = identity,
@@ -1750,13 +1714,12 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 MeritId = 66
             }
-        });
+        ]);
     }
 
     public static async Task AddElvenPriest(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1785,10 +1748,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.Elf
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -1859,14 +1821,13 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 3,
                 SkillLevelMax = 7
             }
-        });
+        ]);
     }
 
     public static async Task AddGoblinWarrior(DbContext dbContext, int identity)
     {
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1895,10 +1856,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Newbie,
                 Race = Race.Goblin
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -1976,14 +1936,13 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 3,
                 SkillLevelMax = 3
             }
-        });
+        ]);
     }
 
     public static async Task AddGoblinArcher(DbContext dbContext, int identity)
     {
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -2012,10 +1971,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Newbie,
                 Race = Race.Goblin
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -2093,14 +2051,13 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 3,
                 SkillLevelMax = 3
             }
-        });
+        ]);
     }
 
     public static async Task AddGoblinShaman(DbContext dbContext, int identity)
     {
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -2129,10 +2086,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.Goblin
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -2224,13 +2180,12 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 3,
                 SkillLevelMax = 3
             }
-        });
+        ]);
     }
         
     public static async Task AddGladiator(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -2259,10 +2214,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -2298,10 +2252,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 3
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterMerit
             {
                 NpcTemplateId = identity,
@@ -2322,19 +2275,17 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 MeritId = 26
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterFlaw
             {
                 NpcTemplateId = identity,
                 FlawId = 29
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -2353,10 +2304,9 @@ internal class SimpleEnemiesAndHirelings
                 WeaponId = 60,
                 Material = Material.Iron
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
@@ -2387,13 +2337,12 @@ internal class SimpleEnemiesAndHirelings
                 ArmorId = 15,
                 Material = Material.Iron
             }
-        });
+        ]);
     }
 
     public static async Task AddNoviceArcher(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -2422,10 +2371,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Newbie,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -2489,13 +2437,12 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 2
             }
-        });
+        ]);
     }
 
     public static async Task AddArcher(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -2524,10 +2471,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -2619,13 +2565,12 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 2
             }
-        });
+        ]);
     }
 
     public static async Task AddProfessionalArcher(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -2654,10 +2599,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Expert,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -2763,13 +2707,12 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 2,
                 SkillLevelMax = 2
             }
-        });
+        ]);
     }
         
     public static async Task AddPaladin(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -2798,10 +2741,9 @@ internal class SimpleEnemiesAndHirelings
                 Difficulty = Difficulty.Newbie,
                 Race = Race.CivilizedHuman
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterSkill
             {
                 NpcTemplateId = identity,
@@ -2886,10 +2828,9 @@ internal class SimpleEnemiesAndHirelings
                 SkillLevelMin = 1,
                 SkillLevelMax = 3
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterWeapon
             {
                 NpcTemplateId = identity,
@@ -2905,16 +2846,15 @@ internal class SimpleEnemiesAndHirelings
                 NpcTemplateId = identity,
                 WeaponId = 58
             }
-        });
+        ]);
 
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new CharacterArmor
             {
                 NpcTemplateId = identity,
                 ArmorId = 3,
                 Material = Material.Iron
             }
-        });
+        ]);
     }
 }

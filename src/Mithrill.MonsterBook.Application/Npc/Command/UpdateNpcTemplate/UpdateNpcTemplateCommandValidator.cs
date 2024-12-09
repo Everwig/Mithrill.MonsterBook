@@ -10,13 +10,14 @@ public class UpdateNpcTemplateCommandValidator : AbstractValidator<UpdateNpcTemp
     public UpdateNpcTemplateCommandValidator(ITemplateValidatorService templateValidatorService)
     {
         RuleFor(query => query.NpcTemplate)
-            .SetValidator(new NpcTemplateValidator(templateValidatorService));
+            .SetValidator(command => new NpcTemplateValidator(templateValidatorService, command.NpcTemplate.IsSummon));
     }
 
 
     public sealed class NpcTemplateValidator : AbstractValidator<NpcTemplate>
     {
-        public NpcTemplateValidator(ITemplateValidatorService templateValidatorService)
+        public NpcTemplateValidator() { }
+        public NpcTemplateValidator(ITemplateValidatorService templateValidatorService, bool isSummon)
         {
             RuleFor(npcTemplate => npcTemplate.Id).NpcTemplateIdValidation(templateValidatorService);
             RuleFor(npcTemplate => npcTemplate.StrengthMax).AttributeValidation();
@@ -46,12 +47,15 @@ public class UpdateNpcTemplateCommandValidator : AbstractValidator<UpdateNpcTemp
             RuleFor(npcTemplate => npcTemplate.Race).EnumValidation();
             RuleFor(npcTemplate => npcTemplate.Difficulty).EnumValidation();
             RuleFor(npcTemplate => npcTemplate.SkillCategories).SkillCategoriesValidation();
+            RuleFor(npcTemplate => npcTemplate.IsUndead).IsUndeadValidation();
+            RuleFor(npcTemplate => npcTemplate.IsSummon).IsSummonValidation();
+            RuleFor(npcTemplate => npcTemplate.SummonType).SummonTypeValidation();
 
             RuleFor(npcTemplate => npcTemplate.Merits).ForEach(merit => merit.MeritValidation(templateValidatorService));
             RuleFor(npcTemplate => npcTemplate.Flaws).ForEach(flaw => flaw.FlawValidation(templateValidatorService));
 
             RuleFor(npcTemplate => npcTemplate.Skills)
-                .ForEach(skills => skills.SetValidator(new SkillValidator(templateValidatorService)));
+                .ForEach(skills => skills.SetValidator(new SkillValidator(templateValidatorService, isSummon)));
 
             RuleFor(npcTemplate => npcTemplate.Armors)
                 .ForEach(armor => armor.SetValidator(new ArmorValidator(templateValidatorService)));
@@ -62,12 +66,14 @@ public class UpdateNpcTemplateCommandValidator : AbstractValidator<UpdateNpcTemp
 
         public sealed class SkillValidator : AbstractValidator<Skill>
         {
-            public SkillValidator(ITemplateValidatorService templateValidatorService)
+            public SkillValidator() { }
+
+            public SkillValidator(ITemplateValidatorService templateValidatorService, bool isSummon)
             {
                 RuleFor(skill => skill.Id).SkillIdValidation(templateValidatorService);
                 RuleFor(skill => skill.GuaranteedSuccesses).GuaranteedSuccessValidation();
-                RuleFor(skill => skill.MaxLevel).LevelValidation();
-                RuleFor(skill => skill.MinLevel).LevelValidation();
+                RuleFor(skill => skill.MaxLevel).LevelValidation(isSummon);
+                RuleFor(skill => skill.MinLevel).LevelValidation(isSummon);
                 RuleFor(skill => skill).LevelValidation();
             }
         }

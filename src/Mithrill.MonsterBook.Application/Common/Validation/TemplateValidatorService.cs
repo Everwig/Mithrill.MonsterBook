@@ -45,6 +45,10 @@ internal sealed class TemplateValidatorService : ITemplateValidatorService
 
     public async Task<bool> HasWizardingUniversityMerit(IEnumerable<AggregateRoot<int>> merits, CancellationToken cancellationToken) =>
         await _monsterBookDbContext.Merits
-            .Where(merit => merits.Any(merit => merit.Id == merit.Id))
+            .Where(merit => merits.Any(m => merit.Id == m.Id))
             .AnyAsync(merit => merit.Name == WizardingUniversity, cancellationToken);
+
+    public async Task<bool> IsValidSummonTemplateId(int id, CancellationToken cancellationToken) =>
+        (await _monsterBookDbContext.NpcTemplates.SingleAsync(template => template.Id == id, cancellationToken))
+        .IsSummon;
 }

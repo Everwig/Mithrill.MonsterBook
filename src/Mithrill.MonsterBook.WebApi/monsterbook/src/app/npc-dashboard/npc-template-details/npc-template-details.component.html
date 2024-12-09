@@ -83,6 +83,19 @@
             </div>
           </mat-error>
         </mat-form-field>
+
+        <mat-form-field *ngIf="npcTemplateDetails.value.isSummon">
+          <mat-label>Idézet lény eleme</mat-label>
+          <mat-select formControlName="summonType">
+            <mat-option [value]="undefined">--Válasz elemet--</mat-option>
+            <mat-option *ngFor="let sT of summonType | keyvalue" [value]="sT.key">{{sT.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="npcTemplateDetails.get('summonType')!.errors">
+            <div *ngFor="let errorMessage of npcTemplateDetails.get('summonType')!.errors!['messages']">
+              {{ errorMessage }}
+            </div>
+          </mat-error>
+        </mat-form-field>
       </div>
 
       <div class="npc-template-calculated-values full-wide">
@@ -93,7 +106,13 @@
         <div>
           <label>Élőholt?</label>
           <mat-slide-toggle [checked]="npcTemplateDetails.value.isUndead" color="error"
-            (change)="onIsUndeadChange($event)"></mat-slide-toggle>
+            (change)="onIsUndeadChange($event)" [disabled]="npcTemplateDetails.value.isSummon"></mat-slide-toggle>
+        </div>
+
+        <div>
+          <label>Idézet lény?</label>
+          <mat-slide-toggle [checked]="npcTemplateDetails.value.isSummon" color="error"
+            (change)="onIsSummonChange($event)" [disabled]="npcTemplateDetails.value.isUndead"></mat-slide-toggle>
         </div>
       </div>
     </div>
@@ -249,7 +268,7 @@
       <div class="npc-template-section-content full-wide">
         <div class="npc-attribute-slider">
           <label>Erő</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="strengthMin" (valueChange)="onStrengthChange()">
             <input matSliderEndThumb formControlName="strengthMax" (valueChange)="onStrengthChange()">
           </mat-slider>
@@ -270,7 +289,7 @@
 
         <div class="npc-attribute-slider">
           <label>Test</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="bodyMin" (valueChange)="triggerHitPointRecalculation()">
             <input matSliderEndThumb formControlName="bodyMax" (valueChange)="triggerHitPointRecalculation()">
           </mat-slider>
@@ -291,7 +310,7 @@
 
         <div class="npc-attribute-slider">
           <label>Egészség</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="vitalityMin">
             <input matSliderEndThumb formControlName="vitalityMax">
           </mat-slider>
@@ -312,7 +331,7 @@
 
         <div class="npc-attribute-slider">
           <label>Gyorsaság</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="agilityMin">
             <input matSliderEndThumb formControlName="agilityMax">
           </mat-slider>
@@ -333,7 +352,7 @@
 
         <div class="npc-attribute-slider">
           <label>Ügyesség</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="dexterityMin">
             <input matSliderEndThumb formControlName="dexterityMax">
           </mat-slider>
@@ -354,7 +373,7 @@
 
         <div class="npc-attribute-slider">
           <label>Intelligencia</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="intelligenceMin" (valueChange)="triggerManaPointRecalculation()">
             <input matSliderEndThumb formControlName="intelligenceMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
@@ -375,7 +394,7 @@
 
         <div class="npc-attribute-slider">
           <label>Akaraterő</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="willpowerMin" (valueChange)="triggerManaPointRecalculation()">
             <input matSliderEndThumb formControlName="willpowerMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
@@ -396,7 +415,7 @@
 
         <div class="npc-attribute-slider">
           <label>Érzelem</label>
-          <mat-slider [min]="1" [max]="getMaxValueBaseOnRace()" showTickMarks discrete>
+          <mat-slider [min]="attributeMinValue" [max]="attributeMaxValue" showTickMarks discrete>
             <input matSliderStartThumb formControlName="emotionMin" (valueChange)="triggerManaPointRecalculation()">
             <input matSliderEndThumb formControlName="emotionMax" (valueChange)="triggerManaPointRecalculation()">
           </mat-slider>
@@ -456,7 +475,7 @@
             <div class="npc-template-skill-properties">
               <div class="npc-skill-slider">
                 <label class="name-label">{{skill.value.name}}</label>
-                <mat-slider min="0" max="15" showTickMarks discrete>
+                <mat-slider [min]="skillMinLevel" max="15" showTickMarks discrete>
                   <input formControlName="minLevel" matSliderStartThumb>
                   <input formControlName="maxLevel" matSliderEndThumb>
                 </mat-slider>

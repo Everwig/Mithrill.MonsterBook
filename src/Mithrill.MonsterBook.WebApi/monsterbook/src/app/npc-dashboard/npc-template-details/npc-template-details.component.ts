@@ -25,7 +25,8 @@ import { Skill } from '../models/skill.model';
 import { Merit } from '../models/merit.model';
 import { Armor } from '../models/armor.model';
 import { Weapon } from '../models/weapon.model';
-import { ArcanumRanks, NpcTemplate } from '../models/npc-template.model';
+import { NpcTemplate } from '../models/npc-template.model';
+import { ArcanumRanks } from '../../core/model/arcanum-ranks.model';
 import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 import { SkillCategory } from '../../core/model/skill-category.model';
 import { armorOnlyMaterials, Material } from '../../core/model/material.model';
@@ -35,6 +36,7 @@ import { SkillCategories } from '../../core/model/skill-categories.model';
 import { CategoryNumber } from '../../core/model/category-number.model';
 import { Arcanum } from '../../core/model/arcanum.model';
 import { ValidationResult } from '../../shared/models/validation-result.model';
+import { SummonType } from '../../core/model/summon-type.model';
 
 @Component({
   selector: 'app-npc-template-details',
@@ -76,8 +78,12 @@ export class NpcTemplateDetailsComponent implements OnInit {
   npcTemplateDetails: FormGroup;
   npcTemplateDetailsMode: DetailsViewMode = DetailsViewMode.Create;
   race = Race;
+  summonType = SummonType;
   difficulty = Difficulty;
   menuToggle: boolean = false;
+  attributeMinValue: number = 0;
+  attributeMaxValue: number = 16;
+  skillMinLevel: number = 1;
 
   readonly flaws$: Observable<Flaw[]>;
   readonly merits$: Observable<Merit[]>;
@@ -172,14 +178,22 @@ export class NpcTemplateDetailsComponent implements OnInit {
       weapons: new FormArray([]),
       armors: new FormArray([]),
       isUndead: new FormControl(false),
+      isSummon: new FormControl(false),
+      summonType: new FormControl(undefined),
       skillCategories: new FormControl(undefined),
       arcanumRanks: new FormControl(undefined)
     });
 
-    this.subscriptions.add(this.npcTemplateDetails.valueChanges.subscribe((npcTemplate: NpcTemplate) => this.store$.dispatch(fromNpcsActions.validateNpcTemplate({
-      isNew: this.isNewTemplate,
-      npcTemplate: npcTemplate
-    }))));
+    this.subscriptions.add(this.npcTemplateDetails.valueChanges.subscribe((npcTemplate: NpcTemplate) => {
+      this.attributeMinValue = this.getAttributeMinValue(npcTemplate.isSummon, npcTemplate.isSummon);
+      this.attributeMaxValue = this.getAttributeMaxValue(npcTemplate.race, npcTemplate.isUndead);
+      this.skillMinLevel = this.getSkillMinLevel(npcTemplate.isSummon, npcTemplate.race);
+
+      this.store$.dispatch(fromNpcsActions.validateNpcTemplate({
+        isNew: this.isNewTemplate,
+        npcTemplate: npcTemplate
+      }));
+    }));
   }
 
   ngOnInit(): void {
@@ -203,6 +217,12 @@ export class NpcTemplateDetailsComponent implements OnInit {
     });
 
     this.triggerHitPointRecalculation();
+  }
+
+  onIsSummonChange(matSlideToggleChange: MatSlideToggleChange): void {
+    this.npcTemplateDetails.patchValue({
+      isSummon: matSlideToggleChange.checked
+    });
   }
 
   getSkillCategories(skillCategoryNumbers: CategoryNumber): SkillCategory[] {
@@ -301,24 +321,6 @@ export class NpcTemplateDetailsComponent implements OnInit {
     }
 
     this.npcTemplateDetails.patchValue({ arcanumRanks: currentArcanumRanks });
-  }
-
-  getMaxValueBaseOnRace(): number {
-    const currentRace: Race = this.npcTemplateDetails.value.race;
-    const isUndead: boolean = this.npcTemplateDetails.value.isUndead;
-
-    switch(currentRace) {
-      case Race.CreatureOfLight:
-      case Race.CreatureOfDarkness:
-        return isUndead ? 16 : 20;
-      case Race.Mythical:
-      case Race.Bug:
-        return 30;
-      case Race.Dragon:
-        return 40;
-      default:
-        return 16;
-    }
   }
 
   getFilteredSkills(): Observable<Skill[]> {
@@ -568,6 +570,9 @@ export class NpcTemplateDetailsComponent implements OnInit {
   private updateFormInEditMode(): void {
     this.subscriptions.add(this.npcTemplate$.subscribe((npcTemplate) => {
       if (npcTemplate) {
+        this.attributeMinValue = this.getAttributeMinValue(npcTemplate.isSummon, npcTemplate.isUndead);
+        this.attributeMaxValue = this.getAttributeMaxValue(npcTemplate.race, npcTemplate.isUndead);
+        this.skillMinLevel = this.getSkillMinLevel(npcTemplate.isSummon, npcTemplate.race);
 
         this.npcTemplateDetails.patchValue({
           id: npcTemplate.id,
@@ -593,6 +598,8 @@ export class NpcTemplateDetailsComponent implements OnInit {
           race: npcTemplate.race,
           difficulty: npcTemplate.difficulty,
           isUndead: npcTemplate.isUndead,
+          isSummon: npcTemplate.isSummon,
+          summonType: npcTemplate.summonType,
           skillCategories: npcTemplate.skillCategories,
           arcanumRanks: npcTemplate.arcanumRanks
         }, { emitEvent: false });
@@ -720,6 +727,8 @@ export class NpcTemplateDetailsComponent implements OnInit {
       race: undefined,
       difficulty: undefined,
       isUndead: false,
+      isSummon: false,
+      summonType: undefined,
       skillCategories: undefined,
       arcanumRanks: undefined
     }, { emitEvent: false });
@@ -743,6 +752,33 @@ export class NpcTemplateDetailsComponent implements OnInit {
     this.triggerHitPointRecalculation();
     this.triggerManaPointRecalculation();
     this.triggerPowerPointRecalculation();
+    this.attributeMinValue = this.getAttributeMinValue(false, false);
+    this.attributeMaxValue = this.getAttributeMaxValue(Race.CivilizedHuman, false);
+    this.skillMinLevel = this.getSkillMinLevel(false, Race.CivilizedHuman);
+  }
+
+  private getAttributeMinValue(isSummon: boolean, isUndead: boolean): number {
+    return isSummon || isUndead ? 0 : 1;
+  }
+
+  private getAttributeMaxValue(currentRace: Race, isUndead: boolean): number {
+    switch(currentRace) {
+      case Race.CreatureOfLight:
+      case Race.CreatureOfDarkness:
+        return isUndead ? 16 : 20;
+      case Race.Mythical:
+      case Race.Bug:
+        return 30;
+      case Race.Elemental:
+      case Race.Dragon:
+        return 40;
+      default:
+        return 16;
+    }
+  }
+
+  private getSkillMinLevel(isSummon: boolean, currentRace: Race): number {
+    return currentRace === Race.CreatureOfLight && isSummon ? -2 : 0;
   }
 
   private subscribeToErrors(): void {

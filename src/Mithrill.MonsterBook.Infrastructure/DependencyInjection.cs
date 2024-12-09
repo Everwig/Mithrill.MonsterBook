@@ -13,6 +13,7 @@ public static class DependencyInjection
         serviceCollection.AddDbContext<MonsterBookDbContext>(option =>
         {
             option.UseSqlServer(configuration.GetConnectionString("MonsterBookDatabase"));
+            option.UseEnumCheckConstraints();
             option.EnableDetailedErrors();
         });
 

@@ -13,4 +13,5 @@ public interface ITemplateValidatorService
     Task<bool> IsValidArmorId(int id, CancellationToken cancellationToken);
     Task<bool> IsValidWeaponId(int id, CancellationToken cancellationToken);
     Task<bool> HasWizardingUniversityMerit(IEnumerable<AggregateRoot<int>> merits, CancellationToken cancellationToken);
+    Task<bool> IsValidSummonTemplateId(int id, CancellationToken cancellationToken);
 }

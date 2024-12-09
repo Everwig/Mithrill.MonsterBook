@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Mithrill.MonsterBook.Application.Common;
-using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Application.Domain;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedProminentNpc;
 
-public class GeneratedProminentNpc : IMapFrom<IGeneratedCreature>
+public class GeneratedProminentNpc : IMapFrom<GeneratedCreature>
 {
     public GeneratedProminentNpc()
     {
@@ -26,10 +26,10 @@ public class GeneratedProminentNpc : IMapFrom<IGeneratedCreature>
     public int DamageReduction { get; set; }
     public int Karma { get; set; }
     public Difficulty Difficulty { get; set; }
-    public IEnumerable<IWeapon> Weapons { get; set; }
-    public IEnumerable<ISkill> Skills { get; set; }
-    public IEnumerable<IMeritFlaw> Merits { get; set; }
-    public IEnumerable<IMeritFlaw> Flaws { get; set; }
+    public IEnumerable<Weapon> Weapons { get; set; }
+    public IEnumerable<Skill> Skills { get; set; }
+    public IEnumerable<Merit> Merits { get; set; }
+    public IEnumerable<Flaw> Flaws { get; set; }
     public int PowerPoint { get; set; }
     public int ManaPoint { get; set; }
     public int HitPoint { get; set; }

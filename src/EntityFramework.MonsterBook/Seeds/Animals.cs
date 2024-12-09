@@ -40,8 +40,7 @@ public class Animals
 
     private static async Task AddWolf(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Animal,
@@ -68,7 +67,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(
             new List<CharacterSkill>
@@ -138,8 +137,7 @@ public class Animals
 
     private static async Task AddHyena(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -166,7 +164,7 @@ public class Animals
                 WillpowerMax = 1,
                 WillpowerMin = 1
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -220,8 +218,7 @@ public class Animals
 
     private static async Task AddVenomousSnake(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -248,7 +245,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -303,8 +300,7 @@ public class Animals
 
     private static async Task AddNonVenomousSnake(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -331,7 +327,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -393,8 +389,7 @@ public class Animals
 
     private static async Task AddCrocodile(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -421,7 +416,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 3
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -477,8 +472,7 @@ public class Animals
 
     private static async Task AddDog(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -505,7 +499,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 1
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -573,8 +567,7 @@ public class Animals
 
     private static async Task AddHeavyHorse(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -601,7 +594,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 1
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -668,8 +661,7 @@ public class Animals
 
     private static async Task AddLightHorse(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -696,7 +688,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 1
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -763,8 +755,7 @@ public class Animals
 
     private static async Task AddCat(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -791,7 +782,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -856,8 +847,7 @@ public class Animals
 
     private static async Task AddBear(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -884,7 +874,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -958,8 +948,7 @@ public class Animals
 
     private static async Task AddLion(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -984,7 +973,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 3
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1042,8 +1031,7 @@ public class Animals
 
     private static async Task AddSpider(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1068,7 +1056,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1127,8 +1115,7 @@ public class Animals
 
     private static async Task AddReu(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1155,7 +1142,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 3
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1196,8 +1183,7 @@ public class Animals
 
     private static async Task AddScorpion(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1222,7 +1208,7 @@ public class Animals
                 WillpowerMax = 2,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1287,8 +1273,7 @@ public class Animals
 
     private static async Task AddTiger(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1313,7 +1298,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 3
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1394,8 +1379,7 @@ public class Animals
 
     private static async Task AddFalcon(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1420,7 +1404,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 2
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -1478,8 +1462,7 @@ public class Animals
 
     private static async Task AddWarg(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Id = identity,
@@ -1506,7 +1489,7 @@ public class Animals
                 WillpowerMax = 3,
                 WillpowerMin = 3
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {

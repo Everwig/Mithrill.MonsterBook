@@ -16,7 +16,8 @@ export enum Material {
   Ruby = "Ruby",
   Diamond = "Diamond",
   Adamar = "Adamar",
-  Adamir = "Adamir"
+  Adamir = "Adamir",
+  None = "None"
 }
 
 export const armorOnlyMaterials: Material[] = [

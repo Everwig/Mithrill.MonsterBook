@@ -9,8 +9,7 @@ public static class Skills
 {
     public static Task AddOrUpdateSkills(DbContext dbContext)
     {
-        return dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        return dbContext.BulkInsertOrUpdateAsync([
             new Skill { Id = 1, Name = "Small arms", NameHu = "Könnyű fegyver használat", Category = SkillCategory.Combat, Attribute1 = Attribute.Agility, Attribute2 = Attribute.Dexterity },
             new Skill { Id = 2, Name = "Medium arms", NameHu = "Közepes fegyver használat", Category = SkillCategory.Combat, Attribute1 = Attribute.Agility, Attribute2 = Attribute.Dexterity },
             new Skill { Id = 3, Name = "Medium arms", NameHu = "Közepes fegyver használat", Category = SkillCategory.Combat, Attribute1 = Attribute.Strength, Attribute2 = Attribute.Dexterity },
@@ -89,6 +88,6 @@ public static class Skills
             new Skill { Id = 72, Name = "Howling", NameHu = "Vonyítás", Category = SkillCategory.Underworld, Attribute1 = Attribute.Emotion, Attribute2 = Attribute.Emotion },
             new Skill { Id = 73, Name = "Weapon Proficiency", NameHu = "Fegyverismeret", Category = SkillCategory.Secular, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Optional },
             new Skill { Id = 74, Name = "Commanding", NameHu = "Parancsnoklás", Category = SkillCategory.Combat, Attribute1 = Attribute.Intelligence, Attribute2 = Attribute.Willpower }
-        });
+        ]);
     }
 }

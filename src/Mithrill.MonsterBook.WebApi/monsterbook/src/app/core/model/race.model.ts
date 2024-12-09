@@ -16,4 +16,5 @@ export enum Race {
   Mythical = "Mythical",
   CreatureOfDarkness = "CreatureOfDarkness",
   CreatureOfLight = "CreatureOfLight",
+  Elemental = "Elemental"
 }

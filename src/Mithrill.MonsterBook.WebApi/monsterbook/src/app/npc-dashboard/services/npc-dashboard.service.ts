@@ -63,6 +63,8 @@ export class NpcDashboardService {
           skills: [],
           weapons: [],
           isUndead: false,
+          isSummon: false,
+          summonType: undefined
         }) as NpcTemplate);
 
         const pageInformation: PageInformation = {

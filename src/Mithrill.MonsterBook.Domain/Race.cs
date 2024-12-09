@@ -18,5 +18,6 @@ public enum Race
     Dragon,
     Mythical,
     CreatureOfDarkness,
-    CreatureOfLight
+    CreatureOfLight,
+    Elemental
 }

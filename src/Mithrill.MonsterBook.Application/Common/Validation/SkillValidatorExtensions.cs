@@ -8,6 +8,7 @@ namespace Mithrill.MonsterBook.Application.Common.Validation;
 
 public static class SkillValidatorExtensions
 {
+    public const int SummonMinLevel = -2;
     public const int MinLevel = 1;
     public const int MaxLevel = 15;
     public const int MinSuccess = 0;
@@ -33,8 +34,12 @@ public static class SkillValidatorExtensions
             .WithErrorCode("SkillLevelValidator")
             .WithMessage("'Min Level' must be lower or equal to 'Max Level'");
 
-    public static IRuleBuilderOptions<T, int> LevelValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
+    public static IRuleBuilderOptions<T, int> LevelValidation<T>(this IRuleBuilderInitial<T, int> rule, bool isSummon) =>
         rule.InclusiveBetween(MinLevel, MaxLevel)
+            .When(_ => !isSummon, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("SkillLevelValidator")
+            .InclusiveBetween(SummonMinLevel, MaxLevel)
+            .When(_ => isSummon, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("SkillLevelValidator");
 
     public static IRuleBuilderOptions<T, int> GuaranteedSuccessValidation<T>(this IRuleBuilderInitial<T, int> rule) =>

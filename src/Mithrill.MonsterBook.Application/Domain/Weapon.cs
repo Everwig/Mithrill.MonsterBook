@@ -1,18 +1,19 @@
-﻿using AutoMapper;
-using Mithrill.MonsterBook.Application.Common.Adapters;
-using Mithrill.MonsterBook.Application.Common.Mappings;
+﻿using System.Collections.Generic;
+using Mithrill.MonsterBook.Application.Common;
 
 namespace Mithrill.MonsterBook.Application.Domain;
 
-internal class Weapon : IWeapon, IMapFrom<MonsterBook.Domain.Weapon>
+internal class Weapon
 {
+    public int Id { get; set; }
     public string Name { get; set; }
-    public string NameHu { get; set; }
-    public IAttackType AttackType { get; set; }
-
-    public void Mapping(Profile profile)
-    {
-        profile.CreateMap<MonsterBook.Domain.Weapon, Weapon>()
-            .ForMember(dest => dest.AttackType, opt => opt.Ignore());
-    }
+    public Material Material { get; set; }
+    public int BaseAttackModifier { get; set; }
+    public int BaseDefenseModifier { get; set; }
+    public int BaseInitiativeModifier { get; set; }
+    public int AdditionalInitiativeModifier { get; set; }
+    public int AdditionalAttackModifier { get; set; }
+    public int AdditionalDefenseModifier { get; set; }
+    public AttackType AttackType { get; set; }
+    public IEnumerable<AttackType> AttackTypes { get; set; }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Mithrill.MonsterBook.Application.Common;
+using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
@@ -30,6 +31,8 @@ public sealed record NpcTemplate(
     Difficulty Difficulty,
     Race Race,
     bool IsUndead,
+    bool IsSummon,
+    SummonType? SummonType,
     HashSet<Merit> Merits,
     HashSet<Flaw> Flaws,
     HashSet<Weapon> Weapons,
@@ -37,7 +40,9 @@ public sealed record NpcTemplate(
     HashSet<Armor> Armors,
     SkillCategories? SkillCategories,
     ArcanumRanks? ArcanumRanks
-) : IMapFrom<MonsterBook.Domain.NpcTemplate>
+) : ISummonTemplate,
+    IRankTemplate,
+    IMapFrom<MonsterBook.Domain.NpcTemplate>
 {
     public int HitPointMax { get; internal set; }
     public int HitPointMin { get; internal set; }
@@ -78,6 +83,8 @@ public sealed record NpcTemplate(
             .ForCtorParam(ctorParamName: nameof(Difficulty), option => option.MapFrom(creature => creature.Difficulty))
             .ForCtorParam(ctorParamName: nameof(Race), option => option.MapFrom(creature => creature.Race))
             .ForCtorParam(ctorParamName: nameof(IsUndead), option => option.MapFrom(creature => creature.IsUndead))
+            .ForCtorParam(ctorParamName: nameof(IsSummon), option => option.MapFrom(creature => creature.IsSummon))
+            .ForCtorParam(ctorParamName: nameof(SummonType), option => option.MapFrom(creature => creature.SummonType))
             .ForCtorParam(ctorParamName: nameof(Merits), opt => opt.MapFrom(creature => creature.CharacterMerits))
             .ForCtorParam(ctorParamName: nameof(Flaws), opt => opt.MapFrom(creature => creature.CharacterFlaws))
             .ForCtorParam(ctorParamName: nameof(Weapons), opt => opt.MapFrom(creature => creature.CharacterWeapons))

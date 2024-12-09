@@ -2,7 +2,6 @@
 using System.Linq;
 using FluentValidation;
 using Mithrill.MonsterBook.Application.Common.Adapters;
-using Mithrill.MonsterBook.Application.Npc;
 
 namespace Mithrill.MonsterBook.Application.Common.Validation;
 
@@ -10,7 +9,7 @@ public static class ArcanumRankValidators
 {
     public static IRuleBuilderOptions<T, ArcanumRanks?> ArcanumRanksValidation<T>(
         this IRuleBuilderInitial<T, ArcanumRanks?> rule,
-        ITemplateValidatorService templateValidatorService) where T : IRanks =>
+        ITemplateValidatorService templateValidatorService) where T : IRankTemplate =>
         rule.Must(arcanumRanks => arcanumRanks!.Quaternary == null && arcanumRanks.Quinary == null)
             .WhenAsync(
                 async (template, cancellationToken) =>

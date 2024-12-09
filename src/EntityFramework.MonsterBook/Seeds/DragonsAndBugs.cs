@@ -13,7 +13,6 @@ public class DragonsAndBugs
     public DragonsAndBugs(int identitySeed)
     {
         _identity = identitySeed - 1;
-
     }
 
     public async Task<int> AddOrUpdateCreatures(DbContext dbContext)
@@ -33,8 +32,7 @@ public class DragonsAndBugs
 
     private static async Task AddQueenBugAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Bug,
@@ -59,7 +57,7 @@ public class DragonsAndBugs
                 WillpowerMin = 14,
                 Difficulty = Difficulty.Demigodly
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -143,8 +141,7 @@ public class DragonsAndBugs
 
     private static async Task AddCarverBugAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Bug,
@@ -167,7 +164,7 @@ public class DragonsAndBugs
                 IntelligenceMin = 2,
                 Difficulty = Difficulty.Veteran
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -197,8 +194,7 @@ public class DragonsAndBugs
 
     private static async Task AddSoldierBugAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Bug,
@@ -221,7 +217,7 @@ public class DragonsAndBugs
                 IntelligenceMin = 2,
                 Difficulty = Difficulty.Demigodly
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -268,8 +264,7 @@ public class DragonsAndBugs
 
     private static async Task AddScoutBugAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Bug,
@@ -292,7 +287,7 @@ public class DragonsAndBugs
                 DamageReductionMin = 1,
                 Difficulty = Difficulty.Experienced
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -345,8 +340,7 @@ public class DragonsAndBugs
 
     private static async Task AddWorkerBugAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Bug,
@@ -369,7 +363,7 @@ public class DragonsAndBugs
                 IntelligenceMin = 1,
                 Difficulty = Difficulty.Experienced
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -399,8 +393,7 @@ public class DragonsAndBugs
 
     private static async Task AddGreenDragonAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Dragon,
@@ -427,7 +420,7 @@ public class DragonsAndBugs
                 DamageReductionMin = 4,
                 Difficulty = Difficulty.Godly
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -476,8 +469,7 @@ public class DragonsAndBugs
 
     private static async Task AddRedDragonAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Dragon,
@@ -504,7 +496,7 @@ public class DragonsAndBugs
                 DamageReductionMin = 8,
                 Difficulty = Difficulty.Godly
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -560,8 +552,7 @@ public class DragonsAndBugs
 
     private static async Task AddBlueDragonAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Dragon,
@@ -588,7 +579,7 @@ public class DragonsAndBugs
                 DamageReductionMin = 6,
                 Difficulty = Difficulty.Godly
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {
@@ -653,8 +644,7 @@ public class DragonsAndBugs
 
     private static async Task AddBoneDragonAsync(DbContext dbContext, int identity)
     {
-        await dbContext.BulkInsertOrUpdateAsync(new[]
-        {
+        await dbContext.BulkInsertOrUpdateAsync([
             new NpcTemplate
             {
                 Race = Race.Dragon,
@@ -681,7 +671,7 @@ public class DragonsAndBugs
                 DamageReductionMin = 10,
                 Difficulty = Difficulty.Godly
             }
-        });
+        ]);
 
         await dbContext.BulkInsertOrUpdateAsync(new List<CharacterSkill>
         {

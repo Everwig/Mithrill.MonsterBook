@@ -2,11 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
 using Mithrill.MonsterBook.Application.Common.Validation;
 using Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
+using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon;
 using Mithrill.MonsterBook.Application.Npc.Query.GetHitPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
@@ -37,6 +39,15 @@ public class NpcsController : ApiControllerBase
     {
         return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
     }*/
+
+    [HttpGet("Summons/{type}/{level:int}")]
+    public async Task<GeneratedSummon> GetSummon(
+        SummonType type,
+        int level,
+        CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetGeneratedSummonQuery(type, level), cancellationToken);
+    }
 
     [HttpGet("GetTemplates")]
     public async Task<GetNpcTemplatesQueryResult> GetAll(

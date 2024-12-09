@@ -38,7 +38,7 @@ public static class MappingConfigurator
 
             foreach (var methodInfo in methodInfos)
             {
-                methodInfo.Invoke(instance, new object[] { mappingProfile });
+                methodInfo.Invoke(instance, [mappingProfile]);
             }
         }
     }

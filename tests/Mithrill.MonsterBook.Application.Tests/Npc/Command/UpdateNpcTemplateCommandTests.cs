@@ -18,9 +18,11 @@ public class UpdateNpcTemplateCommandTests
 {
     private static readonly Regex Regex = new(@"((?<=\p{Ll})\p{Lu}|\p{Lu}(?=\p{Ll}))");
     private readonly IValidator<UpdateNpcTemplateCommand> _validator;
-    private const string NonZeroableErrorMessage = "'{0}' must be between 1 and 100. You entered {1}.";
+    private const string NonZeroableAttributeErrorMessage = "'{0}' must be between 1 and 100. You entered {1}.";
+    private const string ZeroableAttributeErrorMessage = "'{0}' must be between 0 and 100. You entered {1}.";
     private const string ZeroableErrorMessage = "'{0}' must be between 0 and 12. You entered {1}.";
     private const string SkillLevelErrorMessage = "'{0}' must be between 1 and 15. You entered {1}.";
+    private const string SummonSkillLevelErrorMessage = "'{0}' must be between -2 and 15. You entered {1}.";
     private const string GuaranteedSuccessErrorMessage = "'{0}' must be between 0 and 5. You entered {1}.";
     private const string MovementInhibitoryFactorErrorMessage = "'{0}' must be between -5 and 5. You entered {1}.";
     private const string AttackTypeDamageErrorMessage = "'{0}' must be between 1 and 8. You entered {1}.";
@@ -70,14 +72,12 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeTrue();
@@ -89,14 +89,12 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            4, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            4, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(4, template);
+        var command = new UpdateNpcTemplateCommand(4, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -105,7 +103,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Id)}",
                 ErrorCode: "IdValidator",
-                ErrorMessage: $"Template with '{template.Id}' does not exist"
+                ErrorMessage: $"Template with '{template.Id}' does not exist."
             )
         });
     }
@@ -124,14 +122,12 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, Name: name, "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, Name: name, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -151,14 +147,12 @@ public class UpdateNpcTemplateCommandTests
         // Arrange
         var template = new NpcTemplate(
             1, Name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -174,8 +168,62 @@ public class UpdateNpcTemplateCommandTests
 
     #endregion
 
-    #region Non-Zeroable Attribute Validation
+    #region Attribute Validation
+    
+    [Theory]
+    [InlineData(true, false, null)]
+    [InlineData(false, true, SummonType.Thunder)]
+    public async Task GivenSummonOrUndeadTemplate_When_StrengthMinIsZero_Then_ReturnNoValidationErros(bool isUndead, bool isSummon, SummonType? summonType)
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "Test",
+            1, StrengthMin: 0,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+            isUndead, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [], isSummon, summonType);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
+    }
+
+    [Theory]
+    [InlineData(int.MinValue, true, false, null)]
+    [InlineData(int.MaxValue, true, false, null)]
+    [InlineData(-1, true, false, null)]
+    [InlineData(101, true, false, null)]
+    [InlineData(int.MinValue, false, true, SummonType.Thunder)]
+    [InlineData(int.MaxValue, false, true, SummonType.Thunder)]
+    [InlineData(-1, false, true, SummonType.Thunder)]
+    [InlineData(101, false, true, SummonType.Thunder)]
+    public async Task GivenTemplate_When_StrengthMinAttributeIsZeroable_Then_ReturnNoValidationErros(int strengthMin, bool isUndead, bool isSummon, SummonType? summonType)
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "Test",
+            1, StrengthMin: strengthMin,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+            isUndead, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [], isSummon, summonType);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMin)}",
+                ErrorCode: "ZeroableAttributeValidator",
+                ErrorMessage: string.Format(ZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
+            )
+        });
+    }
+    
     [Theory]
     [InlineData(int.MaxValue)]
     [InlineData(int.MinValue)]
@@ -185,16 +233,14 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "",
+            1, "Test",
             StrengthMax: strengthMax,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -203,7 +249,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMax), " $1").Trim(), template.StrengthMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMax), " $1").Trim(), template.StrengthMax)
             )
         });
     }
@@ -217,16 +263,14 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1,
+            1, "Test", 1,
             StrengthMin: strengthMin,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -235,7 +279,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
             )
         });
     }
@@ -249,15 +293,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1,
+            1, "Test", 1, 1,
             VitalityMax: vitalityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -266,7 +308,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMax), " $1").Trim(), template.VitalityMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMax), " $1").Trim(), template.VitalityMax)
             )
         });
     }
@@ -280,15 +322,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1,
+            1, "Test", 1, 1, 1,
             VitalityMin: vitalityMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -297,7 +337,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMin), " $1").Trim(), template.VitalityMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMin), " $1").Trim(), template.VitalityMin)
             )
         });
     }
@@ -311,15 +351,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1,
             BodyMax: bodyMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -328,7 +366,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMax), " $1").Trim(), template.BodyMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMax), " $1").Trim(), template.BodyMax)
             )
         });
     }
@@ -342,15 +380,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1,
             BodyMin: bodyMin, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -359,7 +395,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMin), " $1").Trim(), template.BodyMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMin), " $1").Trim(), template.BodyMin)
             )
         });
     }
@@ -373,15 +409,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1,
             AgilityMax: agilityMax, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -390,7 +424,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMax), " $1").Trim(), template.AgilityMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMax), " $1").Trim(), template.AgilityMax)
             )
         });
     }
@@ -404,15 +438,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1,
             AgilityMin: agilityMin, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -421,7 +453,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMin), " $1").Trim(), template.AgilityMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMin), " $1").Trim(), template.AgilityMin)
             )
         });
     }
@@ -435,15 +467,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1,
             DexterityMax: dexterityMax, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -452,7 +482,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMax), " $1").Trim(), template.DexterityMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMax), " $1").Trim(), template.DexterityMax)
             )
         });
     }
@@ -466,15 +496,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1,
             DexterityMin: dexterityMin, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -483,7 +511,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMin), " $1").Trim(), template.DexterityMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMin), " $1").Trim(), template.DexterityMin)
             )
         });
     }
@@ -497,15 +525,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             IntelligenceMax: intelligenceMax, 1, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -514,7 +540,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMax), " $1").Trim(), template.IntelligenceMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMax), " $1").Trim(), template.IntelligenceMax)
             )
         });
     }
@@ -528,15 +554,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             IntelligenceMin: intelligenceMin, 1, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -545,7 +569,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMin), " $1").Trim(), template.IntelligenceMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMin), " $1").Trim(), template.IntelligenceMin)
             )
         });
     }
@@ -559,15 +583,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             WillpowerMax: willpowerMax, 1, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -576,7 +598,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMax), " $1").Trim(), template.WillpowerMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMax), " $1").Trim(), template.WillpowerMax)
             )
         });
     }
@@ -590,15 +612,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             WillpowerMin: willpowerMin, 1, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -607,7 +627,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMin), " $1").Trim(), template.WillpowerMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMin), " $1").Trim(), template.WillpowerMin)
             )
         });
     }
@@ -621,15 +641,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             EmotionMax: emotionMax, 1, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -638,7 +656,7 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMax), " $1").Trim(), template.EmotionMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMax), " $1").Trim(), template.EmotionMax)
             )
         });
     }
@@ -652,15 +670,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             EmotionMin: emotionMin, 0, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -669,14 +685,10 @@ public class UpdateNpcTemplateCommandTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMin), " $1").Trim(), template.EmotionMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMin), " $1").Trim(), template.EmotionMin)
             )
         });
     }
-
-    #endregion
-
-    #region Zeroable Attribute validation
 
     [Theory]
     [InlineData(int.MaxValue)]
@@ -687,15 +699,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             DamageReductionMax: damageReductionMax, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -718,15 +728,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
             DamageReductionMin: damageReductionMin, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -749,15 +757,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
             KarmaMax: karmaMax, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -780,14 +786,12 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, KarmaMin: karmaMin,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -810,15 +814,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat),
             null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -837,15 +839,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Secular),
             null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -864,15 +864,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Combat, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
             null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -891,15 +889,13 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, false, Race.CivilizedHuman, Difficulty.Newbie,
             new SkillCategories(SkillCategory.Underworld, SkillCategory.Combat, SkillCategory.Scholar, SkillCategory.Secular),
             null, [], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeTrue();
@@ -915,7 +911,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
             Merits:
             [
@@ -923,12 +919,10 @@ public class UpdateNpcTemplateCommandTests
                 new Merit(2, true),
                 new Merit(4, true)
             ], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -947,7 +941,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null,
             Merits:
             [
@@ -955,12 +949,10 @@ public class UpdateNpcTemplateCommandTests
                 new Merit(2, true),
                 new Merit(3, true)
             ], [], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeTrue();
@@ -976,7 +968,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
             Flaws:
             [
@@ -984,12 +976,10 @@ public class UpdateNpcTemplateCommandTests
                 new Flaw(2, true),
                 new Flaw(4, true)
             ], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1008,7 +998,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [],
             Flaws:
             [
@@ -1016,12 +1006,10 @@ public class UpdateNpcTemplateCommandTests
                 new Flaw(2, true),
                 new Flaw(3, true)
             ], [], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeTrue();
@@ -1037,7 +1025,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
@@ -1045,12 +1033,10 @@ public class UpdateNpcTemplateCommandTests
                 new Skill(2, 1, 1, 0, true),
                 new Skill(4, 1, 1, 0, true)
             ], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1069,22 +1055,20 @@ public class UpdateNpcTemplateCommandTests
     [InlineData(int.MinValue)]
     [InlineData(0)]
     [InlineData(16)]
-    public async Task GivenTemplate_When_ASkillAddedAndMinLevelIsInvalid_Then_ReturnValidationError(int minLevel)
+    public async Task GivenTemplate_When_ASkillAddedForNonSummonTemplateAndMinLevelIsInvalid_Then_ReturnValidationError(int minLevel)
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
                 new Skill(1, MinLevel: minLevel, 1, 0, true)
             ], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1117,6 +1101,60 @@ public class UpdateNpcTemplateCommandTests
         }
     }
 
+
+
+    [Theory]
+    [InlineData(int.MaxValue)]
+    [InlineData(int.MinValue)]
+    [InlineData(-3)]
+    [InlineData(16)]
+    public async Task GivenTemplate_When_ASkillAddedForSummonTemplateAndMinLevelIsInvalid_Then_ReturnValidationError(int minLevel)
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
+            Skills:
+            [
+                new Skill(1, MinLevel: minLevel, 1, 0, true)
+            ], [], [], true, SummonType.Fire);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        if (minLevel > 0)
+        {
+            validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+            {
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
+                    ErrorCode: "SkillLevelValidator",
+                    ErrorMessage: string.Format(SummonSkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
+                ),
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0]",
+                    ErrorCode: "SkillLevelValidator",
+                    ErrorMessage: "'Min Level' must be lower or equal to 'Max Level'"
+                )
+            });
+        }
+        else
+        {
+            validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+            {
+                new(
+                    PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.Skills)}[0].{nameof(Skill.MinLevel)}",
+                    ErrorCode: "SkillLevelValidator",
+                    ErrorMessage: string.Format(SummonSkillLevelErrorMessage, Regex.Replace(nameof(Skill.MinLevel), " $1").Trim(), minLevel)
+                )
+            });
+        }
+    }
+
     [Theory]
     [InlineData(int.MaxValue)]
     [InlineData(int.MinValue)]
@@ -1126,18 +1164,16 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
                 new Skill(1, 1, MaxLevel: maxLevel, 0, true)
             ], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1179,18 +1215,16 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [],
             Skills:
             [
                 new Skill(1, 1, 1, GuaranteedSuccesses: guaranteedSuccess, true)
             ], [], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1212,7 +1246,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1220,12 +1254,10 @@ public class UpdateNpcTemplateCommandTests
                 new Armor(2, Material.Adamar, 0, 0, true),
                 new Armor(4, Material.Adamar, 0, 0, true)
             ], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1244,7 +1276,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
@@ -1252,12 +1284,10 @@ public class UpdateNpcTemplateCommandTests
                 new Armor(2, Material.Adamar, 0, 0, true),
                 new Armor(3, Material.Adamar, 0, 0, true)
             ], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeTrue();
@@ -1273,18 +1303,16 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
                 new Armor(1, Material.Adamar, AdditionalArmorClass: additionalArmorClass, 0, true)
             ], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1310,18 +1338,16 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [],
             Armors:
             [
                 new Armor(1, Material.Adamar, 0, AdditionalMovementInhibitoryFactor: additionalMovementInhibitoryFactor, true)
             ], []);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1347,7 +1373,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1355,12 +1381,10 @@ public class UpdateNpcTemplateCommandTests
                 new Weapon(2, Material.Adamar, 0, 0, 0, true, []),
                 new Weapon(4, Material.Adamar, 0, 0, 0, true, [])
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1379,7 +1403,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1387,12 +1411,10 @@ public class UpdateNpcTemplateCommandTests
                 new Weapon(2, Material.Adamar, 0, 0, 0, true, []),
                 new Weapon(3, Material.Adamar, 0, 0, 0, true, [])
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeTrue();
@@ -1408,18 +1430,16 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
                 new Weapon(1, Material.Adamar, AdditionalAttackModifier: additionalAttack, 0, 0, true, []),
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1445,18 +1465,16 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
                 new Weapon(1, Material.Adamar, 0, AdditionalDefenseModifier: additionalDefense, 0, true, []),
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1482,18 +1500,16 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
                 new Weapon(1, Material.Adamar, 0, 0, AdditionalInitiativeModifier: additionalInitiative, true, [])
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1519,7 +1535,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1529,12 +1545,10 @@ public class UpdateNpcTemplateCommandTests
                     new AttackType(DamageType.Ice, numberOfDices, 0),
                 ])
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1558,7 +1572,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1568,12 +1582,10 @@ public class UpdateNpcTemplateCommandTests
                     new AttackType(DamageType.Ice, 3, guaranteedDamage),
                 ])
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1598,7 +1610,7 @@ public class UpdateNpcTemplateCommandTests
     {
         // Arrange
         var template = new NpcTemplate(
-            1, "Test", "", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            1, "Test", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [],
             Weapons:
             [
@@ -1606,12 +1618,10 @@ public class UpdateNpcTemplateCommandTests
                     new AttackType(DamageType.Bludgeoning, 3, guaranteedDamage),
                 ])
             ]);
-        var query = new UpdateNpcTemplateCommand(1, template);
+        var command = new UpdateNpcTemplateCommand(1, template);
 
         // Act
-        var validationResult = await _validator.ValidateAsync(
-            query,
-            CancellationToken.None);
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeFalse();
@@ -1626,6 +1636,179 @@ public class UpdateNpcTemplateCommandTests
                     guaranteedDamage)
             )
         });
+    }
+
+    #endregion
+
+    #region Summon and Undead Validation
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonTrueAndNoSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: true);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Summon Type' is empty."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must not be empty if 'Is summon' is true."
+            )
+        });
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonAndIsUndeadTrueAndNoSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: true);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Summon Type' is empty."),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Is undead true'."),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must not be empty if 'Is summon' is true."),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsUndead)}",
+                ErrorCode: "UndeadValidator",
+                ErrorMessage: "'Is undead' must be false if 'Is summon' is true.")
+        });
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonFalseAndSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false, SummonType.Holy);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be true if 'Summon Type' has value."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is summon' is false."
+            )
+        });
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonFalseIsUndeadTrueAndSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false, SummonType.Holy);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be true if 'Summon Type' has value."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is summon' is false."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is undead' is true."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsUndead)}",
+                ErrorCode: "UndeadValidator",
+                ErrorMessage: "'Is undead' must be false if 'Summon Type' is not empty.")
+        });
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsSummonTrueAndSummonTypeSpecified_Then_NoValidationErrorReturned()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: true, SummonType.Holy);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsUndeadTrueIsSummonFalseAndSummonTypeNotSpecified_Then_NoValidationErrorReturned()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false);
+        var command = new UpdateNpcTemplateCommand(1, template);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
     }
 
     #endregion

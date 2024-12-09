@@ -16,7 +16,7 @@ namespace EntityFramework.MonsterBook.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -356,6 +356,9 @@ namespace EntityFramework.MonsterBook.Migrations
                     b.Property<int>("IntelligenceMin")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsSummon")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsUndead")
                         .HasColumnType("bit");
 
@@ -366,10 +369,12 @@ namespace EntityFramework.MonsterBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("NameHu")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("Race")
                         .IsRequired()
@@ -381,6 +386,10 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.Property<int>("StrengthMin")
                         .HasColumnType("int");
+
+                    b.Property<string>("SummonType")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("VitalityMax")
                         .HasColumnType("int");
@@ -396,7 +405,14 @@ namespace EntityFramework.MonsterBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NpcTemplate", (string)null);
+                    b.HasIndex("SummonType")
+                        .IsUnique()
+                        .HasFilter("[IsSummon] = 1");
+
+                    b.ToTable("NpcTemplate", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_IsSummon_SummonType", "([IsSummon] = 0 AND [SummonType] IS NULL) OR ([IsSummon] = 1 AND [SummonType] IS NOT NULL)");
+                        });
                 });
 
             modelBuilder.Entity("Mithrill.MonsterBook.Domain.Skill", b =>
