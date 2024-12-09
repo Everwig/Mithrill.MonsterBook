@@ -21,11 +21,12 @@ internal sealed class GetHitPointMinMaxValuesQueryHandler
         
     public async Task<(int HitPointMin, int HitPointMax)> Handle(GetHitPointMinMaxValuesQuery request, CancellationToken cancellationToken)
     {
-        var merits = new List<MonsterBook.Domain.Merit>();
+        var meritNames = new List<string>();
 
         if (request.MeritIds.Any())
         {
-            merits = await _monsterBookDbContext.Merits.Where(merit => request.MeritIds.Contains(merit.Id))
+            meritNames = await _monsterBookDbContext.Merits.Where(merit => request.MeritIds.Contains(merit.Id))
+                .Select(merit => merit.Name)
                 .ToListAsync(cancellationToken);
         }
 
@@ -33,13 +34,13 @@ internal sealed class GetHitPointMinMaxValuesQueryHandler
             request.StrengthMin,
             request.BodyMin,
             request.IsUndead,
-            merits);
+            meritNames);
 
         var hitPointMax = Calculators.CalculateHitPoints(
             request.StrengthMax,
             request.BodyMax,
             request.IsUndead,
-            merits);
+            meritNames);
 
         return (hitPointMin, hitPointMax);
     }

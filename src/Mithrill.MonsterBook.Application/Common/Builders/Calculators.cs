@@ -9,18 +9,21 @@ internal static class Calculators
 {
     public static int CalculatePowerPoints(int karma) => Math.Abs(karma * 3);
 
-    public static int CalculateHitPoints(int strength, int body, bool isUndead, IEnumerable<Merit> merits)
+    public static int CalculateHitPoints(int strength, int body, bool isUndead, IEnumerable<string> meritNames)
     {
-        return merits.Any(merit => string.Equals(merit.Name, AttributeTraits.HitPointIncreaseTrait))
-            ? CalculateHitPoints(strength, body, isUndead, true)
-            : CalculateHitPoints(strength, body, isUndead, false);
-    }
+        if (isUndead)
+        {
+            return (strength + body) * 5;
+        }
 
-    public static int CalculateHitPoints(int strength, int body, bool isUndead, IEnumerable<MonsterBook.Domain.Merit> merits)
-    {
-        return merits.Any(merit => string.Equals(merit.Name, AttributeTraits.HitPointIncreaseTrait))
-            ? CalculateHitPoints(strength, body, isUndead, true)
-            : CalculateHitPoints(strength, body, isUndead, false);
+        var hp = body * GetHpMultiplier(meritNames) + 5;
+
+        if (body > 7)
+        {
+            hp *= 2;
+        }
+
+        return hp;
     }
 
     public static int CalculateManaPoints(int intelligence, int willpower, int emotion, IEnumerable<Merit> merits)
@@ -54,24 +57,14 @@ internal static class Calculators
         return mp;
     }
 
-    private static int CalculateHitPoints(int strength, int body, bool isUndead, bool hasHitPointIncreaseTrait)
+    private static int GetHpMultiplier(IEnumerable<string> meritNames)
     {
-        if (isUndead)
-        {
-            return (strength + body) * 5;
-        }
-
-        var hp = body * 4 + 5;
-        if (hasHitPointIncreaseTrait)
-        {
-            hp += body;
-        }
-
-        if (body > 7)
-        {
-            hp *= 2;
-        }
-
-        return hp;
+        return meritNames.Contains(AttributeTraits.MythicToughness)
+            ? 20
+            : meritNames.Contains(AttributeTraits.DemonicToughness)
+                ? 10
+                : meritNames.Contains(AttributeTraits.Tough)
+                    ? 5
+                    : 4;
     }
 }

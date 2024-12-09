@@ -60,17 +60,18 @@ internal sealed class GetNpcTemplateQueryHandler : IRequestHandler<GetNpcTemplat
         MonsterBook.Domain.NpcTemplate npcTemplate,
         IEnumerable<MonsterBook.Domain.Merit> merits)
     {
+        var meritNames = merits.Select(merit => merit.Name);
         mappedTemplate.HitPointMin = Calculators.CalculateHitPoints(
             npcTemplate.StrengthMin,
             npcTemplate.BodyMin,
             npcTemplate.IsUndead,
-            merits);
+            meritNames);
 
         mappedTemplate.HitPointMax = Calculators.CalculateHitPoints(
             npcTemplate.StrengthMax,
             npcTemplate.BodyMax,
             npcTemplate.IsUndead,
-            merits);
+            meritNames);
 
         mappedTemplate.ManaPointMin = Calculators.CalculateManaPoints(
             npcTemplate.IntelligenceMin,

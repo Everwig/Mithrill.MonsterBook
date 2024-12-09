@@ -2,6 +2,8 @@
 
 public class AttributeTraits
 {
-    public const string HitPointIncreaseTrait = "Tough";
+    public const string Tough = "Tough";
+    public const string DemonicToughness = "Demonic toughness";
+    public const string MythicToughness = "Mythic toughness";
     public const string ManaPointIncreaseTrait = "Magic chalice";
 }
