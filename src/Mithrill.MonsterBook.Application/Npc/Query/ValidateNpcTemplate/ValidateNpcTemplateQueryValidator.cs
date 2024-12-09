@@ -51,6 +51,7 @@ public sealed class ValidateNpcTemplateQueryValidator : AbstractValidator<Valida
             RuleFor(npcTemplate => npcTemplate.Difficulty).EnumValidation();
             RuleFor(npcTemplate => npcTemplate.SkillCategories).SkillCategoriesValidation();
             RuleFor(npcTemplate => npcTemplate.ArcanumRanks).ArcanumRanksValidation(templateValidatorService);
+            RuleFor(npcTemplate => npcTemplate.IsUndead).IsUndeadValidation();
             RuleFor(npcTemplate => npcTemplate.IsSummon).IsSummonValidation();
             RuleFor(npcTemplate => npcTemplate.SummonType).SummonTypeValidation();
 

@@ -1588,7 +1588,7 @@ public class CreateNpcTemplateCommandTests
 
     #endregion
 
-    #region SummonValidation
+    #region Summon and Undead Validation
 
     [Fact]
     public async Task GivenTemplate_When_IsSummonTrueAndNoSummonTypeSpecified_Then_ReturnValidationError()
@@ -1597,9 +1597,8 @@ public class CreateNpcTemplateCommandTests
         var command = new CreateNpcTemplateCommand(
             "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
-            true);
-
-
+            IsSummon: true);
+        
         // Act
         var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
 
@@ -1621,14 +1620,48 @@ public class CreateNpcTemplateCommandTests
     }
 
     [Fact]
+    public async Task GivenTemplate_When_IsSummonAndIsUndeadTrueAndNoSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var command = new CreateNpcTemplateCommand(
+            "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: true);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Summon Type' is empty."),
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Is undead true'."),
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must not be empty if 'Is summon' is true."),
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.IsUndead)}",
+                ErrorCode: "UndeadValidator",
+                ErrorMessage: "'Is undead' must be false if 'Is summon' is true.")
+        });
+    }
+
+    [Fact]
     public async Task GivenTemplate_When_IsSummonFalseAndSummonTypeSpecified_Then_ReturnValidationError()
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
             "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-            false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
-            false, SummonType.Holy);
-
+            IsUndead: false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false, SummonType.Holy);
 
         // Act
         var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
@@ -1651,14 +1684,67 @@ public class CreateNpcTemplateCommandTests
     }
 
     [Fact]
+    public async Task GivenTemplate_When_IsSummonFalseIsUndeadTrueAndSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var command = new CreateNpcTemplateCommand(
+            "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false, SummonType.Holy);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be true if 'Summon Type' has value."
+            ),
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is summon' is false."
+            ),
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is undead' is true."
+            ),
+            new(
+                PropertyName: $"{nameof(CreateNpcTemplateCommand.IsUndead)}",
+                ErrorCode: "UndeadValidator",
+                ErrorMessage: "'Is undead' must be false if 'Summon Type' is not empty.")
+        });
+    }
+
+    [Fact]
     public async Task GivenTemplate_When_IsSummonTrueAndSummonTypeSpecified_Then_NoValidationErrorReturned()
     {
         // Arrange
         var command = new CreateNpcTemplateCommand(
             "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-            false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
-            true, SummonType.Holy);
+            IsUndead: false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: true, SummonType.Holy);
 
+        // Act
+        var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsUndeadTrueIsSummonFalseAndSummonTypeNotSpecified_Then_NoValidationErrorReturned()
+    {
+        // Arrange
+        var command = new CreateNpcTemplateCommand(
+            "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false);
 
         // Act
         var validationResult = await _validator.ValidateAsync(command, CancellationToken.None);

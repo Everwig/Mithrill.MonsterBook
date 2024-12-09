@@ -1864,7 +1864,7 @@ public class ValidateNpcTemplateQueryTests
 
     #endregion
 
-    #region SummonValidation
+    #region Summon and Undead Validation
 
     [Fact]
     public async Task GivenTemplate_When_IsSummonTrueAndNoSummonTypeSpecified_Then_ReturnValidationError()
@@ -1900,6 +1900,42 @@ public class ValidateNpcTemplateQueryTests
     }
 
     [Fact]
+    public async Task GivenTemplate_When_IsSummonAndIsUndeadTrueAndNoSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: true);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Edit);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(query, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Summon Type' is empty."),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be false if 'Is undead true'."),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must not be empty if 'Is summon' is true."),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsUndead)}",
+                ErrorCode: "UndeadValidator",
+                ErrorMessage: "'Is undead' must be false if 'Is summon' is true.")
+        });
+    }
+
+    [Fact]
     public async Task GivenTemplate_When_IsSummonFalseAndSummonTypeSpecified_Then_ReturnValidationError()
     {
         // Arrange
@@ -1908,7 +1944,6 @@ public class ValidateNpcTemplateQueryTests
             false, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
             false, SummonType.Holy);
         var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
-
 
         // Act
         var validationResult = await _validator.ValidateAsync(
@@ -1933,6 +1968,45 @@ public class ValidateNpcTemplateQueryTests
     }
 
     [Fact]
+    public async Task GivenTemplate_When_IsSummonFalseIsUndeadTrueAndSummonTypeSpecified_Then_ReturnValidationError()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false, SummonType.Holy);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Edit);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(query, CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsSummon)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Is summon' must be true if 'Summon Type' has value."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is summon' is false."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.SummonType)}",
+                ErrorCode: "SummonValidator",
+                ErrorMessage: "'Summon Type' must be empty if 'Is undead' is true."
+            ),
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IsUndead)}",
+                ErrorCode: "UndeadValidator",
+                ErrorMessage: "'Is undead' must be false if 'Summon Type' is not empty.")
+        });
+    }
+
+    [Fact]
     public async Task GivenTemplate_When_IsSummonTrueAndSummonTypeSpecified_Then_NoValidationErrorReturned()
     {
         // Arrange
@@ -1942,11 +2016,27 @@ public class ValidateNpcTemplateQueryTests
             true, SummonType.Holy);
         var query = new ValidateNpcTemplateQuery(template, ValidationMode.Create);
 
-
         // Act
         var validationResult = await _validator.ValidateAsync(
             query,
             CancellationToken.None);
+
+        // Assert
+        validationResult.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task GivenTemplate_When_IsUndeadTrueIsSummonFalseAndSummonTypeNotSpecified_Then_NoValidationErrorReturned()
+    {
+        // Arrange
+        var template = new NpcTemplate(
+            1, "a", 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+            IsUndead: true, Race.CivilizedHuman, Difficulty.Newbie, null, null, [], [], [], [], [],
+            IsSummon: false);
+        var query = new ValidateNpcTemplateQuery(template, ValidationMode.Edit);
+
+        // Act
+        var validationResult = await _validator.ValidateAsync(query, CancellationToken.None);
 
         // Assert
         validationResult.IsValid.Should().BeTrue();

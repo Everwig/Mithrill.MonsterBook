@@ -72,24 +72,43 @@ public static class BaseStatValidatorExtensions
             .WithMessage((_, flaw) => $"Flaw with id '{flaw.Id}' doesn't exist.");
 
     public static IRuleBuilderOptions<T, bool> IsSummonValidation<T>(this IRuleBuilderInitial<T, bool> rule)
-        where T : ISummonTemplate =>
+        where T : ISummonTemplate, IUndeadTemplate =>
         rule.Equal(false)
             .When(template => !template.SummonType.HasValue, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("SummonValidator")
             .WithMessage(_ => "'Is summon' must be false if 'Summon Type' is empty.")
+            .Equal(false)
+            .When(template => template.IsUndead, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("SummonValidator")
+            .WithMessage(_ => "'Is summon' must be false if 'Is undead true'.")
             .Equal(true)
             .When(template => template.SummonType.HasValue, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("SummonValidator")
             .WithMessage(_ => "'Is summon' must be true if 'Summon Type' has value.");
 
     public static IRuleBuilderOptions<T, SummonType?> SummonTypeValidation<T>(this IRuleBuilderInitial<T, SummonType?> rule)
-        where T : ISummonTemplate =>
+        where T : ISummonTemplate, IUndeadTemplate =>
         rule.Empty()
             .When(template => !template.IsSummon, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("SummonValidator")
             .WithMessage(_ => "'Summon Type' must be empty if 'Is summon' is false.")
+            .Empty()
+            .When(template => template.IsUndead, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("SummonValidator")
+            .WithMessage(_ => "'Summon Type' must be empty if 'Is undead' is true.")
             .NotEmpty()
             .When(template => template.IsSummon, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("SummonValidator")
             .WithMessage(_ => "'Summon Type' must not be empty if 'Is summon' is true.");
+
+    public static IRuleBuilderOptions<T, bool> IsUndeadValidation<T>(this IRuleBuilderInitial<T, bool> rule)
+        where T : ISummonTemplate, IUndeadTemplate =>
+        rule.Equal(false)
+            .When(template => template.IsSummon, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("UndeadValidator")
+            .WithMessage(_ => "'Is undead' must be false if 'Is summon' is true.")
+            .Equal(false)
+            .When(template => template.SummonType.HasValue, ApplyConditionTo.CurrentValidator)
+            .WithErrorCode("UndeadValidator")
+            .WithMessage(_ => "'Is undead' must be false if 'Summon Type' is not empty.");
 }

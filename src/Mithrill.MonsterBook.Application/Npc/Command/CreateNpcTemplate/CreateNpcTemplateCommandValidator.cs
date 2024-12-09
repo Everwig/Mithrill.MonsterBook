@@ -36,6 +36,7 @@ public class CreateNpcTemplateCommandValidator : AbstractValidator<CreateNpcTemp
         RuleFor(npcTemplate => npcTemplate.Race).EnumValidation();
         RuleFor(npcTemplate => npcTemplate.Difficulty).EnumValidation();
         RuleFor(npcTemplate => npcTemplate.SkillCategories).SkillCategoriesValidation();
+        RuleFor(npcTemplate => npcTemplate.IsUndead).IsUndeadValidation();
         RuleFor(npcTemplate => npcTemplate.IsSummon).IsSummonValidation();
         RuleFor(npcTemplate => npcTemplate.SummonType).SummonTypeValidation();
 

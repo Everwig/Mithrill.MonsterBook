@@ -1,6 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { ApplicationRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -133,7 +133,7 @@ export class NpcTemplateDetailsComponent implements OnInit {
     return this.npcTemplateDetails.controls['armors'] as FormArray;
   }
 
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private store$: Store<State>, private appRef: ApplicationRef) {
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private store$: Store<State>) {
     this.flaws$ = this.store$.select(fromNpcsSelector.flawsSelector);
     this.merits$  = this.store$.select(fromNpcsSelector.meritsSelector);
     this.armors$ = this.store$.select(fromNpcsSelector.armorsSelector);
@@ -321,10 +321,6 @@ export class NpcTemplateDetailsComponent implements OnInit {
     }
 
     this.npcTemplateDetails.patchValue({ arcanumRanks: currentArcanumRanks });
-  }
-
-  getMinSkillValue(): number {
-    return this.npcTemplateDetails.value.isSummon || this.npcTemplateDetails.value.isUndead ? -2 : 1;
   }
 
   getFilteredSkills(): Observable<Skill[]> {
