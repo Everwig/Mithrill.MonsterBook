@@ -353,7 +353,20 @@ public class MythicCreatures
                     new()
                     {
                         NpcTemplateId = identity,
-                        MeritId = 98
+                        MeritId = 26,
+                        IsOptional = true
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 98,
+                        IsOptional = true
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 100,
+                        IsOptional = true
                     }
                 },
                 CharacterWeapons = new List<CharacterWeapon>

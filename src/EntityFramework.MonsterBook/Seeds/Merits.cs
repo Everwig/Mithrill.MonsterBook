@@ -108,7 +108,8 @@ public static class Merits
             new Merit { Id = 96, Name = "Tireless", NameHu = "Fáradhatatlan" },
             new Merit { Id = 97, Name = "Magic immunity", NameHu = "Mágia immunitás" },
             new Merit { Id = 98, Name = "Mythic toughness", NameHu = "Mítikus szívósság" },
-            new Merit { Id = 99, Name = "Reflect magic", NameHu = "Mágia visszatükrözés" }
+            new Merit { Id = 99, Name = "Reflect magic", NameHu = "Mágia visszatükrözés" },
+            new Merit { Id = 100, Name = "Demonic toughness", NameHu = "Démoni szívósság" }
         ]);
     }
 }

@@ -294,7 +294,7 @@ internal sealed class CreatureBuilder : INpcBuilder<GeneratedCreature>
             _creature.Strength,
             _creature.Body,
             isUndead,
-            _creature.Merits);
+            _creature.Merits.Select(merit => merit.Name));
 
         _creature.ManaPoint = Calculators.CalculateManaPoints(
             _creature.Intelligence,

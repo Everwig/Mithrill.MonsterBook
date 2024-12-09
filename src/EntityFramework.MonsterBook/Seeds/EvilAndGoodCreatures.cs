@@ -54,10 +54,10 @@ public class EvilAndGoodCreatures
                 Name = "Duahin magic zombie",
                 NameHu = "Duahini mágikus zombi",
                 Id = identity,
-                StrengthMax = 3,
-                StrengthMin = 3,
-                BodyMax = 3,
-                BodyMin = 3,
+                StrengthMax = 4,
+                StrengthMin = 4,
+                BodyMax = 4,
+                BodyMin = 4,
                 AgilityMax = 2,
                 AgilityMin = 2,
                 DexterityMax = 2,
@@ -110,14 +110,6 @@ public class EvilAndGoodCreatures
                     {
                         NpcTemplateId = identity,
                         MeritId = 92
-                    }
-                },
-                CharacterWeapons = new List<CharacterWeapon>
-                {
-                    new()
-                    {
-                        WeaponId = 23,
-                        NpcTemplateId = identity
                     }
                 }
             }
@@ -1776,7 +1768,13 @@ public class EvilAndGoodCreatures
                     new()
                     {
                         NpcTemplateId = identity,
-                        MeritId = 26
+                        MeritId = 98,
+                        IsOptional = true
+                    },
+                    new()
+                    {
+                        NpcTemplateId = identity,
+                        MeritId = 100
                     }
                 }
             }
@@ -2018,6 +2016,14 @@ public class EvilAndGoodCreatures
                     {
                         NpcTemplateId = identity,
                         WeaponId = 41
+                    }
+                },
+                CharacterMerits = new List<CharacterMerit>
+                {
+                    new()
+                    {
+                        MeritId = 100,
+                        NpcTemplateId = identity
                     }
                 }
             }

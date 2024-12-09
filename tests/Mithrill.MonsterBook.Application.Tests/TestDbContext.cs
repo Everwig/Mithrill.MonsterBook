@@ -57,7 +57,7 @@ public class Seeds
                 {
                     Id = 1,
                     Name = "MeritName",
-                    NameHu = AttributeTraits.HitPointIncreaseTrait
+                    NameHu = AttributeTraits.Tough
                 }
             },
             new()

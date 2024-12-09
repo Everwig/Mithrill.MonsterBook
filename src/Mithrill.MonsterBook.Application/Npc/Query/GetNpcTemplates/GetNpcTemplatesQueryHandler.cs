@@ -107,13 +107,13 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
                 npcTemplate.StrengthMin,
                 npcTemplate.BodyMin,
                 npcTemplate.IsUndead,
-                Enumerable.Empty<MonsterBook.Domain.Merit>());
+                []);
 
             npcTemplate.HitPointMax = Calculators.CalculateHitPoints(
                 npcTemplate.StrengthMax,
                 npcTemplate.BodyMax,
                 npcTemplate.IsUndead,
-                storedCreature.CharacterMerits.Select(characterMerit => characterMerit.Merit));
+                storedCreature.CharacterMerits.Select(characterMerit => characterMerit.Merit.Name));
 
             npcTemplate.ManaPointMin = Calculators.CalculateManaPoints(
                 npcTemplate.IntelligenceMin,

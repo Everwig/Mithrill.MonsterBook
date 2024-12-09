@@ -435,7 +435,7 @@ public class CreatureBuilderTests
         var npcTemplate = new Seeds().NpcTemplate;
         npcTemplate.BodyMax = 4;
         npcTemplate.BodyMin = 4;
-        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.HitPointIncreaseTrait;
+        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.Tough;
         await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
         await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 
@@ -457,7 +457,7 @@ public class CreatureBuilderTests
         var npcTemplate = new Seeds().NpcTemplate;
         npcTemplate.BodyMax = 8;
         npcTemplate.BodyMin = 8;
-        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.HitPointIncreaseTrait;
+        npcTemplate.CharacterMerits.First().Merit.Name = AttributeTraits.Tough;
         await _monsterBookDbContext.NpcTemplates.AddAsync(npcTemplate);
         await _monsterBookDbContext.SaveChangesAsync(CancellationToken);
 

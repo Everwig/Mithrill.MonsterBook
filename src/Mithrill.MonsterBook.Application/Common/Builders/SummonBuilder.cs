@@ -61,7 +61,7 @@ internal abstract class SummonBuilder : ISummonBuilder<GeneratedCreature>
             Creature.Strength,
             Creature.Body,
             false,
-            Creature.Merits);
+            Creature.Merits.Select(merit => merit.Name));
 
         Creature.ManaPoint = Calculators.CalculateManaPoints(
             Creature.Intelligence,
