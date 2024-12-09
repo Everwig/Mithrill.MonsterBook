@@ -21,7 +21,7 @@ public static class BaseStatValidatorExtensions
             .WithErrorCode("NonZeroableAttributeValidator")
             .InclusiveBetween(Zero, MaxAttributeValue)
             .When(template => template.IsSummon || template.IsUndead, ApplyConditionTo.CurrentValidator)
-            .WithErrorCode("NonZeroableAttributeValidator");
+            .WithErrorCode("ZeroableAttributeValidator");
 
     public static IRuleBuilderOptions<T, TK> EnumValidation<T, TK>(this IRuleBuilderInitial<T, TK> rule)
         where TK : Enum =>

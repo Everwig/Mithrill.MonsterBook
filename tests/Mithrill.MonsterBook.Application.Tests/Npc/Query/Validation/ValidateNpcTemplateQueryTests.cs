@@ -18,7 +18,8 @@ public class ValidateNpcTemplateQueryTests
 {
     private static readonly Regex Regex = new(@"((?<=\p{Ll})\p{Lu}|\p{Lu}(?=\p{Ll}))");
     private readonly IValidator<ValidateNpcTemplateQuery> _validator;
-    private const string NonZeroableErrorMessage = "'{0}' must be between 1 and 100. You entered {1}.";
+    private const string NonZeroableAttributeErrorMessage = "'{0}' must be between 1 and 100. You entered {1}.";
+    private const string ZeroableAttributeErrorMessage = "'{0}' must be between 0 and 100. You entered {1}.";
     private const string ZeroableErrorMessage = "'{0}' must be between 0 and 12. You entered {1}.";
     private const string SkillLevelErrorMessage = "'{0}' must be between 1 and 15. You entered {1}.";
     private const string SummonSkillLevelErrorMessage = "'{0}' must be between -2 and 15. You entered {1}.";
@@ -303,7 +304,15 @@ public class ValidateNpcTemplateQueryTests
             CancellationToken.None);
 
         // Assert
-        validationResult.IsValid.Should().BeTrue();
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().BeEquivalentTo(new List<ValidationFailure>
+        {
+            new(
+                PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMin)}",
+                ErrorCode: "ZeroableAttributeValidator",
+                ErrorMessage: string.Format(ZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
+            )
+        });
     }
 
     [Theory]
@@ -334,7 +343,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMax), " $1").Trim(), template.StrengthMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMax), " $1").Trim(), template.StrengthMax)
             )
         });
     }
@@ -367,7 +376,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.StrengthMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.StrengthMin), " $1").Trim(), template.StrengthMin)
             )
         });
     }
@@ -399,7 +408,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMax), " $1").Trim(), template.VitalityMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMax), " $1").Trim(), template.VitalityMax)
             )
         });
     }
@@ -431,7 +440,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.VitalityMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMin), " $1").Trim(), template.VitalityMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.VitalityMin), " $1").Trim(), template.VitalityMin)
             )
         });
     }
@@ -463,7 +472,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMax), " $1").Trim(), template.BodyMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMax), " $1").Trim(), template.BodyMax)
             )
         });
     }
@@ -495,7 +504,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.BodyMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMin), " $1").Trim(), template.BodyMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.BodyMin), " $1").Trim(), template.BodyMin)
             )
         });
     }
@@ -527,7 +536,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMax), " $1").Trim(), template.AgilityMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMax), " $1").Trim(), template.AgilityMax)
             )
         });
     }
@@ -559,7 +568,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.AgilityMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMin), " $1").Trim(), template.AgilityMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.AgilityMin), " $1").Trim(), template.AgilityMin)
             )
         });
     }
@@ -591,7 +600,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMax), " $1").Trim(), template.DexterityMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMax), " $1").Trim(), template.DexterityMax)
             )
         });
     }
@@ -623,7 +632,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DexterityMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMin), " $1").Trim(), template.DexterityMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.DexterityMin), " $1").Trim(), template.DexterityMin)
             )
         });
     }
@@ -655,7 +664,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMax), " $1").Trim(), template.IntelligenceMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMax), " $1").Trim(), template.IntelligenceMax)
             )
         });
     }
@@ -687,7 +696,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.IntelligenceMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMin), " $1").Trim(), template.IntelligenceMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.IntelligenceMin), " $1").Trim(), template.IntelligenceMin)
             )
         });
     }
@@ -719,7 +728,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMax), " $1").Trim(), template.WillpowerMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMax), " $1").Trim(), template.WillpowerMax)
             )
         });
     }
@@ -751,7 +760,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.WillpowerMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMin), " $1").Trim(), template.WillpowerMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.WillpowerMin), " $1").Trim(), template.WillpowerMin)
             )
         });
     }
@@ -783,7 +792,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMax)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMax), " $1").Trim(), template.EmotionMax)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMax), " $1").Trim(), template.EmotionMax)
             )
         });
     }
@@ -815,7 +824,7 @@ public class ValidateNpcTemplateQueryTests
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.EmotionMin)}",
                 ErrorCode: "NonZeroableAttributeValidator",
-                ErrorMessage: string.Format(NonZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMin), " $1").Trim(), template.EmotionMin)
+                ErrorMessage: string.Format(NonZeroableAttributeErrorMessage, Regex.Replace(nameof(NpcTemplate.EmotionMin), " $1").Trim(), template.EmotionMin)
             )
         });
     }

@@ -1,12 +1,13 @@
-import { Arcanum } from '../../core/model/arcanum.model';
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
 import { SkillCategories } from '../../core/model/skill-categories.model';
+import { ArcanumRanks } from '../../core/model/arcanum-ranks.model';
 import { Armor } from './armor.model';
 import { Flaw } from './flaw.model';
 import { Merit } from './merit.model';
 import { Skill } from './skill.model';
 import { Weapon } from './weapon.model';
+import { SummonType } from '../../core/model/summon-type.model';
 
 export interface NpcTemplate {
   id: number;
@@ -45,12 +46,7 @@ export interface NpcTemplate {
   flaws: Flaw[];
   weapons: Weapon[];
   armors: Armor[];
+  isSummon: boolean;
+  summonType: SummonType | undefined;
 }
 
-export interface ArcanumRanks {
-  primary: Arcanum;
-  secondary: Arcanum;
-  tertiary: Arcanum[];
-  quaternary: Arcanum;
-  quinary: Arcanum;
-}

@@ -1477,6 +1477,7 @@ export enum Material {
     Diamond = "Diamond",
     Adamar = "Adamar",
     Adamir = "Adamir",
+    None = "None",
 }
 
 export class AttackType implements IAttackType {
@@ -1881,6 +1882,7 @@ export enum Race {
     Mythical = "Mythical",
     CreatureOfDarkness = "CreatureOfDarkness",
     CreatureOfLight = "CreatureOfLight",
+    Elemental = "Elemental",
 }
 
 export class SortInformationOfSortProperty implements ISortInformationOfSortProperty {
@@ -2012,6 +2014,8 @@ export class NpcTemplate implements INpcTemplate {
     difficulty!: Difficulty;
     race!: Race;
     isUndead!: boolean;
+    isSummon!: boolean;
+    summonType!: SummonType | undefined;
     merits!: Merit3[];
     flaws!: Flaw2[];
     weapons!: Weapon2[];
@@ -2060,6 +2064,8 @@ export class NpcTemplate implements INpcTemplate {
             this.difficulty = _data["difficulty"];
             this.race = _data["race"];
             this.isUndead = _data["isUndead"];
+            this.isSummon = _data["isSummon"];
+            this.summonType = _data["summonType"];
             if (Array.isArray(_data["merits"])) {
                 this.merits = [] as any;
                 for (let item of _data["merits"])
@@ -2128,6 +2134,8 @@ export class NpcTemplate implements INpcTemplate {
         data["difficulty"] = this.difficulty;
         data["race"] = this.race;
         data["isUndead"] = this.isUndead;
+        data["isSummon"] = this.isSummon;
+        data["summonType"] = this.summonType;
         if (Array.isArray(this.merits)) {
             data["merits"] = [];
             for (let item of this.merits)
@@ -2189,6 +2197,8 @@ export interface INpcTemplate {
     difficulty: Difficulty;
     race: Race;
     isUndead: boolean;
+    isSummon: boolean;
+    summonType: SummonType | undefined;
     merits: Merit3[];
     flaws: Flaw2[];
     weapons: Weapon2[];

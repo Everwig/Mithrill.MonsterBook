@@ -11,7 +11,8 @@ import { Material } from '../../core/model/material.model';
 import { AttackType } from '../models/attack-type.model';
 import { DamageType } from '../../core/model/damage-type.model';
 import { Armor } from '../models/armor.model';
-import { ArcanumRanks, NpcTemplate } from '../models/npc-template.model';
+import { NpcTemplate } from '../models/npc-template.model';
+import { ArcanumRanks } from '../../core/model/arcanum-ranks.model';
 import { Difficulty } from '../../core/model/difficulty.model';
 import { Race } from '../../core/model/race.model';
 import {
@@ -27,16 +28,16 @@ import {
   Flaw3 as CreateFlaw,
   Flaw4 as UpdateFlaw,
   Flaw5 as ValdiateFlaw,
-  Merit3 as CreateMerit,
-  Merit4 as UpdateMerit,
-  Merit5 as ValidateMerit,
-  Skill2 as CreateSkill,
-  Skill3 as UpdateSkill,
-  Skill4 as ValidateSkill,
-  Weapon2 as CreateWeapon,
-  Weapon3 as UpdateWeapon,
-  Weapon4 as ValidateWeapon,
-  AttackType2 as WeaponAttackType,
+  Merit4 as CreateMerit,
+  Merit5 as UpdateMerit,
+  Merit6 as ValidateMerit,
+  Skill3 as CreateSkill,
+  Skill4 as UpdateSkill,
+  Skill5 as ValidateSkill,
+  Weapon3 as CreateWeapon,
+  Weapon4 as UpdateWeapon,
+  Weapon5 as ValidateWeapon,
+  AttackType as WeaponAttackType,
   SkillCategories as TemplateSkillCategories,
   NpcTemplate2 as UpdateNpcTemplate,
   NpcTemplate3 as ValidateNpcTemplate,
@@ -44,7 +45,6 @@ import {
   CreateNpcTemplateCommand,
   ValidationMode
 } from '../../shared/services/web-api-client';
-import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 import { ValidationResult } from '../../shared/models/validation-result.model';
 
 @Injectable()
@@ -173,6 +173,8 @@ export class NpcTemplateDetailsService {
         willpowerMax: npc.willpowerMax,
         willpowerMin: npc.willpowerMin,
         isUndead: npc.isUndead,
+        isSummon: npc.isSummon,
+        summonType: npc.summonType,
         skillCategories: npc.skillCategories
           ? ({
               firstSecondary: npc.skillCategories?.firstSecondary,
@@ -318,7 +320,6 @@ export class NpcTemplateDetailsService {
         isOptional: merit.isOptional
       })),
       name: npcTemplate.name,
-      nameHu: '',
       race: npcTemplate.race,
       skillCategories: npcTemplate.skillCategories
         ? new TemplateSkillCategories({
@@ -355,7 +356,9 @@ export class NpcTemplateDetailsService {
           material: weapon.material!
         })),
         willpowerMax: npcTemplate.willpowerMax,
-        willpowerMin: npcTemplate.willpowerMin
+        willpowerMin: npcTemplate.willpowerMin,
+        isSummon: npcTemplate.isSummon,
+        summonType: npcTemplate.summonType
     }));
   }
 
@@ -397,7 +400,6 @@ export class NpcTemplateDetailsService {
           isOptional: merit.isOptional
         })),
         name: npcTemplate.name,
-        nameHu: '',
         race: npcTemplate.race,
         skillCategories: npcTemplate.skillCategories
           ? new TemplateSkillCategories({
@@ -435,7 +437,9 @@ export class NpcTemplateDetailsService {
           material: weapon.material!
         })),
         willpowerMax: npcTemplate.willpowerMax,
-        willpowerMin: npcTemplate.willpowerMin
+        willpowerMin: npcTemplate.willpowerMin,
+        isSummon: npcTemplate.isSummon,
+        summonType: npcTemplate.summonType
       }));
   }
 
@@ -476,7 +480,6 @@ export class NpcTemplateDetailsService {
           isOptional: merit.isOptional
         })),
         name: npcTemplate.name,
-        nameHu: '',
         race: npcTemplate.race,
         skillCategories: npcTemplate.skillCategories
           ? new TemplateSkillCategories({
@@ -513,7 +516,9 @@ export class NpcTemplateDetailsService {
           material: weapon.material!
         })),
         willpowerMax: npcTemplate.willpowerMax,
-        willpowerMin: npcTemplate.willpowerMin
+        willpowerMin: npcTemplate.willpowerMin,
+        isSummon: npcTemplate.isSummon,
+        summonType: npcTemplate.summonType
       })
     })).pipe(
       map(validationResult => new ValidationResult( validationResult.isValid, validationResult.errors))
