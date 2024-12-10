@@ -233,7 +233,7 @@ export class NpcsClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getGeneratedProminent(id: number, isProminent: boolean | undefined, hasKarma: boolean | undefined, isEvil: boolean | undefined, isUndead: boolean | undefined, difficulty: Difficulty | null | undefined): Observable<GeneratedNpc> {
+    getGenerated(id: number, isProminent: boolean | undefined, hasKarma: boolean | undefined, isEvil: boolean | undefined, isUndead: boolean | undefined, difficulty: Difficulty | null | undefined): Observable<GeneratedNpc> {
         let url_ = this.baseUrl + "/api/npcs/{id}/generate?";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -267,11 +267,11 @@ export class NpcsClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetGeneratedProminent(response_);
+            return this.processGetGenerated(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetGeneratedProminent(response_ as any);
+                    return this.processGetGenerated(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<GeneratedNpc>;
                 }
@@ -280,7 +280,7 @@ export class NpcsClient {
         }));
     }
 
-    protected processGetGeneratedProminent(response: HttpResponseBase): Observable<GeneratedNpc> {
+    protected processGetGenerated(response: HttpResponseBase): Observable<GeneratedNpc> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -356,7 +356,7 @@ export class NpcsClient {
         return _observableOf(null as any);
     }
 
-    getAll(sortDirection: SortDirection | undefined, sortProperty: SortProperty | undefined, pageIndex: number | undefined, pageSize: number | undefined): Observable<GetNpcTemplatesQueryResult> {
+    getTemplates(sortDirection: SortDirection | undefined, sortProperty: SortProperty | undefined, pageIndex: number | undefined, pageSize: number | undefined): Observable<GetNpcTemplatesQueryResult> {
         let url_ = this.baseUrl + "/api/npcs/gettemplates?";
         if (sortDirection === null)
             throw new Error("The parameter 'sortDirection' cannot be null.");
@@ -385,11 +385,11 @@ export class NpcsClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
+            return this.processGetTemplates(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll(response_ as any);
+                    return this.processGetTemplates(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<GetNpcTemplatesQueryResult>;
                 }
@@ -398,7 +398,7 @@ export class NpcsClient {
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<GetNpcTemplatesQueryResult> {
+    protected processGetTemplates(response: HttpResponseBase): Observable<GetNpcTemplatesQueryResult> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -420,7 +420,7 @@ export class NpcsClient {
         return _observableOf(null as any);
     }
 
-    get(id: number): Observable<NpcTemplate> {
+    getTemplate(id: number): Observable<NpcTemplate> {
         let url_ = this.baseUrl + "/api/npcs/gettemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -436,11 +436,11 @@ export class NpcsClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
+            return this.processGetTemplate(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGet(response_ as any);
+                    return this.processGetTemplate(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<NpcTemplate>;
                 }
@@ -449,7 +449,7 @@ export class NpcsClient {
         }));
     }
 
-    protected processGet(response: HttpResponseBase): Observable<NpcTemplate> {
+    protected processGetTemplate(response: HttpResponseBase): Observable<NpcTemplate> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

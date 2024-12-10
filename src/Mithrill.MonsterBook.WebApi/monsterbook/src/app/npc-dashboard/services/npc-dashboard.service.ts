@@ -19,7 +19,7 @@ export class NpcDashboardService {
     pageSize: number,
     pageIndex: number
   ): Observable<GetStoredNpcsResult> {
-    return this.creatureClient.getAll(
+    return this.creatureClient.getTemplates(
       sortInformation.sortDirection === '' ? undefined : sortInformation.sortDirection as SortDirection,
       sortInformation.sortProperty as SortProperty,
       pageSize,

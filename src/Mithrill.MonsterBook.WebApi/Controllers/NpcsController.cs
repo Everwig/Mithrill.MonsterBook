@@ -25,7 +25,7 @@ namespace Mithrill.MonsterBook.WebApi.Controllers;
 public class NpcsController : ApiControllerBase
 {
     [HttpGet("{id:int}/Generate")]
-    public async Task<GeneratedNpc> GetGeneratedProminent(
+    public async Task<GeneratedNpc> GetGenerated(
         int id,
         [FromQuery]bool isProminent,
         [FromQuery]bool hasKarma,
@@ -49,7 +49,7 @@ public class NpcsController : ApiControllerBase
     }
 
     [HttpGet("GetTemplates")]
-    public async Task<GetNpcTemplatesQueryResult> GetAll(
+    public async Task<GetNpcTemplatesQueryResult> GetTemplates(
         SortDirection sortDirection,
         SortProperty sortProperty,
         int pageIndex,
@@ -62,7 +62,7 @@ public class NpcsController : ApiControllerBase
     }
 
     [HttpGet("GetTemplate/{id:int}")]
-    public async Task<NpcTemplate> Get(int id, CancellationToken cancellationToken)
+    public async Task<NpcTemplate> GetTemplate(int id, CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetNpcTemplateQuery(id), cancellationToken);
     }

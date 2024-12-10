@@ -10,7 +10,7 @@ import { ArmorsClient, FlawsClient, MeritsClient, NpcsClient, SkillsClient, Weap
 
 export const routes: Routes = [
   {
-    path: "npcs/:id",
+    path: 'npcs/:id',
     loadComponent: () => import('./npc-dashboard/npc-template-details/npc-template-details.component').then(mod => mod.NpcTemplateDetailsComponent),
     providers: [
       provideState(fromNpcs.npcsFeatureKey, fromNpcs.reducer),
@@ -26,7 +26,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: "npcs/create",
+    path: 'npcs/create',
     loadComponent: () => import('./npc-dashboard/npc-template-details/npc-template-details.component').then(mod => mod.NpcTemplateDetailsComponent),
     providers: [
       provideState(fromNpcs.npcsFeatureKey, fromNpcs.reducer),
@@ -55,6 +55,13 @@ export const routes: Routes = [
       FlawsClient,
       ArmorsClient,
       WeaponsClient
+    ]
+  },
+  {
+    path: 'generated-npc/:id',
+    loadComponent: () => import('./generated-npc/generated-npc.component').then(mod => mod.GeneratedNpcComponent),
+    providers: [
+      NpcsClient
     ]
   },
   { path: '**', redirectTo: 'npcs' }

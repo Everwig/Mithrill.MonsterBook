@@ -142,7 +142,7 @@ export class NpcTemplateDetailsService {
   }
 
   getNpcTemplate(id: number): Observable<NpcTemplate> {
-    return this.npcsClient.get(id).pipe(
+    return this.npcsClient.getTemplate(id).pipe(
       map(npc => ({
         agilityMax: npc.agilityMax,
         agilityMin: npc.agilityMin,
