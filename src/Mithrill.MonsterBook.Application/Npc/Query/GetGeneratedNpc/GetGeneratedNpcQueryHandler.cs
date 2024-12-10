@@ -20,9 +20,21 @@ internal class GetGeneratedNpcQueryHandler : IRequestHandler<GetGeneratedNpcQuer
 
     public async Task<GeneratedNpc> Handle(GetGeneratedNpcQuery request, CancellationToken cancellationToken)
     {
-        await _npcDesigner.DesignNpcAsync(request.Id, request.IsUndead, request.Difficulty, cancellationToken);
-        var generatedMonster = _npcDesigner.GetNpc();
+        if (request.IsProminent)
+        {
+            await _npcDesigner.DesignProminentNpcAsync(request.Id, request.IsEvil, request.IsUndead, request.Difficulty, cancellationToken);
+        }
+        else if (request.HasKarma)
+        {
+            await _npcDesigner.DesignNpcWithKarmaAsync(request.Id, request.IsEvil, request.IsUndead, request.Difficulty, cancellationToken);
+        }
+        else
+        {
+            await _npcDesigner.DesignNpcAsync(request.Id, request.IsUndead, request.Difficulty, cancellationToken);
+        }
 
-        return _mapper.Map<GeneratedNpc>(generatedMonster);
+        var generatedNpc = _npcDesigner.GetNpc();
+
+        return _mapper.Map<GeneratedNpc>(generatedNpc);
     }
 }

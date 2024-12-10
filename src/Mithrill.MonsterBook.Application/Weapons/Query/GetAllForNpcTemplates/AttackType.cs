@@ -8,4 +8,4 @@ public sealed record AttackType (
     DamageType DamageType,
     int NumberOfDices,
     int GuaranteedDamage
-) : IMapFrom<MonsterBook.Domain.AttackType>;
+) : IMapFrom<MonsterBook.Domain.Entities.AttackType>;

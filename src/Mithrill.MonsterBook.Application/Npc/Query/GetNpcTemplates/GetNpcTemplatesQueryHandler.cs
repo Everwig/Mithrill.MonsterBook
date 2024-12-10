@@ -9,6 +9,7 @@ using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Application.Common.PageInformation;
 using Mithrill.MonsterBook.Application.Common.SortInformation;
+using Mithrill.MonsterBook.Domain.Entities;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 
@@ -45,8 +46,8 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
         );
     }
 
-    private static IQueryable<MonsterBook.Domain.NpcTemplate> OrderBaseQuery(
-        IQueryable<MonsterBook.Domain.NpcTemplate> baseQuery,
+    private static IQueryable<NpcTemplate> OrderBaseQuery(
+        IQueryable<NpcTemplate> baseQuery,
         SortProperty sortProperty,
         SortDirection sortDirection)
     {
@@ -97,7 +98,7 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
         };
     }
 
-    private static void CalculateAttributes(IEnumerable<Npc> creatures, IEnumerable<MonsterBook.Domain.NpcTemplate> queriedCreatures)
+    private static void CalculateAttributes(IEnumerable<Npc> creatures, IEnumerable<NpcTemplate> queriedCreatures)
     {
         foreach (var npcTemplate in creatures)
         {
@@ -119,7 +120,7 @@ internal sealed class GetNpcTemplatesQueryHandler : IRequestHandler<GetNpcTempla
                 npcTemplate.IntelligenceMin,
                 npcTemplate.WillpowerMin,
                 npcTemplate.EmotionMin,
-                Enumerable.Empty<MonsterBook.Domain.Merit>());
+                Enumerable.Empty<Merit>());
 
             npcTemplate.ManaPointMax = Calculators.CalculateManaPoints(
                 npcTemplate.IntelligenceMax,

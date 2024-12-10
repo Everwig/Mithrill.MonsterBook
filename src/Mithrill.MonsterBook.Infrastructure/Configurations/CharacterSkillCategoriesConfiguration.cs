@@ -9,6 +9,7 @@ internal sealed class CharacterSkillCategoriesConfiguration : IEntityTypeConfigu
     public void Configure(EntityTypeBuilder<CharacterSkillCategories> builder)
     {
         builder.ToTable("CharacterSkillCategories");
+        builder.HasKey(characterSkillCategories => characterSkillCategories.NpcTemplateId);
         builder.Property(creatureSkillCategories => creatureSkillCategories.Primary)
             .HasConversion<string>()
             .HasMaxLength(16);

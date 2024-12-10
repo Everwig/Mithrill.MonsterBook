@@ -34,9 +34,9 @@ internal sealed class SandElementalBuilder : SummonBuilder
         Creature.Weapons = QueriedCreature.CharacterWeapons.Select(characterWeapon => new Weapon
         {
             Name = characterWeapon.Weapon.Name,
-            AttackType = characterWeapon.IsOptional
-                ? new AttackType(DamageType.None, 0, 0)
-                : new AttackType(DamageType.Bludgeoning, level, 0)
+            AttackTypes = characterWeapon.IsOptional
+                ? [new AttackType(DamageType.None, 0, 0)]
+                : [new AttackType(DamageType.Bludgeoning, level, 0)]
         });
     }
 }

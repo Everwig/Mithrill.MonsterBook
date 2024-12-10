@@ -35,9 +35,9 @@ internal class StormElementalBuilder : SummonBuilder
         Creature.Weapons = QueriedCreature.CharacterWeapons.Select(characterWeapon => new Weapon
         {
             Name = characterWeapon.Weapon.Name,
-            AttackType = characterWeapon.IsOptional
-                ? new AttackType(DamageType.Lightning, (int)Math.Round((double)level / 2), 0)
-                : new AttackType(DamageType.Lightning, level, 0)
+            AttackTypes = characterWeapon.IsOptional
+                ? [new AttackType(DamageType.Lightning, (int)Math.Round((double)level / 2), 0)]
+                : [new AttackType(DamageType.Lightning, level, 0)]
         });
     }
 }

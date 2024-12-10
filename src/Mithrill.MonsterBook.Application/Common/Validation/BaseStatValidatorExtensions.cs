@@ -9,7 +9,8 @@ public static class BaseStatValidatorExtensions
 {
     public const int MinAttributeValue = 1;
     public const int MaxAttributeValue = 100;
-    public const int Zero = 0;
+    public const int SummonMinAttributeValue = 0;
+    public const int MinKarmaValue = -12;
     public const int MaxKarmaValue = 12;
     public const int MaxStringLength = 64;
     public const string DefaultRuleSetName = "default";
@@ -19,7 +20,7 @@ public static class BaseStatValidatorExtensions
         rule.InclusiveBetween(MinAttributeValue, MaxAttributeValue)
             .When(template => !template.IsSummon && !template.IsUndead, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("NonZeroableAttributeValidator")
-            .InclusiveBetween(Zero, MaxAttributeValue)
+            .InclusiveBetween(SummonMinAttributeValue, MaxAttributeValue)
             .When(template => template.IsSummon || template.IsUndead, ApplyConditionTo.CurrentValidator)
             .WithErrorCode("ZeroableAttributeValidator");
 
@@ -32,8 +33,8 @@ public static class BaseStatValidatorExtensions
             .MaximumLength(MaxStringLength);
 
     public static IRuleBuilderOptions<T, int> ZeroableValidation<T>(this IRuleBuilderInitial<T, int> rule) =>
-        rule.InclusiveBetween(Zero, MaxKarmaValue)
-            .WithErrorCode("ZeroableAttributeValidator");
+        rule.InclusiveBetween(MinKarmaValue, MaxKarmaValue)
+            .WithErrorCode("KarmaValidator");
 
     public static IRuleBuilderOptions<T, int?> NpcTemplateIdValidation<T>(
         this IRuleBuilderInitial<T, int?> rule,

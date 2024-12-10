@@ -436,8 +436,8 @@
 
         <div class="npc-attribute-slider">
           <label>Karma</label>
-          <mat-slider min="0" max="12" showTickMarks discrete>
-            <input value="0" matSliderStartThumb formControlName="karmaMin" (valueChange)="triggerPowerPointRecalculation()">
+          <mat-slider min="-12" max="12" showTickMarks discrete>
+            <input value="-12" matSliderStartThumb formControlName="karmaMin" (valueChange)="triggerPowerPointRecalculation()">
             <input value="12" matSliderEndThumb formControlName="karmaMax"(valueChange)="triggerPowerPointRecalculation()">
           </mat-slider>
 

@@ -4,7 +4,7 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 
 namespace Mithrill.MonsterBook.Application.Domain;
 
-internal class Skill : IMapFrom<MonsterBook.Domain.Skill>
+internal class Skill : IMapFrom<MonsterBook.Domain.Entities.Skill>
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -15,7 +15,7 @@ internal class Skill : IMapFrom<MonsterBook.Domain.Skill>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<MonsterBook.Domain.Skill, Skill>()
+        profile.CreateMap<MonsterBook.Domain.Entities.Skill, Skill>()
             .ForMember(dest => dest.Level, opt => opt.Ignore())
             .ForMember(dest => dest.NumberOfDices, opt => opt.Ignore())
             .ForMember(dest => dest.GuaranteedSuccesses, opt => opt.Ignore());

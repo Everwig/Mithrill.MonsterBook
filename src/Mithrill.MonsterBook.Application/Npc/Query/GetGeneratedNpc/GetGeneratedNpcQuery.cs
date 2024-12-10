@@ -1,13 +1,13 @@
-﻿using System.Text.Json.Serialization;
-using MediatR;
+﻿using MediatR;
 using Mithrill.MonsterBook.Application.Common;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 
-public class GetGeneratedNpcQuery : IRequest<GeneratedNpc>
-{
-    public bool IsUndead { get; set; }
-    public int Id { get; set; }
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public Difficulty? Difficulty { get; set; }
-}
+public sealed record GetGeneratedNpcQuery(
+    int Id,
+    bool IsProminent,
+    bool HasKarma,
+    bool IsEvil,
+    bool IsUndead,
+    Difficulty? Difficulty) :
+    IRequest<GeneratedNpc>;

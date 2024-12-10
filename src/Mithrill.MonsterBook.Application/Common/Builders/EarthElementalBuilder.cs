@@ -34,7 +34,7 @@ internal sealed class EarthElementalBuilder : SummonBuilder
         Creature.Weapons = QueriedCreature.CharacterWeapons.Select(characterWeapon => new Weapon
         {
             Name = characterWeapon.Weapon.Name,
-            AttackType = new AttackType(DamageType.Bludgeoning, level, 0)
+            AttackTypes = [new AttackType(DamageType.Bludgeoning, level, 0)]
         });
     }
 }

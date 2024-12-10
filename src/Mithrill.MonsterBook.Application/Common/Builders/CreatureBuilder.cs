@@ -7,8 +7,10 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Domain;
+using Mithrill.MonsterBook.Domain.Entities;
 using Flaw = Mithrill.MonsterBook.Application.Domain.Flaw;
 using Merit = Mithrill.MonsterBook.Application.Domain.Merit;
+using Skill = Mithrill.MonsterBook.Application.Domain.Skill;
 using Weapon = Mithrill.MonsterBook.Application.Domain.Weapon;
 
 namespace Mithrill.MonsterBook.Application.Common.Builders;
@@ -19,7 +21,7 @@ internal sealed class CreatureBuilder : INpcBuilder<GeneratedCreature>
     private readonly IMonsterBookDbContext _monsterBookDbContext;
     private readonly Random _random;
     private GeneratedCreature _creature = new();
-    private MonsterBook.Domain.NpcTemplate? _queriedCreature;
+    private NpcTemplate? _queriedCreature;
 
     public CreatureBuilder(IMapper mapper, IMonsterBookDbContext monsterBookDbContext)
     {
@@ -32,7 +34,7 @@ internal sealed class CreatureBuilder : INpcBuilder<GeneratedCreature>
     public void Reset()
     {
         _creature = new GeneratedCreature();
-        _queriedCreature = new MonsterBook.Domain.NpcTemplate();
+        _queriedCreature = new NpcTemplate();
     }
 
     public async Task GetMonsterFromDatabaseAsync(int id, CancellationToken cancellationToken)

@@ -20,7 +20,7 @@ public class UpdateNpcTemplateCommandTests
     private readonly IValidator<UpdateNpcTemplateCommand> _validator;
     private const string NonZeroableAttributeErrorMessage = "'{0}' must be between 1 and 100. You entered {1}.";
     private const string ZeroableAttributeErrorMessage = "'{0}' must be between 0 and 100. You entered {1}.";
-    private const string ZeroableErrorMessage = "'{0}' must be between 0 and 12. You entered {1}.";
+    private const string KarmaErrorMessage = "'{0}' must be between -12 and 12. You entered {1}.";
     private const string SkillLevelErrorMessage = "'{0}' must be between 1 and 15. You entered {1}.";
     private const string SummonSkillLevelErrorMessage = "'{0}' must be between -2 and 15. You entered {1}.";
     private const string GuaranteedSuccessErrorMessage = "'{0}' must be between 0 and 5. You entered {1}.";
@@ -693,7 +693,7 @@ public class UpdateNpcTemplateCommandTests
     [Theory]
     [InlineData(int.MaxValue)]
     [InlineData(int.MinValue)]
-    [InlineData(-1)]
+    [InlineData(-13)]
     [InlineData(13)]
     public async Task GivenTemplate_When_DamageReductionMaxAttributeIsZero_Then_ReturnValidationErrors(int damageReductionMax)
     {
@@ -713,8 +713,8 @@ public class UpdateNpcTemplateCommandTests
         {
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DamageReductionMax)}",
-                ErrorCode: "ZeroableAttributeValidator",
-                ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMax), " $1").Trim(), template.DamageReductionMax)
+                ErrorCode: "KarmaValidator",
+                ErrorMessage: string.Format(KarmaErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMax), " $1").Trim(), template.DamageReductionMax)
             )
         });
     }
@@ -722,7 +722,7 @@ public class UpdateNpcTemplateCommandTests
     [Theory]
     [InlineData(int.MaxValue)]
     [InlineData(int.MinValue)]
-    [InlineData(-1)]
+    [InlineData(-13)]
     [InlineData(13)]
     public async Task GivenTemplate_When_DamageReductionMinAttributeIsZero_Then_ReturnValidationErrors(int damageReductionMin)
     {
@@ -742,8 +742,8 @@ public class UpdateNpcTemplateCommandTests
         {
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.DamageReductionMin)}",
-                ErrorCode: "ZeroableAttributeValidator",
-                ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMin), " $1").Trim(), template.DamageReductionMin)
+                ErrorCode: "KarmaValidator",
+                ErrorMessage: string.Format(KarmaErrorMessage, Regex.Replace(nameof(NpcTemplate.DamageReductionMin), " $1").Trim(), template.DamageReductionMin)
             )
         });
     }
@@ -751,7 +751,7 @@ public class UpdateNpcTemplateCommandTests
     [Theory]
     [InlineData(int.MaxValue)]
     [InlineData(int.MinValue)]
-    [InlineData(-1)]
+    [InlineData(-13)]
     [InlineData(13)]
     public async Task GivenTemplate_When_KarmaMaxAttributeIsZero_Then_ReturnValidationErrors(int karmaMax)
     {
@@ -771,8 +771,8 @@ public class UpdateNpcTemplateCommandTests
         {
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.KarmaMax)}",
-                ErrorCode: "ZeroableAttributeValidator",
-                ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMax), " $1").Trim(), template.KarmaMax)
+                ErrorCode: "KarmaValidator",
+                ErrorMessage: string.Format(KarmaErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMax), " $1").Trim(), template.KarmaMax)
             )
         });
     }
@@ -780,7 +780,7 @@ public class UpdateNpcTemplateCommandTests
     [Theory]
     [InlineData(int.MaxValue)]
     [InlineData(int.MinValue)]
-    [InlineData(-1)]
+    [InlineData(-13)]
     [InlineData(13)]
     public async Task GivenTemplate_When_KarmaMinAttributeIsZero_Then_ReturnValidationErrors(int karmaMin)
     {
@@ -799,8 +799,8 @@ public class UpdateNpcTemplateCommandTests
         {
             new(
                 PropertyName: $"{nameof(NpcTemplate)}.{nameof(NpcTemplate.KarmaMin)}",
-                ErrorCode: "ZeroableAttributeValidator",
-                ErrorMessage: string.Format(ZeroableErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMin), " $1").Trim(), template.KarmaMin)
+                ErrorCode: "KarmaValidator",
+                ErrorMessage: string.Format(KarmaErrorMessage, Regex.Replace(nameof(NpcTemplate.KarmaMin), " $1").Trim(), template.KarmaMin)
             )
         });
     }

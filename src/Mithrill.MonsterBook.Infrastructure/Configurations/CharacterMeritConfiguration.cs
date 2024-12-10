@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.ValueObjects;
 
 namespace Mithrill.MonsterBook.Infrastructure.Configurations;
 

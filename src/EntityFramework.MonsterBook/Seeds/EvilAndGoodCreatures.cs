@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.Entities;
+using Mithrill.MonsterBook.Domain.ValueObjects;
 
 namespace EntityFramework.MonsterBook.Seeds;
 

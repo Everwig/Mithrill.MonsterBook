@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Domain.ValueObjects;
+using Material = Mithrill.MonsterBook.Application.Common.Material;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 
@@ -13,11 +14,11 @@ public sealed record Armor(
     int AdditionalArmorClass,
     int AdditionalMovementInhibitoryFactor,
     bool IsOptional
-) : IMapFrom<MonsterBook.Domain.CharacterArmor>
+) : IMapFrom<CharacterArmor>
 {
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<MonsterBook.Domain.CharacterArmor, Armor>()
+        profile.CreateMap<CharacterArmor, Armor>()
             .ForCtorParam(ctorParamName: nameof(Id), opt => opt.MapFrom(creatureArmor => creatureArmor.ArmorId))
             .ForCtorParam(ctorParamName: nameof(Name), opt => opt.MapFrom(creatureArmor => creatureArmor.Armor.Name))
             .ForCtorParam(ctorParamName: nameof(BaseArmorClass),

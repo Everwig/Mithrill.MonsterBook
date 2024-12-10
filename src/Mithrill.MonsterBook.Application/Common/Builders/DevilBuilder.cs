@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.ValueObjects;
 using Merit = Mithrill.MonsterBook.Application.Domain.Merit;
 using Skill = Mithrill.MonsterBook.Application.Domain.Skill;
 

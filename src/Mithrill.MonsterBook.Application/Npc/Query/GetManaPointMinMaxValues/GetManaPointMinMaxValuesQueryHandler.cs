@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
+using Mithrill.MonsterBook.Domain.Entities;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
 
@@ -21,7 +22,7 @@ internal sealed class GetManaPointMinMaxValuesQueryHandler
 
     public async Task<(int ManaPointMin, int ManaPointMax)> Handle(GetManaPointMinMaxValuesQuery request, CancellationToken cancellationToken)
     {
-        var merits = new List<MonsterBook.Domain.Merit>();
+        var merits = new List<Merit>();
 
         if (request.MeritIds.Any())
         {

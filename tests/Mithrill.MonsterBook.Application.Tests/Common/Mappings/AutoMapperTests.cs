@@ -1,13 +1,41 @@
 ﻿using System.Linq;
 using AutoFixture;
-using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
+using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon;
+using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.Entities;
 using Xunit;
 using AttackType = Mithrill.MonsterBook.Application.Common.AttackType;
+using Attribute = Mithrill.MonsterBook.Application.Common.Attribute;
+using DamageType = Mithrill.MonsterBook.Application.Common.DamageType;
+using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
+using GeneratedNpcFlaw = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc.Flaw;
+using GeneratedNpcMerit = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc.Merit;
+using GeneratedNpcSkill = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc.Skill;
+using GeneratedNpcWeapon = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc.Weapon;
+using GeneratedNpcArmor = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc.Armor;
+using GeneratedSummonMerit = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon.Merit;
+using GeneratedSummonSkill = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon.Skill;
+using GeneratedSummonWeapon = Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon.Weapon;
+using GetNpcTemplate = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.NpcTemplate;
+using GetNpcTemplateMerit = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Merit;
+using GetNpcTemplateFlaw = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Flaw;
+using GetNpcTemplateWeapon = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Weapon;
+using GetNpcTemplateArmor = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Armor;
+using GetNpcTemplateSkill = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.Skill;
+using GetNpcTemplateAttackType = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.AttackType;
+using CreateNpcTemplate = Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate.CreateNpcTemplateCommand;
+using UpdateNpcTemplate = Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate.NpcTemplate;
+using Material = Mithrill.MonsterBook.Application.Common.Material;
+using Race = Mithrill.MonsterBook.Application.Common.Race;
+using SkillCategory = Mithrill.MonsterBook.Application.Common.SkillCategory;
+using SummonType = Mithrill.MonsterBook.Application.Common.SummonType;
+using Mithrill.MonsterBook.Domain.ValueObjects;
+
 
 namespace Mithrill.MonsterBook.Application.Tests.Common.Mappings;
 
@@ -25,11 +53,6 @@ public class AutoMapperTests
         _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
             .ForEach(b => _fixture.Behaviors.Remove(b));
         _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-        /*_fixture.Customizations.Add(new TypeRelay(typeof(Merit), typeof(Domain.Merit)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(Flaw), typeof(Domain.Flaw)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(Weapon), typeof(Domain.Weapon)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(AttackType), typeof(AttackType)));
-        _fixture.Customizations.Add(new TypeRelay(typeof(Skill), typeof(Domain.Skill)));*/
         _fixture.RepeatCount = 1;
     }
 
@@ -39,152 +62,9 @@ public class AutoMapperTests
         _mapper.ConfigurationProvider.AssertConfigurationIsValid();
     }
 
-    [Fact]
-    public void DomainAttackType_To_ApplicationDomainAttackType()
-    {
-        //Arrange
-        var fixture = new Fixture();
-        fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
-            .ForEach(b => fixture.Behaviors.Remove(b));
-        fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-        fixture.RepeatCount = 1;
-        var attackType = fixture.Create<MonsterBook.Domain.AttackType>();
-
-
-        //Act
-        var mappedObject = _mapper.Map<AttackType>(attackType);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new AttackType(
-            (DamageType)attackType.DamageType,
-            attackType.NumberOfDices,
-            attackType.GuaranteedDamage
-        ));
-    }
-
-    [Fact]
-    public void DomainCreatureSkillCategories_To_ApplicationDomainCreatureSkillCategories()
-    {
-        //Arrange
-        var creatureSkillCategories = _fixture.Create<MonsterBook.Domain.CharacterSkillCategories>();
-
-        //Act
-        var mappedObject = _mapper.Map<SkillCategories>(creatureSkillCategories);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new SkillCategories
-        (
-            (SkillCategory)creatureSkillCategories.Primary,
-            (SkillCategory)creatureSkillCategories.FirstSecondary,
-            (SkillCategory)creatureSkillCategories.SecondSecondary,
-            (SkillCategory)creatureSkillCategories.Tertiary
-        ));
-    }
-
-    [Fact]
-    public void DomainFlaw_To_ApplicationDomainFlaw()
-    {
-        //Arrange
-        var flaw = _fixture.Create<MonsterBook.Domain.Flaw>();
-
-        //Act
-        var mappedObject = _mapper.Map<Domain.Flaw>(flaw);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Domain.Flaw
-        {
-            Name = flaw.Name
-        });
-    }
-
-    [Fact]
-    public void DomainMerit_To_ApplicationDomainMerit()
-    {
-        //Arrange
-        var merit = _fixture.Create<MonsterBook.Domain.Merit>();
-
-        //Act
-        var mappedObject = _mapper.Map<Domain.Merit>(merit);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Domain.Merit
-        {
-            Id = merit.Id,
-            Name = merit.Name
-        });
-    }
-
-    [Fact]
-    public void DomainSkill_To_ApplicationDomainSkill()
-    {
-        //Arrange
-        var skill = _fixture.Create<MonsterBook.Domain.Skill>();
-
-        //Act
-        var mappedObject = _mapper.Map<Domain.Skill>(skill);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Domain.Skill
-        {
-            Id = skill.Id,
-            Name = skill.Name,
-            Level = 0,
-            Category = (SkillCategory)skill.Category
-        });
-    }
-
-    [Theory, AutoData]
-    internal void ApplicationDomainAttackType_To_GeneratedNpcAttackType(AttackType attackType)
-    {
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.AttackType>(attackType);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.AttackType
-        {
-            DamageType = attackType.DamageType,
-            GuaranteedDamage = attackType.GuaranteedDamage,
-            NumberOfDices = attackType.NumberOfDices
-        });
-    }
-
-    [Theory, AutoData]
-    internal void ApplicationDomainSkill_To_GeneratedNpcSkill(Domain.Skill skill)
-    {
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.Skill>(skill);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.Skill
-        {
-            Name = skill.Name,
-            Level = skill.Level,
-            Category = skill.Category,
-            GuaranteedSuccesses = skill.GuaranteedSuccesses
-        });
-    }
-
-    [Fact]
-    internal void ApplicationDomainWeapon_To_GeneratedNpcWeapon()
-    {
-        //Arrange
-        var weapon = _fixture.Create<Domain.Weapon>();
-
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpc.Weapon>(weapon);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.Weapon
-        {
-            Name = weapon.Name,
-            AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
-            {
-                DamageType = weapon.AttackType.DamageType,
-                GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
-                NumberOfDices = weapon.AttackType.NumberOfDices,
-            }
-        });
-    }
+    /*
+     * UpdateNpcTemplate => Domain.NpcTemplate
+     */
 
     [Fact]
     internal void ApplicationDomainGeneratedCreature_To_GeneratedNpc()
@@ -196,299 +76,410 @@ public class AutoMapperTests
         var mappedObject = _mapper.Map<GeneratedNpc>(generatedCreature);
 
         //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpc.GeneratedNpc
-        {
-            Agility = generatedCreature.Agility,
-            Body = generatedCreature.Body,
-            DamageReduction = generatedCreature.DamageReduction,
-            Dexterity = generatedCreature.Dexterity,
-            Difficulty = generatedCreature.Difficulty,
-            Emotion = generatedCreature.Emotion,
-            HitPoint = generatedCreature.HitPoint,
-            Intelligence = generatedCreature.Intelligence,
-            ManaPoint = generatedCreature.ManaPoint,
-            Strength = generatedCreature.Strength,
-            Vitality = generatedCreature.Vitality,
-            Willpower = generatedCreature.Willpower,
-            Skills =
+        mappedObject.Should().BeEquivalentTo(new GeneratedNpc(
+            generatedCreature.Name,
+            generatedCreature.Strength,
+            generatedCreature.Vitality,
+            generatedCreature.Body,
+            generatedCreature.Agility,
+            generatedCreature.Dexterity,
+            generatedCreature.Intelligence,
+            generatedCreature.Willpower,
+            generatedCreature.Emotion,
+            generatedCreature.DamageReduction,
+            generatedCreature.Karma,
+            generatedCreature.Difficulty,
             [
-                new Application.Npc.Query.GetGeneratedNpc.Skill
-                {
-                    Name = generatedCreature.Skills.First().Name,
-                    Level = generatedCreature.Skills.First().Level,
-                    Category = generatedCreature.Skills.First().Category,
-                    GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
-                }
+                new GeneratedNpcWeapon(
+                    generatedCreature.Weapons.First().Id,
+                    generatedCreature.Weapons.First().Name,
+                    generatedCreature.Weapons.First().Material,
+                    generatedCreature.Weapons.First().BaseAttackModifier,
+                    generatedCreature.Weapons.First().BaseDefenseModifier,
+                    generatedCreature.Weapons.First().BaseInitiativeModifier,
+                    generatedCreature.Weapons.First().AdditionalAttackModifier,
+                    generatedCreature.Weapons.First().AdditionalDefenseModifier,
+                    generatedCreature.Weapons.First().AdditionalInitiativeModifier,
+                    [
+                        new AttackType(
+                            generatedCreature.Weapons.First().AttackTypes.First().DamageType,
+                            generatedCreature.Weapons.First().AttackTypes.First().NumberOfDices,
+                            generatedCreature.Weapons.First().AttackTypes.First().GuaranteedDamage)
+                    ])
             ],
-            Weapons =
             [
-                new Application.Npc.Query.GetGeneratedNpc.Weapon
-                {
-                    Name = generatedCreature.Weapons.First().Name,
-                    AttackType = new Application.Npc.Query.GetGeneratedNpc.AttackType
-                    {
-                        DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
-                        GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
-                        NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
-                    }
-                }
-            ]
-        });
-    }
-
-    [Theory, AutoData]
-    internal void ApplicationDomainAttackType_To_GeneratedNpcWithKarmaAttackType(AttackType attackType)
-    {
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType>(attackType);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType
-        {
-            GuaranteedDamage = attackType.GuaranteedDamage,
-            NumberOfDices = attackType.NumberOfDices,
-            DamageType = attackType.DamageType
-        });
-    }
-
-    [Theory, AutoData]
-    internal void ApplicationDomainSkill_To_GetGeneratedNpcWithKarmaSkill(Domain.Skill skill)
-    {
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.Skill>(skill);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.Skill
-        {
-            Name = skill.Name,
-            Level = skill.Level,
-            Category = skill.Category,
-            GuaranteedSuccesses = skill.GuaranteedSuccesses
-        });
+                new GeneratedNpcArmor(
+                    generatedCreature.Armors.First().Id,
+                    generatedCreature.Armors.First().Name,
+                    generatedCreature.Armors.First().Material,
+                    generatedCreature.Armors.First().BaseArmorClass,
+                    generatedCreature.Armors.First().BaseMovementInhibitoryFactor,
+                    generatedCreature.Armors.First().AdditionalArmorClass,
+                    generatedCreature.Armors.First().AdditionalMovementInhibitoryFactor)
+            ],
+            [
+                new GeneratedNpcSkill(
+                    generatedCreature.Skills.First().Id,
+                    generatedCreature.Skills.First().Name,
+                    generatedCreature.Skills.First().Level,
+                    generatedCreature.Skills.First().NumberOfDices,
+                    generatedCreature.Skills.First().GuaranteedSuccesses)
+            ],
+            [
+                new GeneratedNpcMerit(
+                    generatedCreature.Merits.First().Id,
+                    generatedCreature.Merits.First().Name)
+            ],
+            [
+                new GeneratedNpcFlaw(
+                    generatedCreature.Flaws.First().Id,
+                    generatedCreature.Flaws.First().Name)
+            ],
+            generatedCreature.HitPoint,
+            generatedCreature.ManaPoint,
+            generatedCreature.PowerPoint
+        ));
     }
 
     [Fact]
-    internal void ApplicationDomainWeapon_To_GetGeneratedNpcWithKarmaWeapon()
-    {
-        //Arrange
-        var weapon = _fixture.Create<Domain.Weapon>();
-
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon>(weapon);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon
-        {
-            Name = weapon.Name,
-            AttackType = new Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType
-            {
-                DamageType = weapon.AttackType.DamageType,
-                GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
-                NumberOfDices = weapon.AttackType.NumberOfDices
-            }
-        });
-    }
-
-    [Fact]
-    internal void ApplicationDomainGeneratedCreature_To_GetGeneratedNpcWithKarma()
+    internal void ApplicationDomainGeneratedCreature_To_GeneratedSummon()
     {
         //Arrange
         var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
 
         //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma>(generatedCreature);
+        var mappedObject = _mapper.Map<GeneratedNpc>(generatedCreature);
 
         //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedNpcWithKarma.GeneratedNpcWithKarma
-        {
-            Agility = generatedCreature.Agility,
-            Body = generatedCreature.Body,
-            DamageReduction = generatedCreature.DamageReduction,
-            Dexterity = generatedCreature.Dexterity,
-            Difficulty = generatedCreature.Difficulty,
-            Emotion = generatedCreature.Emotion,
-            HitPoint = generatedCreature.HitPoint,
-            Intelligence = generatedCreature.Intelligence,
-            ManaPoint = generatedCreature.ManaPoint,
-            Strength = generatedCreature.Strength,
-            Vitality = generatedCreature.Vitality,
-            Willpower = generatedCreature.Willpower,
-            Skills =
+        mappedObject.Should().BeEquivalentTo(new GeneratedSummon(
+            generatedCreature.Name,
+            generatedCreature.Strength,
+            generatedCreature.Vitality,
+            generatedCreature.Body,
+            generatedCreature.Agility,
+            generatedCreature.Dexterity,
+            generatedCreature.Intelligence,
+            generatedCreature.Willpower,
+            generatedCreature.Emotion,
+            generatedCreature.Karma,
+            generatedCreature.DamageReduction,
             [
-                new Application.Npc.Query.GetGeneratedNpcWithKarma.Skill
-                {
-                    Name = generatedCreature.Skills.First().Name,
-                    Level = generatedCreature.Skills.First().Level,
-                    Category = generatedCreature.Skills.First().Category,
-                    GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
-                }
+                new GeneratedSummonWeapon(
+                    generatedCreature.Weapons.First().Id,
+                    generatedCreature.Weapons.First().Name,
+                    generatedCreature.Weapons.First().Material,
+                    generatedCreature.Weapons.First().BaseAttackModifier,
+                    generatedCreature.Weapons.First().BaseDefenseModifier,
+                    generatedCreature.Weapons.First().BaseInitiativeModifier,
+                    generatedCreature.Weapons.First().AdditionalAttackModifier,
+                    generatedCreature.Weapons.First().AdditionalDefenseModifier,
+                    generatedCreature.Weapons.First().AdditionalInitiativeModifier,
+                    [new AttackType(
+                        generatedCreature.Weapons.First().AttackTypes.First().DamageType,
+                        generatedCreature.Weapons.First().AttackTypes.First().NumberOfDices,
+                        generatedCreature.Weapons.First().AttackTypes.First().GuaranteedDamage)])
             ],
-            Weapons =
             [
-                new Application.Npc.Query.GetGeneratedNpcWithKarma.Weapon
-                {
-                    Name = generatedCreature.Weapons.First().Name,
-                    AttackType = new Application.Npc.Query.GetGeneratedNpcWithKarma.AttackType
-                    {
-                        DamageType = generatedCreature.Weapons.First().AttackType.DamageType,
-                        GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
-                        NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
-                    }
-                }
+                new GeneratedSummonSkill(
+                    generatedCreature.Skills.First().Id,
+                    generatedCreature.Skills.First().Name,
+                    generatedCreature.Skills.First().Level,
+                    generatedCreature.Skills.First().NumberOfDices,
+                    generatedCreature.Skills.First().GuaranteedSuccesses)
             ],
-            PowerPoint = generatedCreature.PowerPoint,
-            Karma = generatedCreature.Karma
-        });
-    }
-
-    [Theory, AutoData]
-    internal void ApplicationDomainAttackType_To_GeneratedProminentNpcAttackType(AttackType attackType)
-    {
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.AttackType>(attackType);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.AttackType
-        {
-            DamageType = attackType.DamageType,
-            GuaranteedDamage = attackType.GuaranteedDamage,
-            NumberOfDices = attackType.NumberOfDices
-        });
-    }
-
-    [Theory, AutoData]
-    internal void ApplicationDomainSkill_To_GeneratedProminentNpcSkill(Domain.Skill skill)
-    {
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Skill>(skill);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Skill
-        {
-            Name = skill.Name,
-            Level = skill.Level,
-            Category = skill.Category,
-            GuaranteedSuccesses = skill.GuaranteedSuccesses
-        });
+            [
+                new GeneratedSummonMerit(
+                    generatedCreature.Merits.First().Id,
+                    generatedCreature.Merits.First().Name)
+            ],
+            generatedCreature.HitPoint,
+            generatedCreature.ManaPoint,
+            generatedCreature.PowerPoint
+        ));
     }
 
     [Fact]
-    internal void ApplicationDomainWeapon_To_GeneratedProminentNpcWeapon()
+    internal void DomainNpcTemplate_To_GetNpcTemplate()
     {
         //Arrange
-        var weapon = _fixture.Create<Domain.Weapon>();
+        var npcTemplate = _fixture.Create<NpcTemplate>();
 
         //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Weapon>(weapon);
+        var mappedObject = _mapper.Map<GetNpcTemplate>(npcTemplate);
 
         //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Weapon
+        mappedObject.Should().BeEquivalentTo(new GetNpcTemplate(
+            npcTemplate.Id,
+            npcTemplate.Name,
+            npcTemplate.StrengthMax,
+            npcTemplate.StrengthMin,
+            npcTemplate.VitalityMax,
+            npcTemplate.VitalityMin,
+            npcTemplate.BodyMax,
+            npcTemplate.BodyMin,
+            npcTemplate.AgilityMax,
+            npcTemplate.AgilityMin,
+            npcTemplate.DexterityMax,
+            npcTemplate.DexterityMin,
+            npcTemplate.IntelligenceMax,
+            npcTemplate.IntelligenceMin,
+            npcTemplate.WillpowerMax,
+            npcTemplate.WillpowerMin,
+            npcTemplate.EmotionMax,
+            npcTemplate.EmotionMin,
+            npcTemplate.KarmaMax,
+            npcTemplate.KarmaMin,
+            (Difficulty)npcTemplate.Difficulty,
+            (Race)npcTemplate.Race,
+            npcTemplate.IsUndead,
+            npcTemplate.IsSummon,
+            (SummonType?)npcTemplate.SummonType,
+            [
+                new GetNpcTemplateMerit(
+                    npcTemplate.CharacterMerits.First().MeritId,
+                    npcTemplate.CharacterMerits.First().Merit.Name,
+                    npcTemplate.CharacterMerits.First().IsOptional)
+            ],
+            [
+                new GetNpcTemplateFlaw(
+                    npcTemplate.CharacterFlaws.First().FlawId,
+                    npcTemplate.CharacterFlaws.First().Flaw.Name,
+                    npcTemplate.CharacterFlaws.First().IsOptional)
+            ],
+            [
+                new GetNpcTemplateWeapon(
+                    npcTemplate.CharacterWeapons.First().WeaponId,
+                    npcTemplate.CharacterWeapons.First().Weapon.Name,
+                    npcTemplate.CharacterWeapons.First().Weapon.BaseAttackModifier,
+                    npcTemplate.CharacterWeapons.First().Weapon.BaseDefenseModifier,
+                    npcTemplate.CharacterWeapons.First().Weapon.BaseInitiativeModifier,
+                    npcTemplate.CharacterWeapons.First().AdditionalAttackModifier,
+                    npcTemplate.CharacterWeapons.First().AdditionalDefenseModifier,
+                    npcTemplate.CharacterWeapons.First().AdditionalInitiativeModifier,
+                    (Material)npcTemplate.CharacterWeapons.First().Material,
+                    npcTemplate.CharacterWeapons.First().IsOptional,
+                    [
+                        new GetNpcTemplateAttackType(
+                            npcTemplate.CharacterWeapons.First().Weapon.BaseAttackType.Id,
+                            (DamageType)npcTemplate.CharacterWeapons.First().Weapon.BaseAttackType.DamageType,
+                            npcTemplate.CharacterWeapons.First().Weapon.BaseAttackType.NumberOfDices,
+                            npcTemplate.CharacterWeapons.First().Weapon.BaseAttackType.GuaranteedDamage,
+                            true),
+                        new GetNpcTemplateAttackType(
+                            npcTemplate.CharacterWeapons.First().AdditionalAttackTypes.First().AttackType.Id,
+                            (DamageType)npcTemplate.CharacterWeapons.First().AdditionalAttackTypes.First().AttackType.DamageType,
+                            npcTemplate.CharacterWeapons.First().AdditionalAttackTypes.First().AttackType.NumberOfDices,
+                            npcTemplate.CharacterWeapons.First().AdditionalAttackTypes.First().AttackType.GuaranteedDamage,
+                            false)
+                    ])
+            ],
+            [
+                new GetNpcTemplateSkill(
+                    npcTemplate.CharacterSkills.First().SkillId,
+                    npcTemplate.CharacterSkills.First().Skill.Name,
+                    npcTemplate.CharacterSkills.First().SkillLevelMin,
+                    npcTemplate.CharacterSkills.First().SkillLevelMax,
+                    npcTemplate.CharacterSkills.First().GuaranteedSuccesses,
+                    npcTemplate.CharacterSkills.First().IsOptional,
+                    (Attribute)npcTemplate.CharacterSkills.First().Skill.Attribute1,
+                    (Attribute)npcTemplate.CharacterSkills.First().Skill.Attribute2,
+                    (SkillCategory)npcTemplate.CharacterSkills.First().Skill.Category)
+            ],
+            [
+                new GetNpcTemplateArmor(
+                    npcTemplate.CharacterArmors.First().ArmorId,
+                    npcTemplate.CharacterArmors.First().Armor.Name,
+                    npcTemplate.CharacterArmors.First().Armor.BaseArmorClass,
+                    npcTemplate.CharacterArmors.First().Armor.BaseMovementInhibitoryFactor,
+                    (Material)npcTemplate.CharacterArmors.First().Material,
+                    npcTemplate.CharacterArmors.First().AdditionalArmorClass,
+                    npcTemplate.CharacterArmors.First().AdditionalMovementInhibitoryFactor,
+                    npcTemplate.CharacterArmors.First().IsOptional)
+            ],
+            new SkillCategories(
+                (SkillCategory)npcTemplate.CharacterSkillCategories.Primary,
+                (SkillCategory)npcTemplate.CharacterSkillCategories.FirstSecondary,
+                (SkillCategory)npcTemplate.CharacterSkillCategories.SecondSecondary,
+                (SkillCategory)npcTemplate.CharacterSkillCategories.Tertiary),
+            null
+        ));
+    }
+
+    [Fact]
+    internal void CreateNpcTemplate_To_DomainNpcTemplate()
+    {
+        //Arrange
+        var npcTemplate = _fixture.Create<CreateNpcTemplate>();
+
+        //Act
+        var mappedObject = _mapper.Map<NpcTemplate>(npcTemplate);
+
+        //Assert
+        mappedObject.Should().BeEquivalentTo(new NpcTemplate
         {
-            Name = weapon.Name,
-            AttackType = new Application.Npc.Query.GetGeneratedProminentNpc.AttackType
+            Name = npcTemplate.Name,
+            StrengthMax = npcTemplate.StrengthMax,
+            StrengthMin = npcTemplate.StrengthMin,
+            VitalityMax = npcTemplate.VitalityMax,
+            VitalityMin = npcTemplate.VitalityMin,
+            BodyMax = npcTemplate.BodyMax,
+            BodyMin = npcTemplate.BodyMin,
+            AgilityMax = npcTemplate.AgilityMax,
+            AgilityMin = npcTemplate.AgilityMin,
+            DexterityMax = npcTemplate.DexterityMax,
+            DexterityMin = npcTemplate.DexterityMin,
+            IntelligenceMax = npcTemplate.IntelligenceMax,
+            IntelligenceMin = npcTemplate.IntelligenceMin,
+            WillpowerMax = npcTemplate.WillpowerMax,
+            WillpowerMin = npcTemplate.WillpowerMin,
+            EmotionMax = npcTemplate.EmotionMax,
+            EmotionMin = npcTemplate.EmotionMin,
+            KarmaMax = npcTemplate.KarmaMax,
+            KarmaMin = npcTemplate.KarmaMin,
+            DamageReductionMax = npcTemplate.DamageReductionMax,
+            DamageReductionMin = npcTemplate.DamageReductionMin,
+            Race = (MonsterBook.Domain.ValueObjects.Race)npcTemplate.Race,
+            Difficulty = (MonsterBook.Domain.ValueObjects.Difficulty)npcTemplate.Difficulty,
+            CharacterSkillCategories = new CharacterSkillCategories
             {
-                DamageType = weapon.AttackType.DamageType,
-                GuaranteedDamage = weapon.AttackType.GuaranteedDamage,
-                NumberOfDices = weapon.AttackType.NumberOfDices
-            }
-        });
-    }
-
-    [Fact]
-    public void ApplicationDomainFlaw_To_GeneratedProminentNpcFlaw()
-    {
-        //Arrange
-        var flaw = _fixture.Create<Domain.Flaw>();
-
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Flaw>(flaw);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Flaw
-        {
-            Name = flaw.Name
-        });
-    }
-
-    [Fact]
-    public void ApplicationDomainMerit_To_GeneratedProminentNpcMerit()
-    {
-        //Arrange
-        var merit = _fixture.Create<Domain.Merit>();
-
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.Merit>(merit);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.Merit
-        {
-            Name = merit.Name
-        });
-    }
-
-    [Fact]
-    internal void ApplicationDomainGeneratedCreature_To_GeneratedProminentNpc()
-    {
-        //Arrange
-        var generatedCreature = _fixture.Create<Domain.GeneratedCreature>();
-
-        //Act
-        var mappedObject = _mapper.Map<Application.Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc>(generatedCreature);
-
-        //Assert
-        mappedObject.Should().BeEquivalentTo(new Application.Npc.Query.GetGeneratedProminentNpc.GeneratedProminentNpc
-        {
-            Agility = generatedCreature.Agility,
-            Body = generatedCreature.Body,
-            DamageReduction = generatedCreature.DamageReduction,
-            Dexterity = generatedCreature.Dexterity,
-            Difficulty = generatedCreature.Difficulty,
-            Emotion = generatedCreature.Emotion,
-            HitPoint = generatedCreature.HitPoint,
-            Intelligence = generatedCreature.Intelligence,
-            ManaPoint = generatedCreature.ManaPoint,
-            Strength = generatedCreature.Strength,
-            Vitality = generatedCreature.Vitality,
-            Willpower = generatedCreature.Willpower,
-            Skills =
-            [
-                new Application.Npc.Query.GetGeneratedProminentNpc.Skill
+                Primary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.Primary,
+                FirstSecondary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.FirstSecondary,
+                SecondSecondary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.SecondSecondary,
+                Tertiary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.Tertiary
+            },
+            IsUndead = npcTemplate.IsUndead,
+            IsSummon = npcTemplate.IsSummon,
+            SummonType = (MonsterBook.Domain.ValueObjects.SummonType?)npcTemplate.SummonType,
+            CharacterMerits = npcTemplate.Merits.Select(merit => new CharacterMerit
+            {
+                MeritId = merit.Id,
+                IsOptional = merit.IsOptional,
+            }).ToList(),
+            CharacterFlaws = npcTemplate.Flaws.Select(flaw => new CharacterFlaw
+            {
+                FlawId = flaw.Id,
+                IsOptional = flaw.IsOptional
+            }).ToList(),
+            CharacterSkills = npcTemplate.Skills.Select(skill => new CharacterSkill
+            {
+                SkillId = skill.Id,
+                IsOptional = skill.IsOptional,
+                GuaranteedSuccesses = skill.GuaranteedSuccesses,
+                SkillLevelMax = skill.MaxLevel,
+                SkillLevelMin = skill.MinLevel
+            }).ToList(),
+            CharacterArmors = npcTemplate.Armors.Select(armor => new CharacterArmor
+            {
+                ArmorId = armor.Id,
+                AdditionalArmorClass = armor.AdditionalArmorClass,
+                AdditionalMovementInhibitoryFactor = armor.AdditionalMovementInhibitoryFactor,
+                Material = (MonsterBook.Domain.ValueObjects.Material)armor.Material,
+                IsOptional = armor.IsOptional
+            }).ToList(),
+            CharacterWeapons = npcTemplate.Weapons.Select(weapon => new CharacterWeapon
+            {
+                WeaponId = weapon.Id,
+                IsOptional = weapon.IsOptional,
+                Material = (MonsterBook.Domain.ValueObjects.Material)weapon.Material,
+                AdditionalAttackModifier = weapon.AdditionalAttackModifier,
+                AdditionalDefenseModifier = weapon.AdditionalDefenseModifier,
+                AdditionalInitiativeModifier = weapon.AdditionalInitiativeModifier,
+                AdditionalAttackTypes = weapon.AdditionalAttackTypes.Select(attackType => new CharacterWeaponAttackType
                 {
-                    Name = generatedCreature.Skills.First().Name,
-                    Level = generatedCreature.Skills.First().Level,
-                    Category = generatedCreature.Skills.First().Category,
-                    GuaranteedSuccesses = generatedCreature.Skills.First().GuaranteedSuccesses
-                }
-            ],
-            Weapons =
-            [
-                new Application.Npc.Query.GetGeneratedProminentNpc.Weapon
-                {
-                    Name = generatedCreature.Weapons.First().Name,
-                    AttackType = new Application.Npc.Query.GetGeneratedProminentNpc.AttackType
+                    WeaponId = weapon.Id,
+                    AttackType = new MonsterBook.Domain.Entities.AttackType
                     {
-                        DamageType =  generatedCreature.Weapons.First().AttackType.DamageType,
-                        GuaranteedDamage = generatedCreature.Weapons.First().AttackType.GuaranteedDamage,
-                        NumberOfDices = generatedCreature.Weapons.First().AttackType.NumberOfDices
+                        DamageType = (MonsterBook.Domain.ValueObjects.DamageType)attackType.DamageType,
+                        GuaranteedDamage = attackType.GuaranteedDamage,
+                        NumberOfDices = attackType.NumberOfDices
                     }
-                }
-            ],
-            Flaws =
-            [
-                new Application.Npc.Query.GetGeneratedProminentNpc.Flaw
-                {
-                    Name = generatedCreature.Flaws.First().Name
-                }
-            ],
-            Merits =
-            [
-                new Application.Npc.Query.GetGeneratedProminentNpc.Merit
-                {
-                    Name = generatedCreature.Merits.First().Name
-                }
-            ],
-            PowerPoint = generatedCreature.PowerPoint,
-            Karma = generatedCreature.Karma
+                }).ToList()
+            }).ToList()
+        });
+    }
+
+    [Fact]
+    internal void UpdateNpcTemplate_To_DomainNpcTemplate()
+    {
+        //Arrange
+        var npcTemplate = _fixture.Create<UpdateNpcTemplate>();
+
+        //Act
+        var mappedObject = _mapper.Map<NpcTemplate>(npcTemplate);
+
+        //Assert
+        mappedObject.Should().BeEquivalentTo(new NpcTemplate
+        {
+            Id = npcTemplate.Id,
+            Name = npcTemplate.Name,
+            StrengthMax = npcTemplate.StrengthMax,
+            StrengthMin = npcTemplate.StrengthMin,
+            VitalityMax = npcTemplate.VitalityMax,
+            VitalityMin = npcTemplate.VitalityMin,
+            BodyMax = npcTemplate.BodyMax,
+            BodyMin = npcTemplate.BodyMin,
+            AgilityMax = npcTemplate.AgilityMax,
+            AgilityMin = npcTemplate.AgilityMin,
+            DexterityMax = npcTemplate.DexterityMax,
+            DexterityMin = npcTemplate.DexterityMin,
+            IntelligenceMax = npcTemplate.IntelligenceMax,
+            IntelligenceMin = npcTemplate.IntelligenceMin,
+            WillpowerMax = npcTemplate.WillpowerMax,
+            WillpowerMin = npcTemplate.WillpowerMin,
+            EmotionMax = npcTemplate.EmotionMax,
+            EmotionMin = npcTemplate.EmotionMin,
+            KarmaMax = npcTemplate.KarmaMax,
+            KarmaMin = npcTemplate.KarmaMin,
+            DamageReductionMax = npcTemplate.DamageReductionMax,
+            DamageReductionMin = npcTemplate.DamageReductionMin,
+            Race = (MonsterBook.Domain.ValueObjects.Race)npcTemplate.Race,
+            Difficulty = (MonsterBook.Domain.ValueObjects.Difficulty)npcTemplate.Difficulty,
+            CharacterSkillCategories = new CharacterSkillCategories
+            {
+                Primary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.Primary,
+                FirstSecondary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.FirstSecondary,
+                SecondSecondary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.SecondSecondary,
+                Tertiary = (MonsterBook.Domain.ValueObjects.SkillCategory)npcTemplate.SkillCategories.Tertiary
+            },
+            IsUndead = npcTemplate.IsUndead,
+            IsSummon = npcTemplate.IsSummon,
+            SummonType = (MonsterBook.Domain.ValueObjects.SummonType?)npcTemplate.SummonType,
+            CharacterMerits = npcTemplate.Merits.Select(merit => new CharacterMerit
+            {
+                MeritId = merit.Id,
+                IsOptional = merit.IsOptional,
+            }).ToList(),
+            CharacterFlaws = npcTemplate.Flaws.Select(flaw => new CharacterFlaw
+            {
+                FlawId = flaw.Id,
+                IsOptional = flaw.IsOptional
+            }).ToList(),
+            CharacterSkills = npcTemplate.Skills.Select(skill => new CharacterSkill
+            {
+                SkillId = skill.Id,
+                IsOptional = skill.IsOptional,
+                GuaranteedSuccesses = skill.GuaranteedSuccesses,
+                SkillLevelMax = skill.MaxLevel,
+                SkillLevelMin = skill.MinLevel
+            }).ToList(),
+            CharacterArmors = npcTemplate.Armors.Select(armor => new CharacterArmor
+            {
+                ArmorId = armor.Id,
+                AdditionalArmorClass = armor.AdditionalArmorClass,
+                AdditionalMovementInhibitoryFactor = armor.AdditionalMovementInhibitoryFactor,
+                Material = (MonsterBook.Domain.ValueObjects.Material)armor.Material,
+                IsOptional = armor.IsOptional
+            }).ToList(),
+            CharacterWeapons = npcTemplate.Weapons.Select(weapon => new CharacterWeapon
+            {
+                WeaponId = weapon.Id,
+                IsOptional = weapon.IsOptional,
+                Material = (MonsterBook.Domain.ValueObjects.Material)weapon.Material,
+                AdditionalAttackModifier = weapon.AdditionalAttackModifier,
+                AdditionalDefenseModifier = weapon.AdditionalDefenseModifier,
+                AdditionalInitiativeModifier = weapon.AdditionalInitiativeModifier,
+                AdditionalAttackTypes = null
+            }).ToList()
         });
     }
 }

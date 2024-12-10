@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
-using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Domain.ValueObjects;
+using Attribute = Mithrill.MonsterBook.Application.Common.Attribute;
+using SkillCategory = Mithrill.MonsterBook.Application.Common.SkillCategory;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
 
@@ -14,12 +16,12 @@ public sealed record Skill(
      Attribute Attribute1,
      Attribute Attribute2,
      SkillCategory Category
-) : IMapFrom<MonsterBook.Domain.CharacterSkill>
+) : IMapFrom<CharacterSkill>
 {
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<MonsterBook.Domain.CharacterSkill, Skill>()
-            .ForCtorParam(ctorParamName: nameof(Id), option => option.MapFrom(creatureSkill => creatureSkill.Skill.Id))
+        profile.CreateMap<CharacterSkill, Skill>()
+            .ForCtorParam(ctorParamName: nameof(Id), option => option.MapFrom(creatureSkill => creatureSkill.SkillId))
             .ForCtorParam(ctorParamName: nameof(Name), option => option.MapFrom(creatureSkill => creatureSkill.Skill.Name))
             .ForCtorParam(ctorParamName: nameof(MinLevel), option => option.MapFrom(creatureSkill => creatureSkill.SkillLevelMin))
             .ForCtorParam(ctorParamName: nameof(MaxLevel), option => option.MapFrom(creatureSkill => creatureSkill.SkillLevelMax))

@@ -42,7 +42,7 @@ public sealed record NpcTemplate(
     ArcanumRanks? ArcanumRanks
 ) : ISummonTemplate,
     IRankTemplate,
-    IMapFrom<MonsterBook.Domain.NpcTemplate>
+    IMapFrom<MonsterBook.Domain.Entities.NpcTemplate>
 {
     public int HitPointMax { get; internal set; }
     public int HitPointMin { get; internal set; }
@@ -53,7 +53,7 @@ public sealed record NpcTemplate(
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<MonsterBook.Domain.NpcTemplate, NpcTemplate>()
+        profile.CreateMap<MonsterBook.Domain.Entities.NpcTemplate, NpcTemplate>()
             .ForMember(npc => npc.ManaPointMin, opt => opt.Ignore())
             .ForMember(npc => npc.ManaPointMax, opt => opt.Ignore())
             .ForMember(npc => npc.HitPointMin, opt => opt.Ignore())

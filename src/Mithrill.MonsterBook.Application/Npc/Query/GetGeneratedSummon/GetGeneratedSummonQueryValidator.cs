@@ -8,5 +8,6 @@ public class GetGeneratedSummonQueryValidator : AbstractValidator<GetGeneratedSu
     public GetGeneratedSummonQueryValidator()
     {
         RuleFor(query => query.Type).EnumValidation();
+        // Validate max value, cannot be more than 13?
     }
 }

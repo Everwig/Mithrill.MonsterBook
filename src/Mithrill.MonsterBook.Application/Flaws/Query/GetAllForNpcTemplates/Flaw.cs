@@ -2,4 +2,4 @@
 
 namespace Mithrill.MonsterBook.Application.Flaws.Query.GetAllForNpcTemplates;
 
-public sealed record Flaw (int Id, string Name) : IMapFrom<MonsterBook.Domain.Flaw>;
+public sealed record Flaw (int Id, string Name) : IMapFrom<MonsterBook.Domain.Entities.Flaw>;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.ValueObjects;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 

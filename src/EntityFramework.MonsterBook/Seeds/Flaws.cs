@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
-using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.Entities;
 
 namespace EntityFramework.MonsterBook.Seeds;
 

@@ -10,11 +10,11 @@ public sealed record AttackType(
     int NumberOfDices,
     int GuaranteedDamage,
     bool IsBaseAttackType
-) : IMapFrom<MonsterBook.Domain.AttackType>
+) : IMapFrom<MonsterBook.Domain.Entities.AttackType>
 {
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<MonsterBook.Domain.AttackType, AttackType>()
+        profile.CreateMap<MonsterBook.Domain.Entities.AttackType, AttackType>()
             .ForCtorParam(ctorParamName: nameof(Id), opt => opt.MapFrom(attackType => attackType.Id))
             .ForCtorParam(ctorParamName: nameof(DamageType), opt => opt.MapFrom(attackType => attackType.DamageType))
             .ForCtorParam(ctorParamName: nameof(NumberOfDices), opt => opt.MapFrom(attackType => attackType.NumberOfDices))

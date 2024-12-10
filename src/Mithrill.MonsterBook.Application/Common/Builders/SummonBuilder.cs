@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Domain;
 using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.Entities;
 
 namespace Mithrill.MonsterBook.Application.Common.Builders;
 

@@ -9,4 +9,4 @@ public sealed record Skill (
     Attribute Attribute1,
     Attribute Attribute2,
     SkillCategory Category
-) : IMapFrom<MonsterBook.Domain.Skill>;
+) : IMapFrom<MonsterBook.Domain.Entities.Skill>;

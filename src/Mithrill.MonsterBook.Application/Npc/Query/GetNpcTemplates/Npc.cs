@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
+using Mithrill.MonsterBook.Domain.Entities;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
 
@@ -27,7 +28,7 @@ public sealed record Npc(
     int KarmaMin,
     Difficulty Difficulty,
     Race Race,
-    bool IsUndead) : IMapFrom<MonsterBook.Domain.NpcTemplate> 
+    bool IsUndead) : IMapFrom<NpcTemplate> 
 {
     public int HitPointMax { get; internal set; }
     public int HitPointMin { get; internal set; }
@@ -38,7 +39,7 @@ public sealed record Npc(
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<MonsterBook.Domain.NpcTemplate, Npc>()
+        profile.CreateMap<NpcTemplate, Npc>()
             .ForMember(npcTemplate => npcTemplate.ManaPointMin, opt => opt.Ignore())
             .ForMember(npcTemplate => npcTemplate.ManaPointMax, opt => opt.Ignore())
             .ForMember(npcTemplate => npcTemplate.HitPointMin, opt => opt.Ignore())

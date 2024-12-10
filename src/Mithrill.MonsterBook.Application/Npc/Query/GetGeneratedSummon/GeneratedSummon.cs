@@ -20,8 +20,8 @@ public sealed record GeneratedSummon(
     List<Weapon> Weapons,
     HashSet<Skill> Skills,
     HashSet<Merit> Merits,
-    int ManaPoint,
     int HitPoint,
+    int ManaPoint,
     int PowerPoint) :
     IMapFrom<GeneratedCreature>
 {

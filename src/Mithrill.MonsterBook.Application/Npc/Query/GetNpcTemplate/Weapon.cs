@@ -2,7 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Mithrill.MonsterBook.Application.Common.Mappings;
-using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.ValueObjects;
 using DamageType = Mithrill.MonsterBook.Application.Common.DamageType;
 
 namespace Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate;
@@ -24,7 +24,7 @@ public sealed record Weapon(
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CharacterWeapon, Weapon>()
-            .ForCtorParam(ctorParamName: nameof(Id), opt => opt.MapFrom(creatureWeapon => creatureWeapon.NpcTemplateId))
+            .ForCtorParam(ctorParamName: nameof(Id), opt => opt.MapFrom(creatureWeapon => creatureWeapon.WeaponId))
             .ForCtorParam(ctorParamName: nameof(Name), opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.Name))
             .ForCtorParam(ctorParamName: nameof(BaseAttackModifier),
                 opt => opt.MapFrom(creatureWeapon => creatureWeapon.Weapon.BaseAttackModifier))

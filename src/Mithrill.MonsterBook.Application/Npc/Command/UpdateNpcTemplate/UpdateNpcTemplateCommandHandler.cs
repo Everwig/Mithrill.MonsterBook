@@ -7,7 +7,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Exceptions;
-using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.Entities;
+using Mithrill.MonsterBook.Domain.ValueObjects;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
 

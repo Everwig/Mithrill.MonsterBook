@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Mithrill.MonsterBook.Application.Common.Adapters;
+using Mithrill.MonsterBook.Domain.Entities;
 
 namespace Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 
@@ -19,7 +20,7 @@ internal sealed class CreateNpcTemplateCommandHandler : IRequestHandler<CreateNp
 
     public async Task<int> Handle(CreateNpcTemplateCommand request, CancellationToken cancellationToken)
     {
-        var template = _mapper.Map<MonsterBook.Domain.NpcTemplate>(request);
+        var template = _mapper.Map<NpcTemplate>(request);
         _monsterBookDbContext.NpcTemplates.Add(template);
 
         return await _monsterBookDbContext.SaveChangesAsync(cancellationToken);

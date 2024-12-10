@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Domain;
-using Attribute = Mithrill.MonsterBook.Domain.Attribute;
-using Difficulty = Mithrill.MonsterBook.Domain.Difficulty;
-using SkillCategory = Mithrill.MonsterBook.Domain.SkillCategory;
+using Mithrill.MonsterBook.Domain.Entities;
+using Mithrill.MonsterBook.Domain.ValueObjects;
+using Attribute = Mithrill.MonsterBook.Domain.ValueObjects.Attribute;
+using Difficulty = Mithrill.MonsterBook.Domain.ValueObjects.Difficulty;
+using SkillCategory = Mithrill.MonsterBook.Domain.ValueObjects.SkillCategory;
 
 namespace Mithrill.MonsterBook.Application.Tests;
 
@@ -19,7 +21,7 @@ public class TestDbContext : DbContext, IMonsterBookDbContext
     public DbSet<Skill> Skills { get; set; }
     public DbSet<Weapon> Weapons { get; set; }
     public DbSet<Armor> Armors { get; set; }
-    public DbSet<MonsterBook.Domain.AttackType> AttackTypes { get; set; }
+    public DbSet<MonsterBook.Domain.Entities.AttackType> AttackTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,7 +77,6 @@ public class Seeds
         CharacterSkillCategories = new CharacterSkillCategories
         {
             NpcTemplateId = 1,
-            Id = 1,
             Primary = SkillCategory.Secular,
             FirstSecondary = SkillCategory.Combat,
             SecondSecondary = SkillCategory.Scholar,
@@ -175,7 +176,6 @@ public class Seeds
         CharacterSkillCategories = new CharacterSkillCategories
         {
             NpcTemplateId = 1,
-            Id = 1,
             Primary = SkillCategory.Secular,
             FirstSecondary = SkillCategory.Combat,
             SecondSecondary = SkillCategory.Scholar,

@@ -8,6 +8,7 @@ using Mithrill.MonsterBook.Application.Common.Validation;
 using Mithrill.MonsterBook.Application.Npc.Command.CreateNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Command.DeleteNpcTemplate;
 using Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate;
+using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
 using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon;
 using Mithrill.MonsterBook.Application.Npc.Query.GetHitPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
@@ -23,22 +24,20 @@ namespace Mithrill.MonsterBook.WebApi.Controllers;
 
 public class NpcsController : ApiControllerBase
 {
-    /*
-    [HttpGet("Generate")]
-    public async Task<GeneratedNpc> GetGeneratedNpc(int id, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
+    [HttpGet("{id:int}/Generate")]
+    public async Task<GeneratedNpc> GetGeneratedProminent(
+        int id,
+        [FromQuery]bool isProminent,
+        [FromQuery]bool hasKarma,
+        [FromQuery]bool isEvil,
+        [FromQuery]bool isUndead,
+        [FromQuery]Difficulty? difficulty,
+        CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetGeneratedNpcQuery { Id = id, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
-    }[HttpGet("GenerateWithKarma")]
-    public async Task<GeneratedNpcWithKarma> GetGeneratedNpcWithKarma(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
-    {
-        return await Mediator.Send(new GetGeneratedNpcWithKarmaQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
+        return await Mediator.Send(
+            new GetGeneratedNpcQuery(id, isProminent, hasKarma, isEvil, isUndead, difficulty),
+            cancellationToken);
     }
-
-    [HttpGet("GenerateProminent")]
-    public async Task<GeneratedProminentNpc> GetGeneratedProminent(int id, [FromQuery]bool isEvil, [FromQuery]bool isUndead, [FromQuery]Difficulty difficulty, CancellationToken cancellationToken)
-    {
-        return await Mediator.Send(new GetGeneratedProminentNpcQuery { Id = id, IsEvil = isEvil, IsUndead = isUndead, Difficulty = difficulty }, cancellationToken);
-    }*/
 
     [HttpGet("Summons/{type}/{level:int}")]
     public async Task<GeneratedSummon> GetSummon(

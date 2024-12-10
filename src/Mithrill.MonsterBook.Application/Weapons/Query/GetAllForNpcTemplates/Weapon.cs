@@ -9,4 +9,4 @@ public sealed record Weapon (
     int BaseDefenseModifier,
     int BaseInitiativeModifier,
     AttackType BaseAttackType
-) : IMapFrom<MonsterBook.Domain.Weapon>;
+) : IMapFrom<MonsterBook.Domain.Entities.Weapon>;

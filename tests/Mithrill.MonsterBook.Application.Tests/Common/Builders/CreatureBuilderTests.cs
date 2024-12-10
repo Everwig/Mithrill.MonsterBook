@@ -13,12 +13,13 @@ using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Application.Domain;
 using Mithrill.MonsterBook.Domain;
+using Mithrill.MonsterBook.Domain.ValueObjects;
 using Xunit;
-using Attribute = Mithrill.MonsterBook.Domain.Attribute;
+using Attribute = Mithrill.MonsterBook.Domain.ValueObjects.Attribute;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
-using Flaw = Mithrill.MonsterBook.Domain.Flaw;
-using Skill = Mithrill.MonsterBook.Domain.Skill;
-using SkillCategory = Mithrill.MonsterBook.Domain.SkillCategory;
+using Flaw = Mithrill.MonsterBook.Domain.Entities.Flaw;
+using Skill = Mithrill.MonsterBook.Domain.Entities.Skill;
+using SkillCategory = Mithrill.MonsterBook.Domain.ValueObjects.SkillCategory;
 
 namespace Mithrill.MonsterBook.Application.Tests.Common.Builders;
 
@@ -696,12 +697,12 @@ public class CreatureBuilderTests
 
         //Assert
         generatedCreature.Merits.Should().BeEquivalentTo([
-            new Domain.Merit
+            new Merit
             {
                 Id = npcTemplate.CharacterMerits.First().Merit.Id,
                 Name = npcTemplate.CharacterMerits.First().Merit.Name
             },
-            new Domain.Merit
+            new Merit
             {
                 Id = npcTemplate.CharacterMerits.Last().Merit.Id,
                 Name = npcTemplate.CharacterMerits.Last().Merit.Name
@@ -742,12 +743,12 @@ public class CreatureBuilderTests
         //Assert
         generatedCreature.Merits.Count().Should().Be(2);
         generatedCreature.Merits.Should().BeEquivalentTo([
-            new Domain.Merit
+            new Merit
             {
                 Id = npcTemplate.CharacterMerits.First().Merit.Id,
                 Name = npcTemplate.CharacterMerits.First().Merit.Name
             },
-            new Domain.Merit
+            new Merit
             {
                 Id = npcTemplate.CharacterMerits.Last().Merit.Id,
                 Name = npcTemplate.CharacterMerits.Last().Merit.Name

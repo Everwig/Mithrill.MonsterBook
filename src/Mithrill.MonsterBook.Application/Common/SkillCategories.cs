@@ -15,7 +15,6 @@ public sealed record SkillCategories(
     {
         profile.CreateMap<SkillCategories, MonsterBook.Domain.CharacterSkillCategories>()
             .ForMember(skillCategory => skillCategory.NpcTemplateId, opt => opt.Ignore())
-            .ForMember(skillCategory => skillCategory.Id, opt => opt.Ignore())
             .ForMember(skillCategory => skillCategory.NpcTemplate, opt => opt.Ignore());
     }
 }
