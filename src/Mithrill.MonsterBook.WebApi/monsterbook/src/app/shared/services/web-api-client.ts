@@ -522,7 +522,7 @@ export class NpcsClient {
             let result201: any = null;
             let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result201 = resultData201 !== undefined ? resultData201 : <any>null;
-    
+
             return _observableOf(result201);
             }));
         } else if (status === 400) {
@@ -1239,8 +1239,7 @@ export interface IProblemDetails {
     status: number | undefined;
     detail: string | undefined;
     instance: string | undefined;
-
-    [key: string]: any;
+    errors: { [key: string]: string };
 }
 
 export class Flaw implements IFlaw {
