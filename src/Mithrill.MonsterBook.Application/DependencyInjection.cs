@@ -17,7 +17,7 @@ public static class DependencyInjection
     {
         serviceCollection.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-        serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
+        serviceCollection.AddAutoMapper(config => config.AddMaps(Assembly.GetExecutingAssembly()));
         serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         serviceCollection.AddTransient<ITemplateValidatorService, TemplateValidatorService>();
         serviceCollection.AddTransient<INpcBuilder<GeneratedCreature>, CreatureBuilder>();

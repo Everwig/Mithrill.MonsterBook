@@ -1,15 +1,16 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Application.Domain;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Mithrill.MonsterBook.Application.Tests.Common.Builders;
@@ -21,7 +22,7 @@ public class NpcDesignerTests
 
     public NpcDesignerTests()
     {
-        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly));
+        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly), new NullLoggerFactory());
         var mapper = new Mapper(mapperConfiguration);
         _monsterBookDbContext = new TestDbContext(
             new DbContextOptionsBuilder()

@@ -1,8 +1,7 @@
 <div class="global-container">
-  <mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
-  <ng-template *ngIf="(npcs$ | async)?.length ?? 0 > 0 && !(isLoading$ | async); then table; else emptyList"></ng-template>
-
-  <ng-template #table>
+  @if (isLoading$ | async) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  } @else if (((npcs$ | async)?.length ?? 0) > 0 && !(isLoading$ | async)) {
     <table mat-table [dataSource]="dataSource$" matSort [matSortActive]="(sortInformation$ | async)!.sortProperty" [matSortDirection]="(sortInformation$ | async)!.sortDirection" (matSortChange)="onSortChanged($event)">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Név</th>
@@ -95,11 +94,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  </ng-template>
-
-  <ng-template #emptyList>
+  } @else {
     <div class="empty-list">{{ "Nincs megjeleníthető adat." }}</div>
-  </ng-template>
+  }
 
   <mat-paginator
     class="paginator"

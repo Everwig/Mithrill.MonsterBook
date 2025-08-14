@@ -36,7 +36,7 @@ public class Startup
             .AddNewtonsoftJson(option => option.SerializerSettings.Converters.Add(new StringEnumConverter()));
         services.AddOpenApiServices("Mithrill MonsterBook API");
 
-        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Application.Common.Mappings.MappingProfile).Assembly));
+        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(Application.Common.Mappings.MappingProfile).Assembly), new LoggerFactory());
         mapperConfiguration.AssertConfigurationIsValid();
 
         if (_environment.IsDevelopment())

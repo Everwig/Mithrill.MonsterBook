@@ -2,6 +2,7 @@
 using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedNpc;
@@ -46,7 +47,7 @@ public class AutoMapperTests
 
     public AutoMapperTests()
     {
-        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly));
+        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly), new NullLoggerFactory());
         _mapper = new Mapper(mapperConfiguration);
 
         _fixture = new Fixture();

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Mithrill.MonsterBook.Application.Common;
 using Mithrill.MonsterBook.Application.Common.Adapters;
 using Mithrill.MonsterBook.Application.Common.Builders;
@@ -14,6 +10,11 @@ using Mithrill.MonsterBook.Application.Common.Mappings;
 using Mithrill.MonsterBook.Application.Domain;
 using Mithrill.MonsterBook.Domain;
 using Mithrill.MonsterBook.Domain.ValueObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 using Attribute = Mithrill.MonsterBook.Domain.ValueObjects.Attribute;
 using Difficulty = Mithrill.MonsterBook.Application.Common.Difficulty;
@@ -31,7 +32,7 @@ public class CreatureBuilderTests
 
     public CreatureBuilderTests()
     {
-        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly));
+        var mapperConfiguration = new MapperConfiguration(configure => configure.AddMaps(typeof(MappingProfile).Assembly), new NullLoggerFactory());
         var mapper = new Mapper(mapperConfiguration);
         _monsterBookDbContext = new TestDbContext(
             new DbContextOptionsBuilder()
