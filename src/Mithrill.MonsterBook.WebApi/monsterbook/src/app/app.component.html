@@ -11,13 +11,17 @@
       <a mat-list-item routerLink="/npcs" routerLinkActive="activebutton">
         <span class="entry">
           <mat-icon>house</mat-icon>
-          <span *ngIf="!isCollapsed">NJK sablonok</span>
+          @if (!isCollapsed) {
+            <span>NJK sablonok</span>
+          }
         </span>
       </a>
       <a mat-list-item routerLink="/npcs/create" routerLinkActive="activebutton">
         <span class="entry">
           <mat-icon>add</mat-icon>
-          <span *ngIf="!isCollapsed">Új NJK sablon</span>
+          @if (!isCollapsed) {
+            <span>Új NJK sablon</span>
+          }
         </span>
       </a>
     </mat-nav-list>
