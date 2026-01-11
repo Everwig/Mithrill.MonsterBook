@@ -1,15 +1,14 @@
-import { Material } from '../../core/model/material.model';
-import { AttackType } from '../../core/model/attack-type.model';
+import { AttackType } from "./attack-type.model";
+import { Material } from "./material.model";
 
 export interface Weapon {
   id: number;
   name: string;
-  material: Material | undefined;
+  material: Material;
   attackTypes: AttackType[];
   baseAttackModifier: number;
   baseDefenseModifier: number;
   baseInitiativeModifier: number;
-  isOptional: boolean;
   additionalAttackModifier: number;
   additionalDefenseModifier: number;
   additionalInitiativeModifier: number;

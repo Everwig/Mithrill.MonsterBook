@@ -31,7 +31,7 @@ import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 import { SkillCategory } from '../../core/model/skill-category.model';
 import { armorOnlyMaterials, Material } from '../../core/model/material.model';
 import { baseDamageTypes, DamageType } from '../../core/model/damage-type.model';
-import { AttackType } from '../models/attack-type.model';
+import { AttackType } from '../../core/model/attack-type.model';
 import { SkillCategories } from '../../core/model/skill-categories.model';
 import { CategoryNumber } from '../../core/model/category-number.model';
 import { Arcanum } from '../../core/model/arcanum.model';

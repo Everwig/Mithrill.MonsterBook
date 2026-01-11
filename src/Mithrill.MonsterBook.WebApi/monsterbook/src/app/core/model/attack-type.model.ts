@@ -1,4 +1,4 @@
-import { DamageType } from '../../core/model/damage-type.model';
+import { DamageType } from './damage-type.model';
 
 export interface AttackType {
   id: number;

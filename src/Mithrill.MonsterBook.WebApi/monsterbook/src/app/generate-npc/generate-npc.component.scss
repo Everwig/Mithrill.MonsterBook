@@ -1,0 +1,15 @@
+@use 'media' as *;
+
+.selector-container {
+  justify-content: space-evenly;
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-top: 30px;
+
+  @include max(breakpoint(md)) {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}

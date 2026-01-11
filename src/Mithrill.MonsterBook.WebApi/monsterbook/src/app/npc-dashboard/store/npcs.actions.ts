@@ -8,7 +8,7 @@ import { Flaw } from '../models/flaw.model';
 import { Merit } from '../models/merit.model';
 import { Skill } from '../models/skill.model';
 import { NpcTemplate } from '../models/npc-template.model';
-import { AttackType } from '../models/attack-type.model';
+import { AttackType } from '../../core/model/attack-type.model';
 import { DetailsViewMode } from '../../shared/models/details-view-mode.model';
 import { ValidationResult } from '../../shared/models/validation-result.model';
 

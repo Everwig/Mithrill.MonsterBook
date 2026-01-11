@@ -17,7 +17,7 @@ import { PageInformation } from '../core/model/page-information.model';
 import { SortInformation } from '../core/model/sort-information.model';
 import { ObservableDataSource } from '../core/model/observable-data-source';
 import { Material } from '../core/model/material.model';
-import { AttackType } from './models/attack-type.model';
+import { AttackType } from '../core/model/attack-type.model';
 import { DamageType } from '../core/model/damage-type.model';
 import * as fromNpcsSelector from './store/npcs.selectors';
 import * as fromNpcsActions from './store/npcs.actions';

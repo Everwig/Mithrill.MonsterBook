@@ -57,5 +57,12 @@ export const routes: Routes = [
       WeaponsClient
     ]
   },
+  {
+    path: 'generate-npc',
+    loadComponent: () => import('./generate-npc/generate-npc.component').then(mod => mod.GenerateNpcComponent),
+    providers: [
+      NpcsClient
+    ]
+  },
   { path: '**', redirectTo: 'npcs' }
 ];

@@ -8,7 +8,7 @@ import { Merit } from '../models/merit.model';
 import { Flaw } from '../models/flaw.model';
 import { Weapon } from '../models/weapon.model';
 import { Material } from '../../core/model/material.model';
-import { AttackType } from '../models/attack-type.model';
+import { AttackType } from '../../core/model/attack-type.model';
 import { DamageType } from '../../core/model/damage-type.model';
 import { Armor } from '../models/armor.model';
 import { NpcTemplate } from '../models/npc-template.model';
@@ -39,8 +39,8 @@ import {
   Weapon5 as ValidateWeapon,
   AttackType as WeaponAttackType,
   SkillCategories as TemplateSkillCategories,
-  NpcTemplate2 as UpdateNpcTemplate,
-  NpcTemplate3 as ValidateNpcTemplate,
+  NpcTemplate3 as UpdateNpcTemplate,
+  NpcTemplate4 as ValidateNpcTemplate,
   ValidateNpcTemplateQuery,
   CreateNpcTemplateCommand,
   ValidationMode

@@ -1,0 +1,92 @@
+<div class="global-container">
+  <div class="selector-container">
+    <mat-form-field>
+      <mat-label>{{ "Típus" }}</mat-label>
+      <mat-select [(ngModel)]="selectedNpcType" name="npcType" required>
+        @for (npcType of npcTypes; track npcType) {
+        <mat-option [value]="npcType.value">{{npcType.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    @if (selectedNpcType === 'regular') {
+    <mat-form-field>
+      <mat-label>{{ "Sablon" }}</mat-label>
+      <mat-select [(ngModel)]="selectedNpcTemplate" name="template" required (selectionChange)="onTemplateChange()">
+        @for (template of (npcTemplate$ | async); track template) {
+        <mat-option [value]="template">{{template.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "Nehézség" }}</mat-label>
+      <mat-select [(ngModel)]="selectedDifficulty" name="difficulty" required (selectionChange)="generateSummon()">
+        @for (difficulity of diffulties; track difficulity) {
+        <mat-option [value]="difficulity.value">{{difficulity.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    } @else if (selectedNpcType === 'summon') {
+    <mat-form-field>
+      <mat-label>{{ "Elem" }}</mat-label>
+      <mat-select [(ngModel)]="selectedSummontype" name="summonType" required (selectionChange)="generateSummon()">
+        @for (summonType of summonTypes; track summonType) {
+        <mat-option [value]="summonType.value">{{summonType.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "Szint" }}</mat-label>
+      <mat-select [(ngModel)]="selectedLevel" name="level" required (selectionChange)="generateSummon()">
+        @for (level of levels; track level) {
+        <mat-option [value]="level.value">{{level.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    }
+  </div>
+
+  @if (selectedNpcType === 'regular' && selectedNpcTemplate) {
+  <div class="selector-container">
+    <mat-slide-toggle [(ngModel)]="isProminent" [disabled]="isProminentDisabled()" (selectionChange)="generateSummon()">
+      {{ "Prominens?" }}
+    </mat-slide-toggle>
+
+    <mat-slide-toggle [(ngModel)]="hasKarma" [disabled]="isKarmaDisabled()" (selectionChange)="generateSummon()">
+      {{ "Van karmája?" }}
+    </mat-slide-toggle>
+
+    <mat-slide-toggle [(ngModel)]="isEvil" (selectionChange)="generateSummon()">
+      {{ "Gonosz?" }}
+    </mat-slide-toggle>
+
+    <mat-slide-toggle [(ngModel)]="isUndead" [disabled]="isUndeadDisabled()" (selectionChange)="generateSummon()">
+      {{ "Élőholt?" }}
+    </mat-slide-toggle>
+  </div>
+  }
+
+  @if ((generatedNpc$ | async); as generatedNpc) {
+    <div style="display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+      <label>{{ "Faj:" }} {{generatedNpc.name}}</label>
+      <label>{{ "Test pont:" }} {{generatedNpc.hitPoint}}</label>
+      <label>{{ "Mana pont:" }} {{generatedNpc.manaPoint}}</label>
+      <label>{{ "Hatalom pont:" }} {{generatedNpc.powerPoint}}</label>
+      <label>{{ "Karma:" }} {{generatedNpc.karma}}</label>
+      <label>{{ "SFÉ:" }} {{generatedNpc.damageReduction}}</label>
+    </div>
+
+    <div style="display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+      <label>{{ "Erő:" }} {{generatedNpc.strength}}</label>
+      <label>{{ "Egészség:" }} {{generatedNpc.vitality}}</label>
+      <label>{{ "Test:" }} {{generatedNpc.body}}</label>
+      <label>{{ "Gyorsaság:" }} {{generatedNpc.agility}}</label>
+      <label>{{ "Ügyesség:" }} {{generatedNpc.dexterity}}</label>
+      <label>{{ "Intelligencia:" }} {{generatedNpc.intelligence}}</label>
+      <label>{{ "Akaraterő:" }} {{generatedNpc.willpower}}</label>
+      <label>{{ "Érzelem:" }} {{generatedNpc.emotion}}</label>
+    </div>
+  }
+</div>

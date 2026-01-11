@@ -12,12 +12,14 @@ using Mithrill.MonsterBook.Application.Npc.Query.GetGeneratedSummon;
 using Mithrill.MonsterBook.Application.Npc.Query.GetHitPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetManaPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplates;
+using Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplatesForGeneration;
 using Mithrill.MonsterBook.Application.Npc.Query.GetPowerPointMinMaxValues;
 using Mithrill.MonsterBook.Application.Npc.Query.ValidateNpcTemplate;
 using Mithrill.MonsterBook.WebApi.Common;
 using GetNpcTemplateQuery = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.GetNpcTemplateQuery;
 using NpcTemplate = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplate.NpcTemplate;
 using UpdateNpcTemplate = Mithrill.MonsterBook.Application.Npc.Command.UpdateNpcTemplate.NpcTemplate;
+using GetTemplatesForGeneration = Mithrill.MonsterBook.Application.Npc.Query.GetNpcTemplatesForGeneration.NpcTemplate;
 
 namespace Mithrill.MonsterBook.WebApi.Controllers;
 
@@ -60,6 +62,12 @@ public class NpcsController : ApiControllerBase
         return await Mediator.Send(
             new GetNpcTemplatesQuery(pageSize, pageIndex, sortDirection, sortProperty),
             cancellationToken);
+    }
+
+    [HttpGet("GetTemplatesForGeneration")]
+    public async Task<IEnumerable<GetTemplatesForGeneration>> GetTemplatesForGeneration(CancellationToken cancellationToken)
+    {
+        return await Mediator.Send(new GetNpcTemplatesForGenerationQuery(), cancellationToken);
     }
 
     [HttpGet("GetTemplate/{id:int}")]

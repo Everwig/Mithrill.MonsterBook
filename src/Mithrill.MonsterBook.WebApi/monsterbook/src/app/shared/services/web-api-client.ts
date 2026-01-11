@@ -351,7 +351,64 @@ export class NpcsClient {
         return _observableOf(null as any);
     }
 
-    get(id: number): Observable<NpcTemplate> {
+    getTemplatesForGeneration(): Observable<NpcTemplate[]> {
+        let url_ = this.baseUrl + "/api/npcs/gettemplatesforgeneration";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTemplatesForGeneration(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTemplatesForGeneration(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<NpcTemplate[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<NpcTemplate[]>;
+        }));
+    }
+
+    protected processGetTemplatesForGeneration(response: HttpResponseBase): Observable<NpcTemplate[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(NpcTemplate.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    get(id: number): Observable<NpcTemplate2> {
         let url_ = this.baseUrl + "/api/npcs/gettemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -373,14 +430,14 @@ export class NpcsClient {
                 try {
                     return this.processGet(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<NpcTemplate>;
+                    return _observableThrow(e) as any as Observable<NpcTemplate2>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<NpcTemplate>;
+                return _observableThrow(response_) as any as Observable<NpcTemplate2>;
         }));
     }
 
-    protected processGet(response: HttpResponseBase): Observable<NpcTemplate> {
+    protected processGet(response: HttpResponseBase): Observable<NpcTemplate2> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -391,7 +448,7 @@ export class NpcsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = NpcTemplate.fromJS(resultData200);
+            result200 = NpcTemplate2.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 404) {
@@ -480,7 +537,7 @@ export class NpcsClient {
         }
     }
 
-    updateTemplate(id: number, npcTemplate: NpcTemplate2): Observable<void> {
+    updateTemplate(id: number, npcTemplate: NpcTemplate3): Observable<void> {
         let url_ = this.baseUrl + "/api/npcs/updatetemplate/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1993,6 +2050,58 @@ export interface IPageInformation {
 export class NpcTemplate implements INpcTemplate {
     id!: number;
     name!: string;
+    race!: Race;
+    isUndead!: boolean;
+    karmaMin!: number;
+
+    constructor(data?: INpcTemplate) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.race = _data["race"];
+            this.isUndead = _data["isUndead"];
+            this.karmaMin = _data["karmaMin"];
+        }
+    }
+
+    static fromJS(data: any): NpcTemplate {
+        data = typeof data === 'object' ? data : {};
+        let result = new NpcTemplate();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["race"] = this.race;
+        data["isUndead"] = this.isUndead;
+        data["karmaMin"] = this.karmaMin;
+        return data;
+    }
+}
+
+export interface INpcTemplate {
+    id: number;
+    name: string;
+    race: Race;
+    isUndead: boolean;
+    karmaMin: number;
+}
+
+export class NpcTemplate2 implements INpcTemplate2 {
+    id!: number;
+    name!: string;
     strengthMax!: number;
     strengthMin!: number;
     vitalityMax!: number;
@@ -2030,7 +2139,7 @@ export class NpcTemplate implements INpcTemplate {
     powerPointMax!: number;
     powerPointMin!: number;
 
-    constructor(data?: INpcTemplate) {
+    constructor(data?: INpcTemplate2) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2102,9 +2211,9 @@ export class NpcTemplate implements INpcTemplate {
         }
     }
 
-    static fromJS(data: any): NpcTemplate {
+    static fromJS(data: any): NpcTemplate2 {
         data = typeof data === 'object' ? data : {};
-        let result = new NpcTemplate();
+        let result = new NpcTemplate2();
         result.init(data);
         return result;
     }
@@ -2173,7 +2282,7 @@ export class NpcTemplate implements INpcTemplate {
     }
 }
 
-export interface INpcTemplate {
+export interface INpcTemplate2 {
     id: number;
     name: string;
     strengthMax: number;
@@ -3236,7 +3345,7 @@ export interface IWeapon3 {
     additionalAttackTypes: AttackType[];
 }
 
-export class NpcTemplate2 implements INpcTemplate2 {
+export class NpcTemplate3 implements INpcTemplate3 {
     id!: number;
     name!: string;
     strengthMax!: number;
@@ -3272,7 +3381,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
     isSummon!: boolean;
     summonType!: SummonType | undefined;
 
-    constructor(data?: INpcTemplate2) {
+    constructor(data?: INpcTemplate3) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -3340,9 +3449,9 @@ export class NpcTemplate2 implements INpcTemplate2 {
         }
     }
 
-    static fromJS(data: any): NpcTemplate2 {
+    static fromJS(data: any): NpcTemplate3 {
         data = typeof data === 'object' ? data : {};
-        let result = new NpcTemplate2();
+        let result = new NpcTemplate3();
         result.init(data);
         return result;
     }
@@ -3407,7 +3516,7 @@ export class NpcTemplate2 implements INpcTemplate2 {
     }
 }
 
-export interface INpcTemplate2 {
+export interface INpcTemplate3 {
     id: number;
     name: string;
     strengthMax: number;
@@ -3775,7 +3884,7 @@ export interface IValidationFailure {
 }
 
 export class ValidateNpcTemplateQuery implements IValidateNpcTemplateQuery {
-    npcTemplate!: NpcTemplate3;
+    npcTemplate!: NpcTemplate4;
     validationMode!: ValidationMode;
 
     constructor(data?: IValidateNpcTemplateQuery) {
@@ -3789,7 +3898,7 @@ export class ValidateNpcTemplateQuery implements IValidateNpcTemplateQuery {
 
     init(_data?: any) {
         if (_data) {
-            this.npcTemplate = _data["npcTemplate"] ? NpcTemplate3.fromJS(_data["npcTemplate"]) : <any>undefined;
+            this.npcTemplate = _data["npcTemplate"] ? NpcTemplate4.fromJS(_data["npcTemplate"]) : <any>undefined;
             this.validationMode = _data["validationMode"];
         }
     }
@@ -3810,11 +3919,11 @@ export class ValidateNpcTemplateQuery implements IValidateNpcTemplateQuery {
 }
 
 export interface IValidateNpcTemplateQuery {
-    npcTemplate: NpcTemplate3;
+    npcTemplate: NpcTemplate4;
     validationMode: ValidationMode;
 }
 
-export class NpcTemplate3 implements INpcTemplate3 {
+export class NpcTemplate4 implements INpcTemplate4 {
     id!: number | undefined;
     name!: string;
     strengthMax!: number;
@@ -3850,7 +3959,7 @@ export class NpcTemplate3 implements INpcTemplate3 {
     isSummon!: boolean;
     summonType!: SummonType | undefined;
 
-    constructor(data?: INpcTemplate3) {
+    constructor(data?: INpcTemplate4) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -3918,9 +4027,9 @@ export class NpcTemplate3 implements INpcTemplate3 {
         }
     }
 
-    static fromJS(data: any): NpcTemplate3 {
+    static fromJS(data: any): NpcTemplate4 {
         data = typeof data === 'object' ? data : {};
-        let result = new NpcTemplate3();
+        let result = new NpcTemplate4();
         result.init(data);
         return result;
     }
@@ -3985,7 +4094,7 @@ export class NpcTemplate3 implements INpcTemplate3 {
     }
 }
 
-export interface INpcTemplate3 {
+export interface INpcTemplate4 {
     id: number | undefined;
     name: string;
     strengthMax: number;
